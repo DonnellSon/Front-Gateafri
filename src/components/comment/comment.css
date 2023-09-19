@@ -1,0 +1,23 @@
+.comment{
+    align-items: flex-start;
+}
+.comment .rep-list .avatar img{
+    width: 24px !important;height: 24px !important;
+}
+
+.comment-list .comment-light.comment:before {
+  border-left: 2px dashed #d1dfdadc !important;
+}
+
+ .comment-list .comment-dark.comment:before {
+  border-left: 2px dashed #353b4e !important;
+}
+
+@media (max-width:768px) {
+    .comment .rep-list .avatar img{
+        width: 24px !important;height: 24px !important;
+    }
+    .comment > div > .comment-content .avatar img{
+        width: 32px !important;height: 32px !important;
+    }
+}

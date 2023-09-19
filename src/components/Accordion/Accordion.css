@@ -1,0 +1,27 @@
+.accordion-heading{
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0px;
+    background: white;
+    z-index: 10;
+    color: #444;
+    padding: 0 15px;
+}
+.accordion > .accordion-content{
+    overflow: hidden;
+    height: 0px;
+}
+
+.accordion-heading button{
+    height: 38px;
+    width: 38px;
+    background: #eee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

@@ -1,0 +1,18 @@
+
+.tabs-heading{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.tabs-body{
+    display: flex;
+}
+.tabs-body > div > div{
+    width: 100%;
+    display: none;
+    padding: 10px;
+}
+.tabs-body > div > div.opened{
+    display: block;
+    
+}

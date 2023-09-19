@@ -1,0 +1,13 @@
+.home-banner-slider{
+    padding: 20px 0 30px 15px;
+    background: white;
+    box-shadow: var(--elevation-1);
+    border-bottom: 1px solid #eee;
+}
+.home-banner-top{
+    margin: 20px 0 15px 0;
+    padding-right: 15px;
+}
+.home-banner-top .heading h1{
+    margin: 0;
+}

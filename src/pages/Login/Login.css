@@ -1,0 +1,70 @@
+.login-form{
+    width: 400px;
+    max-width: 100%;
+    background: white;
+    box-shadow: var(--elevation-1);
+    border-radius: 5px;
+    padding: 15px 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -14%;
+}
+.login-page{
+    height: calc(100vh - var(--topbar-height));
+}
+.login-page > .top{
+    height: 50%;
+    background: var(--main-gradient);
+}
+.login-form button{
+    text-align: center !important;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+.barred-text{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+.barred-text span{
+    padding: 5px 15px;
+    background: white;
+    z-index: 1;
+}
+.barred-text > div{
+    border-top: 1px solid #eee;
+    width: 150px;
+    margin-top: -15px;
+}
+
+.login-form .conn-method span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: white;
+}
+.login-form .conn-method span.fb{
+    background: #134ce5;
+}  
+
+.login-form .conn-method span.google{
+    background: #c32000;
+}
+
+.login-form .conn-method span.twitter{
+    background: #009dff;
+}
+.login-error-message{
+    color: var(--red);
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}

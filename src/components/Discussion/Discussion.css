@@ -1,0 +1,46 @@
+.discussion{
+    padding: 8px;
+    background: white;
+    box-shadow: var(--elevation-1);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.discussion .info{
+    max-width: 100%;
+    min-width: 0;
+    flex-grow: 1;
+}
+.discussion .more-btn{
+    all: unset;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .5s;
+    border-radius: 5px;
+}
+.discussion .more-btn:hover{
+    background: #eee;
+}
+.discussion .info .top{
+    margin: -5px -4px 0 0;
+
+}
+.discussion .info .top .name,.discussion .info .bottom span{
+    display: block;
+    white-space: nowrap;
+    
+}
+.discussion .info .bottom{
+    max-width: 100%;
+    min-width: 0;
+    margin-top: -3px;
+}
+.discussion .info .top .name,.discussion .info .bottom .txt{
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

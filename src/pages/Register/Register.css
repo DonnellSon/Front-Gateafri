@@ -1,0 +1,22 @@
+.register-page{
+    height: calc(100vh - var(--topbar-height));
+}
+.register-form{
+    width: 600px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: var(--elevation-1);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.register-form-btns button{
+    flex-grow: 1;
+    margin-top: 5px;
+}
+.register-to-login-link{
+    display: block;
+    text-align: center;
+    margin: 15px 0 5px 0;
+}

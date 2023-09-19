@@ -1,0 +1,77 @@
+.profile-name{
+    font-size: 20px;
+    margin-top: 25px;
+}
+.profile-cover{
+    height: 260px;
+    margin: auto;
+    border-radius: 5px;
+    background: #eee;
+    position: relative;
+}
+.profile-cover img{
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#profile-page .content{
+    max-width: 950px;
+    margin: auto;
+    margin-top: 15px;
+    position: relative;
+}
+#profile-page > .top{
+    
+    max-width: 950px;
+    margin: auto;
+    background: white;
+    margin-top: 15px;
+    box-shadow: var(--elevation-1);
+    border-radius: 6px;
+}
+#profile-page > .top > div > .body{
+    display: flex;
+    justify-content: center;
+}
+#profile-page > .top > div >.body > .left{
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+#profile-page > .top > div > .body > .center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: -100px;
+}
+#profile-page > .top > .default-nav{
+    box-shadow: none;
+    border-radius: 0 0 6px 6px;
+}
+#profile-page > .top > .default-nav ul li{
+    max-width: 120px;
+}
+
+#profile-page > .top > div > .body > .right{
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+#profile-page .content .right{
+    width: 360px;
+    min-width: 360px;
+}
+.profile-photos{
+    background: white;
+    border-radius: 5px;
+    box-shadow: var(--elevation-1);
+    height: 300px;
+}
+@media (max-width:768){
+    #profile-page .content{
+        flex-direction: column-reverse;
+    }
+}
