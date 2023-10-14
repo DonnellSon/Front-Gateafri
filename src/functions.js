@@ -59,30 +59,39 @@ const functions = {
             elem.style.width = w + 'px';
             elem.style.height = h + 'px';
         }
-        
+
     },
     autoViewPort: (elem) => {
-        
+
         if (window.document.documentElement.scrollTop < functions.offset(elem).top - (window.innerHeight - elem.getBoundingClientRect().height)) {
             window.document.documentElement.scrollTo({ left: 0, top: functions.offset(elem).top - (window.innerHeight - elem.getBoundingClientRect().height) });
         }
         if (elem.getBoundingClientRect().top < 60) {
             window.document.documentElement.scrollTo({ left: 0, top: functions.offset(elem).top - (60) });
         }
-        
 
-        
+
+
 
     },
     focusForm: (elem) => {
         elem.focus();
     },
-    media: (mediaQuery, cb) => {
-        var x = window.matchMedia(mediaQuery);
-        cb(x);
-        x.addEventListener("change", (x) => {
-            cb(x);
+    media: (mediaQueries, cb) => {
+        console.log(Object.keys(mediaQueries))
+        Object.keys(mediaQueries).forEach((k) => {
+                var x = window.matchMedia(mediaQueries[k]);
+                if(x.matches){
+                    cb(k);
+                }
+                x.addEventListener("change", (x) => {
+                    if(x.matches){
+                        cb(k);
+                    }
+                })
         })
+
+
     }
 }
 module.exports = functions;

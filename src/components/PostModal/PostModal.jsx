@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './PostModal.css'
+import './PostModal.scss'
 import Modal from '../Modal/Modal'
 import { BarChart, BodyText, CupHot, FileEarmarkImage, GeoAlt, Hash, ChevronDown, XLg, Globe } from 'react-bootstrap-icons'
 import Avatar from '../Avatar/Avatar'
@@ -9,6 +9,7 @@ import ContactTag from '../ContactTag/ContactTag'
 import MediasSelector from '../MediaSelector/MediasSelector'
 import Survey from '../Survey/Survey'
 import axios from 'axios'
+import { ColorRing } from 'react-loader-spinner'
 const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
 
@@ -98,7 +99,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
             <BodyText size={18} />
             <span>Text</span>
           </>}>
-            <div contentEditable={true}>Votre texte Ici</div>
+            <div contentEditable={true} onKeyUp={(e)=>{setPostContent(e.target.innerText)}}>Votre texte Ici</div>
           </Tab>
           <Tab title={<div className='li flex flex-column align-items-center'>
             <FileEarmarkImage size={18} />
@@ -144,7 +145,17 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
       </div>
       <div className="footer flex align-items-center justify-content-end gap-10">
         <button className="btn-transparent" style={{ width: 120 }}>Annuler</button>
-        <button className="btn-purple" disabled={isLoading} style={{ width: 120 }} onClick={publishPost}>Publier</button>
+        <button className="btn-purple" disabled={isLoading} style={{ width: 120 }} onClick={publishPost}>{
+          !isLoading ? "Publier" : <ColorRing
+            visible={true}
+            height="25"
+            width="25"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={['#ffffff', '#ffffffcf', '#ffffffab', '#ffffff78', '#ffffff4d']}
+          />
+        }</button>
       </div>
     </Modal>
   )

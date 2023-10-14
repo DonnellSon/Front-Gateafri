@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
-import './CreateCv.css'
+import './CreateCv.scss'
 import Cv from './Cv'
 import { Camera, Sliders, Save, Forward, SkipBackward, PaintBucket, Type, Plus, ChevronUp, Columns, Fonts, Check2, Trash2, Trash, Eye } from 'react-bootstrap-icons'
 import Accordion from '../../components/Accordion/Accordion'

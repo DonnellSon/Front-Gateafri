@@ -1,0 +1,123 @@
+@import "../../style.scss";
+
+:root {
+    --topbar-height: 58px;
+}
+
+#topbar {
+    @include themify($themes) {
+        background: themed("background", 3);
+
+        min-height: var(--topbar-height);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--elevation-1);
+        border-bottom: 1px solid themed("border", 2);
+
+        .left {
+            width: 280px;
+        }
+
+        .left img {
+            height: 30px;
+            display: block;
+        }
+
+        .right {
+            width: 280px;
+            gap: 10px;
+        }
+
+        .right > * {
+            transition: .5s;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            height: 35px;
+            color: themed("text",2);
+            background: themed("background",5);
+        }
+
+        .right > * > a {
+            color: themed("text", 3);
+        }
+
+        .right > span:hover,
+        #topbar .right > a:hover {
+            background: themed("background", 5);
+        }
+
+        > nav {
+            flex-grow: 1;
+
+            > ul {
+                width: 100%;
+
+                > li {
+                    line-height: 16px;
+
+                    > a {
+                        display: block;
+                        color: themed("text",4);
+                        min-width: 65px;
+                        position: relative;
+
+                        border-radius: 5px;
+                        height: 35px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                    }
+
+                    >a.active {
+                        background: themed("background",5);
+                        
+                        color: themed("mainColor",purple);
+                    }
+
+                    >a.active::before {
+                        content: "";
+                        background: themed("mainColor",purple);
+                        position: absolute;
+                        width: 20px;
+                        height: 15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        top: -22px;
+                        border-radius: 5px;
+                    }
+
+                    .searchbar {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
+        /* #topbar nav ul li a::after{
+    content: "";
+    position: absolute;
+    width: 1px;
+    border-radius: 360%;
+    height: 15px;
+    margin-top: 5px;
+    background: rgb(212, 211, 211);
+    top: 0;
+    right: 0;
+}
+#topbar nav ul li a:first-child:after{
+    content: "";
+    position: absolute;
+    width: 1px;
+    border-radius: 360%;
+    height: 15px;
+    background: rgb(212, 211, 211);
+    top: 0;
+    left: 0;
+} */
+    }
+}

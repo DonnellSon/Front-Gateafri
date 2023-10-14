@@ -1,8 +1,10 @@
 import React from 'react'
-import './WelcomeBanner.css'
+import './WelcomeBanner.scss'
 import { XLg, Plus } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const WelcomeBanner = () => {
+    const connectedUser=useSelector((state)=>state.user.user)
     return (
         <div className='welcome-banner relative'>
             <div className="text relative">
@@ -11,7 +13,9 @@ const WelcomeBanner = () => {
                 <p>Veuillez créer une page professionnelle pour promouvoir vos activités.</p>
                 <div className="flex gap-10">
                     <button><Plus size={26} /> Créer un portail</button>
-                    <Link to="/inscription" className="register-btn">S'inscrire</Link>
+                    {
+                        connectedUser===null ? <Link to="/inscription" className="register-btn">S'inscrire</Link> : ""
+                    }
                 </div>
             </div>
             <div className="close absolute">

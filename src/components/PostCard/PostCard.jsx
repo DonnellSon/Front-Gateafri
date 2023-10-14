@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import './PostCard.css'
+import './PostCard.scss'
 import { Plus, Diamond, Gem, ChatLeft, Share } from 'react-bootstrap-icons'
 import Avatar from '../Avatar/Avatar'
 import CommentList from '../commentList/CommentList'
@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom'
 import DropDown from '../DropDown/DropDown'
 import axios from 'axios'
 import moment from '../../moment'
+import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick'
+import Rating from 'react-rating'
 
 const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const { deviceType } = useContext(MediaContext)
@@ -30,9 +32,9 @@ const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
         padding: '8px 10px',
       }}>
         <div className="left flex gap-10">
-          <Avatar height={40} width={40} src={data.author.profilePictures[0]?.fileUrl} />
+          <Avatar height={40} width={40} src={data.author.activeProfilePicture?.fileUrl} />
           <div className="author-info">
-            <h1>{data.author.firstName}{data.author.lastName ? " " + data.author.lastName : ""}</h1>
+            <h1><Link to={`/profil/${data.author.id}`}>{data.author.firstName}{data.author.lastName ? " " + data.author.lastName : ""}</Link></h1>
             <span>{moment(data.createdAt).fromNow()}</span>
           </div>
         </div>
@@ -66,36 +68,38 @@ const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
       }
 
       <PostImagesGrid images={data.thumbnails} />
-      {/* <div className="imgs">
-        <div>
-          <img src="/img/entreprises/d.jpg" alt="" />
-        </div>
-        <div>
-          <img src="/img/entreprises/d.jpg" alt="" />
-        </div>
-        <div>
-          <img src="/img/entreprises/d.jpg" alt="" />
-        </div>
-        <div>
-          <img src="/img/entreprises/d.jpg" alt="" />
-        </div>
-      </div> */}
       {
         !noComment &&
         <div className="post-comment-list p-10">
           <CommentList comments={data.comments} />
         </div>
       }
+      <div className="evaluation-container px-10">
+        <Rating
+        fractions={2}
+          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+        />
+      </div>
       <div className="footer flex align-items-center gap-15">
-        <span className='flex align-items-center gap-10 no-wrap-text'>
-          <Gem size={19} /><span>Evaluer</span>
-        </span>
-        <span className='flex align-items-center gap-10 no-wrap-text'>
-          <ChatLeft size={19} /><span>Commenter</span>
-        </span>
-        <span className='flex align-items-center gap-10 no-wrap-text'>
-          <Share size={19} /><span>Partager</span>
-        </span>
+        <RequireAuthOnClick>
+          <div className='relative'>
+
+            <span className='flex align-items-center gap-10 no-wrap-text'>
+              <Gem size={19} /><span>Evaluer</span>
+            </span>
+          </div>
+        </RequireAuthOnClick>
+        <RequireAuthOnClick>
+          <span className='flex align-items-center gap-10 no-wrap-text'>
+            <ChatLeft size={19} /><span>Commenter</span>
+          </span>
+        </RequireAuthOnClick>
+        <RequireAuthOnClick>
+          <span className='flex align-items-center gap-10 no-wrap-text'>
+            <Share size={19} /><span>Partager</span>
+          </span>
+        </RequireAuthOnClick>
       </div>
     </div>
   )

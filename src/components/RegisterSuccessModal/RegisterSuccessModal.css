@@ -1,5 +1,5 @@
 .register-success-modal{
-    background: white;
+    background: var(--main-gradient);
     height: 500px;
     width: 650px;
     position: relative;
@@ -13,9 +13,16 @@
     max-height: 100vh;
 }
 .register-success-modal .top{
-    background: var(--main-gradient);
     border-radius: 6px 6px 0 0;
     padding: 15px;
+}
+.register-success-modal .top img{
+    position: relative;
+    margin-top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    
 }
 .register-success-modal .top small{
     opacity: 0.9;
@@ -24,9 +31,13 @@
     position: absolute;
     right: 15px;
     top: 15px;
+    cursor: pointer;
 }
 .register-success-modal .body{
     flex-grow: 1;
+    background: #eeeeeec7;
+    margin: 0 15px;
+    border-radius: 5px;
 }
 .register-success-modal .body .domain-search-inpt svg{
     color: rgb(66, 66, 66);
@@ -40,9 +51,9 @@
     border: none;
     font-size: 15px;
     padding: 0 5px;
+    background: inherit;
 }
 .register-success-modal .footer{
-    border-top: 1px solid #eee;
     min-height: 50px;
     display: flex;
     align-items: center;
@@ -63,4 +74,5 @@
     box-shadow: var(--elevation-1);
     font-weight: 500;
     font-size: 14px;
+    border: 1px solid #ebebeb;
 }

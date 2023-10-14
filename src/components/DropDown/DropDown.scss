@@ -1,0 +1,44 @@
+@import "../../style.scss";
+
+
+.dropdownMenu {
+  @include themify($themes) {
+    display: none;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.419);
+    background: themed("background",4);
+    border:1px solid themed("border",2);
+    padding: 8px;
+    min-width: 250px;
+    max-width: 100%;
+    ul li a {
+      display: block;
+      color: themed("text",1);
+      font-weight: 600;
+      padding: 0 15px;
+      line-height: 35px;
+      border-radius: 5px;
+      user-select: none;
+    }
+  }
+}
+
+.dropdownMenu[data-show] {
+  display: block;
+}
+
+.dropdownMenu ul {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownMenu ul li {
+  padding: 0;
+  list-style: none;
+}
+
+.dropdownMenu ul li a.active {
+  background: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
+  color: #222;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react'
 import DoDinamicTextarea from '../doDinamicTextarea/DoDinamicTextarea';
-import './commentForm.css';
+import './commentForm.scss';
 import { EmojiSmile, Image, Sticky, GeoAlt, Mic, SendFill } from 'react-bootstrap-icons';
 const CommentForm = ({ focusOnShown = false, onKeyup = () => { }, value = '',onSend=()=>{} }) => {
     const cmtForm = useRef();

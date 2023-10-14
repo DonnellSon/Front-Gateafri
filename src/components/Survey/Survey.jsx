@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import './Survey.css'
+import './Survey.scss'
 import { FileImageFill, Nut, Plus, PlusLg, X, XLg } from 'react-bootstrap-icons'
 import SurveyOption from './SurveyOption'
 

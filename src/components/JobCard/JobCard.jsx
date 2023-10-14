@@ -1,5 +1,5 @@
 import React from 'react'
-import './JobCard.css'
+import './JobCard.scss'
 import Avatar from '../Avatar/Avatar'
 import { Eye } from 'react-bootstrap-icons'
 const JobCard = () => {
@@ -21,7 +21,7 @@ const JobCard = () => {
                 <p className="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ad nostrum explicabo reprehenderit fugiat? Est velit assumenda ratione ea! Accusamus fugit labore officia sequi soluta facilis pariatur non voluptatibus? Autem.</p>
                 <div className="bottom flex gap-10">
                     <button className="btn-transparent orange-txt">Postuler</button>
-                    <button className="btn-transparent purple-txt"><Eye /></button>
+                    <button className="btn-transparent"><Eye /></button>
                 </div>
             </div>
         </div>

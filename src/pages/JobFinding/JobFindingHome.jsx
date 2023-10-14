@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './JobFindingHome.css'
+import './JobFindingHome.scss'
 import { Search, PinMap, Briefcase } from 'react-bootstrap-icons'
 import Avatar from '../../components/Avatar/Avatar'
 import JobCard from '../../components/JobCard/JobCard'
@@ -9,6 +9,7 @@ import JobFindingSearchBar from '../../components/JobFindingSearchbar/JobFinding
 import JobDetails from '../../components/JobDetails/JobDetails'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
+import CheckBox from '../../components/CheckBox/CheckBox'
 const JobFindingHome = () => {
     const { deviceType } = useContext(MediaContext)
     return (
@@ -26,23 +27,23 @@ const JobFindingHome = () => {
                             </form>
                             <h4>Type de travail</h4>
                             <ul>
-                                <li><input type="checkbox" name="" id="" /> Temps plein</li>
-                                <li><input type="checkbox" name="" id="" /> Temps partiel</li>
-                                <li><input type="checkbox" name="" id="" /> Teletravail</li>
-                                <li><input type="checkbox" name="" id="" /> Stage</li>
+                                <li><CheckBox/> Temps plein</li>
+                                <li><CheckBox/> Temps partiel</li>
+                                <li><CheckBox/> Teletravail</li>
+                                <li><CheckBox/> Stage</li>
                             </ul>
                             <h4>Grade</h4>
                             <ul>
-                                <li><input type="checkbox" name="" id="" /> Etudiant</li>
-                                <li><input type="checkbox" name="" id="" /> Junior</li>
-                                <li><input type="checkbox" name="" id="" /> Senior</li>
+                                <li><CheckBox/> Etudiant</li>
+                                <li><CheckBox/> Junior</li>
+                                <li><CheckBox/> Senior</li>
                             </ul>
                             <h4>Pretention Salariale</h4>
                             <ul>
-                                <li><input type="checkbox" name="" id="" /> Temps plein</li>
-                                <li><input type="checkbox" name="" id="" /> Temps partiel</li>
-                                <li><input type="checkbox" name="" id="" /> Teletravail</li>
-                                <li><input type="checkbox" name="" id="" /> Stage</li>
+                                <li><CheckBox/> Temps plein</li>
+                                <li><CheckBox/> Temps partiel</li>
+                                <li><CheckBox/> Teletravail</li>
+                                <li><CheckBox/> Stage</li>
                             </ul>
                         </div> : ""
                 }

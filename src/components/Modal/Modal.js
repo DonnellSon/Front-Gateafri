@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect, useRef, useLayoutEffect } from 'react'
-import './Modal.css'
+import './Modal.scss'
 import useClickOutside from '../../Hooks/useClickOutside'
 import { createPortal } from 'react-dom'
 import MediaContext from '../../context/MediaContext'
 import { SMARTPHONE } from '../../constants/MediaTypeConstants'
 
 const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () => { } }) => {
+
+
     const { deviceType } = useContext(MediaContext)
     const modalContentRef = useRef()
     useClickOutside(modalContentRef, () => {
@@ -19,6 +21,7 @@ const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () =>
             modalContentRef.current.style.alignSelf = 'flex-start'
         }
     }
+    
     useLayoutEffect(() => {
         adjustModalHeight()
         window.addEventListener('resize', adjustModalHeight)
@@ -34,7 +37,7 @@ const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () =>
 }
 
 
-const Modal = ({ children, open = false, onClose = () => { }, closeOnClickOutside = true, className = null }) => {
+const Modal = ({ children, open = false, onClose = () => { },onClick=()=>{}, closeOnClickOutside = true, className = null }) => {
     const modalContent = useRef()
     const adjustModalHeight = () => {
         alert(modalContent.current)
@@ -42,13 +45,13 @@ const Modal = ({ children, open = false, onClose = () => { }, closeOnClickOutsid
 
 
     return (
-        open && createPortal(<div className={`modal${className ? ' ' + className : ''}`}>
+        (open && document.querySelector('#App')) && createPortal(<div className={`modal${className ? ' ' + className : ''}`} onClick={onClick}>
             <ModalContentRef closeOnClickOutside={closeOnClickOutside} onClose={onClose}>
                 {
                     children
                 }
             </ModalContentRef>
-        </div>, document.querySelector('#root'))
+        </div>, document.querySelector('#App'))
     )
 }
 

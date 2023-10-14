@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ChevronDown, ChevronUp, Plus } from 'react-bootstrap-icons'
 import useClickOutside from '../../Hooks/useClickOutside'
-import './Accordion.css'
+import './Accordion.scss'
 const Accordion = ({ children,isOpen=false,closeOnClickOutside=false }) => {
     const [open,setOpen]=useState(isOpen)
     const [contentHeight,setContentHeight]=useState()

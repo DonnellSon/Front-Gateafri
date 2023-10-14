@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import Topbar from '../components/Topbar/Topbar'
 import { Outlet } from 'react-router-dom'
 import RightSidebar from '../components/RightSidebar/RightSidebar'
@@ -16,7 +16,7 @@ const Default = () => {
         }
         <Outlet/>
         {
-          ((deviceType === SMARTPHONE) || (deviceType===TABLET)) ? <BottomNav/> : ""
+          (((deviceType === SMARTPHONE) || (deviceType===TABLET)) && !window.location.pathname.startsWith("/messages")) ? <BottomNav/> : ""
         }
         <RightSidebar opened={openRightbar} setOpened={setOpenRightbar}/>
     </>

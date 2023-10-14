@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './VideoHome.css'
+import './VideoHome.scss'
 import Slider from 'react-slick'
 import { Vinyl, Newspaper, Headset, Play, PlayFill, Search, Dot, Eye, Gem, ThreeDots, ChevronRight } from 'react-bootstrap-icons'
 import Avatar from '../../components/Avatar/Avatar'
@@ -34,7 +34,7 @@ const VideoHome = () => {
                   <Vinyl />
                   <b>Live</b>
                 </div>
-                <div className="slide">
+                <div className="slide podcast-slide">
                   <Headset size={22} />
                   <b>Podcast</b>
                 </div>

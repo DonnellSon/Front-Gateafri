@@ -3,16 +3,19 @@ import { Plus, PlusLg, XLg, X, Search } from 'react-bootstrap-icons'
 import Modal from '../Modal/Modal'
 import './RegisterSuccessModal.css'
 
-const RegisterSuccessModal = () => {
+const RegisterSuccessModal = ({open,setIsOpen=()=>{},onClose=()=>{}}) => {
     return (
-        <Modal open={true}>
+        <Modal open={open}>
             <div className='register-success-modal'>
                 <div className="top relative">
-                    <h3>Félicitation</h3>
-                    <p>Inscription réussi</p>
+                    <img src="/img/wired-flat-1103-confetti.gif" alt="" />
+                    <h3>Inscription réussi</h3>
                     <span>Ajoutez vos domaines préférés pour être au courant des dernières actualités concernant ces domaines </span>
                      <small>&bull; Par défaut <strong>GateAfri</strong> vous suggère les domaines les plus populaires</small>
-                    <div className='close-modal'><XLg /></div>
+                    <div className='close-modal' onClick={()=>{
+                        setIsOpen(false)
+                        onClose()
+                    }}><XLg /></div>
                 </div>
                 <div className="body p-15">
                     <div className="flex gap-10">

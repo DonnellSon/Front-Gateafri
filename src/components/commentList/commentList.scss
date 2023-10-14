@@ -1,0 +1,15 @@
+@import "../../style.scss";
+
+.comment-list{
+     @include themify($themes){
+          color: themed("text",1);
+          .order-comments,.more-comments{
+               color: themed("text",4);
+          }
+     }
+}
+.comment-list-light{
+}
+.comment-list-dark{
+     border-top:1px solid var(--dark-border-color-1);
+}

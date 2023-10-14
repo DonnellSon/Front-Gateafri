@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
-import './Funding.css'
+import './Funding.scss'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Link } from 'react-router-dom'
 import { ChevronDown, ChevronRight, GeoAlt, ListTask, UiRadiosGrid } from 'react-bootstrap-icons'
 import StickySideBar from '../../components/StickySideBar/StickySideBar'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
 import MediaContext from '../../context/MediaContext'
+import CheckBox from "../../components/CheckBox/CheckBox"
 const Funding = () => {
   const { deviceType } = useContext(MediaContext)
   const position = [-8.783195, 34.508523]
@@ -15,7 +16,7 @@ const Funding = () => {
         deviceType === DESKTOP ?
           <div className="left p-15">
             <StickySideBar top={73}>
-              <h3>Investissements</h3>
+              <h2>Investissements</h2>
               <small>Trouvez de potentiels investissements en Afrique</small>
               <div className="form-group">
                 <label htmlFor="">Pays</label>
@@ -24,24 +25,24 @@ const Funding = () => {
               <div className="form-group">
                 <label htmlFor="">Type d'entreprise</label>
                 <ul>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> Entreprise Individuelle</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> EURL</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SARL</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SA</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SASU</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SNC</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SCOP</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SCA</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> SCS</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> Entreprise Individuelle</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> EURL</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SARL</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SA</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SASU</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SNC</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SCOP</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SCA</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> SCS</li>
                 </ul>
               </div>
               <div className="form-group">
                 <label htmlFor="">Taille d'entreprise</label>
                 <ul>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> Micro-entreprise</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> Petite Entreprise</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> Moyenne Entreprise</li>
-                  <li className='flex gap-5 align-items-center'><input type="checkbox" /> Grande Entreprise</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> Micro-entreprise</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> Petite Entreprise</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> Moyenne Entreprise</li>
+                  <li className='flex gap-5 align-items-center'><CheckBox/> Grande Entreprise</li>
                 </ul>
               </div>
               <div className="form-group">
@@ -54,7 +55,7 @@ const Funding = () => {
       }
       <div className="center flex-grow-1">
         <div className="top flex align-items-center justify-content-between px-15 gap-10">
-          <select name="" id="" className="inpt">
+          <select name="order-inpt" id="" className="inpt">
             <option value="">Date</option>
             <option value="">Domaine</option>
             <option value="">Pays</option>
@@ -108,7 +109,7 @@ const Funding = () => {
             </table>
             <div className="foot flex justify-content-between align-items-center">
               <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
+              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
             </div>
           </div>
           <div className="funding-card elevated-card p-10 mb-15">
@@ -149,7 +150,7 @@ const Funding = () => {
             </table>
             <div className="foot flex justify-content-between align-items-center">
               <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
+              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
             </div>
           </div>
           <div className="funding-card elevated-card p-10 mb-15">
@@ -190,7 +191,7 @@ const Funding = () => {
             </table>
             <div className="foot flex justify-content-between align-items-center">
               <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
+              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
             </div>
           </div>
           <div className="funding-card elevated-card p-10 mb-15">
@@ -231,7 +232,7 @@ const Funding = () => {
             </table>
             <div className="foot flex justify-content-between align-items-center">
               <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
+              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
             </div>
           </div>
           <div className="funding-card elevated-card p-10 mb-15">
@@ -272,7 +273,7 @@ const Funding = () => {
             </table>
             <div className="foot flex justify-content-between align-items-center">
               <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
+              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
             </div>
           </div>
         </div>

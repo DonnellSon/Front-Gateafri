@@ -10,8 +10,24 @@ import { DESKTOP } from '../constants/MediaTypeConstants'
 const PageLayout = () => {
   const { deviceType } = useContext(MediaContext)
   return (
-    <div className='pg-page'>
-      <div className='cover relative'>
+    <div className='portal-page'>
+      <div className="top">
+        <div className="cover-photo">
+
+        </div>
+        <div className="portal-info">
+
+        </div>
+        <div className="portalNav">
+          
+        </div>
+      </div>
+
+
+
+
+
+      {/* <div className='cover relative'>
         <img src="/img/entreprises/ent1.jpg" alt="" />
         <div className="gradient"></div>
       </div>
@@ -121,7 +137,7 @@ const PageLayout = () => {
 
             </div> : ""
         }
-      </main>
+      </main> */}
     </div>
   )
 }

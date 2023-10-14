@@ -1,5 +1,5 @@
 import React from 'react'
-import './JobDetails.css'
+import './JobDetails.scss'
 import Avatar from '../Avatar/Avatar'
 const JobDetails = () => {
   return (

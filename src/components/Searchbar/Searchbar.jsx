@@ -1,5 +1,5 @@
 import React from 'react'
-import './Searchbar.css'
+import './Searchbar.scss'
 import { Search } from 'react-bootstrap-icons'
 const Searchbar = ({placeholder='Rechercher sur GateAFRI'}) => {
   return (

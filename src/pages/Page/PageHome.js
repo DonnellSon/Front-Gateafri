@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
-import './PageHome.css'
+import './PageHome.scss'
 import { Link } from 'react-router-dom'
 import { ArrowRight, BriefcaseFill, ExclamationDiamondFill, FilePostFill, GeoAlt, GraphUpArrow, ChevronLeft, ChevronRight, HouseDoor, HouseDoorFill, PencilSquare, PeopleFill, ThreeDots } from 'react-bootstrap-icons'
 import PostCard from '../../components/PostCard/PostCard'
@@ -22,18 +22,18 @@ const PageHome = () => {
         </div>
         <div className="util-infos p-15">
           <h5>Chiffre d'affaire des 3 dernieres annees</h5>
-          <div className="flex mt-15 gap-15">
-            <div className='radius-5 bg-grey flex-1 flex flex-column gap-5 p-10'>
+          <div className="ca-slider flex mt-15 gap-15">
+            <div className='radius-5 flex-1 flex flex-column gap-5 p-10'>
               <GraphUpArrow size={20} />
               <span className='orange-txt'>2022</span>
               <b>200 000 000 MGA</b>
             </div>
-            <div className='radius-5 bg-grey flex-1 flex flex-column gap-5 p-10'>
+            <div className='radius-5 flex-1 flex flex-column gap-5 p-10'>
               <GraphUpArrow size={20} />
               <span className='orange-txt'>2021</span>
               <b>180 000 000 MGA</b>
             </div>
-            <div className='radius-5 bg-grey flex-1 flex flex-column gap-5 p-10'>
+            <div className='radius-5 flex-1 flex flex-column gap-5 p-10'>
               <GraphUpArrow size={20} />
               <span className='orange-txt'>2020</span>
               <b>100 000 000 MGA</b>

@@ -1,15 +1,27 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
-import './DoDinamicTextarea.css'
+import './DoDinamicTextarea.scss'
 
 import Avatar from '../Avatar/Avatar'
 import { SendFill } from 'react-bootstrap-icons'
 
-const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, placeholder, onKeyup=()=>{}, autoFocus = false,value='' }) => {
+const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, placeholder, onKeyup=()=>{}, autoFocus = false,getValue=()=>{},emptied=false,setEmptied=()=>{} }) => {
   const prev = useRef()
   const text = useRef()
   const [textInitialHeight, setTextInitialHeight] = useState(null);
   const [empty, setEmpty] = useState(true)
   const doDinamicTextarea = useRef()
+
+  useEffect(()=>{
+    if(emptied){
+      
+      setEmpty(true)
+      doDinamicTextarea.current.style.justifyContent = 'flex-end'
+      if(prev.current) prev.current.style.order = 0;
+      text.current.innerHTML=''
+      text.current.style.width = "auto"
+    }
+    setEmptied(false)
+  },[emptied])
 
   const onChangeHandler = (e) => {
 
@@ -94,7 +106,9 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
           }
         } onKeyUp={(e) => {
           onChangeHandler(e)
-        }}>
+          getValue(e.target.innerHTML)
+        }}
+        >
       </div>
       <div className="inpt-next" style={{justifySelf:'flex-end !important'}}>
         {

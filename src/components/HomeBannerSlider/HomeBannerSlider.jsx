@@ -1,5 +1,5 @@
 import React from 'react'
-import './HomeBannerSlider.css'
+import './HomeBannerSlider.scss'
 import Slider from 'react-slick';
 import GoodDealCard from '../GoodDealCard/GoodDealCard';
 import { ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
@@ -85,6 +85,7 @@ const HomeBannerSlider = () => {
         autoplay:true,
         variableWidth: true,
         infinite: true,
+        arrows:false
     };
     return (
         <div className='home-banner-slider'>

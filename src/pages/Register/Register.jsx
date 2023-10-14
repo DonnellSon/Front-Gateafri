@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import './Register.css'
+import './Register.scss'
 import { Link } from 'react-router-dom'
 import { ChevronRight } from 'react-bootstrap-icons'
 import Input from '../../components/Input/Input'
 import moment from 'moment';
 import RegisterSuccessModal from '../../components/RegisterSuccessModal/RegisterSuccessModal'
-const Register = () => {
+import { ColorRing } from 'react-loader-spinner'
 
+const Register = () => {
     const navigate = useNavigate()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -26,6 +27,8 @@ const Register = () => {
     const [passwordConfirmError, setPasswordConfirmError] = useState(null)
 
     const [genders, setGenders] = useState([])
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const setGenderUri = (genderId) => {
         setGender(`/api/genders/${genderId}`)
@@ -55,6 +58,7 @@ const Register = () => {
                 gender
             }
         }).then((res) => {
+            setIsOpen(true)
             console.log(res);
             setFirstName('')
             setLastName('')
@@ -91,10 +95,10 @@ const Register = () => {
             url: `${process.env.REACT_APP_API_DOMAIN}/api/genders`,
             method: 'get',
         }).then((res) => {
-            setGenders(res.data);
+            setGenders(res?.data);
 
         }).catch((err) => {
-            console.log(err.response.data)
+            console.log(err.response?.data)
         })
     }, [])
 
@@ -177,13 +181,25 @@ const Register = () => {
                         </div>
                         <div className="flex gap-10 register-form-btns">
                             <button className="btn btn-transparent">Vider</button>
-                            <button className="btn btn-purple" onClick={handleRegister}>S'inscrire <ChevronRight /></button>
+                            <button className="btn btn-purple" onClick={handleRegister}>
+                                {
+                                    !isLoading ? <>S'inscrire <ChevronRight /></> : <ColorRing
+                                        visible={true}
+                                        height="25"
+                                        width="25"
+                                        ariaLabel="blocks-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass="blocks-wrapper"
+                                        colors={['#ffffff', '#ffffffcf', '#ffffffab', '#ffffff78', '#ffffff4d']}
+                                    />
+                                }
+                            </button>
                         </div>
                     </form>
                     <span className='register-to-login-link'>Vous avez déjà un compte ? <Link to='/connexion' className="purple-txt">Connectez-vous</Link></span>
                 </div>
             </div>
-            <RegisterSuccessModal/>
+            <RegisterSuccessModal setIsOpen={setIsOpen} open={isOpen} onClose={() => { navigate('/', { replace: true }) }} />
         </>
     )
 }

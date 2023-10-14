@@ -1,31 +1,46 @@
-import React, { useState } from 'react'
-import './Login.css'
+import React, { useEffect, useState, useLayoutEffect,useRef } from 'react'
+import './Login.scss'
 import { ExclamationTriangleFill, Facebook, Google, Twitter } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { setConnectedUser } from '../../redux/actions/userActions'
+import { useSelector } from 'react-redux'
+import { ColorRing } from 'react-loader-spinner'
+
 const Login = () => {
-
-
+    const connectedUser = useSelector((store) => store.user.user)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loginSuccessMsg, setSuccessMsg] = useState(null)
     const [loginErrorMsg, setLoginErrorMsg] = useState(null)
+    const [isLoading,setIsLoading]=useState(false)
+    const sumbitBtn=useRef()
 
     const handleLogin = (e) => {
         e.preventDefault()
-        const instance = axios.create({
-            baseURL: `${process.env.REACT_APP_API_DOMAIN}/api/`
-        });
         setLoginErrorMsg(null)
-        const topVideos = instance.post('login_check', { email, password }, { withCredentials: true }).then(function (response) {
-            console.log(response)
+        setIsLoading(true)
+        const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login_check`, { email, password }, { withCredentials: true }).then(function (res) {
+            // dispatch(setConnectedUser(res?.data.user))
+            navigate('/', { replace: true })
+            setIsLoading(false)
         }).catch(function (err) {
-            console.log(err.response.data.message)
-            setLoginErrorMsg(err.response.data.message)
+            setIsLoading(false)
+            console.log(err.response)
+            setLoginErrorMsg(err.response?.data.message)
         })
 
     }
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        sumbitBtn?.current.click()
+    }
     
+
 
 
 
@@ -38,7 +53,7 @@ const Login = () => {
             <div className="top">
 
             </div>
-            <form action="" className="login-form">
+            <form action="" className="login-form elevated-card" onSubmit={handleSubmit}>
                 <h3 style={{ marginBottom: 20 }}>Connexion</h3>
                 {
                     loginErrorMsg && <div className="login-error-message flex align-items-center justify-content-between">{loginErrorMsg} <ExclamationTriangleFill /></div>
@@ -60,7 +75,19 @@ const Login = () => {
                 </div>
                 <div className='flex gap-10'>
                     <button className="btn-transparent flex-1">S'inscrire</button>
-                    <button className='btn-purple flex flex-1' onClick={handleLogin}>Se connecter</button>
+                    <button ref={sumbitBtn} className='btn-purple flex flex-1' onClick={handleLogin}>
+                        {
+                            !isLoading ? "Se connecter" : <ColorRing
+                                visible={true}
+                                height="25"
+                                width="25"
+                                ariaLabel="blocks-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="blocks-wrapper"
+                                colors={['#ffffff', '#ffffffcf', '#ffffffab', '#ffffff78', '#ffffff4d']}
+                            />
+                        }
+                    </button>
                 </div>
                 <div className="barred-text"><span>Ou</span><div></div></div>
                 <p className='text-center mb-5'>Se connecter avec</p>

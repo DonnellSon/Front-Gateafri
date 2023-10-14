@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
-import './Topbar.css'
+import React, { useEffect, useState } from 'react'
+import './Topbar.scss'
 import { Link } from 'react-router-dom'
-import { HouseDoor, Briefcase, Buildings, PersonVideo2, ChatSquareQuote, Bell, ChevronLeft, Plus, GlobeEuropeAfrica } from 'react-bootstrap-icons'
+import { HouseDoor, Briefcase, Buildings, PersonVideo2, ChatSquareQuote, Bell, ChevronLeft, Plus, GlobeEuropeAfrica, Person, PlayCircle, PlayBtn } from 'react-bootstrap-icons'
 import Searchbar from '../Searchbar/Searchbar'
 import Avatar from '../Avatar/Avatar'
 import DropDown from '../DropDown/DropDown'
 import PostModal from '../PostModal/PostModal'
 import DoNavLink from '../DoNavLink/DoNavLink'
+import { useSelector } from 'react-redux'
+import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
+  const { user } = useSelector(state => state.user)
+
   return (
     <>
-      <header id='topbar' className='flex'>
+      <header id='topbar' className='flex bottom-shaddow-1'>
         <div className="left flex px-15 align-items-center">
-          <Link to="/"><img src="/img/logo/logo.jpg" alt="" /></Link>
+          <Link to="/"><img src="/img/logo/GATEAFR.png" alt="" /></Link>
         </div>
         <nav className='flex align-items-center'>
           <ul className="topbar-menu flex align-items-center">
@@ -39,7 +43,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
             </li>
             <li>
               <DoNavLink to="/video" activeClass='active'>
-                <PersonVideo2 style={{ marginTop: 4 }} strokeWidth={0.1} size={24} />
+                <PlayBtn strokeWidth={0.1} size={24} />
               </DoNavLink>
             </li>
             <li className='flex-grow-1'>
@@ -47,7 +51,9 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
             </li>
             <li className='ml-10'>
               <DropDown>
-                <button className='topbar-mew-btn btn-purple flex align-items-center'><Plus size={26} /></button>
+                <RequireAuthOnClick>
+                  <button className='topbar-mew-btn btn-purple flex align-items-center'><Plus size={26} /></button>
+                </RequireAuthOnClick>
                 <ul>
                   <li>
                     <Link to='/' onClick={(e) => {
@@ -70,17 +76,25 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
           </ul>
         </nav>
         <div className="right flex px-15 align-items-center justify-content-end">
-          <Link to="/messages"><ChatSquareQuote size={22} /></Link>
+          <RequireAuthOnClick>
+            <Link to="/messages"><ChatSquareQuote size={22} /></Link>
+          </RequireAuthOnClick>
 
           <span><Bell size={22} /></span>
 
-
-          <span className='flex gap-5 align-items-center' onClick={() => {
-            setOpenRightbar(true)
-          }}>
-            <Avatar />
-            <ChevronLeft size={16} />
-          </span>
+          {
+            user ?
+              <span className='flex gap-5 align-items-center' onClick={() => {
+                setOpenRightbar(true)
+              }}>
+                <Avatar src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} />
+                <ChevronLeft size={16} />
+              </span>
+              :
+              <span onClick={() => {
+                setOpenRightbar(true)
+              }}><Person size={23} /></span>
+          }
         </div>
       </header>
       <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal} />

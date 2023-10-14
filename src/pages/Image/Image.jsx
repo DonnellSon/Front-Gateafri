@@ -3,13 +3,15 @@ import { ChevronBarLeft, ChevronLeft, ChevronRight, Download, Fullscreen, Plus, 
 import Avatar from '../../components/Avatar/Avatar'
 import CommentForm from '../../components/commentForm/CommentForm'
 import CommentList from '../../components/commentList/CommentList'
-import './Image.css'
+import './Image.scss'
 import { Gem, ChatLeft, Share, Clipboard } from 'react-bootstrap-icons'
 import Tab from '../../components/Tabs/Tab'
 import Tabs from '../../components/Tabs/Tabs'
+import { useLocation } from 'react-router-dom';
 
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthOnClick'
 
 const Image = () => {
     const { image_id } = useParams()
@@ -17,6 +19,9 @@ const Image = () => {
     const [width, setImgWidth] = useState(0)
     const [height, setImgHeight] = useState(0)
     const [image, setImage] = useState(null)
+
+    const location = useLocation();
+    const currentURL = window.location.origin + location.pathname + location.search;
 
     const [tmpComment, setTmpComment] = useState('')
 
@@ -110,8 +115,6 @@ const Image = () => {
                     <div className="next-slide-btn">
                         <ChevronRight size={20} />
                     </div>
-                </div>
-                <div className="bottom flex flex-grow-1 justify-content-center align-items-center">
                     <div className="post-imgs-preview flex gap-10">
                         <div className="thumb relative">
                             <img src="/img/entreprises/vache.jpg" alt="" />
@@ -158,7 +161,7 @@ const Image = () => {
                     </div>
                     <div className="px-10">
                         <div className="link-input flex">
-                            <div className="link flex-grow-1">http://localhost:3000/actualite</div>
+                            <input readOnly className="link flex-grow-1" value={currentURL}/>
                             <button><Clipboard /></button>
                         </div>
                     </div>
@@ -167,7 +170,7 @@ const Image = () => {
                             <Tab title={<span>Commentaires (200k)</span>}>
                                 <CommentList comments={image?.comments} />
                             </Tab>
-                            <Tab title={<span>A propos</span>}>
+                            <Tab title={<span>Evaluations</span>}>
                                 contenu
                             </Tab>
                         </Tabs>
@@ -176,20 +179,28 @@ const Image = () => {
                 </div>
                 <div className="footer">
                     <div className="top">
-                        <CommentForm value={tmpComment} onSend={sendComment} onKeyup={(e) => {
-                            setTmpComment(e.target.innerText)
-                        }} />
+                        <RequireAuthOnClick>
+                            <CommentForm value={tmpComment} onSend={sendComment} onKeyup={(e) => {
+                                setTmpComment(e.target.innerText)
+                            }} />
+                        </RequireAuthOnClick>
                     </div>
                     <div className="bottom flex gap-10">
-                        <span className='flex align-items-center gap-10 no-wrap-text'>
-                            <Gem size={19} /><span>Evaluer</span>
-                        </span>
-                        <span className='flex align-items-center gap-10 no-wrap-text'>
-                            <ChatLeft size={19} /><span>Commenter</span>
-                        </span>
-                        <span className='flex align-items-center gap-10 no-wrap-text'>
-                            <Share size={19} /><span>Partager</span>
-                        </span>
+                        <RequireAuthOnClick>
+                            <span className='flex align-items-center gap-10 no-wrap-text'>
+                                <Gem size={19} /><span>Evaluer</span>
+                            </span>
+                        </RequireAuthOnClick>
+                        <RequireAuthOnClick>
+                            <span className='flex align-items-center gap-10 no-wrap-text'>
+                                <ChatLeft size={19} /><span>Commenter</span>
+                            </span>
+                        </RequireAuthOnClick>
+                        <RequireAuthOnClick>
+                            <span className='flex align-items-center gap-10 no-wrap-text'>
+                                <Share size={19} /><span>Partager</span>
+                            </span>
+                        </RequireAuthOnClick>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,96 @@
+@import "../../style.scss";
+
+
+.survey {
+    @include themify($themes) {
+        border: 1px solid themed("border", 2);
+        border-radius: 5px;
+        padding: 10px 10px 0 10px;
+
+        .survey-option {
+            border: 1px solid themed("border", 4);
+            border-radius: 5px;
+            padding: 5px;
+            transition: .5s;
+            .thumbnail {
+                width: 50px;
+                height: 50px;
+                background: themed("background", 6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: themed("mainColor", purple);
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .progress {
+                background: themed("background", 5);
+                border-radius: 5px;
+                height: 5px;
+                flex-grow: 1;
+            }
+
+            input {
+                height: 100%;
+                width: 100%;
+                border: none;
+                background: none !important;
+            }
+        }
+        .bottom {
+            position: sticky;
+            bottom: 0;
+            background: themed("background", 3);
+            padding: 10px 0;
+        }
+    }
+
+}
+
+
+
+
+
+.survey .survey-option .remove {
+    cursor: pointer;
+    color: grey;
+}
+
+.survey .survey-option .remove:hover {
+    color: #333;
+}
+
+.survey .survey-option:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+
+
+
+.survey .survey-option:hover {
+    border: 1px solid #702f80cb;
+    transition: .3s;
+    box-shadow: 0px 0px 0px 3px #702f8044;
+}
+
+
+
+.survey .survey-option .thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.survey-title {
+    height: 35px;
+    min-height: 35px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}

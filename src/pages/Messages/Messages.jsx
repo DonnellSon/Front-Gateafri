@@ -1,121 +1,141 @@
-import React from 'react'
-import './Messages.css'
+import React, { useContext, useEffect, useState } from 'react'
+import './Messages.scss'
 import Searchbar from '../../components/Searchbar/Searchbar'
 import Avatar from '../../components/Avatar/Avatar'
-import { ArrowDown, Check2Square, CheckSquare, ChevronDown, EmojiSmile, Mic, ThreeDots, Image } from 'react-bootstrap-icons'
+import { ArrowDown, Check2Square, CheckSquare, ChevronDown, EmojiSmile, Mic, ThreeDots, Image, Plus, Search, Trash, Pencil, PencilSquare } from 'react-bootstrap-icons'
 import Discussion from '../../components/Discussion/Discussion'
 import DoDinamicTextarea from '../../components/doDinamicTextarea/DoDinamicTextarea'
 import Message from '../../components/Message/Message'
+import Tab from '../../components/Tabs/Tab'
+import Tabs from '../../components/Tabs/Tabs'
+import { Link } from 'react-router-dom'
+import DropDown from '../../components/DropDown/DropDown'
+import { useReq } from '../../Hooks/RequestHooks'
+import DiscussionLoader from '../../components/SkeletonLoaders/DiscussionLoader'
+import { useParams } from 'react-router-dom'
+import Messenger from '../../components/Messenger/Messenger'
+import Skeleton from '../../components/Skeleton/Skeleton'
+import DiscussionSkeleton from '../../components/Discussion/DiscussionSkeleton'
+import MediaContext from '../../context/MediaContext'
+import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants'
 const Messages = () => {
+
+
+    const { deviceType } = useContext(MediaContext)
+
+    const { discuId } = useParams()
+    const [activeDiscu, setActiveDiscu] = useState(null)
+    const { data: discussions, err, loading: discussionsLoading } = useReq({ url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`, method: 'get', withCredentials: true }, [])
+
+    useEffect(() => {
+        setActiveDiscu(discussions.find(elem => elem.id === discuId))
+    }, [discuId, discussions, activeDiscu])
     return (
         <main className='messages-page flex'>
             <div className="left">
-                <div className="top">
-                    <div>
-                        <h2>Messages</h2>
+                <div>
+                    <div className="top">
+                        <div className='flex justify-content-between mb-15'>
+
+                            {
+                                (deviceType !== SMARTPHONE) &&
+                                <h2>Messages</h2>
+                            }
+                            <DropDown>
+                                <div className="post-plus-btn"><Plus size={28} style={{ display: 'block' }} /></div>
+                                <ul>
+                                    <li>
+                                        <Link to='/'>Modifier la publication</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/'>Suprimer</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/'>Enregistrer</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/'>Alerter les activités</Link>
+                                    </li>
+                                </ul>
+                            </DropDown>
+                        </div>
+                        <Searchbar />
                     </div>
-                    <Searchbar />
-                    <span className='flex align-items-center gap-5 py-10'>Les plus reçents <ChevronDown /></span>
+
+                    <div className="messages-favorite-contacts">
+                        <h5>Favoris</h5>
+                        <div className="flex gap-5">
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Sammy Assan</b>
+                            </div>
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Bob l'éponge</b>
+                            </div>
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Bob l'éponge</b>
+                            </div>
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Sammy Assan</b>
+                            </div>
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Bob l'éponge</b>
+                            </div>
+                            <div className="flex flex-column align-items-center gap-5">
+                                <Avatar height={45} width={45} />
+                                <b>Bob l'éponge</b>
+                            </div>
+                        </div>
+                    </div>
+                    <Tabs className='post-comments-tabs'>
+                        <Tab title={<span>Discussions (200)</span>}>
+                            <div className="discussion-list">
+                                {
+                                    (deviceType !== SMARTPHONE) &&
+                                    <span className='order-discussion flex align-items-center gap-5 px-10 py-5'>Les plus reçents <ChevronDown /></span>
+                                }
+
+                                {
+                                    discussionsLoading ?
+
+                                        <>
+                                            <DiscussionSkeleton />
+                                            <DiscussionSkeleton />
+                                            <DiscussionSkeleton />
+                                            <DiscussionSkeleton />
+                                            <DiscussionSkeleton /></>
+
+                                        :
+
+                                        discussions.length > 0 ?
+                                            discussions.map((d, i) => <Discussion key={i} data={d} active={d.id === discuId} />)
+                                            :
+                                            <h5>Aucune discussion</h5>
+                                }
+
+                            </div>
+                        </Tab>
+                        <Tab title={<span>Contacts</span>}>
+                            contenu
+                        </Tab>
+                    </Tabs>
                 </div>
-                <div className="discussion-list">
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                    <Discussion />
-                </div>
+
             </div>
-            <div className="center flex-grow-1">
-                <div className="messenger">
-                    <div className="top flex justify-content-between align-items-center gap-10">
-                        <div className="left flex gap-10 align-items-center">
-                            <Avatar height={40} width={40} />
-                            <div className="discu-info">
-                                <h5>Donnell Rajemson</h5>
-                                <span>Actif</span>
-                            </div>
+            <div className="center flex align-items-center justify-content-center flex-grow-1">
+                {
+                    discuId ?
+                        <Messenger discuId={discuId} discu={activeDiscu} />
+                        : <div className="empty-msg flex flex-column align-items-center">
+                            <img src="/img/wired-flat-981-consultation.gif" alt="" />
+                            <h4>Sélectionnez une Discussion</h4>
                         </div>
-                        <div className="right">
-                            <button className="btn-transparent">
-                                <ChevronDown />
-                            </button>
-                        </div>
-                    </div>
-                    <div className="content">
-                        <div className="body">
-                            <div className="message-group">
-                                <div className="left">
-                                    <Avatar />
-                                </div>
-                                <div className="messages-list">
-                                    <Message>Bonjour</Message>
-                                    <Message>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur eligendi, amet modi deserunt ea hic veritatis. Dolor hic cumque deserunt id sit obcaecati vero eligendi ducimus doloremque, inventore quisquam. Pariatur.
-                                    </Message>
-                                </div>
-                            </div>
-                            <div className="message-group mine">
-                                <div className="messages-list">
-                                    <Message>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima doloremque magnam placeat aut dolore ex ratione</Message>
-                                    <Message>Salut mon vieux</Message>
-                                    <Message>On travaille sur notre nouvelle plateforme</Message>
-                                    <Message>Hey</Message>
-                                </div>
-                            </div>
-                            <div className="message-group">
-                                <div className="left">
-                                    <Avatar />
-                                </div>
-                                <div className="messages-list">
-                                    <Message>Salut les gens</Message>
-                                </div>
-                            </div>
-                            <div className="message-group mine">
-                                <div className="messages-list">
-                                    <Message>Oui ça va et vous?</Message>
-                                </div>
-                            </div>
-                            <div className="message-group">
-                                <div className="left">
-                                    <Avatar />
-                                </div>
-                                <div className="messages-list">
-                                    <Message>Coucou</Message>
-                                    <Message>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, rerum. Maxime, reprehenderit? Quas magni</Message>
-                                </div>
-                            </div>
-                            <div className="message-group mine">
-                                <div className="messages-list">
-                                    <Message medias={[
-                                        '/img/entreprises/vache.jpg',
-                                        '/img/entreprises/d.jpg',
-                                    ]}>Des photos</Message>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="footer flex justify-content-center">
-                            <div>
-                                <DoDinamicTextarea avatar={false} onKeyup={(e) => {
 
-                                }}
-                                    next={
-                                        (
-                                            <>
-                                                <button><EmojiSmile size={18} /></button>
-
-                                                <button><Image size={18} /></button>
-                                                <button><Mic size={18} /></button>
-                                            </>
-                                        )
-                                    } />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                }
             </div>
         </main>
     )

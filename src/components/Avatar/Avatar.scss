@@ -1,0 +1,37 @@
+@import "../../style.scss";
+
+.avatar img {
+    object-fit: cover;
+}
+
+.avatar .online {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0cdd6a;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.avatar-edit-btn {
+    @include themify($themes) {
+        width: 35px;
+        height: 35px;
+        background: var(--main-gradient);
+        border-radius: 50%;
+        border: 2px solid themed("background",3);
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        cursor: pointer;
+    }
+}
+
+.avatar-edit-btn svg {
+    margin-bottom: 2px;
+}

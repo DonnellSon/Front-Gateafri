@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import './DropDown.css'
+import './DropDown.scss'
 import { createPopper } from '@popperjs/core';
 import useClickOutside from '../../Hooks/useClickOutside'
 const DropDown = ({ children, placement = 'bottom-end',activeClassName='selected',className=null }) => {
@@ -49,10 +49,11 @@ const DropDown = ({ children, placement = 'bottom-end',activeClassName='selected
         e.preventDefault();
       }
   }
+
   useEffect(() => {
     popperInstance.current = createPopper(dropdownToggler.current, dropdownMenu.current, {
       placement,
-
+      
     });
   }, [])
   function show() {

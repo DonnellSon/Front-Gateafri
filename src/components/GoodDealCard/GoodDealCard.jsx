@@ -1,5 +1,5 @@
 import React from 'react'
-import './GoodDealCard.css'
+import './GoodDealCard.scss'
 import Avatar from '../Avatar/Avatar'
 const GoodDealCard = ({data}) => {
     return (

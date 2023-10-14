@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './Message.css'
-import { ThreeDots } from 'react-bootstrap-icons'
+import './Message.scss'
+import {  ThreeDots } from 'react-bootstrap-icons'
+import DropDown from '../DropDown/DropDown'
+import { Link } from 'react-router-dom'
+
 const med = [
     'img/video/gims.jpeg',
     'img/entreprises/d.jpg',
     'img/entreprises/j.jpg',
 ]
+
 const Message = ({ children, medias = [] }) => {
     const msgImgList = useRef()
     const right = useRef()
@@ -40,7 +44,23 @@ const Message = ({ children, medias = [] }) => {
                 }
             </div>
             <div className="right" ref={right}>
-                <button><ThreeDots /></button>
+                <DropDown>
+                    <button><ThreeDots /></button>
+                    <ul>
+                        <li>
+                            <Link>Repondre</Link>
+                        </li>
+                        <li>
+                            <Link>Modifier</Link>
+                        </li>
+                        <li>
+                            <Link>transferer</Link>
+                        </li>
+                        <li>
+                            <Link>Suprimer</Link>
+                        </li>
+                    </ul>
+                </DropDown>
             </div>
         </div>
     )

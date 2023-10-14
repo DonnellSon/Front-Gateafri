@@ -5,7 +5,7 @@
     width: 24px !important;height: 24px !important;
 }
 
-.comment-list .comment-light.comment:before {
+.comment-list .comment-light.comment:not(:last-child):before {
   border-left: 2px dashed #d1dfdadc !important;
 }
 

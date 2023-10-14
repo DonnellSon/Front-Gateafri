@@ -1,5 +1,5 @@
 import React from 'react'
-import './JobFindingSearchbar.css'
+import './JobFindingSearchbar.scss'
 import { Search, PinMapFill, BriefcaseFill, GeoAltFill } from 'react-bootstrap-icons'
 
 const JobFindingSearchBar = () => {

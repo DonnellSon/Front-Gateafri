@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from 'react'
-import './commentContent.css';
+import './commentContent.scss';
 import CommentForm from '../commentForm/CommentForm';
 import Avatar from '../Avatar/Avatar';
 import { Gem,ThreeDots } from 'react-bootstrap-icons';
@@ -24,7 +24,7 @@ const CommentContent = ({ children,sender,commentDate }) => {
                         <div className="comment-body relative">
                             <div className="triangle"></div>
                             <div className="flex j-between gap-10">
-                                <p className={`name-medium m-0 light-txt-color-1`}>{sender?.firstName}{sender?.lastName && " "+sender?.lastName}</p>
+                                <p className={`commenter-name m-0 light-txt-color-1`}>{sender?.firstName}{sender?.lastName && " "+sender?.lastName}</p>
                                 <small className="comment-date">{moment(commentDate).fromNow()}</small>
                             </div>
                             <p className={`comment-txt m-0 light-txt-color-2 txt-medium`}>

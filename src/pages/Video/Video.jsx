@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ArrowClockwise, ArrowCounterclockwise, ArrowsFullscreen, ChatLeft, ChatSquareText, ChevronDown, ChevronLeft, ChevronRight, Fullscreen, Gem, Headset, Newspaper, Pause, Plus, Repeat, Share, Shuffle, SkipBackward, SkipForward, Vinyl, VolumeUp } from 'react-bootstrap-icons'
-import './Video.css'
+import './Video.scss'
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -120,7 +120,7 @@ const Video = () => {
                                 <Vinyl />
                                 <b>Live</b>
                             </div>
-                            <div className="slide">
+                            <div className="slide podcast-slide">
                                 <Headset size={22} />
                                 <b>Podcast</b>
                             </div>

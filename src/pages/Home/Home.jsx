@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import './Home.css'
+import './Home.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HomeBannerSlider from '../../components/HomeBannerSlider/HomeBannerSlider';
@@ -13,31 +13,13 @@ import StickySideBar from '../../components/StickySideBar/StickySideBar';
 import MediaContext from '../../context/MediaContext';
 import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants';
 import axios from 'axios';
-import PostCardLoader from '../../components/SkeletonLoaders/PostCardLoader';
+
+import PlanSlider from '../../components/PlanSlider/PlanSlider';
+import Timeline from '../../components/Timeline/Timeline';
 const Home = () => {
   const { deviceType } = useContext(MediaContext)
 
-  const [posts, setPosts] = useState([])
-  const [postsLoading, setPostsLoading] = useState(false)
-  /**
-   * Recuperation des posts
-   */
-  useEffect(() => {
-    setPostsLoading(true)
-    axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/posts`,
-      method: 'get',
-      withCredentials: true
-    }).then((res) => {
-      console.log(res.data)
-      setPosts(res.data)
-      setPostsLoading(false)
-
-    }).catch((err) => {
-      console.log(err.response)
-
-    })
-  }, [])
+  
 
 
   return (
@@ -99,40 +81,10 @@ const Home = () => {
           </div> : ""
         }
         <div className="center">
-          <nav className='floatting-nav'>
-            <ul className='flex'>
-              <li className='active'>Tous</li>
-              <li>Actualités</li>
-              <li>Industrie</li>
-              <li>Politique</li>
-              <li>Technologie</li>
-              <li>Science</li>
-              <li>Education</li>
-              <li>Tourisme</li>
-            </ul>
-          </nav>
-          <div className="post-list">
-            {
-              posts.map((p, i) => (
-                <PostCard
-                  key={i}
-                  data={p}
-                  onDelete={(postId) => setPosts(posts.filter(p => p.id !== postId))}
-                />
-              ))
-            }
-            {
-              postsLoading &&
-              <>
-                <PostCardLoader />
-                <PostCardLoader />
-                <PostCardLoader />
-              </>
-            }
-          </div>
+          <Timeline/>
         </div>
         {
-          deviceType === (DESKTOP || TABLET) ? <div className="right">
+          ((deviceType === DESKTOP) || (deviceType === TABLET)) ? <div className="right">
             <StickySideBar top={73} className='flex flex-column gap-15'>
               <div className="top-news">
                 <h4>GateNews</h4>
@@ -222,98 +174,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="plan-slider">
-                <h4>Inscrivez vous</h4>
-                <p>Choisissez des maintenant un plan d'abonnement convenant aux besoins de votre entreprise</p>
-
-                <div className='relative'>
-                  <div className="floating-btn prev"><ChevronLeft size={21} /></div>
-                  <div className="floating-btn next"><ChevronRight size={21} /></div>
-                  <Slider {...{
-                    dots: false,
-                    arrows: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    variableWidth: true,
-                    infinite: true,
-                  }}>
-                    <div className="plan-card">
-                      <div className="top">
-                        <h4>GRATUIT</h4>
-                        <img src="/img/other/free.svg" alt="" />
-                        <h3 className="plan-price">
-                          $0
-                          <small>/mois</small>
-                        </h3>
-                      </div>
-                      <ul>
-                        <li><Check2 /> Accès limité 1 mois</li>
-                        <li><Check2 /> 1 page professionnelle</li>
-                        <li><Check2 /> 1 entreprise</li>
-                        <li><Check2 /> 1 offre d'emplois</li>
-                        <li><Check2 /> 1 modele de CV</li>
-                        <li><Check2 /> 5 images par publication</li>
-                      </ul>
-                    </div>
-                    <div className="plan-card">
-                      <div className="top">
-                        <h4>ARGENT</h4>
-                        <img src="/img/other/trophy.svg" alt="" />
-                        <h3 className="plan-price">
-                          $9
-                          <small>/mois</small>
-                        </h3>
-                      </div>
-                      <ul>
-                        <li><Check2 /> Accès limité 1 mois</li>
-                        <li><Check2 /> 1 page professionnelle</li>
-                        <li><Check2 /> 1 entreprise</li>
-                        <li><Check2 /> 1 offre d'emplois</li>
-                        <li><Check2 /> 1 modele de CV</li>
-                        <li><Check2 /> 5 images par publication</li>
-                      </ul>
-                    </div>
-                    <div className="plan-card">
-                      <div className="top">
-                        <h4>OR</h4>
-                        <img src="/img/other/winner.svg" alt="" />
-                        <h3 className="plan-price">
-                          $19
-                          <small>/mois</small>
-                        </h3>
-                      </div>
-                      <ul>
-                        <li><Check2 /> Accès limité 1 mois</li>
-                        <li><Check2 /> 1 page professionnelle</li>
-                        <li><Check2 /> 1 entreprise</li>
-                        <li><Check2 /> 1 offre d'emplois</li>
-                        <li><Check2 /> 1 modele de CV</li>
-                        <li><Check2 /> 5 images par publication</li>
-                      </ul>
-                    </div>
-                    <div className="plan-card">
-                      <div className="top">
-                        <h4>BRONZE</h4>
-                        <img src="/img/other/free.svg" alt="" />
-                        <h3 className="plan-price">
-                          $49
-                          <small>/mois</small>
-                        </h3>
-                      </div>
-                      <ul>
-                        <li><Check2 /> Accès limité 1 mois</li>
-                        <li><Check2 /> 1 page professionnelle</li>
-                        <li><Check2 /> 1 entreprise</li>
-                        <li><Check2 /> 1 offre d'emplois</li>
-                        <li><Check2 /> 1 modele de CV</li>
-                        <li><Check2 /> 5 images par publication</li>
-                      </ul>
-                    </div>
-                  </Slider>
-                </div>
-
-              </div>
+              <PlanSlider/>
             </StickySideBar>
           </div> : ""
         }
