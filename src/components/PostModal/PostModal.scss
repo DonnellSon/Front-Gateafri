@@ -5,10 +5,10 @@
         .modalContent{
             background: themed("background",3);
             border-radius: 5px;
-            width: 100%;
-            max-width: 700px;
+            max-width: 680px;
+            max-height: 500px !important;
             height: 100vh;
-            max-height: 520px;
+            width: 100vw;
             display: flex;
             flex-direction: column;
             .post-modal-tabs {
@@ -41,6 +41,23 @@
             padding: 0 5px;
             align-items:center;
             color: themed("text",1);
+        }
+        .author-select{
+            .fake-input{
+                .inpt{
+                    height: 35px;
+                    min-width: 100px;
+                    width: 120px;
+                    
+                    >*{
+                        width: 100%;
+                        display: block;
+                        white-space: pre;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                }
+            }
         }
     }
     

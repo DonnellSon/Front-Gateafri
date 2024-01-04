@@ -12,7 +12,7 @@ const MobileTopbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
   return (
     <>
-      <header id='m-topbar' className='flex px-10 gap-10'>
+      <header id='m-topbar' className='flex px-10 gap-10 align-items-center'>
         <div className="left flex align-items-center">
           <Link to="/"><img src="/img/logo/GATEAFR.png" alt="" /></Link>
         </div>

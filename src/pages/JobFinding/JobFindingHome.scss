@@ -9,6 +9,7 @@
             background: themed("background",3);
             box-shadow: var(--elevation-1);
             width: 280px;
+            min-width: 280px;
             height: calc(100vh - calc(108px + 13px));
             overflow-y: scroll;
             position: sticky;
@@ -29,6 +30,19 @@
                 gap: 10px;
                 margin-bottom: 15px;
             }
+        }
+        > .right{
+            background: themed("background",3);
+            box-shadow: var(--elevation-1);
+            min-width: 490px;
+            width: 490px;
+            height: calc(100vh - 54px);
+            position: sticky;
+            top: 121px;
+            height: calc(100vh - 121px);
+            min-height: calc(100vh - 121px);
+            overflow-y: auto;
+
         }
     }
 }
@@ -53,15 +67,8 @@
     flex-grow: 1;
     max-width: 600px;
 }
-.job-finding-home > .right{
-    background: white;
-    box-shadow: var(--elevation-1);
-    width: 450px;
-    height: calc(100vh - 54px);
-    position: sticky;
-    top: 121px;
-}
+
 
 .job-list{
-    margin-top: 15px;
+    margin-top: 5px;
 }

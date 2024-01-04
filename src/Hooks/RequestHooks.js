@@ -1,6 +1,6 @@
 import { useState,useLayoutEffect } from "react"
 import axios from "axios"
-export const useReq = (opts,dependancies) => {
+export const useReq = (opts,dependancies=[]) => {
     const [data, setData] = useState([])
     const [err, setErr] = useState(null)
     const [loading, setLoading] = useState(false)

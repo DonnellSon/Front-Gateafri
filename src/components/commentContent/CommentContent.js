@@ -4,7 +4,8 @@ import CommentForm from '../commentForm/CommentForm';
 import Avatar from '../Avatar/Avatar';
 import { Gem,ThreeDots } from 'react-bootstrap-icons';
 import moment from '../../moment'
-const CommentContent = ({ children,sender,commentDate }) => {
+const CommentContent = ({ children,sender,commentDate,parentId=null,onReplied=()=>{} }) => {
+    
     const [cmtFormShown, setCmtFormShown] = useState(false);
     const cmtContent = useRef();
     const toggleCmtForm = (e) => {
@@ -16,7 +17,7 @@ const CommentContent = ({ children,sender,commentDate }) => {
         <>
             <div className={`comment-content comment-content-light flex`} ref={cmtContent}>
                 <div className="comment-content-avatar-parent">
-                    <Avatar h={32} w={32} />
+                    <Avatar h={32} w={32} src={sender?.activeProfilePicture?.fileUrl}/>
                 </div>
 
                 <div className="relative" style={{display:'flex',flexDirection:'column'}}>
@@ -44,7 +45,11 @@ const CommentContent = ({ children,sender,commentDate }) => {
             {
                 cmtFormShown &&
                 <div className="cmtForm" style={{ marginBottom:10 }}>
-                    <CommentForm focusOnShown={true} />
+                    <CommentForm parent={parentId ? `/api/comments/${parentId}` : null} focusOnShown={true} onSended={
+                        (data)=>{
+                            onReplied(data)
+                        }
+                    } />
                 </div>
             }
         </>

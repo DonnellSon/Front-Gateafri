@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Topbar.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { HouseDoor, Briefcase, Buildings, PersonVideo2, ChatSquareQuote, Bell, ChevronLeft, Plus, GlobeEuropeAfrica, Person, PlayCircle, PlayBtn } from 'react-bootstrap-icons'
 import Searchbar from '../Searchbar/Searchbar'
 import Avatar from '../Avatar/Avatar'
@@ -12,10 +12,11 @@ import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
   const { user } = useSelector(state => state.user)
+  const navigate = useNavigate()
 
   return (
     <>
-      <header id='topbar' className='flex bottom-shaddow-1'>
+      <header id='topbar' className={`flex bottom-shaddow-1${window.location.pathname.startsWith("/landing") ? " transparent" : ""}`}>
         <div className="left flex px-15 align-items-center">
           <Link to="/"><img src="/img/logo/GATEAFR.png" alt="" /></Link>
         </div>
@@ -47,7 +48,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
               </DoNavLink>
             </li>
             <li className='flex-grow-1'>
-              <Searchbar />
+              <Searchbar onSubmit={(e) => navigate(`/recherche?k=${e.target.value}`)} />
             </li>
             <li className='ml-10'>
               <DropDown>
@@ -62,7 +63,10 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                     }}>Publication</Link>
                   </li>
                   <li>
-                    <Link to='/'>Portail</Link>
+                    <Link to='/portail/nouveau'>Portail</Link>
+                  </li>
+                  <li>
+                    <Link to='/investissements/nouveau'>Investissement</Link>
                   </li>
                   <li>
                     <Link to='/emplois/cv'>CV</Link>
@@ -91,9 +95,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                 <ChevronLeft size={16} />
               </span>
               :
-              <span onClick={() => {
-                setOpenRightbar(true)
-              }}><Person size={23} /></span>
+              <Link to="/connexion"><Person size={23} /> Se connecter</Link>
           }
         </div>
       </header>

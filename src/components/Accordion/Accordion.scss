@@ -5,6 +5,10 @@
 
 .accordion {
     @include themify($themes){
+        .open{
+            overflow: visible;
+            z-index: 1000;
+        }
         > .accordion-content{
             overflow: hidden;
             height: 0px;

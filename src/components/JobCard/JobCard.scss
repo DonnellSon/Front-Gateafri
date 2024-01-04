@@ -6,8 +6,31 @@
         background: themed("background",3);
         border-radius: 5px;
         box-shadow: var(--elevation-1);
-        margin-bottom: 15px;
+        margin-bottom: 5px;
+        &.active-job{
+            animation: boomPurple 1s infinite;
+        }
+        .avatar{
+            img{
+                border: 1px solid themed("border",2);
+                border-radius: 5px !important;
+            }
+        }
+        .jobcard-important-list{
+            display: flex;
+            gap: 6px;
+            span{
+                color: themed("text",1) !important;
+                font-weight: themed("weight",600);
+                display: block;
+                border: 1px solid themed("border",2);
+                padding: 0 5px;
+                border-radius: 5px;
+            }
+        }
+        
         .job-info {
+
             h2 {
                 font-size: 15px;
                 color: themed("text",1);
@@ -15,6 +38,7 @@
             span {
                 font-size: 14px;
                 color: themed("text",3);
+                flex-wrap: wrap;
             }
             small{
                 color: themed("text",5);
@@ -55,5 +79,13 @@
 
 .job-card .bottom {
     margin-top: 15px;
+}
+.job-company-eval {
+    margin-bottom:-2px !important;
+    img{
+        width: 16px;
+        height: 14px;
+        display: block;
+    }
 }
 

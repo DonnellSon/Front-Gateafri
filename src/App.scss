@@ -62,13 +62,37 @@ a {
 }
 
 
+img.emoji {
+  height: 1rem;
+  width: 1rem;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
+}
 
 #App {
 
   // overflow-y: scroll;
   @include themify($themes) {
+    .errorLabel>* {
+      color: var(--red) !important;
+      font-size: 13px;
+    }
 
     background: themed("background", 0);
+
+    .empty-placeholder {
+      border-radius: 5px;
+      height: 150px;
+      text-align: center;
+
+      span {
+        color: themed("text", 5) !important;
+      }
+
+      h5 {
+        color: themed("text", 2);
+      }
+    }
 
     .post-plus-btn {
       border: none;
@@ -82,15 +106,29 @@ a {
       justify-content: center;
     }
 
+    h2 {
+      color: themed("text", 1);
+    }
+
+    small {
+      color: themed("text", 4);
+    }
+
+    label {
+      color: themed("text", 2);
+    }
+
     .btn-outline-light {
       border: 1px solid themed("border", 2);
       color: themed("text", 2);
       background: themed("background", 5);
+      font-weight: 600;
     }
 
     .btn-outline-yellow {
       border: 1px solid var(--orange);
       color: var(--orange);
+      font-weight: 600;
     }
 
     .purple-txt {
@@ -122,7 +160,8 @@ a {
       position: relative;
     }
 
-    input {
+    input,
+    textarea {
       background: themed("background", 5);
       border: themed("border", 2);
       color: themed("text", 1);
@@ -171,10 +210,11 @@ a {
       -webkit-appearance: none;
       appearance: none;
       border-radius: 50%;
-      background-color: themed("mainColor",purple);
+      background-color: themed("mainColor", purple);
       height: 17px;
       width: 17px;
     }
+
     input[type="range"]::-webkit-progress-bar {
       background: red;
     }
@@ -258,6 +298,10 @@ body,
 
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 
 hr {
   @include themify($themes) {
@@ -286,6 +330,10 @@ a {
 
 .flex-grow-1 {
   flex-grow: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .justify-content-center {
@@ -322,6 +370,9 @@ a {
 
 .gap-5 {
   gap: 5px;
+}
+.column-gap-5{
+  column-gap: 5px;
 }
 
 .gap-10 {
@@ -374,8 +425,9 @@ a {
 
 
 
-.flag>img {
+.flag img {
   border: 1px solid var(--orange);
+  max-width: 45px !important;
 }
 
 /*buttons*/
@@ -423,6 +475,11 @@ a {
   background: map-get($purple, primary);
 }
 
+.btn-gradient {
+  background: var(--main-gradient);
+  color: #222;
+}
+
 .btn-orange {
   background: map-get($yellow, primary);
 }
@@ -461,6 +518,27 @@ a {
 .home-banner-slider .slick-track {
   display: flex !important;
   gap: 6px !important;
+}
+
+/**badges**/
+.badge{
+  @include themify($themes) {
+    background: themed("background",5);
+    color: themed("text",2);
+    border-radius: 5px;
+    padding: 0 5px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: themed("weight",600);
+    height: 25px;
+    min-width: 25px;
+    &.purple{
+      color: themed("mainColor",purple);
+      background: #9645aa27;
+    }
+  }
 }
 
 /*card*/

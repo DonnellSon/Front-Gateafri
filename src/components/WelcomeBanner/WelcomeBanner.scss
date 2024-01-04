@@ -6,7 +6,7 @@
     padding-right: 55px;
     
 }
-.welcome-banner .text button{
+.welcome-banner .text a{
     height: 30px;
     border-radius: 20px;
     margin-top: 10px;
@@ -15,17 +15,19 @@
     padding: 0 15px;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    color: #222;
 }
 .welcome-banner .register-btn{
     height: 30px;
     border-radius: 20px;
     margin-top: 10px;
-    background: none;
-    background: var(--purple);
+    background: var(--purple) !important;
     padding: 0 15px;
     display: flex;
     align-items: center;
-    color: white;
+    color: white !important;
+    border: none !important;
 }
 .welcome-banner .close{
     right:20px;

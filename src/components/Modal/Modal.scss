@@ -3,7 +3,10 @@
 
 .modal {
     @include themify($themes) {
-        background: rgba(20, 20, 20, 0.336);
+        &:last-child{
+            background: rgba(20, 20, 20, 0.336);
+            backdrop-filter: blur(3px);
+        }
         position: fixed;
 
         left: 0;
@@ -14,7 +17,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        backdrop-filter: blur(3px);
+        
 
         .modalContent {
             transform: scale(0.6);

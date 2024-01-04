@@ -3,45 +3,47 @@ import './DoDinamicTextarea.scss'
 
 import Avatar from '../Avatar/Avatar'
 import { SendFill } from 'react-bootstrap-icons'
+import { useSelector } from 'react-redux'
 
-const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, placeholder, onKeyup=()=>{}, autoFocus = false,getValue=()=>{},emptied=false,setEmptied=()=>{} }) => {
+const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, placeholder, onKeyup = () => { }, autoFocus = false, getValue = () => { }, emptied = false, setEmptied = () => { } }) => {
+  const { user } = useSelector(store => store.user)
   const prev = useRef()
   const text = useRef()
   const [textInitialHeight, setTextInitialHeight] = useState(null);
   const [empty, setEmpty] = useState(true)
   const doDinamicTextarea = useRef()
 
-  useEffect(()=>{
-    if(emptied){
-      
+  useEffect(() => {
+    if (emptied) {
+
       setEmpty(true)
       doDinamicTextarea.current.style.justifyContent = 'flex-end'
-      if(prev.current) prev.current.style.order = 0;
-      text.current.innerHTML=''
+      if (prev.current) prev.current.style.order = 0;
+      text.current.innerHTML = ''
       text.current.style.width = "auto"
     }
     setEmptied(false)
-  },[emptied])
+  }, [emptied])
 
   const onChangeHandler = (e) => {
 
 
 
     if (e.target.innerText.length >= 1) {
-      if(prev.current) {
+      if (prev.current) {
         doDinamicTextarea.current.style.justifyContent = 'space-between'
-      }else{
+      } else {
         doDinamicTextarea.current.style.justifyContent = 'flex-end'
       }
-      
+
       text.current.style.width = "100%";
-      if(prev.current) prev.current.style.order = 2;
+      if (prev.current) prev.current.style.order = 2;
       setEmpty(false)
 
-    }else {
+    } else {
       setEmpty(true)
       doDinamicTextarea.current.style.justifyContent = 'flex-end'
-      if(prev.current) prev.current.style.order = 0;
+      if (prev.current) prev.current.style.order = 0;
       e.target.innerHTML = '';
       text.current.style.width = "auto"
     }
@@ -52,7 +54,7 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
       e.target.innerHTML = '';
       setEmpty(true)
       doDinamicTextarea.current.style.justifyContent = 'flex-end'
-      if(prev.current) prev.current.style.order = 0;
+      if (prev.current) prev.current.style.order = 0;
       text.current.style.width = "initial"
     }
   }
@@ -82,21 +84,21 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
       {
         (prevContent || avatar || (avatar && !empty)) &&
         <div className="inpt-prev" ref={prev}>
-        {
-          prevContent && prevContent
-        }
-        {
-          avatar && <Avatar height={24} width={24} style={{ marginRight: '8px',alignSelf:'flex-end' }} />
-        }
+          {
+            prevContent && prevContent
+          }
+          {
+            avatar && <Avatar height={24} width={24} src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} style={{ marginRight: '8px', alignSelf: 'flex-end' }} />
+          }
 
-        {
-          (avatar && !empty) && <span className={`commenter-name name-medium light-txt-color-1`}>DonnellSon</span>
-        }
-      </div>
+          {
+            (avatar && !empty) && <span className={`commenter-name name-medium light-txt-color-1`}>DonnellSon</span>
+          }
+        </div>
       }
 
       <div
-        style={{marginBottom:!empty ? '12px' : 0}}
+        style={{ marginBottom: !empty ? '12px' : 0 }}
         className={`text light-txt-color-2`}
         ref={text}
         data-placeholder={placeholder || "Ecrire un commentaire"}
@@ -108,13 +110,13 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
           onChangeHandler(e)
           getValue(e.target.innerHTML)
         }}
-        >
+      >
       </div>
-      <div className="inpt-next" style={{justifySelf:'flex-end !important'}}>
+      <div className="inpt-next" style={{ justifySelf: 'flex-end !important' }}>
         {
           next
         }
-        
+
       </div>
 
     </div>

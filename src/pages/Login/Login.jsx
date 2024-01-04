@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useLayoutEffect,useRef } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useRef, useContext } from 'react'
 import './Login.scss'
-import { ExclamationTriangleFill, Facebook, Google, Twitter } from 'react-bootstrap-icons'
+import { ExclamationTriangleFill, Facebook, Google, Linkedin, Twitter } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -8,8 +8,13 @@ import { useDispatch } from 'react-redux';
 import { setConnectedUser } from '../../redux/actions/userActions'
 import { useSelector } from 'react-redux'
 import { ColorRing } from 'react-loader-spinner'
+import { io } from 'socket.io-client';
+import SocketIOContext from '../../context/SocketIOContext'
 
 const Login = () => {
+
+    const { setSocket } = useContext(SocketIOContext)
+
     const connectedUser = useSelector((store) => store.user.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -17,15 +22,16 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [loginSuccessMsg, setSuccessMsg] = useState(null)
     const [loginErrorMsg, setLoginErrorMsg] = useState(null)
-    const [isLoading,setIsLoading]=useState(false)
-    const sumbitBtn=useRef()
+    const [isLoading, setIsLoading] = useState(false)
+    const sumbitBtn = useRef()
 
     const handleLogin = (e) => {
         e.preventDefault()
         setLoginErrorMsg(null)
         setIsLoading(true)
         const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login_check`, { email, password }, { withCredentials: true }).then(function (res) {
-            // dispatch(setConnectedUser(res?.data.user))
+            dispatch(setConnectedUser(res?.data.user))
+            setSocket(io('http://localhost:5000'))
             navigate('/', { replace: true })
             setIsLoading(false)
         }).catch(function (err) {
@@ -35,11 +41,21 @@ const Login = () => {
         })
 
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         sumbitBtn?.current.click()
     }
-    
+
+    const connectGoogle=()=>{
+        window.open(`${process.env.REACT_APP_API_DOMAIN}/connect/google`)  
+    }
+    const connectFb=()=>{
+        window.open(`${process.env.REACT_APP_API_DOMAIN}/connect/facebook`)  
+    }
+    const connectLinkedin=()=>{
+        window.open(`${process.env.REACT_APP_API_DOMAIN}/connect/linkedin`)  
+    }
+
 
 
 
@@ -92,9 +108,9 @@ const Login = () => {
                 <div className="barred-text"><span>Ou</span><div></div></div>
                 <p className='text-center mb-5'>Se connecter avec</p>
                 <div className="conn-method flex justify-content-center gap-10">
-                    <span className='fb'><Facebook size={22} /></span>
-                    <span className='google'><Google size={18} /></span>
-                    <span className='twitter'><Twitter size={20} /></span>
+                    <span className='fb' onClick={connectFb}><Facebook size={22} /></span>
+                    <span className='google' onClick={connectGoogle}><Google size={18} /></span>
+                    <span className='linkedin' onClick={connectLinkedin}><Linkedin size={20} /></span>
                 </div>
             </form>
         </main>

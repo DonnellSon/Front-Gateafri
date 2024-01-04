@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import millify from "millify";
 import { ChevronRight, Gem, Search } from 'react-bootstrap-icons'
-import './Countries.css'
+import './Countries.scss'
 import MediaContext from '../../context/MediaContext';
 import { Line, Bar } from 'react-chartjs-2';
 import { CategoryScale, Chart, LinearScale, PointElement, LineElement, BarElement } from "chart.js";
@@ -53,7 +53,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span>Madagascar</span>
+                                        <span className='country'>Madagascar</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -89,7 +89,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span>Ceuta</span>
+                                        <span className='country'>Ceuta</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -126,7 +126,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span>Algerie</span>
+                                        <span className='country'>Algerie</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -161,7 +161,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span>Madagascar</span>
+                                        <span className='country'>Madagascar</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -197,7 +197,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span>Ceuta</span>
+                                        <span className='country'>Ceuta</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -234,7 +234,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span>Algerie</span>
+                                        <span className='country'>Algerie</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -269,7 +269,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span>Madagascar</span>
+                                        <span className='country'>Madagascar</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -305,7 +305,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span>Ceuta</span>
+                                        <span className='country'>Ceuta</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>
@@ -342,7 +342,7 @@ const Countries = () => {
                                 <div className="flex justify-content-between">
                                     <div className="flex align-items-center gap-10 mb-10">
                                         <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span>Algerie</span>
+                                        <span className='country'>Algerie</span>
                                     </div>
                                     <Gem size={19} />
                                 </div>

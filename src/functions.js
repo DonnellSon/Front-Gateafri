@@ -1,4 +1,21 @@
 const functions = {
+    filtersToURL : (obj) => {
+        const queryString = Object.keys(obj)
+          .filter(key => obj[key] !== null && obj[key] !== undefined && obj[key] !== '' && !(Array.isArray(obj[key]) && obj[key].length === 0))
+          .map(key => {
+            if (Array.isArray(obj[key]) && obj[key].length > 0) {
+              return obj[key].map(item => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`).join('&');
+            } else {
+              return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
+            }
+          })
+          .join('&');
+    
+        return queryString;
+      },
+    getRandomNumber: function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
     isWindow: function (obj) {
         return obj != null && obj === obj.window;
     },
@@ -80,15 +97,15 @@ const functions = {
     media: (mediaQueries, cb) => {
         console.log(Object.keys(mediaQueries))
         Object.keys(mediaQueries).forEach((k) => {
-                var x = window.matchMedia(mediaQueries[k]);
-                if(x.matches){
+            var x = window.matchMedia(mediaQueries[k]);
+            if (x.matches) {
+                cb(k);
+            }
+            x.addEventListener("change", (x) => {
+                if (x.matches) {
                     cb(k);
                 }
-                x.addEventListener("change", (x) => {
-                    if(x.matches){
-                        cb(k);
-                    }
-                })
+            })
         })
 
 

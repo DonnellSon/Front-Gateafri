@@ -7,18 +7,19 @@ import JobFindingLayout from './layouts/JobFindingLayout';
 import JobFindingHome from './pages/JobFinding/JobFindingHome';
 import CreateJob from './pages/JobFinding/CreateJob';
 import CreateCv from './pages/JobFinding/CreateCv';
-import PageLayout from './layouts/PageLayout';
-import PageHome from './pages/Page/PageHome';
+import PortalHome from './pages/Portal/PortalHome';
 import Messages from './pages/Messages/Messages';
 import Login from './pages/Login/Login';
-import PageAbout from './pages/Page/PageAbout';
-import PageActu from './pages/Page/PageActu';
+import PortalAbout from './pages/Portal/PortalAbout';
+import PortalActu from './pages/Portal/PortalActu';
 import Funding from './pages/Funding/Funding';
 import Countries from './pages/Countries/Countries';
 import MediaContext from './context/MediaContext';
 import { media } from './functions';
 import Video from './pages/Video/Video';
 import VideoHome from './pages/VideoHome/VideoHome';
+import MusicLayout from './layouts/MusicLayout'
+import Music from './pages/Music/Music'
 import Minimal from './layouts/Minimal';
 import { DESKTOP, SMARTPHONE, TABLET } from './constants/MediaTypeConstants';
 import Profile from './pages/Profile/Profile';
@@ -42,6 +43,14 @@ import SocketIOContext from './context/SocketIOContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import PortalLayout from './layouts/PortalLayout';
 import ThemeContext from './context/ThemeContext';
+import Landing from './pages/Landing/Landing';
+import CreatePortal from './pages/Portal/CreatePortal';
+import PortalDashboardLayout from './layouts/PortalDashboardLayout';
+import CreateInvest from './pages/Funding/CreateInvest';
+import Search from './pages/Search/Search';
+import PortalAdminLayout from './layouts/PortalAdminLayout';
+import Dashboard from './pages/Portal/Dashboard';
+import DashboardAbout from './pages/Portal/DashboardAbout';
 
 
 function App() {
@@ -75,7 +84,13 @@ function App() {
   //Responsive
   const connectedUser = useSelector((state) => state.user.user)
 
-  const socket = useRef()
+  const [socket, setSocket] = useState(null)
+  const socketValue = useMemo(() => {
+    return {
+      socket,
+      setSocket,
+    }
+  }, [socket])
 
   const [shownSidebar, setShownSidebar] = useState(true);
   const [deviceType, setDeviceType] = useState(DESKTOP);
@@ -123,14 +138,14 @@ function App() {
       const user = jwt_decode(token)
       if (user.exp * 1000 > new Date().getTime()) {
         axios({
-          url: `${process.env.REACT_APP_API_DOMAIN}/api/users/${user.id}/withActiveProfilePicture`,
+          url: `${process.env.REACT_APP_API_DOMAIN}/api/users/${user.id}`,
           method: 'get',
           withCredentials: true
         }).then((res) => {
           dispatch(setConnectedUser(res.data))
           setPageLoading(false)
-          socket.current = io('http://localhost:5000')
-          socket.current?.emit('connectUser', res.data.id)
+          setSocket(io('http://localhost:5000'))
+          socket?.emit('connectUser', res.data.id)
         }).catch((err) => {
           setPageLoading(false)
         })
@@ -147,7 +162,17 @@ function App() {
 
   }, [])
 
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchIntervalInBackground: false,
+        refetchInterval: false
+      },
+    },
+  })
 
 
 
@@ -158,7 +183,7 @@ function App() {
 
 
   return (
-    <SocketIOContext.Provider value={socket}>
+    <SocketIOContext.Provider value={socketValue}>
       <QueryClientProvider client={queryClient}>
         <MediaContext.Provider value={deviceTypeValue}>
           <ThemeContext.Provider value={activeTheme}>
@@ -170,10 +195,16 @@ function App() {
                       {
                         !pageLoading &&
                         <>
+                          <Route path='/landing' element={<Landing />} />
                           <Route path="/" element={<Home />} />
+                          <Route path="/recherche">
+                            <Route index element={<Search />} />
+                          </Route>
                           <Route path='/image/:image_id' element={<Image />} />
-                          <Route path='/inscription' element={<Register />} />
-                          <Route path='/emplois' element={<JobFindingLayout />}>
+                          <Route element={<AuthRedirect />}>
+                            <Route path='/inscription' element={<Register />} />
+                          </Route>
+                          <Route path='/emplois/:jobOfferId?' element={<JobFindingLayout />}>
                             <Route index element={<JobFindingHome />} />
                             <Route element={<AuthRedirect requireAuth={true} />}>
                               <Route path='nouveau' element={<CreateJob />} />
@@ -181,7 +212,12 @@ function App() {
                             </Route>
                           </Route>
                           <Route path='/profil/:userId' element={<Profile />} />
-                          <Route path='/investissements' element={<Funding />}>
+
+                          <Route path='/investissements'>
+                            <Route index element={<Funding />} />
+                            <Route element={<AuthRedirect requireAuth={true} />}>
+                              <Route path='nouveau' element={<CreateInvest />} />
+                            </Route>
                           </Route>
                           <Route path='/explorer' element={<Countries />}>
                           </Route>
@@ -192,11 +228,26 @@ function App() {
                           <Route path='a-propos' element={<PageAbout />} />
                           <Route path='actualite' element={<PageActu />} />
                         </Route> */}
-                          <Route path='/portail' element={<PortalLayout />}>
-                            <Route index element={<PageHome />} />
-                            <Route path='accueil' element={<PageHome />} />
-                            <Route path='a-propos' element={<PageAbout />} />
-                            <Route path='actualite' element={<PageActu />} />
+
+                          <Route path='/portail'>
+                            <Route element={<AuthRedirect requireAuth={true} />}>
+                              <Route path='' element={<PortalDashboardLayout />}>
+                                <Route path=':portalId' element={<PortalAdminLayout />}>
+                                  <Route path='dashboard'>
+                                    <Route index element={<Dashboard />}/>
+                                    <Route path='a-propos' element={<DashboardAbout/>}/>
+                                  </Route>
+                                </Route>
+                                <Route path='nouveau' element={<CreatePortal />} />
+                              </Route>
+
+                            </Route>
+                            <Route path=':portalId' element={<PortalLayout />}>
+                              <Route index element={<PortalHome />} />
+                              <Route path='accueil' element={<PortalHome />} />
+                              <Route path='a-propos' element={<PortalAbout />} />
+                              <Route path='actualite' element={<PortalActu />} />
+                            </Route>
                           </Route>
                           <Route path='/video' element={<Minimal />}>
                             <Route index element={<VideoHome />} />
@@ -219,12 +270,15 @@ function App() {
               <Route index element={<LeagueStandings />} />
             </Route> */}
                     </Route>
+                    <Route path='/musique' element={<MusicLayout />}>
+                      <Route index element={<Music />} />
+                    </Route>
                   </Routes>
                 </BrowserRouter>
               </div>
               <PageLoader open={pageLoading} />
             </div>
-            </ThemeContext.Provider>
+          </ThemeContext.Provider>
         </MediaContext.Provider>
       </QueryClientProvider>
     </SocketIOContext.Provider>

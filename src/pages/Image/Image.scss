@@ -10,8 +10,8 @@
             min-height: 100%;
             > .header{
                 border-bottom: 1px solid themed("border",2);
-                h4{
-                    color: themed("text",1);
+                h4,h4>*{
+                    color: themed("text",1) !important;
                 }
                 span{
                     color: themed("text",4)
@@ -56,6 +56,12 @@
                     gap: 15px;
                     color: themed("text",2) !important;
                 }
+            }
+            .description-edit-inpt{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
             }
             & .body > .post-content{
                 color: themed("text",1);

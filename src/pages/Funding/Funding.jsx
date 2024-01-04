@@ -1,15 +1,70 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './Funding.scss'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Link } from 'react-router-dom'
-import { ChevronDown, ChevronRight, GeoAlt, ListTask, UiRadiosGrid } from 'react-bootstrap-icons'
+import { ListTask, UiRadiosGrid } from 'react-bootstrap-icons'
 import StickySideBar from '../../components/StickySideBar/StickySideBar'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
 import MediaContext from '../../context/MediaContext'
 import CheckBox from "../../components/CheckBox/CheckBox"
+import { useQuery } from 'react-query'
+import { getInvests } from '../../api/invest'
+import FundingCard from '../../components/FundingCard/FundingCard'
+import { getCompanySizes, getCompanyTypes } from '../../api/company'
+import SortableList from '../../components/SortableList/SortableList'
+import { useEffect } from 'react'
+import { filtersToURL } from '../../functions'
+import { getDomains, searchDomains } from '../../api/domain'
+import AfricaMap from '../../components/AfricaMap/AfricaMap'
 const Funding = () => {
   const { deviceType } = useContext(MediaContext)
   const position = [-8.783195, 34.508523]
+
+  const [filters, setFilters] = useState({
+    pays: '',
+    companyTypeTitles: [],
+    companySizes: [],
+    budget: null,
+    currency: null
+  })
+
+  
+
+  useEffect(() => {
+    console.log(filtersToURL(filters), 'FILTER');
+  }, [filters])
+
+  const removeRow = (array, value) => {
+    const newRows = array.slice()
+    return newRows.filter((r) => r !== value)
+  }
+  const addRow = (array, newRow) => {
+    return [...array, newRow]
+  }
+  const handleChange = (e) => {
+    if (Array.isArray(filters[e.target.name])) {
+      if (!e.target.checked) {
+        setFilters(prev => ({ ...prev, [e.target.name]: removeRow([...filters[e.target.name]], e.target.value) }))
+      } else {
+        setFilters(prev => ({ ...prev, [e.target.name]: addRow([...filters[e.target.name]], e.target.value) }))
+      }
+    } else {
+      setFilters(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+  }
+
+
+  const {
+    isLoading: investsLoading,
+    error: getInvestError,
+    data: invests,
+    refetch:refetchInvests
+  } = useQuery(['repoInvests'], ()=>getInvests({filters:filtersToURL(filters),ipp:10}))
+
+  useEffect(()=>{
+    refetchInvests()
+  },[filters])
+
   return (
     <div id='funding-page' className='flex' style={{ flexDirection: deviceType === DESKTOP ? 'row' : "column" }}>
       {
@@ -19,31 +74,20 @@ const Funding = () => {
               <h2>Investissements</h2>
               <small>Trouvez de potentiels investissements en Afrique</small>
               <div className="form-group">
-                <label htmlFor="">Pays</label>
-                <input type="text" className="inpt" placeholder='pays' />
+                <SortableList allowSearch={true} query={(keyword) => searchDomains(keyword)} mapping={(d) => <><CheckBox id={d.title} value={d.title} name='companyDomains' onChange={(e) => { handleChange(e) }} /> <label htmlFor={d.title}>{d.title}</label></>} repoName='repoDomains' title={<label htmlFor="">Domaines</label>} />
+              </div>
+              
+              <div className="form-group">
+
+
+                <SortableList allowSearch={true} query={(keyword) => getCompanyTypes(keyword)} mapping={(ct) => <><CheckBox id={ct.type} value={ct.type} name='companyTypeTitles' onChange={(e) => { handleChange(e) }} /> <label htmlFor={ct.type}>{ct.type}</label></>} repoName='repoCompTypes' title={<label htmlFor="">Type d'entreprise</label>} />
+
               </div>
               <div className="form-group">
-                <label htmlFor="">Type d'entreprise</label>
-                <ul>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> Entreprise Individuelle</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> EURL</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SARL</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SA</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SASU</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SNC</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SCOP</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SCA</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> SCS</li>
-                </ul>
-              </div>
-              <div className="form-group">
-                <label htmlFor="">Taille d'entreprise</label>
-                <ul>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> Micro-entreprise</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> Petite Entreprise</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> Moyenne Entreprise</li>
-                  <li className='flex gap-5 align-items-center'><CheckBox/> Grande Entreprise</li>
-                </ul>
+
+
+                <SortableList allowSearch={false} query={() => getCompanySizes()} mapping={(cs) => <><CheckBox id={cs.Size} value={cs.id} name='companySizes' onChange={(e) => { handleChange(e) }} /> <label htmlFor={cs.Size}>{cs.Size}</label></>} repoName='repoCompSizes' title={<label htmlFor="">Taille d'entreprise</label>} />
+
               </div>
               <div className="form-group">
                 <label htmlFor="">Budget</label>
@@ -70,216 +114,16 @@ const Funding = () => {
             </button>
           </div>
         </div>
-        <div className="funding-list p-15">
-          <div className="funding-card elevated-card p-10 mb-15">
-            <div className="top flex gap-10">
-              <div className="left flex-grow-1">
-                <div className="head flex justify-content-between">
-                  <h4>Société n2133445555633322</h4>
-                  <img className='fund-flag' src="/img/flags/Flag_of_Madagascar.svg" alt="" width={30} />
-                </div>
-                <div>
-                  <span className="stat">94736/SARL</span>
-                </div>
-                <div>
-                  <strong className="domain">Energie</strong>
-                </div>
-                <div>
-                  <span className="orange-txt flex align-items-center"><GeoAlt /> Madagascar</span>
-                </div>
-              </div>
-              <div className="img">
-                <img src="/img/entreprises/d.jpg" alt="" />
-              </div>
-            </div>
-            <hr style={{ margin: '8px 0' }} />
-            <table className="ca">
-              <tr>
-                <td><strong>2022</strong></td>
-                <td>1 000 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2021</strong></td>
-                <td>700 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2020</strong></td>
-                <td>100 000 $</td>
-              </tr>
-            </table>
-            <div className="foot flex justify-content-between align-items-center">
-              <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
-            </div>
-          </div>
-          <div className="funding-card elevated-card p-10 mb-15">
-            <div className="top flex gap-10">
-              <div className="left flex-grow-1">
-                <div className="head flex justify-content-between">
-                  <h4>Société n2133445555633322</h4>
-                  <img className='fund-flag' src="/img/flags/Flag_of_Madagascar.svg" alt="" width={30} />
-                </div>
-                <div>
-                  <span className="stat">94736/SARL</span>
-                </div>
-                <div>
-                  <strong className="domain">Energie</strong>
-                </div>
-                <div>
-                  <span className="orange-txt flex align-items-center"><GeoAlt /> Madagascar</span>
-                </div>
-              </div>
-              <div className="img">
-                <img src="/img/entreprises/d.jpg" alt="" />
-              </div>
-            </div>
-            <hr style={{ margin: '8px 0' }} />
-            <table className="ca">
-              <tr>
-                <td><strong>2022</strong></td>
-                <td>1 000 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2021</strong></td>
-                <td>700 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2020</strong></td>
-                <td>100 000 $</td>
-              </tr>
-            </table>
-            <div className="foot flex justify-content-between align-items-center">
-              <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
-            </div>
-          </div>
-          <div className="funding-card elevated-card p-10 mb-15">
-            <div className="top flex gap-10">
-              <div className="left flex-grow-1">
-                <div className="head flex justify-content-between">
-                  <h4>Société n2133445555633322</h4>
-                  <img className='fund-flag' src="/img/flags/Flag_of_Madagascar.svg" alt="" width={30} />
-                </div>
-                <div>
-                  <span className="stat">94736/SARL</span>
-                </div>
-                <div>
-                  <strong className="domain">Energie</strong>
-                </div>
-                <div>
-                  <span className="orange-txt flex align-items-center"><GeoAlt /> Madagascar</span>
-                </div>
-              </div>
-              <div className="img">
-                <img src="/img/entreprises/d.jpg" alt="" />
-              </div>
-            </div>
-            <hr style={{ margin: '8px 0' }} />
-            <table className="ca">
-              <tr>
-                <td><strong>2022</strong></td>
-                <td>1 000 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2021</strong></td>
-                <td>700 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2020</strong></td>
-                <td>100 000 $</td>
-              </tr>
-            </table>
-            <div className="foot flex justify-content-between align-items-center">
-              <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
-            </div>
-          </div>
-          <div className="funding-card elevated-card p-10 mb-15">
-            <div className="top flex gap-10">
-              <div className="left flex-grow-1">
-                <div className="head flex justify-content-between">
-                  <h4>Société n2133445555633322</h4>
-                  <img className='fund-flag' src="/img/flags/Flag_of_Madagascar.svg" alt="" width={30} />
-                </div>
-                <div>
-                  <span className="stat">94736/SARL</span>
-                </div>
-                <div>
-                  <strong className="domain">Energie</strong>
-                </div>
-                <div>
-                  <span className="orange-txt flex align-items-center"><GeoAlt /> Madagascar</span>
-                </div>
-              </div>
-              <div className="img">
-                <img src="/img/entreprises/d.jpg" alt="" />
-              </div>
-            </div>
-            <hr style={{ margin: '8px 0' }} />
-            <table className="ca">
-              <tr>
-                <td><strong>2022</strong></td>
-                <td>1 000 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2021</strong></td>
-                <td>700 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2020</strong></td>
-                <td>100 000 $</td>
-              </tr>
-            </table>
-            <div className="foot flex justify-content-between align-items-center">
-              <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
-            </div>
-          </div>
-          <div className="funding-card elevated-card p-10 mb-15">
-            <div className="top flex gap-10">
-              <div className="left flex-grow-1">
-                <div className="head flex justify-content-between">
-                  <h4>Société n2133445555633322</h4>
-                  <img className='fund-flag' src="/img/flags/Flag_of_Madagascar.svg" alt="" width={30} />
-                </div>
-                <div>
-                  <span className="stat">94736/SARL</span>
-                </div>
-                <div>
-                  <strong className="domain">Energie</strong>
-                </div>
-                <div>
-                  <span className="orange-txt flex align-items-center"><GeoAlt /> Madagascar</span>
-                </div>
-              </div>
-              <div className="img">
-                <img src="/img/entreprises/d.jpg" alt="" />
-              </div>
-            </div>
-            <hr style={{ margin: '8px 0' }} />
-            <table className="ca">
-              <tr>
-                <td><strong>2022</strong></td>
-                <td>1 000 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2021</strong></td>
-                <td>700 000 $</td>
-              </tr>
-              <tr>
-                <td><strong>2020</strong></td>
-                <td>100 000 $</td>
-              </tr>
-            </table>
-            <div className="foot flex justify-content-between align-items-center">
-              <div className="be flex align-items-center gap-10"><span className='orange-text'>100k $</span><button className="btn btn-purple">Investir</button></div>
-              <Link className='invest-plus-info flex align-items-center gap-5'>En savoir plus <ChevronRight /></Link>
-            </div>
-          </div>
+        <div className="funding-list p-5">
+
+          {
+            invests?.map((i, index) => <FundingCard key={index} data={i} />)
+          }
         </div>
       </div>
       <div id="funding-map">
-        <MapContainer center={position} zoom={4} scrollWheelZoom={false}>
+          <AfricaMap/>
+        {/* <MapContainer center={position} zoom={4} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -288,8 +132,8 @@ const Funding = () => {
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
-    </Marker>*/}
-        </MapContainer>
+    </Marker>
+        </MapContainer> */}
       </div>
     </div>
   )

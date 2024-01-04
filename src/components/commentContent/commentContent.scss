@@ -73,8 +73,12 @@
   border-left: 2px dashed #9f50fac5;
 }
 
-.comment-content.comment-content-light.cmtFormShown .comment-content-avatar-parent:not(.comment-content.cmtFormShown:last-child .comment-content-avatar-parent):before {
-  background: white;
+.comment-content{
+  @include themify($themes){
+    &.cmtFormShown .comment-content-avatar-parent:not(.comment-content.cmtFormShown:last-child .comment-content-avatar-parent):before {
+      background: themed("background",3);
+    }
+  }
 }
 
 
@@ -82,7 +86,7 @@
   content: "";
   position: absolute;
   left: 15px;
-  top: 32px;
+  top: 30px;
   height: 100%;
 
 }

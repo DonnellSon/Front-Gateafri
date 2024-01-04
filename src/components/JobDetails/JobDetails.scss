@@ -3,15 +3,35 @@
 
 .job-details {
     @include themify($themes) {
+        width: 100%;
+        min-height: 100%;
         padding: 15px;
         background: themed("background",3);
         margin: auto;
+        .avatar{
+            img{
+                border: 1px solid themed("border",2);
+            }
+        }
+        .job-detail-sticky-top{
+            background: themed("background",3);
+            z-index: 10;
+            position: sticky;
+            top: 0;
+            padding-bottom: 8px;
+            >div:nth-child(1){
+                min-width: 0;
+            }
+            button{
+                width: 100px;
+            }
+        }
         .job-title{
             color: themed("text",0);
         }
         h4 {
             margin-bottom: 8px;
-            color: themed("text",3);
+            color: themed("text",1);
         }
         p,li {
             line-height: 20px;
@@ -56,7 +76,7 @@
 }
 
 .job-details .job-requirements>div {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .job-details .job-requirements>div>span {
@@ -71,4 +91,10 @@
 
 .job-details .role {
     margin-top: 20px;
+}
+.portal-note{
+    display: flex !important;
+    >div{
+        min-width: 0 !important;
+    }
 }

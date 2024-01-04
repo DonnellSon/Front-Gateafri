@@ -10,9 +10,17 @@ import MediasSelector from '../MediaSelector/MediasSelector'
 import Survey from '../Survey/Survey'
 import axios from 'axios'
 import { ColorRing } from 'react-loader-spinner'
+import PortalSelector from '../PortalSelector/PortalSelector'
+import SelectSearch from '../SelectSearch/SelectSearch'
+import { getUserCompanies } from '../../api/company'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import AuthorSelector from '../AuthorSelector/AuthorSelector'
+
 const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
-
+  const { user } = useSelector(store => store.user)
+  const [author, setAuthor] = useState(null)
   const [postContent, setPostContent] = useState('')
   const [postMedias, setPostMedias] = useState([])
   const [isLoading, setIsloading] = useState(false)
@@ -21,6 +29,9 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
     let postFormData = new FormData()
     if (postContent !== '') {
       postFormData.append('content', postContent)
+    }
+    if(author){
+      postFormData.append('author', author)
     }
     if (postMedias.length > 0) {
       postMedias.forEach((pm) => {
@@ -42,33 +53,6 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
     })
 
-    // e.preventDefault()
-    //     let formData = new FormData()
-    //     videoPosters.forEach((v) => {
-    //         formData.append('videoMiniatures[]', v)
-    //     })
-    //     formData.append('title', videoTitle)
-    //     formData.append('description', videoDescription)
-    //     setIsloading(true)
-    //     axiosJWT({
-    //         method: 'post',
-    //         url: `http://localhost:8080/api/video/update/${video.uid}`,
-    //         withCredentials: true,
-    //         data: formData
-    //     }).then((res) => {
-    //         console.log(res);
-    //         onUploaded()
-    //         setIsloading(false)
-    //     }).catch((err) => {
-    //         setIsloading(false)
-    //         console.log(err.response);
-    //         if (err.response.data?.messages) {
-    //             const { title, miniatures } = err.response.data.messages
-    //             title && setTitleError(title)
-    //             miniatures && setPostersError(miniatures)
-    //         }
-
-    //     })
   }
 
   const mediasInput = useRef()
@@ -87,19 +71,38 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
         <Tabs className='post-modal-tabs' navRight={
           <>
-            <div className="audience-choice flex align-items-center gap-5"><Globe /> Public <ChevronDown /></div>
-            <div className='portal-choice flex gap-5 align-items-center'>
-              <span>Donnell Son</span>
-              <Avatar height={25} width={25} />
-              <ChevronDown />
-            </div>
+            {/* <SelectSearch
+              className='author-select'
+              searchFields={['name']}
+              onChange={(p) => { setAuthor(`/api/companies/${p.id}`) }}
+              placeholder={<span>Selectionner un portail</span>}
+              searchPlaceholder='Rechercher dans vos portails'
+              query={(filters) => getUserCompanies(user.id)}
+              repoName="userPortalsRepo"
+              toPlaceholder={(p) =>
+                <div className='flex align-items-center gap-5'>
+                  <Avatar height={20} width={20} online={false} src={p.picture} />
+                  <span>{p.name}</span>
+                </div>}
+              objectMapping={(p) => ({
+                name: p.name,
+                id:p.id,
+                value: `/api/companies/${p.id}`,
+                picture: p.activeLogo.fileUrl
+              })}
+              mapping={(p) => <Link>
+                <Avatar online={false} src={p.picture} />
+                <span>{p.name}</span>
+              </Link>}
+            /> */}
+            <AuthorSelector onSelect={(author)=>setAuthor(`${author.name ? `/api/companies/${author.id}` : `/api/users/${author.id}`}`)}/>
           </>
         }>
           <Tab title={<>
             <BodyText size={18} />
             <span>Text</span>
           </>}>
-            <div contentEditable={true} onKeyUp={(e)=>{setPostContent(e.target.innerText)}}>Votre texte Ici</div>
+            <div contentEditable={true} onKeyUp={(e) => { setPostContent(e.target.innerText) }}>Votre texte Ici</div>
           </Tab>
           <Tab title={<div className='li flex flex-column align-items-center'>
             <FileEarmarkImage size={18} />
@@ -108,10 +111,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
           </div>
           }>
 
-
             <MediasSelector setMediasState={setPostMedias} />
-
-
 
           </Tab>
           <Tab title={<>
@@ -128,18 +128,18 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
           </Tab>
           <Tab title={<>
             <CupHot size={18} />
-            <span>Activité</span>
+            <span>domaines</span>
           </>}>
             activity
           </Tab>
-          <Tab title={
+          {/* <Tab title={
             <>
               <GeoAlt size={18} />
               <span>Lieu</span>
             </>
           }>
             Location
-          </Tab>
+          </Tab> */}
         </Tabs>
 
       </div>

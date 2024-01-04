@@ -1,0 +1,15 @@
+@import '../style.scss';
+
+.music-main{
+    min-height: calc(100vh - var(--topbar-height));
+    position: sticky;
+    top: 56px;
+    .music-center{
+        min-width: 0;
+    }
+    .inside-sticky{
+        min-height: calc(100vh - var(--topbar-height));
+        display: flex;
+        flex-direction: column;
+    }
+}

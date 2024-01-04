@@ -1,7 +1,11 @@
 @import "../../style.scss";
 
-.avatar img {
-    object-fit: cover;
+.avatar {
+    @include themify($themes){
+        img {
+            object-fit: cover;
+        }
+    }
 }
 
 .avatar .online {

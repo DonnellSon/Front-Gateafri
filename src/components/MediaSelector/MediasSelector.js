@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react';
-import './MediasSelector.css';
+import './MediasSelector.scss';
 import SelectorMedia from '../selectorMedia/SelectorMedia';
 import { FileEarmarkImage } from 'react-bootstrap-icons';
 

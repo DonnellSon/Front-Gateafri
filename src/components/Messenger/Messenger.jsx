@@ -13,7 +13,7 @@ import SocketIOContext from '../../context/SocketIOContext'
 const Messenger = ({ discu }) => {
     const { discuId } = useParams()
     const { user } = useSelector(store => store.user)
-    const socketIO = useContext(SocketIOContext)
+    const { socket } = useContext(SocketIOContext)
     const scrollRef = useRef()
     const queryClient = useQueryClient()
     const [filteredMessages, setFilteredMessages] = useState([])
@@ -45,9 +45,9 @@ const Messenger = ({ discu }) => {
 
     const messagesMutation = useMutation(addMessage, {
         onSuccess: (data) => {
-            
+
             queryClient.setQueryData(['repoMessages', discuId], (messages) => {
-                socketIO.current?.emit('sendMessage', {
+                socket?.emit('sendMessage', {
                     message: data,
                     receivers: discu?.members?.filter((m) => m.user.id !== user?.id),
                     sender: user?.id
@@ -61,8 +61,8 @@ const Messenger = ({ discu }) => {
 
 
     useEffect(() => {
-        if (socketIO) {
-            socketIO?.current.on('arrivalMsg', (msg) => {
+        if (socket) {
+            socket?.on('arrivalMsg', (msg) => {
                 if (msg.discussion.id === discuId) {
                     scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' });
                     queryClient.invalidateQueries(['repoMessages', discuId]);
@@ -78,19 +78,19 @@ const Messenger = ({ discu }) => {
 
     useEffect(() => {
         if (messages) {
-          const groupedMessages = messages.reduce((result, message) => {
-            const lastGroup = result[result.length - 1];
-            if (lastGroup && lastGroup.author.id === message.author.id && lastGroup.messages.length<5) {
-              lastGroup.messages.push(message);
-            } else {
-              result.push({ author: message.author, messages: [message] });
-            }
-            return result;
-          }, []);
-      
-          setFilteredMessages(groupedMessages);
+            const groupedMessages = messages.reduce((result, message) => {
+                const lastGroup = result[result.length - 1];
+                if (lastGroup && lastGroup.author.id === message.author.id && lastGroup.messages.length < 5) {
+                    lastGroup.messages.push(message);
+                } else {
+                    result.push({ author: message.author, messages: [message] });
+                }
+                return result;
+            }, []);
+
+            setFilteredMessages(groupedMessages);
         }
-      }, [messages,messagesLoading]);
+    }, [messages, messagesLoading]);
 
 
     return (
@@ -108,7 +108,12 @@ const Messenger = ({ discu }) => {
                             : <Avatar height={40} width={40} />
                     }
                     <div className="discu-info">
-                        <h5>{discu?.discuName}</h5>
+                        <h5>{
+                            discu?.discuName ? discu?.discuName :
+                            discu?.members.filter((m) =>
+                                    m.user.id !== user?.id
+                                ).map((m) => `${m.user.firstName} ${m.user.lastName}`).join(',')
+                        }</h5>
                         <span>Actif</span>
                     </div>
                     <button className="btn-transparent">
@@ -185,7 +190,6 @@ const Messenger = ({ discu }) => {
                     <div>
                         <DoDinamicTextarea avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
                             setTmpMessage(e.target.innerText)
-                            console.log(e.target.innerText)
                         }}
                             next={
                                 (

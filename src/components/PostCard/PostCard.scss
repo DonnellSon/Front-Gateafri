@@ -15,6 +15,10 @@
             z-index: 10;
             background: themed("background",3);
             border-radius: 5px 5px 0 0;
+            gap: 10px;
+            .left{
+                min-width: 0;
+            }
         }
 
         .top .flag img {
@@ -59,9 +63,12 @@
             object-fit: cover;
         }
 
-        .author-info h1 {
-            font-size: 18px;
-        }
+        .author-info{
+            min-width: 0;
+            h1 {
+                font-size: 18px;
+            }
+        } 
 
         .author-info h1 a {
             font-size: 15px;
@@ -69,7 +76,15 @@
         }
 
         .author-info {
-            line-height: 15px;
+            line-height: 10px;
+        }
+        .author-domains{
+            color: themed("text",3) !important;
+            display: block;
+            white-space: pre;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 16px;
         }
 
         .author-info span {
@@ -97,7 +112,7 @@
         }
 
         .footer > * > * {
-            overflow: hidden;
+            // overflow: hidden;
             text-overflow: ellipsis;
             display: block;
             white-space: pre;
@@ -113,6 +128,20 @@
 
         .footer > * > *:hover {
             color: themed("text",1);
+            .evaluation-container{
+                display: flex;
+            }
+        }
+        .evaluation-container{
+            background: themed("background",4);
+            border-radius: 5px;
+            box-shadow: var(--elevation-1);
+            padding: 5px 5px 0 5px;
+            top: -15px;
+            display: flex;
+            align-items: center;
+            display: none;
+            border: 1px solid themed("border",2);
         }
     }
 

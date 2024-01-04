@@ -1,0 +1,296 @@
+@import '../../style.scss';
+
+
+#search-page {
+    @include themify($themes) {
+        max-width: 1400px;
+        margin: auto;
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+
+        >.left,
+        >.right {
+            width: 300px;
+            min-width: 300px;
+
+        }
+
+        .center {
+            min-width: 0 !important;
+            flex-grow: 1;
+        }
+
+        @media (max-width:768px) {
+            & {
+                padding: 12px 0;
+                flex-direction: column;
+
+                >.left,
+                >.right {
+                    width: unset;
+                    min-width: unset;
+
+                }
+            }
+        }
+    }
+}
+
+.suggest-search-invest {
+    @include themify($themes) {
+        background: themed("background", 3);
+        color: themed("text", 4);
+        border-radius: 5px;
+        box-shadow: var(--elevation-1);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h2 {
+            font-size: 22px;
+        }
+
+        button {
+            align-self: start;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.search-nav {
+    @include themify($themes) {
+        box-shadow: var(--elevation-1);
+        background: themed("background", 3);
+        padding: 15px;
+        border-radius: 5px;
+
+        h2 {
+            font-size: 15px;
+            font-weight: themed("weight", 700);
+        }
+
+        ul {
+            margin-top: 5px;
+
+            li {
+                a {
+                    color: themed("text", 4);
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 5px;
+                    padding: 0 10px;
+                    margin: 0 -3px 0 -10px;
+                    transition: .5s;
+                    cursor: pointer;
+                    position: relative;
+                    font-weight: themed("weight", 600);
+
+                    &.active {
+                        background: themed("background", 5);
+                        color: var(--orange);
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            right: -12px;
+                            background: var(--main-gradient);
+                            width: 5px;
+                            height: 20px;
+                            border-radius: 5px 0 0 5px;
+                        }
+                    }
+
+                    &:hover {
+                        background: themed("background", 5);
+                        color: themed("text", 1);
+                    }
+                }
+            }
+        }
+
+        @media (max-width:768px) {
+            & {
+                padding-bottom: 0;
+            }
+
+            h2 {
+                margin-bottom: 15px;
+            }
+
+            ul {
+                display: flex;
+                gap: 10px;
+                margin: 0 -15px 0 -15px;
+                padding: 0 15px;
+                overflow-x: auto;
+                overflow-y: visible;
+                padding-bottom: 15px;
+
+                li {
+                    margin: 0;
+
+                    &.active {
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            bottom: -15px;
+                            background: var(--main-gradient);
+                            width: 30px;
+                            height: 5px;
+                            border-radius: 5px 5px 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.portals-results {
+    @include themify($themes) {
+        background: themed("background", 3);
+        box-shadow: var(--elevation-1);
+        border-radius: 5px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 15px;
+
+        h2 {
+            font-size: 16px;
+        }
+
+        ul {
+            li {
+                gap: 10px;
+                margin-bottom: 20px;
+
+                .center {
+                    line-height: 16px;
+                    flex-grow: 1;
+                }
+
+                .avatar img {
+                    border-radius: 5px !important;
+                    border: 1px solid themed("border", 3);
+                }
+
+                .portal-name,
+                .portal-name a {
+                    font-size: 14px;
+                    font-weight: themed("weight", 700);
+                    color: themed("text", 2);
+                }
+
+                .portal-domains {
+                    font-size: 13px;
+                    color: themed("text", 2);
+                }
+
+                @supports (-webkit-line-clamp:2) {
+                    small {
+                        -webkit-line-clamp: 2;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        max-height: 3.6em;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+
+            }
+        }
+
+        .footer {
+            display: flex;
+
+            button {
+                align-self: stretch;
+                flex-grow: 1;
+            }
+        }
+
+    }
+}
+
+.invests-results {
+    @include themify($themes) {
+        margin-bottom: 15px;
+
+        >.top,
+        .bottom {
+            height: 50px;
+            padding: 0 15px;
+            color: themed("text", 1);
+            background: themed("background", 3);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--elevation-1);
+        }
+
+        >.bottom {
+            justify-content: center;
+            position: relative;
+
+            .arrow {
+                height: inherit;
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                transition: .5s;
+                right: 10px;
+
+                &:hover {
+                    background: themed("background", 5);
+                }
+            }
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        .slick-slider {
+            .slick-track {
+                display: flex;
+                gap: 10px;
+            }
+        }
+
+    }
+}
+
+.square-ad {
+    margin-top: 15px;
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: var(--elevation-1);
+    }
+
+}

@@ -4,6 +4,7 @@ import Comment from '../comment/Comment';
 import CommentForm from '../commentForm/CommentForm';
 import './commentList.scss';
 const CommentList = ({comments}) => {
+    console.log(comments,'COMS')
     return (
         <div className={`comment-list comment-list-light`}>
             <div className='comment-list-top flex align-items-center justify-content-between'>
@@ -13,7 +14,7 @@ const CommentList = ({comments}) => {
             <span className='more-comments flex align-items-center gap-5 py-15'><ArrowClockwise /> Voir plus de commentaires</span>
             <div className="comment-list-list">
                 {
-                    comments?.map((c,i)=><Comment key={i} data={c}/>)
+                    comments?.reverse().map((c,i)=><Comment key={i} data={c}/>)
                 }
             </div>
             {/* <div className='comment-list-bottom-form'>

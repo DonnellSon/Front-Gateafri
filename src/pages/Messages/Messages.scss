@@ -8,6 +8,15 @@
             height: inherit;
             box-shadow: var(--elevation-1);
             transition: .5s;
+            >div>.top{
+                position: relative;
+                z-index: 100 !important;
+                background: red;
+                .searchbar{
+                    margin-left: -6px;
+                    margin-right: -6px;
+                }
+            }
         }
 
         >.left>div .post-plus-btn {

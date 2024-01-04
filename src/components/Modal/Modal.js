@@ -10,18 +10,13 @@ const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () =>
 
     const { deviceType } = useContext(MediaContext)
     const modalContentRef = useRef()
-    useClickOutside(modalContentRef, () => {
-        if (closeOnClickOutside) {
-            onClose(false)
-        }
-    })
     const adjustModalHeight = () => {
         if (deviceType === SMARTPHONE) {
             modalContentRef.current.style.height = window.innerHeight + 'px'
             modalContentRef.current.style.alignSelf = 'flex-start'
         }
     }
-    
+
     useLayoutEffect(() => {
         adjustModalHeight()
         window.addEventListener('resize', adjustModalHeight)
@@ -37,7 +32,7 @@ const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () =>
 }
 
 
-const Modal = ({ children, open = false, onClose = () => { },onClick=()=>{}, closeOnClickOutside = true, className = null }) => {
+const Modal = ({ children, open = false,onClick=()=>{}, onClose = () => { }, closeOnClickOutside = true, className = null }) => {
     const modalContent = useRef()
     const adjustModalHeight = () => {
         alert(modalContent.current)
@@ -45,7 +40,14 @@ const Modal = ({ children, open = false, onClose = () => { },onClick=()=>{}, clo
 
 
     return (
-        (open && document.querySelector('#App')) && createPortal(<div className={`modal${className ? ' ' + className : ''}`} onClick={onClick}>
+        (open && document.querySelector('#App')) && createPortal(<div className={`modal${className ? ' ' + className : ''}`} onClick={(e)=>{
+            onClick(e)
+            if (closeOnClickOutside) {
+                if (e.currentTarget === e.target) {
+                    onClose(false)
+                }
+            }
+        }}>
             <ModalContentRef closeOnClickOutside={closeOnClickOutside} onClose={onClose}>
                 {
                     children

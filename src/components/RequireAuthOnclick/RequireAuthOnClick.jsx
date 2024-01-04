@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Modal from '../Modal/Modal'
 import './RequireAuthOnClick.scss'
-import { Facebook, Google, Twitter, XLg } from 'react-bootstrap-icons'
+import { Facebook, Google, Linkedin, XLg } from 'react-bootstrap-icons'
+import { useEffect } from 'react'
 
 const RequireAuthOnClick = ({ children }) => {
     const { user } = useSelector(state => state.user)
@@ -15,6 +16,7 @@ const RequireAuthOnClick = ({ children }) => {
             e.preventDefault()
             e.stopPropagation()
             setModalOpen(true);
+            return
         }
     };
 
@@ -22,7 +24,10 @@ const RequireAuthOnClick = ({ children }) => {
         setModalOpen(false);
     };
 
-    const child = React.cloneElement(children, { onClick: handleClick });
+    const child = React.cloneElement(children, { onClick: (e)=>{
+        handleClick(e)
+        children.props.onClick && children.props.onClick()
+    } });
 
     return (
         <>
@@ -45,13 +50,13 @@ const RequireAuthOnClick = ({ children }) => {
                             <p>
                                 <strong>Note:</strong><span> vous devez vous authentifier pour acceder à cette fonctionnalité.</span>
                             </p>
-                            <Link to="connexion" className="auth-with-gate-btn" onClick={()=>{setModalOpen(false)}}>
+                            <Link to="/connexion" className="auth-with-gate-btn" onClick={()=>{setModalOpen(false)}}>
                             <img src="/img/logo/GATEAFR.png" height={25} alt="" /> Utiliser un compte GateAfri
                             </Link>
                             <div className="conn-method flex justify-content-center gap-10">
-                                <span className='fb'><Facebook size={22} /></span>
+                                <Link className='fb' to={`${process.env.REACT_APP_API_DOMAIN}/connect/facebook`}><Facebook size={22} /></Link>
                                 <span className='google'><Google size={18} /></span>
-                                <span className='twitter'><Twitter size={20} /></span>
+                                <span className='linkedin'><Linkedin size={20} /></span>
                             </div>
                         </div>
                         <div className="bottom p-15">

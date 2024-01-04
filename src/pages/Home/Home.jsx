@@ -3,7 +3,6 @@ import './Home.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HomeBannerSlider from '../../components/HomeBannerSlider/HomeBannerSlider';
-import PostCard from '../../components/PostCard/PostCard';
 import WelcomeBanner from '../../components/WelcomeBanner/WelcomeBanner';
 import { Briefcase, PlayFill, Tag, ChevronRight, ChevronLeft, Check2, ArrowRight, BuildingFill, Building, Megaphone } from 'react-bootstrap-icons';
 import Avatar from '../../components/Avatar/Avatar';
@@ -16,10 +15,23 @@ import axios from 'axios';
 
 import PlanSlider from '../../components/PlanSlider/PlanSlider';
 import Timeline from '../../components/Timeline/Timeline';
-const Home = () => {
-  const { deviceType } = useContext(MediaContext)
+import { useQuery } from 'react-query';
+import { getCompanies } from '../../api/company';
 
+import PortalList from '../../components/PortalList/PortalList';
+import { useSelector } from 'react-redux';
+
+
+const Home = () => {
+  const {user}=useSelector(store=>store.user)
+  const { deviceType } = useContext(MediaContext)
   
+
+  const { data: companies, error: companiesGetError } = useQuery(['repoCompanies'], getCompanies)
+
+  useEffect(() => {
+    console.log(companies, 'COMP')
+  }, [companies])
 
 
   return (
@@ -34,54 +46,19 @@ const Home = () => {
                 <div className="ico">
                   <Building size={18} />
                 </div>
-                <span className='text-ellipsis flex-grow-1'>Entreprises</span>
+                <span className='text-ellipsis flex-grow-1'>Collectes de Dons</span>
               </li>
               <li><div className="ico"><Briefcase size={18} /></div><span className='text-ellipsis flex-grow-1'>Offre d'emplois</span></li>
               <li><div className="ico"><Megaphone size={18} /></div><span className='text-ellipsis flex-grow-1'>Promotions</span></li>
             </ul>
             <hr style={{ margin: '20px 10px' }} />
-            <h3>Mes pages professionnelles</h3>
-            <ul className='pages-list'>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /> Vivana Group
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /> Go Invest business tour
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /><span>Leaders Dinamique de Madagascar</span>
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /> AeroSpace
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /> Go Invest business tour
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /><span>Leaders Dinamique de Madagascar</span>
-                </Link>
-              </li>
-              <li>
-                <Link to='/page' className='flex gap-10 align-items-center'>
-                  <Avatar /> AeroSpace
-                </Link>
-              </li>
-            </ul>
+
+            <PortalList activeUser={user ? true : false}/>
+
           </div> : ""
         }
         <div className="center">
-          <Timeline/>
+          <Timeline />
         </div>
         {
           ((deviceType === DESKTOP) || (deviceType === TABLET)) ? <div className="right">
@@ -174,7 +151,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <PlanSlider/>
+              <PlanSlider />
             </StickySideBar>
           </div> : ""
         }

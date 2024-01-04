@@ -21,7 +21,7 @@ const RightSidebar = ({ opened = false, setOpened = () => { } }) => {
     console.log(socket)
   },[socket])
   const disconnect=()=>{
-    socket.current.disconnect()
+    socket.current?.disconnect()
     dispatch(setConnectedUser(null))
     Cookies.remove('BEARER')
     navigate('connexion')

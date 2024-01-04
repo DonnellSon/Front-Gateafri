@@ -51,7 +51,7 @@
     margin: 15px 0;
 }
 
-.conn-method span {
+.conn-method * {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,16 +62,16 @@
     cursor: pointer;
 }
 
-.conn-method span.fb {
+.conn-method > *.fb {
     background: #134ce5;
 }
 
-.conn-method span.google {
+.conn-method > *.google {
     background: #c32000;
 }
 
-.conn-method span.twitter {
-    background: #009dff;
+.conn-method > *.linkedin {
+    background: #003f67;
 }
 
 .login-error-message {

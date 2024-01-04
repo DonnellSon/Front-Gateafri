@@ -18,6 +18,8 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 import DiscussionSkeleton from '../../components/Discussion/DiscussionSkeleton'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants'
+import { useMutation, useQuery } from 'react-query'
+import { deleteDiscussion, getDiscussions } from '../../api/discussion'
 const Messages = () => {
 
 
@@ -25,10 +27,16 @@ const Messages = () => {
 
     const { discuId } = useParams()
     const [activeDiscu, setActiveDiscu] = useState(null)
-    const { data: discussions, err, loading: discussionsLoading } = useReq({ url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`, method: 'get', withCredentials: true }, [])
+    const { data: discussions, error, isLoading: discussionsLoading } = useQuery('repoDiscu',getDiscussions)
+    // const { data: discussions, err, loading: discussionsLoading } = useReq({ url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`, method: 'get', withCredentials: true }, [])
+
+    // useMutation(deleteDiscussion,{
+    //     onMutate:
+    // })
+
 
     useEffect(() => {
-        setActiveDiscu(discussions.find(elem => elem.id === discuId))
+        setActiveDiscu(discussions?.find(elem => elem.id === discuId))
     }, [discuId, discussions, activeDiscu])
     return (
         <main className='messages-page flex'>

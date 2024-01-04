@@ -3,15 +3,44 @@ import './ProfilePictureSelectorModal.scss'
 import { ArrowClockwise, ArrowCounterclockwise, XLg } from 'react-bootstrap-icons'
 import Modal from '../Modal/Modal'
 import CheckBox from '../CheckBox/CheckBox'
+import axios from 'axios'
+import CircleLoader from '../CircleLoader/CircleLoader'
 
-const ProfilePictureSelectorModal = () => {
-    const [modalLoaded,setModalLoaded]=useState(false)
-
-    useEffect(()=>{
-        setTimeout(()=>{
+const ProfilePictureSelectorModal = ({ open = true, file,onChanged=()=>{} }) => {
+    const [modalLoaded, setModalLoaded] = useState(false)
+    const [isOpen, setIsOpen] = useState(open)
+    const [isUploading,setIsUploading]=useState(false)
+    useEffect(() => {
+        setIsOpen(true)
+    }, [file])
+    useEffect(() => {
+        setTimeout(() => {
             setModalLoaded(true)
-        },250)
-    },[])
+        }, 250)
+    }, [])
+
+    const uploadProfilePicture = () => {
+        let postFormData = new FormData()
+        if (file) {
+            postFormData.append('file', file)
+            setIsUploading(true)
+            axios({
+                method: 'post',
+                url: `${process.env.REACT_APP_API_DOMAIN}/api/posts`,
+                withCredentials: true,
+                data: postFormData
+            }).then((res) => {
+                console.log(res);
+                setIsUploading(false)
+            }).catch((err) => {
+                setIsUploading(false)
+                console.log(err.response);
+
+            })
+        }
+
+
+    }
 
     const imgRef = useRef()
     const imgContainerRef = useRef()
@@ -45,6 +74,7 @@ const ProfilePictureSelectorModal = () => {
 
 
     const handleMouseMove = (e) => {
+
         if (mouseDown) {
 
             var x = e.clientX - initMouseX
@@ -64,6 +94,7 @@ const ProfilePictureSelectorModal = () => {
             setImgTop(imgRef.current.getBoundingClientRect().top)
             setCropperLeft(cropperRef.current.getBoundingClientRect().left)
             setCropperTop(cropperRef.current.getBoundingClientRect().top)
+
         }
 
     }
@@ -88,17 +119,16 @@ const ProfilePictureSelectorModal = () => {
     }
 
     const handleImageLoad = () => {
-        
-
         if (imgRef.current.naturalWidth > imgRef.current.naturalHeight) {
             imgRef.current.style.height = cropperRef.current.offsetHeight + "px"
             imgRef.current.style.top = (cropperRef.current.offsetTop - (cropperRef.current.offsetHeight / 2)) + "px"
             let extra = (imgRef.current.clientWidth - imgContainerRef.current.clientWidth)
             imgRef.current.style.left = -extra / 2 + "px"
         }
-        setOriginalImageWidth(imgRef.current.clientWidth)
-        setOriginalImageHeight(imgRef.current.clientHeight)
-        
+
+        setOriginalImageWidth(imgRef.current?.clientWidth)
+        setOriginalImageHeight(imgRef.current?.clientHeight)
+
     }
 
     const resizeImage = () => {
@@ -109,12 +139,12 @@ const ProfilePictureSelectorModal = () => {
     }
 
     useEffect(() => {
-        setImgLeft(imgRef.current.getBoundingClientRect().left)
-        setImgTop(imgRef.current.getBoundingClientRect().top)
-        setCropperLeft(cropperRef.current.getBoundingClientRect().left)
-        setCropperTop(cropperRef.current.getBoundingClientRect().top)
-        
-    }, [imgCropperRef.current, imgRef.current, imgHeight,imgWidth])
+        setImgLeft(imgRef.current?.getBoundingClientRect().left)
+        setImgTop(imgRef.current?.getBoundingClientRect().top)
+        setCropperLeft(cropperRef.current?.getBoundingClientRect().left)
+        setCropperTop(cropperRef.current?.getBoundingClientRect().top)
+
+    }, [imgCropperRef.current, imgRef.current, imgHeight, imgWidth])
 
 
 
@@ -132,13 +162,17 @@ const ProfilePictureSelectorModal = () => {
         }
     }, [mouseDown, mouseEnter])
 
-    useEffect(()=>{
-        setImgWidth(imgRef.current.offsetWidth)
-        setImgHeight(imgRef.current.offsetHeight)
-        setOriginalImageWidth(imgRef.current.clientWidth)
-        setOriginalImageHeight(imgRef.current.clientHeight)
-        rangeRef.current.value = 10
-    },[modalLoaded])
+    useEffect(() => {
+
+        setImgWidth(imgRef.current?.offsetWidth)
+        setImgHeight(imgRef.current?.offsetHeight)
+        setOriginalImageWidth(imgRef.current?.clientWidth)
+        setOriginalImageHeight(imgRef.current?.clientHeight)
+        if (rangeRef.current) {
+            rangeRef.current.value = 10
+        }
+
+    }, [modalLoaded])
 
 
 
@@ -258,65 +292,69 @@ const ProfilePictureSelectorModal = () => {
 
 
 
-    return (
-        <Modal className='profile-picture-selector-modal' open={true} onClick={(e) => {
-            e.stopPropagation()
-        }}>
-            <div className="top flex align-items-center justify-content-center">
-                <h3>Changer ma photo de profil</h3>
-                <div className="close-modal">
-                    <XLg />
-                </div>
-            </div>
-            <div className="body">
-                <div className="img-cropper" ref={imgCropperRef}>
-                    <div className="img-container" ref={imgContainerRef}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}>
-                        <img ref={imgRef} src="/img/entreprises/ent1.jpg" alt="" onLoad={handleImageLoad} />
-                        <div className="image-filter"></div>
-                        <div ref={cropperRef} className="cropper" style={{
-                            background: "linear-gradient(rgb(24 24 24 / 75%),rgb(24 24 24 / 75%)),url(/img/entreprises/ent1.jpg)",
-                            backgroundSize: `${imgWidth}px ${imgHeight}px`,
-                            backgroundPosition: `-${cropperLeft - imgLeft}px -${cropperTop - imgTop}px`,
-                            backgroundRepeat: "no-repeat"
-                        }}>
-                            <div></div>
-                        </div>
-                        <div ref={cropperRef} className="cropper circle" style={{
-                            background: "url(/img/entreprises/ent1.jpg)",
-                            backgroundSize: `${imgWidth}px ${imgHeight}px`,
-                            backgroundPosition: `-${cropperLeft - imgLeft}px -${cropperTop - imgTop}px`,
-                            backgroundRepeat: "no-repeat"
-                        }}>
-                            <div></div>
-                        </div>
-                        {/* <div className="top-right flex gap-10">
-                            <button>
-                                <ArrowCounterclockwise size={19}/>
-                            </button>
-                            <button>
-                                <ArrowClockwise size={19}/>
-                            </button>
-                        </div> */}
+    if (file) {
+        return (
+            <Modal className='profile-picture-selector-modal' open={isOpen} onClick={(e) => {
+                e.stopPropagation()
+            }}>
+                <div className="top flex align-items-center justify-content-center">
+                    <h3>Changer ma photo de profil</h3>
+                    <div className="close-modal" onClick={() => setIsOpen(false)}>
+                        <XLg />
                     </div>
-                    <div>
+                </div>
+                <div className="body">
+                    <div className="img-cropper" ref={imgCropperRef}>
+                        <div className="img-container" ref={imgContainerRef}
+                            onMouseDown={handleMouseDown}
+                            onMouseUp={handleMouseUp}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}>
+                            <img ref={imgRef} src={`${URL.createObjectURL(file)}`} alt="" onLoad={handleImageLoad} />
+                            <div className="image-filter"></div>
+                            <div ref={cropperRef} className="cropper" style={{
+                                background: `linear-gradient(rgb(24 24 24 / 75%),rgb(24 24 24 / 75%)),url(${URL.createObjectURL(file)})`,
+                                backgroundSize: `${imgWidth}px ${imgHeight}px`,
+                                backgroundPosition: `-${cropperLeft - imgLeft}px -${cropperTop - imgTop}px`,
+                                backgroundRepeat: "no-repeat"
+                            }}>
+                                <div></div>
+                            </div>
+                            <div ref={cropperRef} className="cropper circle" style={{
+                                background: `${URL.createObjectURL(file)}`,
+                                backgroundSize: `${imgWidth}px ${imgHeight}px`,
+                                backgroundPosition: `-${cropperLeft - imgLeft}px -${cropperTop - imgTop}px`,
+                                backgroundRepeat: "no-repeat"
+                            }}>
+                                <div></div>
+                            </div>
+                            {/* <div className="top-right flex gap-10">
+                                <button>
+                                    <ArrowCounterclockwise size={19}/>
+                                </button>
+                                <button>
+                                    <ArrowClockwise size={19}/>
+                                </button>
+                            </div> */}
+                        </div>
+                        <div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="bottom flex justify-content-between">
-                <div className="flex align-items-center gap-10">
-                    <CheckBox />
-                    <span>Recadrer</span>
+                <div className="bottom flex justify-content-between">
+                    <div className="flex align-items-center gap-10">
+                        <CheckBox />
+                        <span>Recadrer</span>
+                    </div>
+                    <input className='image-zoom-range' ref={rangeRef} min={10} max={40} type="range" onChange={resizeImage} />
+                    <button onClick={uploadProfilePicture} className="btn btn-purple">{
+                        isUploading ? <CircleLoader/> : 'Enregistrer'
+                    }</button>
                 </div>
-                <input className='image-zoom-range' ref={rangeRef} min={10} max={40} type="range" onChange={resizeImage} />
-                <button className="btn btn-purple">Sauvegarder</button>
-            </div>
-        </Modal>
-    )
+            </Modal>
+        )
+    }
 }
 
 export default ProfilePictureSelectorModal

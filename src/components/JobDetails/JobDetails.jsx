@@ -1,35 +1,94 @@
 import React from 'react'
 import './JobDetails.scss'
 import Avatar from '../Avatar/Avatar'
-const JobDetails = () => {
+import millify from 'millify'
+import { ChevronRight } from 'react-bootstrap-icons'
+import Rating from 'react-rating'
+import { generateHtml } from 'bbcode-compiler'
+import { Parser } from 'html-to-react'
+
+import parser from '../../tags/Tags'
+
+
+const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, salary, grade, type } }) => {
+  const htmlToJsx=new Parser()
   return (
     <div className="job-details">
       <div className="cover relative">
         <img src="/img/entreprises/vy.jpg" className='absolute' alt="" />
       </div>
-      <Avatar height={50} width={50} radius='5px' />
-      <h1 className='job-title'>Designer et Developpeur Web</h1>
-      <p className='job-location'><b className='purple-txt'>Gate Digital</b> | Ampandrana - Antananarivo, Madagascar</p>
+      <Avatar src={(author && author.activeLogo) ? author.activeLogo.fileUrl : null} height={50} width={50} radius='5px' />
+      <div className="job-detail-sticky-top flex justify-content-between align-items-end gap-10">
+        <div>
+          {
+            title && <h1 className='job-title'>{title}</h1>
+          }
+          <p className='job-location flex gap-5 align-items-center'><b className='purple-txt text-ellipsis'>{author?.name}</b> <span className="job-company-eval block">
+            <Rating
+              readonly
+              initialRating={3.5}
+              className='portal-note'
+              fractions={2}
+              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+            />
+          </span><span className='text-ellipsis'>| {author?.adress}</span></p>
+        </div>
+        <button className="btn btn-outline-purple">Consulter <ChevronRight /></button>
+      </div>
       <div className="job-requirements flex justify-content-between">
+        {
+          xp && <div className='flex flex-column'>
+            <span>EXPERIENCE</span>
+            <b>{xp}</b>
+          </div>
+        }
+        {
+          grade &&
+          <div className='flex flex-column'>
+            <span>GRADE</span>
+            <b>{grade.title}</b>
+          </div>
+        }
+        {
+          type &&
+          <div className='flex flex-column'>
+            <span>TYPE</span>
+            <b>{type.title}</b>
+          </div>
+        }
         <div className='flex flex-column'>
-          <span>EXPERIENCE</span>
-          <b>2-3 ans</b>
-        </div>
-        <div className='flex flex-column'>
-          <span>GRADE</span>
-          <b>Senior</b>
-        </div>
-        <div className='flex flex-column'>
-          <span>TYPE</span>
-          <b>Teletravail</b>
-        </div>
-        <div className='flex flex-column'>
-          <span>SALAIRE</span>
-          <b>800k - 900k</b>
+          {
+            (salary && ((!isNaN(salary.min) && !isNaN(salary.max) && salary.min>0 && salary.max>0) || (!isNaN(salary.amount) && salary.amount>0))) &&
+            <>
+              <span>SALAIRE</span>
+              <b>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary.amount)} MGA</b>
+            </>
+          }
         </div>
       </div>
       <hr />
       <div className="role">
+
+        {
+          summary &&
+          <>
+            <h4>Résumé du poste</h4>
+            <p>{summary}</p>
+          </>
+        }
+      </div>
+
+
+      {
+        description &&
+        <div className="role">
+          <h4>Description détaillé du poste</h4>
+          <p>{htmlToJsx.parse(description)}</p>
+        </div>
+      }
+
+      {/* <div className="role">
         <h4>Missions et responsabilites</h4>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum ipsum, praesentium fugiat illo, quod veniam repellendus voluptatem aut sapiente veritatis, necessitatibus aliquid reiciendis consequuntur. Dolor consequuntur quos ipsam laudantium eveniet?</p>
       </div>
@@ -44,7 +103,7 @@ const JobDetails = () => {
           <li>Dynamique,curieux et autonome</li>
           <li>Concevoir et maintenir les sites de nos collaborateurs</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   )
 }
