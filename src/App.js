@@ -59,7 +59,8 @@ import ProfileAbout from './pages/Profile/ProfileAbout';
 import Studies from './pages/Profile/Studies';
 import Contact from './pages/Profile/Contact';
 import Notifications from './pages/Notifications/Notifications';
-
+import TestLayout from './layouts/TestLayout';
+import Vole from './pages/Vole/Vole';
 function App() {
 
   /**
@@ -200,7 +201,6 @@ function App() {
                 <BrowserRouter>
                   <Routes>
                     <Route element={<Default />}>
-                    <Route path='test' element={<Test/>}/>
                       {
                         !pageLoading &&
                         <>
@@ -244,7 +244,6 @@ function App() {
                           
                           <Route path='/explorer'>
                             <Route index element={<Countries />}/>
-                        
                           </Route>
 
                         
@@ -297,9 +296,16 @@ function App() {
               <Route index element={<LeagueStandings />} />
             </Route> */}
                     </Route>
+
                     <Route path='/musique' element={<MusicLayout />}>
                       <Route index element={<Music />} />
                     </Route>
+
+                    <Route path='/test' element={<TestLayout />}>
+                      <Route index element={<Test />} />
+                      <Route path='vole' element={<Vole />}/>
+                    </Route>
+
                   </Routes>
                 </BrowserRouter>
               </div>
