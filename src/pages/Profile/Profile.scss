@@ -4,6 +4,7 @@
     display: flex;
 
     @include themify($themes) {
+        
         >.left {
             color: themed("text", 1);
             flex-grow: 1;
@@ -134,7 +135,6 @@
         >.right {
             width: 320px;
             min-width: 320px;
-            background: themed("background", 3);
         }
     }
 }

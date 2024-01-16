@@ -1,30 +1,41 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useEffect } from 'react'
 import './Survey.scss'
 import { FileImageFill, Nut, Plus, PlusLg, X, XLg } from 'react-bootstrap-icons'
 import SurveyOption from './SurveyOption'
 
-const Survey = ({ options = [{},{},{}], setOptions = () => { }, readOnly = false }) => {
+const Survey = ({ options = [{},{},{}], setOptions = () => { }, readOnly = false,onChange=()=>{} }) => {
 
-    const [surveyOptions, setSurveyOptions] = useState(options)
+    const [survey,setSurvey]=useState({
+        title:'',
+        options:[]
+    })
     
+    const setSurveyOptions=(options)=>{
+        setSurvey((prev)=>({...prev,options}))
+    }
     const addSurveyOption = () => {
-        setSurveyOptions([...surveyOptions, {title:''}])
+        setSurvey((prev)=>({...prev,options:[...survey.options, {title:''}]}))
     }
     const removeSurveyOption = (index) => {
-        const options = surveyOptions.slice()
-        setSurveyOptions(options.filter((m, i) => i !== index))
+        const options = survey.options.slice()
+        setSurvey((prev)=>({...prev,options:options.filter((m, i) => i !== index)}))
     }
+    useEffect(()=>{
+        onChange(survey)
+    },[survey])
 
     return (
         <div className='survey'>
-            <input type="text" className='survey-title' placeholder='Votre question/titre ?'/>
+            <input type="text" onChange={(e)=>{
+                setSurvey((prev)=>({...prev,title:e.target.value}))
+            }} className='survey-title' placeholder='Votre question/titre ?'/>
             {
-                surveyOptions.map((o, i) => (
+                survey.options.map((o, i) => (
                     <SurveyOption 
                         key={i}
                         index={i}
                         data={o}
-                        surveyOptions={surveyOptions}
+                        surveyOptions={survey.options}
                         setSurveyOptions={setSurveyOptions}
                         removeSurveyOption={removeSurveyOption}
                     />

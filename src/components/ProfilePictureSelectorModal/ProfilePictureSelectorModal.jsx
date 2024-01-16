@@ -5,11 +5,12 @@ import Modal from '../Modal/Modal'
 import CheckBox from '../CheckBox/CheckBox'
 import axios from 'axios'
 import CircleLoader from '../CircleLoader/CircleLoader'
+import Cookies from 'js-cookie'
 
-const ProfilePictureSelectorModal = ({ open = true, file,onChanged=()=>{} }) => {
+const ProfilePictureSelectorModal = ({ open = true, file, onChanged = () => { } }) => {
     const [modalLoaded, setModalLoaded] = useState(false)
     const [isOpen, setIsOpen] = useState(open)
-    const [isUploading,setIsUploading]=useState(false)
+    const [isUploading, setIsUploading] = useState(false)
     useEffect(() => {
         setIsOpen(true)
     }, [file])
@@ -26,7 +27,7 @@ const ProfilePictureSelectorModal = ({ open = true, file,onChanged=()=>{} }) => 
             setIsUploading(true)
             axios({
                 method: 'post',
-                url: `${process.env.REACT_APP_API_DOMAIN}/api/posts`,
+                url: `${process.env.REACT_APP_API_DOMAIN}/api/profile_pictures`,
                 withCredentials: true,
                 data: postFormData
             }).then((res) => {
@@ -349,7 +350,7 @@ const ProfilePictureSelectorModal = ({ open = true, file,onChanged=()=>{} }) => 
                     </div>
                     <input className='image-zoom-range' ref={rangeRef} min={10} max={40} type="range" onChange={resizeImage} />
                     <button onClick={uploadProfilePicture} className="btn btn-purple">{
-                        isUploading ? <CircleLoader/> : 'Enregistrer'
+                        isUploading ? <CircleLoader /> : 'Enregistrer'
                     }</button>
                 </div>
             </Modal>

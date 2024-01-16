@@ -3,6 +3,7 @@ import SliderNav from '../../components/SliderNav/SliderNav'
 import './Music.scss'
 import Slider from 'react-slick'
 import Avatar from '../../components/Avatar/Avatar'
+import VideoCard from '../../components/VideoCard/VideoCard'
 
 const Music = () => {
 
@@ -42,7 +43,7 @@ const Music = () => {
             <span onClick={() => { }}>Tous</span>
           </SliderNav>
         </div>
-        <div className="top-music-slider">
+        <div className="top-music-slider mb-5">
           <div className="heading">
             <h1>Afrimuz top 10</h1>
           </div>
@@ -116,6 +117,36 @@ const Music = () => {
           </Slider>
         </div>
       </div>
+      
+      <div className="last-music-slider mb-5">
+          <div className="heading">
+            <h1>Les plus réscents</h1>
+          </div>
+          <Slider {...settings}>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+              <VideoCard/>
+            </div>
+          </Slider>
+        </div>
+
       <div className="top-artist-slider">
         <div className="heading">
           <h1>Artistes populaires</h1>

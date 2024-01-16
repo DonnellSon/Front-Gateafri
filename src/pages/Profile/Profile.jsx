@@ -23,14 +23,12 @@ import { DESKTOP } from '../../constants/MediaTypeConstants'
 import { useSelector } from 'react-redux'
 
 const Profile = () => {
-    const {currentUser}=useSelector((store)=>store.user)
+    const currentUser = useSelector((store) => store.user.user)
     const { userId } = useParams()
     const { deviceType } = useContext(MediaContext)
     const [posts, setPosts] = useState([])
     const [postsLoading, setPostsLoading] = useState(false)
     const [tmpProfilePicture, setTmpProfilePicture] = useState(null)
-
-
     /**
      * Recuperation de l'user
      */
@@ -57,13 +55,19 @@ const Profile = () => {
                                         <div className="profile-user flex gap-20">
                                             <Avatar width={90} height={90} editable={true} onChange={(e) => {
                                                 setTmpProfilePicture(e.target.files[0])
-                                                e.target.value=''
-                                            }} src={user.activeProfilePicture ? user.activeProfilePicture.fileUrl : null} user={user}/>
+                                                e.target.value = ''
+                                            }} src={user.activeProfilePicture ? user.activeProfilePicture.fileUrl : null} user={user} />
                                             <div className="flex flex-grow-1 justify-content-between">
                                                 <div className="info">
                                                     <h1 className="name">{user.firstName} {user.lastName && user.lastName}</h1>
                                                     <small className='purple-txt'>{user.email}</small><br />
-                                                    <span className="job">Developpeur Web Full-Stack</span>
+                                                    <span className="job">
+                                                        {
+                                                            user.job ?
+                                                                user.job :
+                                                                currentUser?.id == user?.id && <span className='add-job flex align-items-center gap-5 purple-txt pointer'>Ajouter un metier <Pencil /></span>
+                                                        }
+                                                    </span>
                                                 </div>
                                                 <div className="btns flex gap-10">
                                                     <div className="btn btn-purple">Contacter</div>
@@ -72,7 +76,11 @@ const Profile = () => {
                                             </div>
                                         </div>
                                         <div className="profile-bio">
-                                            <p>Entrepreneur dévoué 🚀 | Adepte du fitness 💪 | Travaillez dur, rêvez grand. 🌟</p>
+                                            {
+                                                user.biography ?
+                                                    <p>{user.biography}</p> :
+                                                    currentUser?.id == user?.id && <span className='add-job flex align-items-center gap-5 purple-txt pointer'>Ajouter une biographie <Pencil /></span>
+                                            }
                                         </div>
                                         <div className="profile-nav elevated-card">
                                             <ul>
@@ -104,7 +112,7 @@ const Profile = () => {
                                         </div>
 
                                     </div>
-                                    <div className="bottom flex gap-20">
+                                    <div className="bottom flex gap-5">
 
                                         <div className="left flex-grow-1">
                                             <Timeline />
@@ -128,9 +136,9 @@ const Profile = () => {
                                 </div>
                             }
                         </>
-            : <h1>Cet user n'existe pas</h1>
+                        : <h1>Cet user n'existe pas</h1>
             }
-            <ProfilePictureSelectorModal file={tmpProfilePicture}/>
+            <ProfilePictureSelectorModal file={tmpProfilePicture} />
         </div>
     )
 }

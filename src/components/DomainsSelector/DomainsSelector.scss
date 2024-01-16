@@ -39,7 +39,7 @@
             }
 
             >.body {
-                padding: 10px;
+                
                 flex-grow: 1;
                 overflow: auto;
                 display: flex;
@@ -65,10 +65,11 @@
                 }
 
                 .domains-list {
+                    padding: 10px;
                     display: grid !important;
                     grid-template-columns: repeat(3, 1fr);
                     gap: 10px;
-                    margin: 15px 0;
+                    max-width: 650px;
 
                     li {
                         border: 1px solid themed("border", 2);

@@ -53,6 +53,12 @@ import Dashboard from './pages/Portal/Dashboard';
 import DashboardAbout from './pages/Portal/DashboardAbout';
 import Test from './pages/Test/test'
 import Aside from './pages/Test/aside';
+import ProfileLayout from './layouts/ProfileLayout';
+import ProfileActu from './pages/Profile/ProfileActu';
+import ProfileAbout from './pages/Profile/ProfileAbout';
+import Studies from './pages/Profile/Studies';
+import Contact from './pages/Profile/Contact';
+import Notifications from './pages/Notifications/Notifications';
 
 function App() {
 
@@ -200,6 +206,7 @@ function App() {
                         <>
                           <Route path='/landing' element={<Landing />} />
                           <Route path="/" element={<Home />} />
+                          <Route path="/notifications" element={<Notifications/>} />
                           <Route path="/recherche">
                             <Route index element={<Search />} />
                           </Route>
@@ -214,7 +221,19 @@ function App() {
                               <Route path='cv' element={<CreateCv />} />
                             </Route>
                           </Route>
-                          <Route path='/profil/:userId' element={<Profile />} />
+
+                          <Route path='/profil'>
+                            <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true}/> : <AuthRedirect requireAuth={true} />} />
+                            <Route path=':userId' element={<ProfileLayout />}>
+                              <Route index element={<Navigate to='actu' replace={true} />} />
+                              <Route path='actu' element={<ProfileActu />} />
+                              <Route path='a-propos-de-moi' element={<ProfileAbout />}>
+                                <Route index element={<Navigate to='etudes-et-emplois' replace={true} />} />
+                                <Route path='etudes-et-emplois' element={<Studies />} />
+                                <Route path='mes-coordonnees' element={<Contact />} />
+                              </Route>
+                            </Route>
+                          </Route>
 
                           <Route path='/investissements'>
                             <Route index element={<Funding />} />
@@ -242,8 +261,8 @@ function App() {
                               <Route path='' element={<PortalDashboardLayout />}>
                                 <Route path=':portalId' element={<PortalAdminLayout />}>
                                   <Route path='dashboard'>
-                                    <Route index element={<Dashboard />}/>
-                                    <Route path='a-propos' element={<DashboardAbout/>}/>
+                                    <Route index element={<Dashboard />} />
+                                    <Route path='a-propos' element={<DashboardAbout />} />
                                   </Route>
                                 </Route>
                                 <Route path='nouveau' element={<CreatePortal />} />

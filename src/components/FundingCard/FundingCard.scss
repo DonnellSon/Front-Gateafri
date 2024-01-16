@@ -3,7 +3,6 @@
 .funding-card {
     @include themify($themes) {
         width: 100%;
-        max-width: 600px;
         .head h4 {
             color: themed("text", 1)
         }
