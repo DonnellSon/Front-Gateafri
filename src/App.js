@@ -51,7 +51,8 @@ import Search from './pages/Search/Search';
 import PortalAdminLayout from './layouts/PortalAdminLayout';
 import Dashboard from './pages/Portal/Dashboard';
 import DashboardAbout from './pages/Portal/DashboardAbout';
-
+import Test from './pages/Test/test'
+import Aside from './pages/Test/aside';
 
 function App() {
 
@@ -84,7 +85,8 @@ function App() {
   //Responsive
   const connectedUser = useSelector((state) => state.user.user)
 
-  const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(null) 
+
   const socketValue = useMemo(() => {
     return {
       socket,
@@ -144,7 +146,7 @@ function App() {
         }).then((res) => {
           dispatch(setConnectedUser(res.data))
           setPageLoading(false)
-          setSocket(io('http://localhost:5000'))
+          setSocket(io('http://localhost:8000'))
           socket?.emit('connectUser', res.data.id)
         }).catch((err) => {
           setPageLoading(false)
@@ -192,6 +194,7 @@ function App() {
                 <BrowserRouter>
                   <Routes>
                     <Route element={<Default />}>
+                    <Route path='test' element={<Test/>}/>
                       {
                         !pageLoading &&
                         <>
@@ -219,8 +222,13 @@ function App() {
                               <Route path='nouveau' element={<CreateInvest />} />
                             </Route>
                           </Route>
-                          <Route path='/explorer' element={<Countries />}>
+                          
+                          <Route path='/explorer'>
+                            <Route index element={<Countries />}/>
+                        
                           </Route>
+
+                        
 
                           {/* <Route path='/page' element={<PageLayout />}>
                           <Route index element={<PageHome />} />

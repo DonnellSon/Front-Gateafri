@@ -6,6 +6,8 @@ import MediaContext from '../../context/MediaContext';
 import { Line, Bar } from 'react-chartjs-2';
 import { CategoryScale, Chart, LinearScale, PointElement, LineElement, BarElement } from "chart.js";
 import { DESKTOP, SMARTPHONE } from '../../constants/MediaTypeConstants';
+import { Link, useLocation } from 'react-router-dom';
+
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement);
 
 
@@ -100,7 +102,7 @@ const Countries = () => {
                                 </div>
                                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
                                 <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
+                                    <button className="btn-transparent flex-1"><Link to={'/explorer/test'}>Explorer</Link></button>
                                 </div>
                             </div>
                         </div>
