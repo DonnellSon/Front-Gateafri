@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { Camera } from 'react-bootstrap-icons'
 import { useSelector } from 'react-redux'
 import './Avatar.scss'
-const Avatar = ({ user=null,online = true, height = 30, width = 30, radius = '50%', src = null, style = {}, editable = false,onChange=(e)=>{} }) => {
+const Avatar = ({ user=null,online = true, height = 30, width = 30, radius = '50%', src = null,defaultSrc="/img/man.png", style = {}, editable = false,onChange=(e)=>{},className=null }) => {
   const {user:currentUser}=useSelector((store)=>store.user)
   const profilePicInpt=useRef()
 
@@ -12,8 +12,8 @@ const Avatar = ({ user=null,online = true, height = 30, width = 30, radius = '50
   }
 
   return (
-    <div className='avatar relative' style={{ borderRadius: radius, width, height, ...style }}>
-      <img src={src!==null ? src : "/img/man.png"} alt="" style={{ borderRadius: radius, width, height }} />
+    <div className={`avatar relative${className ? ' '+className : ''}`} style={{ borderRadius: radius, width, height, ...style }}>
+      <img src={src || defaultSrc} alt="" style={{ borderRadius: radius, width, height }} />
       {
         online ? <div className="online"></div> : ''
       }

@@ -24,6 +24,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
   const [postContent, setPostContent] = useState('')
   const [postMedias, setPostMedias] = useState([])
   const [isLoading, setIsloading] = useState(false)
+  const [survey,setSurvey]=useState({})
   const publishPost = () => {
 
     let postFormData = new FormData()
@@ -37,6 +38,9 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
       postMedias.forEach((pm) => {
         postFormData.append('file[]', pm)
       })
+    }
+    if(survey.title!=='' && survey.options.length>0){
+      postFormData.append('survey', survey)
     }
     setIsloading(true)
     axios({
@@ -118,7 +122,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
             <BarChart size={18} />
             <span>Sondage</span>
           </>}>
-            <Survey />
+            <Survey onChange={(survey)=>setSurvey(survey)}/>
           </Tab>
           <Tab title={<>
             <Hash size={18} />

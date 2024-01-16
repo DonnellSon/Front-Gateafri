@@ -5,16 +5,16 @@
         display: flex;
 
         >.left {
-            max-width: 60px;
-            min-width: 60px;
+            max-width: 260px;
+            min-width: 260px;
             position: sticky;
-            padding: 15px 0 15px 5px;
+            padding: 15px 5px 15px 5px;
 
             top: var(--topbar-height);
-            // background: themed("background", 3);
+            background: themed("background", 3);
             
             color: themed("text", 3);
-            // box-shadow: var(--elevation-1);
+            box-shadow: var(--elevation-1);
             height: calc(100vh - var(--topbar-height));
 
             h3,

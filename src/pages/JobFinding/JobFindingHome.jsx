@@ -16,32 +16,58 @@ import millify from 'millify'
 import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthOnClick'
 import { useNavigate } from 'react-router-dom'
 import SortableList from '../../components/SortableList/SortableList'
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
+import JobCardSkeleton from '../../components/JobCard/JobCardSkeleton'
+import JobDetailsSkeleton from '../../components/JobDetails/JobDetailsSkeleton'
 
 
 const JobFindingHome = () => {
     const { deviceType } = useContext(MediaContext)
     const { jobOfferId } = useParams()
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [activeJob, setActiveJob] = useState(null)
-    const { data: jobOffers, error: jobOffersError, isLoading: jobOffersLoading } = useQuery(['repoJobOffer'], getJobOffers)
-    useEffect(() => {
-        if(jobOffers && jobOffers.length>0){
-            setActiveJob(jobOffers[0])
-            navigate(`/emplois/${jobOffers[0].id}`)
+
+
+
+    const { data: jobOfferList,
+        flatData: jobOfferListFlat,
+        error,
+        hasNextPage: jobListNextPage,
+        isFetching: jobListFetching,
+        isFetchingNextPage: JobListFetchingNextPage,
+        status: jobsLoadingStatus,
+        refetch,
+        refetchPage
+    } = useInfiniteScroll({
+        url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers`,
+        ipp: 10,
+        queryKey: ['jobOffers'],
+        queryString: 'groups[]=job_offers_read',
+        transformResult: (result) => {
+            return { data: result['hydra:member'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
         }
-    }, [jobOffers])
+    })
     useEffect(() => {
-        setActiveJob(jobOffers?.find((j) => j.id == jobOfferId))
-        console.log(jobOffers, 'OFFRE')
-    }, [jobOffers, jobOfferId])
+        setActiveJob(jobOfferListFlat?.find((j) => j?.id == jobOfferId))
+    }, [jobOfferList, jobOfferId])
+
+    useEffect(() => {
+        if (jobOfferList && jobOfferList?.pages[0]?.data?.length > 0) {
+            setActiveJob(jobOfferList?.pages[0]?.data[0])
+            navigate(`/emplois/${jobOfferList?.pages[0]?.data[0].id}`)
+        }
+    }, [jobOfferList])
+
+
+
     return (
         <>
-            <JobFindingSearchBar onChange={search=>console.log(search,'SEARCH')}/>
+            <JobFindingSearchBar onChange={search => console.log(search, 'SEARCH')} />
             <main className='job-finding-home flex justify-content-between gap-5'>
                 {
                     deviceType === DESKTOP ?
                         <div className="left">
-                            <form action="" onSubmit={(e)=>{
+                            <form action="" onSubmit={(e) => {
                                 e.preventDefault()
                             }}>
                                 <h4>Creer une offre d'emplois</h4>
@@ -64,9 +90,34 @@ const JobFindingHome = () => {
                 }
                 <div className="center">
                     <div className="job-list">
+
                         {
-                            jobOffers?.map((jo) => <JobCard active={activeJob === jo} data={jo} />)
+                            jobsLoadingStatus === 'loading' ? (
+                                <>
+                                    <JobCardSkeleton />
+                                    <JobCardSkeleton />
+                                    <JobCardSkeleton />
+                                </>
+                            ) : jobsLoadingStatus === 'error' ? (
+                                <p>Error: {error.message}</p>
+                            ) : (jobOfferList?.pages[0]?.data?.length > 0 ? jobOfferList?.pages?.map((group, i) => (
+                                <React.Fragment key={i}>
+                                    {group.data.map((job) => (
+                                        <JobCard active={activeJob === job} data={job} />
+                                    ))}
+                                </React.Fragment>
+
+                            )) : <div className="empty-timeline">
+                                <h1>Aucune offre d'emplois à afficher</h1>
+                                <p>Nous vous invitons à créer une première offre d'emplois pour commencer commencer le recrutement pour votre entreprise</p>
+                                <Link to='/emplois/nouveau' className="btn btn-gradient">Créer une offre d'emplois</Link>
+                            </div>)
                         }
+                        {JobListFetchingNextPage
+                            ? <JobCardSkeleton />
+                            : jobListNextPage
+                                ? ''
+                                : ''}
 
                     </div>
                 </div>
@@ -74,7 +125,9 @@ const JobFindingHome = () => {
                     deviceType === DESKTOP ?
                         <div className="right">
                             {
-                                activeJob && <JobDetails data={activeJob} />
+                                jobListFetching ?
+                                    <JobDetailsSkeleton /> :
+                                    activeJob && <JobDetails data={activeJob} />
                             }
                         </div> : ""
                 }

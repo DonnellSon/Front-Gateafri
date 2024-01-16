@@ -4,7 +4,6 @@
     @include themify($themes) {
         .top {
             border-radius: 5px !important;
-            margin: 5px;
         }
 
         .music-top-nav {
@@ -36,7 +35,7 @@
     }
 }
 
-.top-music-slider {
+.top-music-slider,.last-music-slider {
     @include themify($themes) {
         background: themed("background", 3);
         box-shadow: var(--elevation-1);
@@ -103,8 +102,6 @@
         box-shadow: var(--elevation-1);
         padding: 15px 15px 30px 15px;
         padding-right: 0;
-
-        margin: 5px;
 
 
         .slick-track {

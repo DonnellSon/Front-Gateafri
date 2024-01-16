@@ -15,7 +15,7 @@ const MusicTop = ({ setOpenRightbar = () => { } }) => {
     <>
       <div id='music-top' className='flex align-items-center'>
         <div className="left">
-          <Link to='/'>LOGO</Link>
+          <Link to='/musique'><img src='/img/logo/afrimuzlogo.png'/></Link>
         </div>
         <div className="center">
           <Searchbar placeholder='Rechercher une musique sur Afrimuz' />

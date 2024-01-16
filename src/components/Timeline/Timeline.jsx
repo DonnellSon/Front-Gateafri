@@ -143,7 +143,7 @@ const Timeline = () => {
                         </>
                     ) : postsLoadingStatus === 'error' ? (
                         <p>Error: {error.message}</p>
-                    ) : postsList?.pages?.length > 0 ? postsList?.pages?.map((group, i) => (
+                    ) : (postsList?.pages[0]?.data?.length > 0 ? postsList?.pages?.map((group, i) => (
                         <React.Fragment key={i}>
                             {group.data.map((p) => (
                                 <PostCard
@@ -158,7 +158,7 @@ const Timeline = () => {
                         <h1>Aucun post à afficher</h1>
                         <p>Nous vous invitons à créer un premier post pour commencer vos activités et intéragir avec d'autres opérateurs économiques en Afrique</p>
                         <button className="btn btn-gradient">Créer un post</button>
-                    </div>
+                    </div>)
                 }
                 {postsListFetchingNextPage
                     ? <PostCardSkeleton />

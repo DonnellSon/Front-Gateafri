@@ -43,8 +43,8 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to="/video" activeClass='active'>
-                <PlayBtn strokeWidth={0.1} size={24} />
+              <DoNavLink className='top-to-afrimuz' to="/musique" activeClass='active'>
+                <img src='/img/logo/afrimuz2.png'/>
               </DoNavLink>
             </li>
             <li className='flex-grow-1'>

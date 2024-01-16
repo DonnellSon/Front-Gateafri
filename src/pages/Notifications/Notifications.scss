@@ -1,0 +1,38 @@
+@import '../../style.scss';
+
+#notification-page{
+    @include themify($themes){
+        padding-top: 15px;
+        max-width: 700px;
+        margin: auto;
+        color: themed("text",2);
+        >.top,>.body{
+            background: themed("background",3);
+            border-radius: 5px;
+            box-shadow: var(--elevation-1);
+        }
+        .top{
+            height: 50px;
+            padding: 0 15px;
+        }
+        .body{
+            margin-top: 5px;
+            .tabs-heading li span{
+                font-size: 14px;
+            }
+            .tabs-heading li{
+                padding: 5px 5px 5px 5px !important;
+            }
+            .top{
+                border-bottom: 1px solid themed("border",2);
+            }
+        }
+        .notification{
+            height: 70px;
+        }
+        .notification-capt{
+            align-items: baseline;
+        }
+
+    }
+}

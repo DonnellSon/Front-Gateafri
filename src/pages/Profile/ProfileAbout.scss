@@ -1,0 +1,44 @@
+@import '../../style.scss';
+
+.profile-about{
+    @include themify($themes){
+        margin: 15px 0;
+        flex-grow: 1;
+        
+        .heading{
+            margin-bottom: 15px;
+        }
+        .bottom{
+            min-height: 450px;
+            align-items: stretch;
+            .left{
+                min-width: 250px;
+                max-width: 250px;
+                >*{
+                    height: 100%;
+                }
+            }
+            >.right{
+                border-radius: 5px;
+                background: themed("background",3);
+                box-shadow: var(--elevation-1);
+                .studies-list{
+                    .avatar{
+                        img{
+                            border: 1px solid themed("border",2);
+                            border-radius: 5px !important;
+                        }
+                    }
+                    .right{
+                        h3{
+                            font-size: 14px;
+                            font-weight: themed("weight",600);
+                            color: themed("text",1);
+                        }
+                        line-height: 13px;
+                    }
+                }
+            }
+        }
+    }
+}

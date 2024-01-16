@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './JobCard.scss'
 import Avatar from '../Avatar/Avatar'
 import { Eye } from 'react-bootstrap-icons'
@@ -9,6 +9,9 @@ import Rating from 'react-rating'
 import { Parser } from 'html-to-react'
 
 const JobCard = ({ active=false,data: { id, title, author, domaine, summary, description, createdAt, xp, salary } }) => {
+    useEffect(()=>{
+        console.log(id, title, author, domaine, summary, description, createdAt, xp, salary)
+    },[id, title, author, domaine, summary, description, createdAt, xp, salary])
     const htmlToJsx=new Parser()
     return (
         <div className={`job-card${active ? ' active-job' : ''}`}>

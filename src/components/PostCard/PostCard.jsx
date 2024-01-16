@@ -16,6 +16,7 @@ import twemoji from 'twemoji'
 import PostViewModal from '../PostViewModal/PostViewModal'
 import { addPostEvaluation } from '../../api/post'
 import { useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 
 const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const { deviceType } = useContext(MediaContext)
@@ -23,123 +24,137 @@ const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const { user } = useSelector((store) => store.user)
   const deletePost = (e) => {
     e.preventDefault()
-    axios.delete(`${process.env.REACT_APP_API_DOMAIN}/api/posts/${data.id}`, {}, { withCredentials: true }).then(function (response) {
+    axios({
+      url:`${process.env.REACT_APP_API_DOMAIN}/api/posts/${data.id}`,
+      method:'delete',
+      withCredentials: true,
+      headers:{
+        'Authorization':`Bearer ${Cookies.get('BEARER')}`
+      }
+    }).then(function (response) {
       onDelete(data.id)
     }).catch(function (err) {
       console.log(err.response, 'ntay')
     })
-  }
-  const addPostEvaluation = (postId, note) => {
-    return axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/evaluations`,
-      data: { evaluable: `/api/posts/${postId}`, note },
-      method: 'post', withCredentials: true,
-    }).then((res) => {
-      console.log(res.data)
-    }).catch((err) => console.log(err.response))
-  }
-  useEffect(() => {
-    console.log(data, data.id)
-  }, [data])
+    
+}
 
-  return (
-    <div className='post-card'>
-      <div className="top flex justify-content-between" style={{
-        top: deviceType === DESKTOP ? 'var(--topbar-height)' : 0,
-        position: deviceType === DESKTOP ? 'sticky !important' : 'statique !important',
-        padding: '8px 10px',
-      }}>
-        <div className="left flex gap-10">
-          <Avatar height={40} width={40} src={data.author.activeProfilePicture?.fileUrl || data.author.activeLogo?.fileUrl} />
-          <div className="author-info">
-            <h1><Link to={`${data.author.firstName ?
-              `/profil/${data.author.id}` : data.author.name ? `/portail/${data.author.id}` : null}`
-            }>{data.author.firstName || data.author.name}{data.author.lastName ? " " + data.author.lastName : ""}</Link></h1>
-            {
-              (data.author.domains && data.author.domains.length > 0) &&
-              <Link className='author-domains'>{data.author.domains?.map((d) => d.title).join(',')}</Link>
-            }
-            <span>{moment(data.createdAt).fromNow()}</span>
-          </div>
-        </div>
-        <div className="flex gap-10">
+const addPostEvaluation = (postId, note) => {
+  return axios({
+    url: `${process.env.REACT_APP_API_DOMAIN}/api/evaluations`,
+    data: { evaluable: `/api/posts/${postId}`, note },
+    method: 'post', withCredentials: true,
+  }).then((res) => {
+    console.log(res.data)
+  }).catch((err) => console.log(err.response))
+}
+useEffect(() => {
+  console.log(data, data.id)
+}, [data])
+
+return (
+  <div className='post-card'>
+    <div className="top flex justify-content-between" style={{
+      top: deviceType === DESKTOP ? 'var(--topbar-height)' : 0,
+      position: deviceType === DESKTOP ? 'sticky !important' : 'statique !important',
+      padding: '8px 10px',
+    }}>
+      <div className="left flex gap-10">
+        <Avatar height={40} width={40} src={data.author.activeProfilePicture?.fileUrl || data.author.activeLogo?.fileUrl} />
+        <div className="author-info">
+          <h1><Link to={`${data.author.firstName ?
+            `/profil/${data.author.id}` : data.author.name ? `/portail/${data.author.id}` : null}`
+          }>{data.author.firstName || data.author.name}{data.author.lastName ? " " + data.author.lastName : ""}</Link></h1>
           {
-            data.author.country &&
-            <div className="flag">
-              <Link to='/explorer' title={data.author.country.name}><img src={data.author.country.flag.fileUrl} height={30} alt="" /></Link>
-            </div>
+            (data.author.domains && data.author.domains.length > 0) &&
+            <Link className='author-domains'>{data.author.domains?.map((d) => d.title).join(',')}</Link>
           }
-
-          <DropDown>
-            <div className="plus-btn"><Plus size={28} style={{ display: 'block' }} /></div>
-            <ul>
-              {
-                (data.author.id === user?.id || data.author.author?.id === user?.id) &&
-                <>
-                  <li>
-                    <Link to='/'>Modifier la publication</Link>
-                  </li>
-                  <li>
-                    <Link to='/' onClick={deletePost}>Suprimer</Link>
-                  </li>
-                </>
-              }
-              <li>
-                <Link to='/emplois/cv'>Enregistrer</Link>
-              </li>
-              <li>
-                <Link to='/emplois/nouveau'>Alerter les activités</Link>
-              </li>
-            </ul>
-          </DropDown>
-
+          <span>{moment(data.createdAt).fromNow()}</span>
         </div>
       </div>
+      <div className="flex gap-10">
+        {
+          data.author.country &&
+          <div className="flag">
+            <Link to='/explorer' title={data.author.country.name}><img src={data.author.country.flag.fileUrl} height={30} alt="" /></Link>
+          </div>
+        }
 
-      {
-        data.content && <div className="body">
+        <DropDown>
+          <div className="plus-btn"><Plus size={28} style={{ display: 'block' }} /></div>
+          <ul>
+            {
+              (data.author.id === user?.id || data.author.author?.id === user?.id) &&
+              <>
+                <li>
+                  <Link to='/'>Modifier la publication</Link>
+                </li>
+                <li>
+                  <Link to='/' onClick={deletePost}>Suprimer</Link>
+                </li>
+              </>
+            }
+            <li>
+              <Link to='/emplois/cv'>Enregistrer</Link>
+            </li>
+            <li>
+              <Link to='/emplois/nouveau'>Alerter les activités</Link>
+            </li>
+          </ul>
+        </DropDown>
 
-          <p>{data.content}</p></div>
-      }
+      </div>
+    </div>
 
-      <PostImagesGrid postId={data.id} images={data.thumbnails} />
-      {/* {
+    {
+      data.content && <div className="body">
+
+        <p>{data.content}</p></div>
+    }
+
+    <PostImagesGrid postId={data.id} images={data.thumbnails} />
+    {/* {
         !noComment &&
         <div className="post-comment-list p-10">
           <CommentList comments={data.comments} />
         </div>
       } */}
 
-      <div className="footer flex align-items-center gap-15">
-        <RequireAuthOnClick>
-          <div className='relative evaluation-btn'>
-            <div className="evaluation-container absolute px-10">
-              <Rating
-                onChange={(value) => addPostEvaluation(data.id, value)}
-                fractions={2}
-                emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-              />
-            </div>
-            <span className='flex align-items-center gap-10 no-wrap-text'>
-              <Gem size={19} /><span>Evaluer</span><div className="badge purple">50</div>
-            </span>
+    <div className="footer flex align-items-center gap-15">
+      <RequireAuthOnClick>
+        <div className='relative evaluation-btn'>
+          <div className="evaluation-container absolute px-10">
+            <Rating
+              onChange={(value) => addPostEvaluation(data.id, value)}
+              fractions={2}
+              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+            />
           </div>
-        </RequireAuthOnClick>
-        <span onClick={() => setShowPostModal(true)} className='flex align-items-center gap-10 no-wrap-text'>
-          <ChatLeft size={19} /><span>Commenter</span><div className="badge">50</div>
-        </span>
-        <RequireAuthOnClick>
+
           <span className='flex align-items-center gap-10 no-wrap-text'>
-            <Share size={19} /><span>Partager</span><div className="badge">50</div>
+            <Gem size={19} /><span>Evaluer</span>
+            {
+              data.evaluationCount > 0 &&
+              <div className="badge purple">{(data.evaluationSum / data.evaluationCount).toFixed(1)}/5</div>
+            }
           </span>
-        </RequireAuthOnClick>
-      </div>
-      {
-        showPostModal && <PostViewModal postId={data.id} open={showPostModal} author={data.author} setOpen={setShowPostModal} />
-      }
+        </div>
+      </RequireAuthOnClick>
+      <span onClick={() => setShowPostModal(true)} className='flex align-items-center gap-10 no-wrap-text'>
+        <ChatLeft size={19} /><span>Commenter</span><div className="badge">50</div>
+      </span>
+      <RequireAuthOnClick>
+        <span className='flex align-items-center gap-10 no-wrap-text'>
+          <Share size={19} /><span>Partager</span><div className="badge">50</div>
+        </span>
+      </RequireAuthOnClick>
     </div>
-  )
+    {
+      showPostModal && <PostViewModal postId={data.id} open={showPostModal} author={data.author} setOpen={setShowPostModal} />
+    }
+  </div>
+)
 }
 
 export default PostCard
