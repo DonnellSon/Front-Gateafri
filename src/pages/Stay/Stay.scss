@@ -1,0 +1,11 @@
+@import '../../style.scss';
+
+#stay-page
+{
+    @include themify($themes){
+        background: themed("background",3);
+        h1{
+            color:themed('text',4)
+        }
+    }
+}

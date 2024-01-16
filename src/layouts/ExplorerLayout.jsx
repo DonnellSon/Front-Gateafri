@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-const TestLayout =()=>{
+const ExplorerLayout =()=>{
     return(
         <div>
             <ul>
@@ -13,4 +13,4 @@ const TestLayout =()=>{
         </div>
     )
 }
-export default TestLayout;
+export default ExplorerLayout;

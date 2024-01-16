@@ -59,8 +59,8 @@ import ProfileAbout from './pages/Profile/ProfileAbout';
 import Studies from './pages/Profile/Studies';
 import Contact from './pages/Profile/Contact';
 import Notifications from './pages/Notifications/Notifications';
-import TestLayout from './layouts/TestLayout';
-import Vole from './pages/Vole/Vole';
+import ExplorerLayout from './layouts/ExplorerLayout';
+import Stay from './pages/Stay/Stay';
 function App() {
 
   /**
@@ -92,7 +92,7 @@ function App() {
   //Responsive
   const connectedUser = useSelector((state) => state.user.user)
 
-  const [socket, setSocket] = useState(null) 
+  const [socket, setSocket] = useState(null)
 
   const socketValue = useMemo(() => {
     return {
@@ -206,7 +206,7 @@ function App() {
                         <>
                           <Route path='/landing' element={<Landing />} />
                           <Route path="/" element={<Home />} />
-                          <Route path="/notifications" element={<Notifications/>} />
+                          <Route path="/notifications" element={<Notifications />} />
                           <Route path="/recherche">
                             <Route index element={<Search />} />
                           </Route>
@@ -223,7 +223,7 @@ function App() {
                           </Route>
 
                           <Route path='/profil'>
-                            <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true}/> : <AuthRedirect requireAuth={true} />} />
+                            <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true} /> : <AuthRedirect requireAuth={true} />} />
                             <Route path=':userId' element={<ProfileLayout />}>
                               <Route index element={<Navigate to='actu' replace={true} />} />
                               <Route path='actu' element={<ProfileActu />} />
@@ -241,12 +241,8 @@ function App() {
                               <Route path='nouveau' element={<CreateInvest />} />
                             </Route>
                           </Route>
-                          
-                          <Route path='/explorer'>
-                            <Route index element={<Countries />}/>
-                          </Route>
 
-                        
+
 
                           {/* <Route path='/page' element={<PageLayout />}>
                           <Route index element={<PageHome />} />
@@ -301,9 +297,9 @@ function App() {
                       <Route index element={<Music />} />
                     </Route>
 
-                    <Route path='/test' element={<TestLayout />}>
-                      <Route index element={<Test />} />
-                      <Route path='vole' element={<Vole />}/>
+                    <Route path='/explorer' element={<ExplorerLayout />}>
+                        <Route index element={<Countries />} />
+                        <Route path='sejour' element={<Stay />} />
                     </Route>
 
                   </Routes>
