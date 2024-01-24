@@ -31,11 +31,11 @@ const SalaryInputs = ({onChange=()=>{}}) => {
                     layout === INTERVAL ? <div className='flex gap-10' style={{ width: '100%' }}>
                         <div className="form-group">
                             <span>Minimum</span>
-                            <input ref={min} onChange={(e)=>setSalary({min:parseInt(e.target.value),max:parseInt(e.target.value)})} type="number" className='inpt' name='salMin' placeholder='Salaire minimum' />
+                            <input ref={min} onChange={(e)=>setSalary(prev=>({...prev,min:parseInt(e.target.value)}))} type="number" className='inpt' name='salMin' placeholder='Salaire minimum' />
                         </div>
                         <div className="form-group">
                             <span>Maximum</span>
-                            <input ref={max} onChange={(e)=>setSalary({min:parseInt(e.target.value),max:parseInt(e.target.value)})} type="number" className='inpt' name='salMin' placeholder='Salaire maximale' />
+                            <input ref={max} onChange={(e)=>setSalary(prev=>({...prev,max:parseInt(e.target.value)}))} type="number" className='inpt' name='salMax' placeholder='Salaire maximale' />
                         </div>
                     </div> :
                         <div className="form-group">

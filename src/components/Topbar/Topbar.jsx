@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Topbar.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import { HouseDoor, Briefcase, Buildings, PersonVideo2, ChatSquareQuote, Bell, ChevronLeft, Plus, GlobeEuropeAfrica, Person, PlayCircle, PlayBtn } from 'react-bootstrap-icons'
@@ -9,10 +9,16 @@ import PostModal from '../PostModal/PostModal'
 import DoNavLink from '../DoNavLink/DoNavLink'
 import { useSelector } from 'react-redux'
 import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick'
+import SocketIOContext from '../../context/SocketIOContext'
+import CaretInput from '../CaretInput/CaretInput'
+import CurrencySelector from '../CurrencySelector/CurrencySelector'
+import CurrencyContext from '../../context/CurrencyContext'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
-  const { user } = useSelector(state => state.user)
+  const { user,socket } = useSelector(state => state.user)
   const navigate = useNavigate()
+
+  
 
   return (
     <>
@@ -28,23 +34,24 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
               </DoNavLink>
             </li>
             <li>
+              <DoNavLink to="/explorer" activeClass='active'>
+                <GlobeEuropeAfrica strokeWidth={0.1} size={23} />
+              </DoNavLink>
+            </li>
+            {/* <li>
               <DoNavLink to="/investissements" activeClass='active'>
                 <Buildings strokeWidth={0.1} size={23} />
               </DoNavLink>
-            </li>
+            </li> */}
             <li>
               <DoNavLink to="/emplois" activeClass='active'>
                 <Briefcase style={{ marginTop: 4 }} strokeWidth={0.1} size={24} />
               </DoNavLink>
             </li>
-            <li>
-              <DoNavLink to="/explorer" activeClass='active'>
-                <GlobeEuropeAfrica strokeWidth={0.1} size={23} />
-              </DoNavLink>
-            </li>
+            
             <li>
               <DoNavLink className='top-to-afrimuz' to="/musique" activeClass='active'>
-                <img src='/img/logo/afrimuz2.png'/>
+                <img src='/img/logo/afrimuz2.png' />
               </DoNavLink>
             </li>
             <li className='flex-grow-1'>
@@ -83,8 +90,10 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
           <RequireAuthOnClick>
             <Link to="/messages"><ChatSquareQuote size={22} /></Link>
           </RequireAuthOnClick>
-
-          <span><Bell size={22} /></span>
+          <RequireAuthOnClick>
+            <Link to="/notifications"><Bell size={22} /></Link>
+          </RequireAuthOnClick>
+          <CurrencySelector/>
 
           {
             user ?
@@ -95,7 +104,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                 <ChevronLeft size={16} />
               </span>
               :
-              <Link to="/connexion"><Person size={23} /> Se connecter</Link>
+              <Link to="/connexion"><Person size={23} /></Link>
           }
         </div>
       </header>

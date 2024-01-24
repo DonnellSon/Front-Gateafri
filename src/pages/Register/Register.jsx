@@ -8,6 +8,7 @@ import Input from '../../components/Input/Input'
 import moment from 'moment';
 import RegisterSuccessModal from '../../components/RegisterSuccessModal/RegisterSuccessModal'
 import { ColorRing } from 'react-loader-spinner'
+import { showToast } from '../../utils/toastUtils'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -59,13 +60,13 @@ const Register = () => {
             }
         }).then((res) => {
             setIsOpen(true)
-            console.log(res);
             setFirstName('')
             setLastName('')
             setEmail('')
             setPassword('')
             setPasswordConfirm('')
             setIsLoading(false)
+            showToast({content:<span>Inscription réussie</span>})
         }).catch((err) => {
             console.log(err)
             setIsLoading(false)

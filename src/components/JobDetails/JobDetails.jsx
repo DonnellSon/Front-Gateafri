@@ -8,16 +8,22 @@ import { generateHtml } from 'bbcode-compiler'
 import { Parser } from 'html-to-react'
 
 import parser from '../../tags/Tags'
+import { useContext } from 'react'
+import CurrencyContext from '../../context/CurrencyContext'
+import { convertCurrency } from '../../utils/currencyUtils'
+import { Link } from 'react-router-dom'
 
 
 const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, salary, grade, type } }) => {
-  const htmlToJsx=new Parser()
+  const { currency, currenciesBaseUSD } = useContext(CurrencyContext)
+  const htmlToJsx = new Parser()
+  const [from, to] = [currenciesBaseUSD[salary?.currency.code], currenciesBaseUSD[currency?.code]]
   return (
     <div className="job-details">
       <div className="cover relative">
         <img src="/img/entreprises/vy.jpg" className='absolute' alt="" />
       </div>
-      <Avatar src={(author && author.activeLogo) ? author.activeLogo.fileUrl : null} height={50} width={50} radius='5px' />
+      <Avatar src={(author && author?.activeLogo) ? author?.activeLogo.fileUrl : null} height={50} width={50} radius='5px' />
       <div className="job-detail-sticky-top flex justify-content-between align-items-end gap-10">
         <div>
           {
@@ -34,7 +40,7 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
             />
           </span><span className='text-ellipsis'>| {author?.adress}</span></p>
         </div>
-        <button className="btn btn-outline-purple">Consulter <ChevronRight /></button>
+        <Link to={author?.name ? `/portail/${author?.id}` : `/profil/${author?.id}`} className="btn btn-outline-purple">Consulter <ChevronRight /></Link>
       </div>
       <div className="job-requirements flex justify-content-between">
         {
@@ -59,10 +65,16 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
         }
         <div className='flex flex-column'>
           {
-            (salary && ((!isNaN(salary.min) && !isNaN(salary.max) && salary.min>0 && salary.max>0) || (!isNaN(salary.amount) && salary.amount>0))) &&
+            (salary && ((!isNaN(salary?.min) && !isNaN(salary?.max) && salary?.min > 0 && salary?.max > 0) || (!isNaN(salary?.amount) && salary?.amount > 0))) &&
             <>
               <span>SALAIRE</span>
-              <b>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary.amount)} MGA</b>
+              {
+                (from && to) ?
+                <b>{(salary?.min && salary?.max) ? millify(convertCurrency(salary?.min, from, to)) + "-" + millify(convertCurrency(salary?.max, from, to)) : millify(convertCurrency(salary[0], from, to))} {currency.code}</b>
+                :
+                <b>{(salary?.min && salary?.max) ? millify(salary?.min) + "-" + millify(salary?.max) : millify(salary[0])} {salary?.currency.code}</b>
+              }
+
             </>
           }
         </div>

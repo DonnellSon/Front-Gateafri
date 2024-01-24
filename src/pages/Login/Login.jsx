@@ -5,15 +5,14 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { setConnectedUser } from '../../redux/actions/userActions'
+import { setConnectedUser, setSocket } from '../../redux/actions/userActions'
 import { useSelector } from 'react-redux'
 import { ColorRing } from 'react-loader-spinner'
 import { io } from 'socket.io-client';
 import SocketIOContext from '../../context/SocketIOContext'
+import { showToast } from '../../utils/toastUtils'
 
 const Login = () => {
-
-    const { setSocket } = useContext(SocketIOContext)
 
     const connectedUser = useSelector((store) => store.user.user)
     const dispatch = useDispatch()
@@ -31,7 +30,8 @@ const Login = () => {
         setIsLoading(true)
         const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login_check`, { email, password }, { withCredentials: true }).then(function (res) {
             dispatch(setConnectedUser(res?.data.user))
-            setSocket(io('http://localhost:5000'))
+            dispatch(setSocket(io('http://localhost:5000')))
+            showToast({content:<span>Vous êtes maintenant connecté</span>})
             navigate('/', { replace: true })
             setIsLoading(false)
         }).catch(function (err) {
@@ -90,7 +90,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className='flex gap-10'>
-                    <button className="btn-transparent flex-1">S'inscrire</button>
+                    <Link to='/inscription' type='button' className="btn-transparent flex-1">S'inscrire</Link>
                     <button ref={sumbitBtn} className='btn-purple flex flex-1' onClick={handleLogin}>
                         {
                             !isLoading ? "Se connecter" : <ColorRing

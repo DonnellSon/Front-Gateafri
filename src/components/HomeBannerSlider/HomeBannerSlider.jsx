@@ -8,7 +8,10 @@ import { getInvests } from '../../api/invest';
 import GoodDealCardSkeleton from '../GoodDealCard/GoodDealCardSkeleton';
 import { Link } from 'react-router-dom';
 import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick';
+import { useRef } from 'react';
 const HomeBannerSlider = () => {
+
+    const self = useRef();
 
     const {
         isLoading: investsLoading,
@@ -21,11 +24,10 @@ const HomeBannerSlider = () => {
 
     const settings = {
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
         variableWidth: true,
 
         arrows: false
@@ -38,8 +40,8 @@ const HomeBannerSlider = () => {
                         <h1>Les bonnes Affaires</h1>
                     </div>
                     <div className="flex align-items-center gap-10">
-                        <button className="floating-btn"><ChevronLeft size={21} /></button>
-                        <button className="floating-btn"><ChevronRight size={21} /></button>
+                        <button className="floating-btn" onClick={self.current?.slickPrev}><ChevronLeft size={21} /></button>
+                        <button className="floating-btn" onClick={self.current?.slickNext}><ChevronRight size={21} /></button>
                     </div>
                 </div>
                 {
@@ -52,11 +54,11 @@ const HomeBannerSlider = () => {
                             }
                         </Slider>
                         :
-                        <Slider {...settings}>
+                        <Slider ref={self} {...settings}>
                             {
                                 [
-                                        <RequireAuthOnClick>
-                                            <Link to="/investissements/nouveau" className='add-invest' style={{ width: 230, aspectRatio: 1,display:'block' }}>
+                                    <RequireAuthOnClick>
+                                        <Link to="/investissements/nouveau" className='add-invest' style={{ width: 230, aspectRatio: 1, display: 'block' }}>
                                             <div>
                                                 <div>
                                                     <div className="ico"><PlusLg size={22} /></div>
@@ -64,7 +66,7 @@ const HomeBannerSlider = () => {
                                                 </div>
                                             </div>
                                         </Link>
-                                        </RequireAuthOnClick>
+                                    </RequireAuthOnClick>
                                     , ...invests?.reverse().map((d, i) => <div key={i} style={{ width: 230, aspectRatio: 1 }}>
                                         <GoodDealCard data={d} />
                                     </div>)

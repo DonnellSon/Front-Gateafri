@@ -20,12 +20,12 @@ import { getCompanies } from '../../api/company';
 
 import PortalList from '../../components/PortalList/PortalList';
 import { useSelector } from 'react-redux';
-
+import CurrencyContext from '../../context/CurrencyContext';
+import { convertCurrency } from '../../utils/currencyUtils';
 
 const Home = () => {
-  const {user}=useSelector(store=>store.user)
+  const { user } = useSelector(store => store.user)
   const { deviceType } = useContext(MediaContext)
-  
 
   const { data: companies, error: companiesGetError } = useQuery(['repoCompanies'], getCompanies)
 
@@ -42,6 +42,7 @@ const Home = () => {
         {
           deviceType === DESKTOP ? <div className="left">
             <ul className='left-menu'>
+
               <li>
                 <div className="ico">
                   <Building size={18} />
@@ -53,7 +54,7 @@ const Home = () => {
             </ul>
             <hr style={{ margin: '20px 10px' }} />
 
-            <PortalList activeUser={user ? true : false}/>
+            <PortalList activeUser={user ? true : false} />
 
           </div> : ""
         }

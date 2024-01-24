@@ -378,6 +378,9 @@ a {
 .gap-10 {
   gap: 10px;
 }
+.column-gap-10{
+  column-gap: 10px;
+}
 
 .gap-15 {
   gap: 15px;
@@ -421,6 +424,14 @@ a {
 /*text*/
 .text-center {
   text-align: center;
+}
+.line-clamp-2{
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 
