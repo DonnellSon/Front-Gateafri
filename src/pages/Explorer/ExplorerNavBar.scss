@@ -1,0 +1,69 @@
+@import '../../style.scss';
+
+.navbar-explorer {
+    @include themify($themes) {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 8px 16px 8px;
+        align-items: center;
+        height: 60px;
+        background: themed('background',3);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: relative;
+        .item-center-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            .item-center {
+                width: 100%;
+                margin-right: 15px;
+
+                .svg-container {
+                    padding: 15px;
+
+                    &:hover {
+                        border-radius: 5px;
+                        background: themed('background',5);
+
+                        .svg {
+                            color: themed('mainColor', purple);
+                            /* Changez la couleur ici pour le survol */
+                        }
+                    }
+                }
+
+                .svg {
+                    font-size: 24px;
+                    color: themed('text', 3);
+                }
+            }
+
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+
+        }
+
+        .item-right {
+            display: flex;
+            align-items: center;
+
+            .container-right {
+                color: themed('text', 2);
+                margin-right: 20px;
+                background: themed('background',5);
+                padding: 10px;
+                border-radius: 5px;
+            }
+        }
+    }
+}

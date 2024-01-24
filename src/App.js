@@ -51,8 +51,6 @@ import Search from './pages/Search/Search';
 import PortalAdminLayout from './layouts/PortalAdminLayout';
 import Dashboard from './pages/Portal/Dashboard';
 import DashboardAbout from './pages/Portal/DashboardAbout';
-import Test from './pages/Test/test'
-import Aside from './pages/Test/aside';
 import ProfileLayout from './layouts/ProfileLayout';
 import ProfileActu from './pages/Profile/ProfileActu';
 import ProfileAbout from './pages/Profile/ProfileAbout';
@@ -61,6 +59,7 @@ import Contact from './pages/Profile/Contact';
 import Notifications from './pages/Notifications/Notifications';
 import ExplorerLayout from './layouts/ExplorerLayout';
 import Stay from './pages/Stay/Stay';
+import Explorer from './pages/Explorer/Explorer';
 function App() {
 
   /**
@@ -297,10 +296,10 @@ function App() {
                       <Route index element={<Music />} />
                     </Route>
 
-                    <Route path='/explorer' element={<ExplorerLayout />}>
-                        <Route index element={<Countries />} />
-                        <Route path='sejour' element={<Stay />} />
-                    </Route>
+                     <Route path='/explorer' element={<ExplorerLayout />}>
+                         <Route index element={<Explorer />} />
+                        <Route path='sejour' element={<Stay />} /> 
+                    </Route> 
 
                   </Routes>
                 </BrowserRouter>

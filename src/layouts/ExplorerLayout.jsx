@@ -1,15 +1,14 @@
 import { Outlet } from 'react-router-dom'
+import ExplorerNavBar from '../pages/Explorer/ExplorerNavBar';
 const ExplorerLayout =()=>{
     return(
-        <div>
-            <ul>
-                <li>Explorer</li>
-                <li>Vol </li>
-                <li>Séjours</li>
-            </ul>
-            <div>
-            <Outlet />
-            </div>
+        <div id='Explorer-layout'> 
+          <div className=''>
+            <ExplorerNavBar />
+          </div>
+          <div className=''>
+            <Outlet/>
+          </div>
         </div>
     )
 }

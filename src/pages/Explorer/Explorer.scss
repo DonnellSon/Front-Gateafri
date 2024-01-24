@@ -1,0 +1,742 @@
+@import '../../style.scss';
+
+#explorer-container {
+    @include themify($themes) {
+        position: relative;
+
+        h1 {
+            font-size: 36px;
+
+        }
+
+        .country-slide-container {
+            position: absolute;
+            top: 60%;
+            left: 4%;
+            z-index: 1;
+            color: white !important;
+            width: 40%;
+
+            a {
+                color: white;
+
+                &:hover {
+                    text-decoration: underline !important;
+                }
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+        }
+
+        .country-slide {
+            position: relative;
+
+            .custom-left,
+            .custom-right {
+                position: absolute;
+                z-index: 2;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: rgba(13, 13, 13, 0.573);
+                color: white !important;
+            }
+
+            .custom-left {
+                left: 20px;
+
+            }
+
+            .custom-right {
+                right: 20px;
+
+            }
+
+            .custom-Right,
+            .custom-left {
+                color: black;
+            }
+        }
+
+        .country-slide-item {
+            position: relative;
+            height: calc(100vh - 100px);
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .country-details {
+            display: flex;
+            background-color: white;
+
+            .country-details-section-right {
+                width: 17%;
+                padding: 40px 0 0 10px;
+                position: sticky;
+
+                .country-details-heading {
+                    margin-bottom: 5px;
+                    margin: 0px 0px 0px 10px
+                }
+
+                .country-details-list {
+                    padding-top: 10px;
+
+                    ul li {
+
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 5px;
+                        padding: 10px;
+                        border-radius: 5px;
+
+                        .country-details-item {
+                            margin-right: 25px;
+                            color: black;
+                            background-color: rgba(189, 180, 180, 0.591);
+                            padding: 10px;
+                            border-radius: 5px;
+
+                        }
+
+                        &:hover {
+                            background-color: rgba(238, 238, 238, 0.884);
+
+                        }
+                    }
+                }
+            }
+
+            .country-details-section-center {
+                display: block;
+                width: calc(100% - 15%);
+                padding: 40px 0 0 10px;
+                margin-right: 10px;
+
+
+                .country-details-navbar {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .country-details-navbar-item-left {
+                    display: flex;
+                    background-color: #f3f3f3;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+
+                .country-details-content {
+                    display: flex;
+                    margin-top: 10px;
+
+                    .country-detail-content-item-right {
+                        display: block;
+
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+
+                    .country-detail-content-item-left {
+                        margin-left: 10px;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .geographie-detail-content {
+                    margin-top: 20px;
+
+                    .geographie-detail-title {
+                        margin-bottom: 10px;
+                    }
+
+                    .geographie-detail-item {
+                        display: flex;
+
+                        .geographie-detail-left {
+                            width: 70%;
+                            margin-left: 10px;
+
+                            .geographie-detail-left-item {
+                                padding-top: 10px;
+
+                                h3 {
+                                    padding-top: 10px;
+                                    padding-bottom: 10px;
+                                }
+                            }
+                        }
+
+                        .geographie-detail-right {
+                            img {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .divertisement {
+            padding-top: 25px;
+            padding-bottom: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+            >div {
+                max-width: 1000px;
+                margin: auto;
+            }
+
+            .slick-track {
+                display: flex;
+                gap: 15px
+            }
+
+
+
+
+            .divertisement-caroseul {
+
+                &:hover {
+
+                    .custom-left,
+                    .custom-right {
+                        opacity: 1 !important;
+                    }
+                }
+
+                .custom-left,
+                .custom-right {
+                    transition: 0.5s;
+
+                    position: absolute;
+                    z-index: 2;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    border-radius: 5px;
+                    background-color: rgba(13, 13, 13, 0.573);
+                    color: white !important;
+                    opacity: 0 !important;
+                }
+
+                .custom-left {
+                    left: 20px;
+
+                }
+
+                .custom-right {
+                    right: 20px;
+
+                }
+
+                .custom-Right,
+                .custom-left {
+                    color: black;
+                }
+
+            }
+
+            h1,
+            p {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            a {
+                color: blue;
+
+                &:hover {
+                    color: blue;
+                    text-decoration: underline;
+                }
+            }
+
+
+            .divertisement-item-caroseul {
+
+                height: 300px; // ou la hauteur que vous souhaitez pour votre carte carrée
+                position: relative;
+                overflow: hidden;
+                border-radius: 5px;
+                cursor: pointer;
+
+                .divertisement-item-text {
+                    position: absolute;
+                    z-index: 1px;
+                    top: 75%;
+                    left: 10%;
+                    color: white;
+
+                    h1,
+                    p {
+                        padding: 0px;
+                        margin-top: 2px
+                    }
+                    h1{
+                        font-size: 15px;
+                    }
+                    p{
+                        font-size: 12px;
+                        color: white;
+                    }
+                    .custom-bullet {
+                        margin-right: 1px; 
+                        margin-left: 1px;/* Espace entre la puce et le texte */
+                        font-size: 1.2em; /* Taille de la puce */
+                        color: rgba(255, 255, 255, 0.932); /* Couleur de la puce */
+                      }
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+
+                    transition: .5s;
+
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+
+            .ville {
+                margin-top: 25px;
+
+                .ville-title {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+
+
+                .ville-carouseul {
+
+                    &:hover {
+
+                        .custom-left,
+                        .custom-right {
+                            opacity: 1 !important;
+                        }
+                    }
+
+                    p {
+                        padding: 0;
+                    }
+
+                    .custom-left,
+                    .custom-right {
+                        position: absolute;
+                        z-index: 2;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                        border-radius: 5px;
+                        background-color: rgba(13, 13, 13, 0.573);
+                        color: white !important;
+                        opacity: 0;
+                        transition: 0.5s;
+                    }
+
+                    .custom-left {
+                        left: 20px;
+                    }
+
+                    .custom-right {
+                        right: 20px;
+
+                    }
+
+                    .custom-Right,
+                    .custom-left {
+                        color: black;
+                    }
+
+                    .ville-item-premier {
+                        overflow: hidden;
+                        border-radius: 5px;
+                        aspect-ratio: 1;
+                        cursor: pointer;
+
+                        >div {
+                            position: absolute;
+                            top: 80%;
+                            left: 5%;
+                            z-index: 1;
+
+                            p:first-child {
+                                color: #f3f3f3;
+                                font-weight: bold;
+                            }
+
+                            p:nth-child(2) {
+                                color: #f3f3f3;
+                            }
+                        }
+
+                        img {
+                            position: absolute;
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                            transition: 0.5s;
+
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
+
+                    .ville-item {
+                        overflow: hidden;
+                        border-radius: 5px;
+                        cursor: pointer;
+
+                        >div {
+                            p:first-child {
+                                font-weight: bold;
+                            }
+                        }
+
+                        img {
+                            aspect-ratio: 16/9;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .nature {
+                margin: 20px auto;
+
+                .grille-item-nature {
+                    height: auto;
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-gap: 15px;
+                    align-items: center;
+                    cursor: pointer;
+                    margin-left: 15px;
+
+                }
+
+                .grille-item {
+                    overflow: hidden;
+                    height: 200px;
+                    position: relative;
+
+                    .grille-item-content {
+                        position: absolute;
+                        z-index: 1;
+                        top: 80%;
+
+                        p {
+                            color: white;
+                            font-weight: bold;
+                        }
+                    }
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        position: absolute;
+                        transition: 0.5s;
+
+                        &:hover {
+                            transform: scale(1.2);
+                        }
+                    }
+
+                }
+            }
+
+            .video {
+                margin-top: 25px;
+
+                .video-title {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .video-carouseul {
+                    &:hover {
+
+                        .custom-left,
+                        .custom-right {
+                            opacity: 1 !important;
+                        }
+                    }
+
+                    p {
+                        padding: 0;
+                    }
+
+                    .custom-left,
+                    .custom-right {
+                        position: absolute;
+                        z-index: 2;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                        border-radius: 5px;
+                        background-color: rgba(13, 13, 13, 0.573);
+                        color: white !important;
+                        opacity: 0 !important;
+                        transition: 0.5s;
+                    }
+
+                    .custom-left {
+                        left: 20px;
+                    }
+
+                    .custom-right {
+                        right: 20px;
+
+                    }
+
+                    .custom-Right,
+                    .custom-left {
+                        color: black;
+                    }
+
+
+
+                    .video-item {
+                        //  &::before{
+                        //    content: "";                           
+                        //    position: absolute;
+                        //    width: 100%;
+                        //    height: 100%;
+                        //    background-color: rgba(0, 0, 0, 0.286);
+                        // }
+
+                        overflow: hidden;
+                        border-radius: 5px;
+                        cursor: pointer;
+
+                        .video-item-text {
+                            position: absolute;
+                            z-index: 2;
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            margin: 10px;
+
+                            p {
+                                color: white;
+                            }
+
+                        }
+
+                        .video-item-svg {
+                            position: absolute;
+                            z-index: 1;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 50px;
+                            color: white;
+                            padding: 10px;
+                            background-color: black;
+                            border-radius: 50px;
+                        }
+
+                        img {
+                            aspect-ratio: 0.5;
+                            width: 100%;
+                            object-fit: cover;
+                            transition: 0.5s;
+                            filter: grayscale(70%);
+                            transform: 0.5s;
+
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .reservation {
+                .reservation-content {
+                    display: flex;
+                    width: 100%;
+                    padding: 5px;
+
+                    .reservation-item-left {
+
+
+                        background: linear-gradient(purple, #35353cb3);
+
+                        >div {
+                            width: 200px;
+                            margin: 40px auto;
+
+                            h1 {
+                                color: white;
+                            }
+
+                            p {
+                                color: white;
+
+                            }
+                        }
+                    }
+
+                    .reservation-carouseul {
+                        width: 800px;
+
+                        //  .container{
+                        //     width: 800px;
+                        //     height: 100%;
+                        //     display: flex;
+                        //     flex-direction: column;
+                        //     .item{
+                        //       border: 1px solid black; 
+                        //       background-color: black;
+                        //       width: 100%;
+                        //       height: 50%; 
+                        //     }
+                        //  }
+
+                        &:hover {
+
+                            .custom-left,
+                            .custom-right {
+                                opacity: 1 !important;
+                            }
+                        }
+
+                        .custom-left,
+                        .custom-right {
+                            transition: 0.5s;
+
+                            position: absolute;
+                            z-index: 2;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            border-radius: 5px;
+                            background-color: rgba(13, 13, 13, 0.573);
+                            color: white !important;
+                            opacity: 0 !important;
+                        }
+
+                        .custom-left {
+                            left: 20px;
+
+                        }
+
+                        .custom-right {
+                            right: 20px;
+
+                        }
+
+                        .custom-Right,
+                        .custom-left {
+                            color: black;
+                        }
+
+                        .reservation-item-caroseul {
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.53);
+                            height: 300px;
+
+
+
+                            .carouseul-item {
+                                width: 250px;
+                                height: 50%;
+                               
+                                p{
+                                    color: rgba(128, 128, 128, 0.64);
+                                }
+                             
+                                .custom-left,
+                                .custom-right {
+                                    transition: 0.5s;
+                                    position: absolute;
+                                    z-index: 2;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    cursor: pointer;
+                                    border-radius: 50px;
+                                    color: white !important;
+                                    padding: 2px !important;
+                                    background: none !important;
+                                }
+
+                                .custom-left {
+                                    left: 20px !important;
+
+                                }
+
+                                .custom-right {
+                                    right: 20px !important;
+
+                                }
+
+                                .custom-Right,
+                                .custom-left {
+                                    color: black;
+                                }
+
+                                h1 {
+                                    font-size: 15px;
+                                }
+
+                                .carouseul-item-reservation {
+                                    .slick-track {
+                                        gap: 0
+                                    }
+
+                                    height: 100%;
+
+                                    .carouseul-image {
+                                        height: 150px;
+                                        width: 100%;
+                                        img {
+                                            position: absolute;
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+        }
+
+    }
+}
