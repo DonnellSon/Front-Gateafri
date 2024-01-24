@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useContext, useEffect } from 'react'
 import './JobCard.scss'
 import Avatar from '../Avatar/Avatar'
 import { Eye } from 'react-bootstrap-icons'
@@ -7,12 +7,18 @@ import { Link } from 'react-router-dom'
 import millify from 'millify'
 import Rating from 'react-rating'
 import { Parser } from 'html-to-react'
+import { useCurrencyConverter } from '../../Hooks/currencyHooks'
+import CurrencyContext from '../../context/CurrencyContext'
+import { convertCurrency } from '../../utils/currencyUtils'
 
-const JobCard = ({ active=false,data: { id, title, author, domaine, summary, description, createdAt, xp, salary } }) => {
-    useEffect(()=>{
-        console.log(id, title, author, domaine, summary, description, createdAt, xp, salary)
-    },[id, title, author, domaine, summary, description, createdAt, xp, salary])
-    const htmlToJsx=new Parser()
+const JobCard = ({ active = false, data: { id, title, author, domaine, summary, description, createdAt, xp, salary } }) => {
+    const { currency,currenciesBaseUSD } = useContext(CurrencyContext)
+    const [from,to]=[currenciesBaseUSD[salary.currency.code],currenciesBaseUSD[currency?.code]]
+
+    useEffect(() => {
+        console.log(salary, 'SALARY')
+    }, [salary])
+    const htmlToJsx = new Parser()
     return (
         <div className={`job-card${active ? ' active-job' : ''}`}>
             <div className="top">
@@ -41,7 +47,12 @@ const JobCard = ({ active=false,data: { id, title, author, domaine, summary, des
                     </div>
                 </div>
                 {
-                    salary && <h5>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary[0])} MGA</h5>
+                    salary && 
+                    (from && to) ?
+                    <h5>{(salary.min && salary.max) ? millify(convertCurrency(salary.min,from,to)) + "-" + millify(convertCurrency(salary.max,from,to)) : millify(convertCurrency(salary[0],from,to))} {currency.code}</h5>
+                    :
+                    <h5>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary[0])} {salary.currency.code}</h5>
+
                 }
             </div>
             <div>

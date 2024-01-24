@@ -5,6 +5,33 @@ import Slider from 'react-slick'
 import Avatar from '../../components/Avatar/Avatar'
 import VideoCard from '../../components/VideoCard/VideoCard'
 
+const last=[
+  {
+    img:'/img/video/smaven.PNG',
+    title:'SMAVEN - Mahery aligny',
+    duration:'03:40',
+    user:{
+      name:'Hira Gasy',
+    }
+  },
+  {
+    img:'/img/video/smaven.PNG',
+    title:'TANN FAYA - Safidiko',
+    duration:'04:00',
+    user:{
+      name:'Hira Gasy',
+    }
+  },
+  {
+    img:'/img/video/smaven.PNG',
+    title:'SMAVEN - Mahery aligny',
+    duration:'04:20',
+    user:{
+      name:'Hira Gasy',
+    }
+  }
+]
+
 const Music = () => {
 
   const settings = {
@@ -27,6 +54,7 @@ const Music = () => {
     arrows: false,
     dots: false
   };
+
 
 
 

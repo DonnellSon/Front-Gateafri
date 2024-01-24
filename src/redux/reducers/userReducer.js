@@ -1,23 +1,29 @@
-import { SET_USER } from "../constants";
+import { ADD_NOTIFICATION, SET_SOCKET, SET_USER, REMOVE_USER } from "../constants";
 
 const initialState = {
     user: null,
-    userDomains: []
+    userDomains: [],
+    userNotifications: [],
+    socket: null
 }
 
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case REMOVE_USER:
+            return {
+                ...state,
+                user: null
+            };
         case SET_USER:
             return {
                 ...state,
-                user:action.payload
+                user: {...action.payload}
             }
-            break;
-
+        
+        
         default:
             return state
-            break;
     }
 }
 

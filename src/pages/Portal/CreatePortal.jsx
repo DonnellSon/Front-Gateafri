@@ -17,6 +17,7 @@ import SelectSearch from '../../components/SelectSearch/SelectSearch'
 import { getCountryList } from '../../api/coutry'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
+import { showToast } from '../../utils/toastUtils'
 
 const CreatePortal = () => {
     const { deviceType } = useContext(MediaContext)
@@ -68,7 +69,7 @@ const CreatePortal = () => {
         }).then((res) => {
             setCreatePortalLoading(false)
             navigate(`/portail/${res.data.id}`)
-            console.log(res)
+            showToast({content:<span>Votre portail a été crée avec succès</span>})
         }).catch((err) => {
             setCreatePortalLoading(false)
             console.log(err.response, 'COMPERR')

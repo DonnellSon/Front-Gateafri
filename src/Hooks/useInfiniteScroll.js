@@ -42,7 +42,7 @@ const useInfiniteScroll = ({url,queryKey=['infiniteScroll'],queryString=null,ipp
             }
         }
         const onScroll = (e) => {
-
+            console.log('scrollong')
             if (!isFetchingNextPage && !isFetching) {
                 const { scrollHeight, scrollTop, clientHeight } = e.target
                 if (scrollHeight - scrollTop <= clientHeight + 50) {
@@ -56,7 +56,7 @@ const useInfiniteScroll = ({url,queryKey=['infiniteScroll'],queryString=null,ipp
             scrollingElement.removeEventListener('scroll', onScroll)
         }
 
-    }, [isFetchingNextPage, isFetching])
+    }, [])
     
     return {
         data,

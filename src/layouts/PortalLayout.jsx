@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import "../pages/Portal/Portal.scss"
-import { BriefcaseFill, ExclamationDiamondFill, FilePostFill, GeoAlt, HouseDoorFill, PencilSquare, PeopleFill, ThreeDots, Building, FileEarmarkPerson, Gem, House, ExclamationCircle, ChevronDown } from 'react-bootstrap-icons'
+import { BriefcaseFill, ExclamationDiamondFill, FilePostFill, GeoAlt, HouseDoorFill, PencilSquare, PeopleFill, ThreeDots, Building, FileEarmarkPerson, Gem, House, ExclamationCircle, ChevronDown, HouseDoor, ExclamationDiamond, FilePost, Briefcase, People } from 'react-bootstrap-icons'
 import { Outlet, useParams } from 'react-router-dom'
 import Avatar from '../components/Avatar/Avatar'
 import { Link } from 'react-router-dom'
@@ -36,9 +36,9 @@ const PortalLayout = () => {
                                         <Logo src={company?.activeLogo?.fileUrl} height={60} width={60} />
                                         <img src={company?.country.flag.fileUrl} width={35} alt="" />
                                     </div>
-                                    <div className="bottom flex justify-content-between">
+                                    <div className="bottom flex flex-wrap gap-10 justify-content-between">
                                         <div className="left">
-                                            <div className="flex align-items-center gap-10">
+                                            <div className="flex align-items-center flex-wrap column-gap-10">
                                                 <h1>{company?.name}</h1>
                                                 <span className='flex align-items-center'><GeoAlt /> {company?.adress}</span>
                                             </div>
@@ -68,18 +68,18 @@ const PortalLayout = () => {
                         <div className="portal-nav">
                             <ul>
                                 <li>
-                                    <DoNavLink to="accueil" activeClass='active'><HouseDoorFill size={20} /><span>Accueil</span></DoNavLink>
+                                    <DoNavLink to="accueil" activeClass='active'><HouseDoor size={16} /><span>Accueil</span></DoNavLink>
                                 </li>
                                 <li>
-                                    <DoNavLink to='a-propos' activeClass='active'><ExclamationDiamondFill size={18} stroke='3px' /><span>Apropos</span></DoNavLink>
+                                    <DoNavLink to='a-propos' activeClass='active'><ExclamationDiamond size={16} stroke='3px' /><span>Apropos</span></DoNavLink>
                                 </li>
                                 <li>
                                     <DoNavLink to='actualite' activeClass='active'>
-                                        <FilePostFill size={18} /><span>Actualité</span>
+                                        <FilePost size={16} /><span>Actualité</span>
                                     </DoNavLink>
                                 </li>
-                                <li><Link><BriefcaseFill size={20} /><span>Emplois</span></Link></li>
-                                <li><Link><PeopleFill size={20} /><span>Emloyés</span></Link></li>
+                                <li><Link><Briefcase size={16} /><span>Emplois</span></Link></li>
+                                <li><Link><People size={16} /><span>Emloyés</span></Link></li>
                             </ul>
                         </div>
                         <div className="bottom">

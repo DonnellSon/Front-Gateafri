@@ -17,6 +17,8 @@ import PostViewModal from '../PostViewModal/PostViewModal'
 import { addPostEvaluation } from '../../api/post'
 import { useSelector } from 'react-redux'
 import Cookies from 'js-cookie'
+import { getRandomNumber } from '../../functions'
+import millify from 'millify'
 
 const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const { deviceType } = useContext(MediaContext)
@@ -142,11 +144,11 @@ return (
         </div>
       </RequireAuthOnClick>
       <span onClick={() => setShowPostModal(true)} className='flex align-items-center gap-10 no-wrap-text'>
-        <ChatLeft size={19} /><span>Commenter</span><div className="badge">50</div>
+        <ChatLeft size={19} /><span>Commenter</span><div className="badge">{millify(getRandomNumber(100,10000))}</div>
       </span>
       <RequireAuthOnClick>
         <span className='flex align-items-center gap-10 no-wrap-text'>
-          <Share size={19} /><span>Partager</span><div className="badge">50</div>
+          <Share size={19} /><span>Partager</span><div className="badge">{millify(getRandomNumber(100,10000))}</div>
         </span>
       </RequireAuthOnClick>
     </div>

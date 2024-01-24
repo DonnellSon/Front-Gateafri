@@ -13,7 +13,7 @@ import SocketIOContext from '../../context/SocketIOContext'
 const Messenger = ({ discu }) => {
     const { discuId } = useParams()
     const { user } = useSelector(store => store.user)
-    const { socket } = useContext(SocketIOContext)
+    const {socket}=useContext(SocketIOContext)
     const scrollRef = useRef()
     const queryClient = useQueryClient()
     const [filteredMessages, setFilteredMessages] = useState([])

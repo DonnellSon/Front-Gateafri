@@ -1,18 +1,47 @@
 import React, { useContext } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
 import './PortalHome.scss'
-import { Link, useOutletContext } from 'react-router-dom'
-import { ArrowRight, BriefcaseFill, ExclamationDiamondFill, FilePostFill, GeoAlt, GraphUpArrow, ChevronLeft, ChevronRight, HouseDoor, HouseDoorFill, PencilSquare, PeopleFill, ThreeDots } from 'react-bootstrap-icons'
+import { Link, useOutletContext, useParams } from 'react-router-dom'
+import { ArrowRight, BriefcaseFill, ExclamationDiamondFill, FilePostFill, GeoAlt, GraphUpArrow, ChevronLeft, ChevronRight, HouseDoor, HouseDoorFill, PencilSquare, PeopleFill, ThreeDots, Plus, PlusLg } from 'react-bootstrap-icons'
 import PostCard from '../../components/PostCard/PostCard'
 import StickySidebar from '../../components/StickySideBar/StickySideBar'
 import LastPosts from '../../components/LastPosts/LastPosts'
 import Slider from 'react-slick'
 import MediaContext from '../../context/MediaContext'
 import { Parser } from 'html-to-react'
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
+import Logo from '../../components/Logo/Logo'
+import Skeleton from '../../components/Skeleton/Skeleton'
+
 const PageHome = () => {
   const { deviceType } = useContext(MediaContext)
-  const {company}=useOutletContext()
-  const htmlToJsx=new Parser()
+  const { portalId } = useParams()
+  const { company } = useOutletContext()
+  const htmlToJsx = new Parser()
+
+  /**
+   * Get portal jobs
+   */
+  const { data: jobOfferList,
+    flatData: jobOfferListFlat,
+    error,
+    hasNextPage: jobListNextPage,
+    isFetching: jobListFetching,
+    isFetchingNextPage: jobListFetchingNextPage,
+    status: jobsLoadingStatus,
+    refetch,
+    refetchPage
+  } = useInfiniteScroll({
+    url: `${process.env.REACT_APP_API_DOMAIN}/api/authors/${portalId}/job_offers`,
+    ipp: 10,
+    queryKey: ['jobOffers', portalId],
+    queryString: 'groups[]=job_offers_read',
+    transformResult: (result) => {
+      return { data: result['hydra:member'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
+    }
+  })
+
+
   return (
 
     <>
@@ -61,44 +90,42 @@ const PageHome = () => {
           speed: 500,
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
           variableWidth: true,
+          infinite: false
         }}>
-          <div className="offer flex flex-column align-items-center gap-5">
-            <div className="logo">
-              <img src="/img/partenaires/1.png" alt="" />
-            </div>
-            <h5 className='text-ellipsis'>Developpeur React</h5>
-            <span>Temps plein</span>
-          </div>
-          <div className="offer flex flex-column align-items-center gap-5">
-            <div className="logo">
-              <img src="/img/partenaires/2.png" alt="" />
-            </div>
-            <h5 className='text-ellipsis'>Developpeur PHP</h5>
-            <span>Stagiare</span>
-          </div>
-          <div className="offer flex flex-column align-items-center gap-5">
-            <div className="logo">
-              <img src="/img/partenaires/3.png" alt="" />
-            </div>
-            <h5 className='text-ellipsis'>Developpeur Symfony</h5>
-            <span>Temps plein</span>
-          </div>
-          <div className="offer flex flex-column align-items-center gap-5">
-            <div className="logo">
-              <img src="/img/partenaires/4.png" alt="" />
-            </div>
-            <h5 className='text-ellipsis'>Developpeur React Native</h5>
-            <span>Temps partiel</span>
-          </div>
-          <div className="offer flex flex-column align-items-center gap-5">
-            <div className="logo">
-              <img src="/img/partenaires/6.png" alt="" />
-            </div>
-            <h5 className='text-ellipsis'>Animatrice de vente</h5>
-            <span>Temps partiel</span>
-          </div>
+
+          {
+            jobListFetching ?
+              [...new Array(8)].map(_ => (
+                <div className="offer flex flex-column align-items-center gap-5" style={{ width: 200, height: 100 }}>
+                  <Skeleton width={80} height={10} />
+                  <Skeleton width={100} height={10} />
+                  <Skeleton width={40} height={6} />
+                </div>
+              )) :
+              jobOfferListFlat?.map((j, i) => (
+                <div className="offer flex flex-column align-items-center gap-5" style={{ width: 200, height: 100 }}>
+                  <Logo src={j.author.activeLogo?.fileUrl} width={40} height={40} />
+                  <h5 className='line-clamp-2 text-center'>{j.title}</h5>
+                  <span>{j.type.title}</span>
+                </div>
+              )
+
+              )
+          }
+          {
+            jobListFetchingNextPage ?
+              [...new Array(2)].map(_ => <h1>Job</h1>)
+              : ''
+          }
+
+
+          <Link to='/emplois/nouveau' className="offer create-job-link flex flex-column align-items-center justify-content-center gap-5" style={{ width: 200 }}>
+            <span className='flex flex-column align-items-center'>
+              <PlusLg size={25} />
+              <h5 className='text-center line-clamp-2'>Créer une offre d'emplois</h5>
+            </span>
+          </Link>
         </Slider>
         <button className="btn-outline-purple mt-15">
           Voir plus <ArrowRight />

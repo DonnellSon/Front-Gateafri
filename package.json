@@ -20,6 +20,7 @@
     "bbcode-to-react-components": "^1.0.0",
     "bootstrap": "^5.3.2",
     "chart.js": "^3.9.1",
+    "currency-converter-lt": "^2.0.1",
     "dotenv": "^16.3.1",
     "emoji-datasource": "^15.0.1",
     "html-to-react": "^1.7.0",

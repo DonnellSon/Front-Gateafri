@@ -29,6 +29,8 @@ import Cookies from 'js-cookie'
 import jwt_decode from 'jwt-decode'
 
 import Image from './pages/Image/Image';
+import { ToastContainer } from 'react-toastify';
+import './toast.scss'
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,10 +59,41 @@ import ProfileAbout from './pages/Profile/ProfileAbout';
 import Studies from './pages/Profile/Studies';
 import Contact from './pages/Profile/Contact';
 import Notifications from './pages/Notifications/Notifications';
+import { showToast } from './utils/toastUtils';
+import PostNotificationContent from './pages/Notifications/PostNotificationContent'
+import CurrencyContext from './context/CurrencyContext';
 import ExplorerLayout from './layouts/ExplorerLayout';
 import Stay from './pages/Stay/Stay';
 import Explorer from './pages/Explorer/Explorer';
 function App() {
+  const { user } = useSelector(store => store.user)
+
+  const [socket, setSocket] = useState(null);
+  const socketValue = useMemo(() => {
+    return {
+      socket,
+      setSocket
+    }
+  }, [socket])
+
+  useEffect(() => {
+    if (socket && user) {
+      socket?.emit('connectUser', user.id)
+
+    }
+  }, [socket])
+
+  useEffect(() => {
+    if (socket) {
+      socket?.on('newNotification', (notification) => {
+        showToast({ content: <PostNotificationContent data={notification} /> })
+      });
+
+    }
+  }, [socket])
+
+
+
 
   /**
    * Theme
@@ -80,6 +113,44 @@ function App() {
     }
   }, [theme])
 
+  /**
+   * Currency
+   */
+  const [currency, setCurrency] = useState(JSON.parse(localStorage.getItem('currency')));
+  if (!localStorage.getItem('currency')) {
+    axios({
+      url: `${process.env.REACT_APP_API_DOMAIN}/api/currencies/1`,
+      method: 'get'
+    }).then((res) => {
+      console.log(res.data, 'DOLLARCURRENCY')
+      localStorage.setItem('currency', JSON.stringify(res.data));
+      setCurrency(res.data)
+    })
+
+  }
+  const [currenciesBaseUSD,setCurrenciesBaseUSD]=useState(null)
+  useEffect(()=>{
+    axios({
+      url: `https://cdn.taux.live/api/latest.json`,
+      method: 'get'
+    }).then((res) => {
+      setCurrenciesBaseUSD(res.data.rates)
+    })
+  },[])
+  
+  const changeCurrency = (currency) => {
+    setCurrency(currency)
+    localStorage.setItem('currency', JSON.stringify(currency))
+  }
+  const defaultCurrency = useMemo(() => {
+    return {
+      currency,
+      setCurrency: changeCurrency,
+      currenciesBaseUSD,
+      setCurrenciesBaseUSD
+    }
+  }, [currency,currenciesBaseUSD])
+
 
 
 
@@ -90,15 +161,6 @@ function App() {
   const [pageLoading, setPageLoading] = useState(true)
   //Responsive
   const connectedUser = useSelector((state) => state.user.user)
-
-  const [socket, setSocket] = useState(null)
-
-  const socketValue = useMemo(() => {
-    return {
-      socket,
-      setSocket,
-    }
-  }, [socket])
 
   const [shownSidebar, setShownSidebar] = useState(true);
   const [deviceType, setDeviceType] = useState(DESKTOP);
@@ -152,8 +214,8 @@ function App() {
         }).then((res) => {
           dispatch(setConnectedUser(res.data))
           setPageLoading(false)
-          setSocket(io('http://localhost:8000'))
-          socket?.emit('connectUser', res.data.id)
+          setSocket(io('http://localhost:5000'))
+
         }).catch((err) => {
           setPageLoading(false)
         })
@@ -163,12 +225,6 @@ function App() {
     }
   }, [])
 
-
-
-
-  useEffect(() => {
-
-  }, [])
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -221,18 +277,18 @@ function App() {
                             </Route>
                           </Route>
 
-                          <Route path='/profil'>
-                            <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true} /> : <AuthRedirect requireAuth={true} />} />
-                            <Route path=':userId' element={<ProfileLayout />}>
-                              <Route index element={<Navigate to='actu' replace={true} />} />
-                              <Route path='actu' element={<ProfileActu />} />
-                              <Route path='a-propos-de-moi' element={<ProfileAbout />}>
-                                <Route index element={<Navigate to='etudes-et-emplois' replace={true} />} />
-                                <Route path='etudes-et-emplois' element={<Studies />} />
-                                <Route path='mes-coordonnees' element={<Contact />} />
+                            <Route path='/profil'>
+                              <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true}  /> : <AuthRedirect requireAuth={true} />} />
+                              <Route path=':userId' element={<ProfileLayout />}>
+                                <Route index element={<Navigate to='actu' replace={true} />} />
+                                <Route path='actu' element={<ProfileActu />} />
+                                <Route path='a-propos-de-moi' element={<ProfileAbout />}>
+                                  <Route index element={<Navigate to='etudes-et-emplois' replace={true} />} />
+                                  <Route path='etudes-et-emplois' element={<Studies />} />
+                                  <Route path='mes-coordonnees' element={<Contact />} />
+                                </Route>
                               </Route>
                             </Route>
-                          </Route>
 
                           <Route path='/investissements'>
                             <Route index element={<Funding />} />
@@ -243,48 +299,48 @@ function App() {
 
 
 
-                          {/* <Route path='/page' element={<PageLayout />}>
+                            {/* <Route path='/page' element={<PageLayout />}>
                           <Route index element={<PageHome />} />
                           <Route path='accueil' element={<PageHome />} />
                           <Route path='a-propos' element={<PageAbout />} />
                           <Route path='actualite' element={<PageActu />} />
                         </Route> */}
 
-                          <Route path='/portail'>
-                            <Route element={<AuthRedirect requireAuth={true} />}>
-                              <Route path='' element={<PortalDashboardLayout />}>
-                                <Route path=':portalId' element={<PortalAdminLayout />}>
-                                  <Route path='dashboard'>
-                                    <Route index element={<Dashboard />} />
-                                    <Route path='a-propos' element={<DashboardAbout />} />
+                            <Route path='/portail'>
+                              <Route element={<AuthRedirect requireAuth={true} />}>
+                                <Route path='' element={<PortalDashboardLayout />}>
+                                  <Route path=':portalId' element={<PortalAdminLayout />}>
+                                    <Route path='dashboard'>
+                                      <Route index element={<Dashboard />} />
+                                      <Route path='a-propos' element={<DashboardAbout />} />
+                                    </Route>
                                   </Route>
+                                  <Route path='nouveau' element={<CreatePortal />} />
                                 </Route>
-                                <Route path='nouveau' element={<CreatePortal />} />
+
                               </Route>
-
+                              <Route path=':portalId' element={<PortalLayout />}>
+                                <Route index element={<PortalHome />} />
+                                <Route path='accueil' element={<PortalHome />} />
+                                <Route path='a-propos' element={<PortalAbout />} />
+                                <Route path='actualite' element={<PortalActu />} />
+                              </Route>
                             </Route>
-                            <Route path=':portalId' element={<PortalLayout />}>
-                              <Route index element={<PortalHome />} />
-                              <Route path='accueil' element={<PortalHome />} />
-                              <Route path='a-propos' element={<PortalAbout />} />
-                              <Route path='actualite' element={<PortalActu />} />
+                            <Route path='/video' element={<Minimal />}>
+                              <Route index element={<VideoHome />} />
+                              <Route path='play' element={<Video />} />
                             </Route>
-                          </Route>
-                          <Route path='/video' element={<Minimal />}>
-                            <Route index element={<VideoHome />} />
-                            <Route path='play' element={<Video />} />
-                          </Route>
-                          <Route element={<AuthRedirect requireAuth={true} />}>
-                            <Route path='/messages/:discuId?' element={<Messages />} />
-                          </Route>
-                          <Route element={<AuthRedirect />}>
-                            <Route path='/connexion' element={<Login />} />
-                          </Route>
-                        </>
+                            <Route element={<AuthRedirect requireAuth={true} />}>
+                              <Route path='/messages/:discuId?' element={<Messages />} />
+                            </Route>
+                            <Route element={<AuthRedirect />}>
+                              <Route path='/connexion' element={<Login />} />
+                            </Route>
+                          </>
 
-                      }
+                        }
 
-                      {/* <Route path="teams" element={<Teams />}>
+                        {/* <Route path="teams" element={<Teams />}>
               <Route path=":teamId" element={<Team />} />
               <Route path=":teamId/edit" element={<EditTeam />} />
               <Route path="new" element={<NewTeamForm />} />

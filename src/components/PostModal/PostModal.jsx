@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 import './PostModal.scss'
 import Modal from '../Modal/Modal'
 import { BarChart, BodyText, CupHot, FileEarmarkImage, GeoAlt, Hash, ChevronDown, XLg, Globe } from 'react-bootstrap-icons'
@@ -16,22 +16,30 @@ import { getUserCompanies } from '../../api/company'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AuthorSelector from '../AuthorSelector/AuthorSelector'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import Toast from '../Toast/Toast'
+import { showToast } from '../../utils/toastUtils'
+import SocketIOContext from '../../context/SocketIOContext'
+import { addPostNotification } from '../../api/notification'
 
 const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
   const { user } = useSelector(store => store.user)
+  const {socket}=useContext(SocketIOContext)
   const [author, setAuthor] = useState(null)
   const [postContent, setPostContent] = useState('')
   const [postMedias, setPostMedias] = useState([])
   const [isLoading, setIsloading] = useState(false)
-  const [survey,setSurvey]=useState({})
+  const [survey, setSurvey] = useState({})
+
   const publishPost = () => {
 
     let postFormData = new FormData()
     if (postContent !== '') {
       postFormData.append('content', postContent)
     }
-    if(author){
+    if (author) {
       postFormData.append('author', author)
     }
     if (postMedias.length > 0) {
@@ -39,7 +47,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
         postFormData.append('file[]', pm)
       })
     }
-    if(survey.title!=='' && survey.options.length>0){
+    if (survey.title !== '' && survey.options.length > 0) {
       postFormData.append('survey', survey)
     }
     setIsloading(true)
@@ -49,8 +57,19 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
       withCredentials: true,
       data: postFormData
     }).then((res) => {
-      console.log(res);
       setIsloading(false)
+      setIsOpen(false)
+      console.log(res.data, 'PublishedPost')
+      addPostNotification(`/api/posts/${res.data.id}`).then((res) => {
+        socket?.emit('sendNotification', {
+          notification:res.data,
+          currentUser:user.id
+        })
+      }).catch((err) => console.log(err.response))
+
+      showToast({ content: <span>Votre post a été ajouté avec succès</span>,type:'success' })
+
+
     }).catch((err) => {
       setIsloading(false)
       console.log(err.response);
@@ -99,7 +118,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
                 <span>{p.name}</span>
               </Link>}
             /> */}
-            <AuthorSelector onSelect={(author)=>setAuthor(`${author.name ? `/api/companies/${author.id}` : `/api/users/${author.id}`}`)}/>
+            <AuthorSelector onSelect={(author) => setAuthor(`${author.name ? `/api/companies/${author.id}` : `/api/users/${author.id}`}`)} />
           </>
         }>
           <Tab title={<>
@@ -122,7 +141,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
             <BarChart size={18} />
             <span>Sondage</span>
           </>}>
-            <Survey onChange={(survey)=>setSurvey(survey)}/>
+            <Survey onChange={(survey) => setSurvey(survey)} />
           </Tab>
           <Tab title={<>
             <Hash size={18} />
