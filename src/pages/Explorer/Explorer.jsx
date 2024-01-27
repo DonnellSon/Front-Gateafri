@@ -686,7 +686,7 @@ const Explorer = () => {
                       <div className="item-bottom">
                         <h1>Ny soa Hotel.
                         </h1>
-                        <p>5 Etoile.</p>
+                        <p>5 Etoiless.</p>
                       </div>
                     </div>
 
