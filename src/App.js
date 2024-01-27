@@ -58,8 +58,8 @@ import Studies from './pages/Profile/Studies';
 import Contact from './pages/Profile/Contact';
 import Notifications from './pages/Notifications/Notifications';
 import ExplorerLayout from './layouts/ExplorerLayout';
-import Stay from './pages/Stay/Stay';
 import Explorer from './pages/Explorer/Explorer';
+import City from './pages/Stay/City';
 function App() {
 
   /**
@@ -298,7 +298,7 @@ function App() {
 
                      <Route path='/explorer' element={<ExplorerLayout />}>
                          <Route index element={<Explorer />} />
-                        <Route path='sejour' element={<Stay />} /> 
+                        <Route path='ville' element={<City />} /> 
                     </Route> 
 
                   </Routes>

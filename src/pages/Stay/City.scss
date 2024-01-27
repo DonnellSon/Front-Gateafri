@@ -1,0 +1,9 @@
+@import '../../style.scss';
+
+#city-page
+{
+    @include themify($themes){
+        background: themed("background",0);
+      
+    }
+}

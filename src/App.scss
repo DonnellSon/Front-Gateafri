@@ -11,8 +11,13 @@
   --border-grey: #cecdcd;
   --main-gradient: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
   --invert-gradient: linear-gradient(315deg, #f6daaf 60%, #9f98e8 120%);
-}
 
+}
+ .purple-text-gradient{
+      background: linear-gradient(180deg,#8b23e6,#ef0d88);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+ }
 
 .rating-diamond-img {
   width: 38px;
