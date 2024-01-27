@@ -250,6 +250,7 @@ function App() {
     <SocketIOContext.Provider value={socketValue}>
       <QueryClientProvider client={queryClient}>
         <MediaContext.Provider value={deviceTypeValue}>
+          <CurrencyContext.Provider value={defaultCurrency}>
           <ThemeContext.Provider value={activeTheme}>
             <div id="AppTheme" className={`theme-${theme}`}>
               <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
@@ -363,6 +364,8 @@ function App() {
               <PageLoader open={pageLoading} />
             </div>
           </ThemeContext.Provider>
+          </CurrencyContext.Provider>
+          
         </MediaContext.Provider>
       </QueryClientProvider>
     </SocketIOContext.Provider>

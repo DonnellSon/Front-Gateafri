@@ -7,6 +7,7 @@ import { LuLogIn } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import { GlobeAmericas, GlobeEuropeAfrica, HouseDoor } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 const ExplorerNavBar = () => {
     const [openRightbar, setOpenRightbar] = useState(false)
@@ -16,7 +17,7 @@ const ExplorerNavBar = () => {
             <div className='navbar-explorer' >
 
                 <div className='item'>
-                    <div className='item-left'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo' /></div>
+                    <Link to='/' className='item-left'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo' /></Link>
                 </div>
 
                 <div className='item-center-navbar'>
