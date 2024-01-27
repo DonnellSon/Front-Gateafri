@@ -63,8 +63,8 @@ import { showToast } from './utils/toastUtils';
 import PostNotificationContent from './pages/Notifications/PostNotificationContent'
 import CurrencyContext from './context/CurrencyContext';
 import ExplorerLayout from './layouts/ExplorerLayout';
-import Stay from './pages/Stay/Stay';
 import Explorer from './pages/Explorer/Explorer';
+import City from './pages/Stay/City';
 function App() {
   const { user } = useSelector(store => store.user)
 
@@ -354,7 +354,7 @@ function App() {
 
                      <Route path='/explorer' element={<ExplorerLayout />}>
                          <Route index element={<Explorer />} />
-                        <Route path='sejour' element={<Stay />} /> 
+                        <Route path='ville' element={<City />} /> 
                     </Route> 
 
                   </Routes>

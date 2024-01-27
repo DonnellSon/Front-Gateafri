@@ -7,7 +7,7 @@ import { LuLogIn } from "react-icons/lu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import RightSidebar from '../../components/RightSidebar/RightSidebar';
 import { GlobeAmericas, GlobeEuropeAfrica, HouseDoor } from 'react-bootstrap-icons';
-
+import DoNavLink from '../../components/DoNavLink/DoNavLink';
 const ExplorerNavBar = () => {
     const [openRightbar, setOpenRightbar] = useState(false)
 
@@ -16,26 +16,26 @@ const ExplorerNavBar = () => {
             <div className='navbar-explorer' >
 
                 <div className='item'>
-                    <div className='item-left'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo' /></div>
+                    <div className='item-left'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo'/></div>
                 </div>
 
                 <div className='item-center-navbar'>
 
                     <div className='item-center'>
                         <div className='svg-container'>
-                            <div className='svg'><HouseDoor /></div>
+                            <DoNavLink className='svg' activeClass='active' to='/'><HouseDoor /></DoNavLink>
                         </div>
                     </div>
 
                     <div className='item-center'>
                         <div className='svg-container'>
-                            <div className='svg'><GlobeEuropeAfrica /></div>
+                            <DoNavLink className='svg' activeClass='active' to='/explorer'><GlobeEuropeAfrica /></DoNavLink>
                         </div>
                     </div>
 
                     <div className='item-center'>
                         <div className='svg-container'>
-                            <div className='svg'><GiCableStayedBridge /></div>
+                            <DoNavLink className='svg' activeClass='active' to='/hotels'><GiCableStayedBridge /></DoNavLink>
                         </div>
                     </div>
 
