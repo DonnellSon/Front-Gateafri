@@ -50,10 +50,10 @@ const useInfiniteScroll = ({url,queryKey=['infiniteScroll'],queryString=null,ipp
                 }
             }
         }
-        scrollingElement.addEventListener('scroll', onScroll)
+        scrollingElement?.addEventListener('scroll', onScroll)
 
         return () => {
-            scrollingElement.removeEventListener('scroll', onScroll)
+            scrollingElement?.removeEventListener('scroll', onScroll)
         }
 
     }, [])

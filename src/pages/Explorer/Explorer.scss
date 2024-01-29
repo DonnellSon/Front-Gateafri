@@ -1,6 +1,7 @@
 @import '../../style.scss';
 
 #explorer-container {
+    
     @include themify($themes) {
         position: relative;
 
@@ -9,10 +10,34 @@
 
         }
 
+        .country-slider{
+            height: calc(100vh - 120px);
+            .slick-slider{
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 120px);
+            }
+            .caption{
+                position: absolute;
+                bottom: 100px;
+                left: 100px;
+                color: white;
+            }
+        }
+        .country-slider-img{
+            height: calc(100vh - 120px);
+            position: relative;
+            img{
+                position: absolute;
+                display: block;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
 
         .country-slide {
             position: relative;
-            // margin-top: -70px;
 
         }
 
@@ -161,12 +186,20 @@
                     background: themed('background', 3);
                     border-radius: 5px;
                     box-shadow: var(--elevation-1);
-                    padding: 10px;
+                    padding: 15px;
                     margin-bottom: 5px;
 
                     .slick-track {
                         display: flex;
-                        gap: 15px
+                        // gap: 15px
+                    }
+                    .slick-slide {
+                        margin: 0 7.5px;
+                    }
+                    
+                    /* the parent */
+                    .slick-list {
+                        margin: 0 -7.5px;
                     }
                 }
             }
@@ -179,7 +212,6 @@
 
                 .invest-content {
                     border-radius: 5px;
-                    padding: 20px;
 
                     p {
                         padding: 0;
@@ -231,9 +263,9 @@
 
                             .invest-li {
                                 display: flex;
-                                align-items: center;
+                                align-items: flex-start;
                                 gap: 20px;
-                                padding: 20px;
+                                margin-bottom: 35px;
 
                                 h1,
                                 p {
@@ -252,7 +284,7 @@
                                 }
 
                                 img {
-                                    width: 75px;
+                                    width: 60px;
                                 }
                             }
                         }
@@ -309,7 +341,7 @@
                 background: themed('background', 3);
                 border-radius: 5px;
                 box-shadow: var(--elevation-1);
-                padding: 10px;
+                padding: 15px;
                 margin-bottom: 5px;
 
                 .ville-title {
@@ -323,7 +355,15 @@
                 .ville-carouseul {
                     .slick-track {
                         display: flex;
-                        gap: 15px
+                        // gap: 15px;
+                    }
+                    .slick-slide {
+                        margin: 0 7.5px;
+                    }
+                    
+                    /* the parent */
+                    .slick-list {
+                        margin: 0 -7.5px;
                     }
 
                     &:hover {
@@ -431,7 +471,7 @@
                 background: themed('background', 3);
                 border-radius: 5px;
                 box-shadow: var(--elevation-1);
-                padding: 10px;
+                padding: 15px;
                 margin-bottom: 5px;
 
                 .grille-item-nature {
@@ -441,7 +481,6 @@
                     grid-gap: 15px;
                     align-items: center;
                     cursor: pointer;
-                    margin-left: 15px;
 
                 }
 
@@ -480,7 +519,7 @@
                 background: themed('background', 3);
                 border-radius: 5px;
                 box-shadow: var(--elevation-1);
-                padding: 10px;
+                padding: 15px;
                 margin-bottom: 5px;
 
                 .video-title {
@@ -493,7 +532,15 @@
                 .video-carouseul {
                     .slick-track {
                         display: flex;
-                        gap: 15px
+                        // gap: 15px
+                    }
+                    .slick-slide {
+                        margin: 0 7.5px;
+                    }
+                    
+                    /* the parent */
+                    .slick-list {
+                        margin: 0 -7.5px;
                     }
 
                     &:hover {
@@ -599,7 +646,7 @@
                 background: themed('background', 3);
                 border-radius: 5px;
                 box-shadow: var(--elevation-1);
-                padding: 8px;
+                padding: 15px;
 
                 .reservation-content {
                     display: flex;
@@ -612,11 +659,11 @@
 
                         >div {
                             h1 {
-                                color: themed('text', 2);
+                                color: white;
                             }
 
                             p {
-                                color: themed('text', 3);
+                                color: white;
 
                             }
                         }
@@ -713,3 +760,5 @@
         }
     }
 }
+
+

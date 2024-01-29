@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useLayoutEffect, useContext, useRef } from 'react';
 import './App.scss';
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { Routes, Route, BrowserRouter, Navigate, useLocation } from 'react-router-dom'
 import Default from './layouts/Default';
 import Home from './pages/Home/Home';
 import JobFindingLayout from './layouts/JobFindingLayout';
@@ -67,7 +67,6 @@ import Explorer from './pages/Explorer/Explorer';
 import City from './pages/Stay/City';
 function App() {
   const { user } = useSelector(store => store.user)
-
   const [socket, setSocket] = useState(null);
   const socketValue = useMemo(() => {
     return {
@@ -92,7 +91,9 @@ function App() {
     }
   }, [socket])
 
-
+  useEffect(()=>{
+    document.scrollingElement.scrollTop=0
+  },[window.location.pathname])
 
 
   /**
@@ -128,16 +129,16 @@ function App() {
     })
 
   }
-  const [currenciesBaseUSD,setCurrenciesBaseUSD]=useState(null)
-  useEffect(()=>{
+  const [currenciesBaseUSD, setCurrenciesBaseUSD] = useState(null)
+  useEffect(() => {
     axios({
       url: `https://cdn.taux.live/api/latest.json`,
       method: 'get'
     }).then((res) => {
       setCurrenciesBaseUSD(res.data.rates)
     })
-  },[])
-  
+  }, [])
+
   const changeCurrency = (currency) => {
     setCurrency(currency)
     localStorage.setItem('currency', JSON.stringify(currency))
@@ -149,7 +150,7 @@ function App() {
       currenciesBaseUSD,
       setCurrenciesBaseUSD
     }
-  }, [currency,currenciesBaseUSD])
+  }, [currency, currenciesBaseUSD])
 
 
 
@@ -251,35 +252,35 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <MediaContext.Provider value={deviceTypeValue}>
           <CurrencyContext.Provider value={defaultCurrency}>
-          <ThemeContext.Provider value={activeTheme}>
-            <div id="AppTheme" className={`theme-${theme}`}>
-              <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
-                <BrowserRouter>
-                  <Routes>
-                    <Route element={<Default />}>
-                      {
-                        !pageLoading &&
-                        <>
-                          <Route path='/landing' element={<Landing />} />
-                          <Route path="/" element={<Home />} />
-                          <Route path="/notifications" element={<Notifications />} />
-                          <Route path="/recherche">
-                            <Route index element={<Search />} />
-                          </Route>
-                          <Route path='/image/:image_id' element={<Image />} />
-                          <Route element={<AuthRedirect />}>
-                            <Route path='/inscription' element={<Register />} />
-                          </Route>
-                          <Route path='/emplois/:jobOfferId?' element={<JobFindingLayout />}>
-                            <Route index element={<JobFindingHome />} />
-                            <Route element={<AuthRedirect requireAuth={true} />}>
-                              <Route path='nouveau' element={<CreateJob />} />
-                              <Route path='cv' element={<CreateCv />} />
+            <ThemeContext.Provider value={activeTheme}>
+              <div id="AppTheme" className={`theme-${theme}`}>
+                <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
+                  <BrowserRouter>
+                    <Routes>
+                      <Route element={<Default />}>
+                        {
+                          !pageLoading &&
+                          <>
+                            <Route path='/landing' element={<Landing />} />
+                            <Route path="/" element={<Home />} />
+                            <Route path="/notifications" element={<Notifications />} />
+                            <Route path="/recherche">
+                              <Route index element={<Search />} />
                             </Route>
-                          </Route>
+                            <Route path='/image/:image_id' element={<Image />} />
+                            <Route element={<AuthRedirect />}>
+                              <Route path='/inscription' element={<Register />} />
+                            </Route>
+                            <Route path='/emplois/:jobOfferId?' element={<JobFindingLayout />}>
+                              <Route index element={<JobFindingHome />} />
+                              <Route element={<AuthRedirect requireAuth={true} />}>
+                                <Route path='nouveau' element={<CreateJob />} />
+                                <Route path='cv' element={<CreateCv />} />
+                              </Route>
+                            </Route>
 
                             <Route path='/profil'>
-                              <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true}  /> : <AuthRedirect requireAuth={true} />} />
+                              <Route index element={connectedUser ? <Navigate to={`${connectedUser.id}`} replace={true} /> : <AuthRedirect requireAuth={true} />} />
                               <Route path=':userId' element={<ProfileLayout />}>
                                 <Route index element={<Navigate to='actu' replace={true} />} />
                                 <Route path='actu' element={<ProfileActu />} />
@@ -291,12 +292,12 @@ function App() {
                               </Route>
                             </Route>
 
-                          <Route path='/investissements'>
-                            <Route index element={<Funding />} />
-                            <Route element={<AuthRedirect requireAuth={true} />}>
-                              <Route path='nouveau' element={<CreateInvest />} />
+                            <Route path='/investissements'>
+                              <Route index element={<Funding />} />
+                              <Route element={<AuthRedirect requireAuth={true} />}>
+                                <Route path='nouveau' element={<CreateInvest />} />
+                              </Route>
                             </Route>
-                          </Route>
 
 
 
@@ -347,25 +348,29 @@ function App() {
               <Route path="new" element={<NewTeamForm />} />
               <Route index element={<LeagueStandings />} />
             </Route> */}
-                    </Route>
 
-                    <Route path='/musique' element={<MusicLayout />}>
-                      <Route index element={<Music />} />
-                    </Route>
 
-                     <Route path='/explorer' element={<ExplorerLayout />}>
-                         <Route index element={<Explorer />} />
-                        <Route path='ville' element={<City />} /> 
-                    </Route> 
+                        <Route path='/explorer' element={<Countries />} />
+                      </Route>
 
-                  </Routes>
-                </BrowserRouter>
+                      <Route path='/musique' element={<MusicLayout />}>
+                        <Route index element={<Music />} />
+                      </Route>
+
+                      <Route path='/explorer/pays/:countryId' element={<ExplorerLayout />}>
+
+                        <Route index element={<Explorer />} />
+                        <Route path='ville/:cityId' element={<City />} />
+                      </Route>
+
+                    </Routes>
+                  </BrowserRouter>
+                </div>
+                <PageLoader open={pageLoading} />
               </div>
-              <PageLoader open={pageLoading} />
-            </div>
-          </ThemeContext.Provider>
+            </ThemeContext.Provider>
           </CurrencyContext.Provider>
-          
+
         </MediaContext.Provider>
       </QueryClientProvider>
     </SocketIOContext.Provider>

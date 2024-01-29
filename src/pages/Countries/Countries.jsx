@@ -7,12 +7,39 @@ import { Line, Bar } from 'react-chartjs-2';
 import { CategoryScale, Chart, LinearScale, PointElement, LineElement, BarElement } from "chart.js";
 import { DESKTOP, SMARTPHONE } from '../../constants/MediaTypeConstants';
 import { Link, useLocation } from 'react-router-dom';
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll';
+import { useEffect } from 'react';
+import CountryCardSkeleton from './CountryCardSkeleton';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement);
 
 
 const Countries = () => {
     const { deviceType } = useContext(MediaContext)
+
+    const { data: countriesList,
+        flatData: countriesListFlat,
+        error,
+        hasNextPage: countriesListNextPage,
+        isFetching: countriesListFetching,
+        isFetchingNextPage: countriesListFetchingNextPage,
+        status: countriesLoadingStatus,
+        refetch,
+        refetchPage
+    } = useInfiniteScroll({
+        url: `${process.env.REACT_APP_API_DOMAIN}/api/pays`,
+        ipp: 10,
+        queryKey: ['countries_read'],
+        queryString: '',
+        transformResult: (result) => {
+            return { data: result['hydra:member'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
+        }
+    })
+
+    useEffect(() => {
+        console.log(countriesListFlat, 'cOUNTRIES')
+    }, [countriesList])
+
     return (
         <div id='countries-page'>
             <div className="top flex gap-15">
@@ -35,330 +62,67 @@ const Countries = () => {
                 <div className="center flex flex-column flex-grow-1">
 
                     <div className="countries-list p-15">
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ54AwBiw0hXfnEvpikAhNLklmaN8iS4hvtWaNIi3tTbgB8I3JExkDE1ng723LNLZJGCI&usqp=CAU" alt="image" loading="lazy" />
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsGIYjJ9Yxa5hscRdfcue_SVaW1x48SJ5DkZ9XSZ7ampj2qhPBJXFg6vDv4mn0-c2Def0&usqp=CAU" alt="image" loading="lazy" />
+                        {
+                            countriesListFetching ?
+                            [...new Array(6)].map(()=><CountryCardSkeleton/>) :
+                                countriesListFlat?.map((c, i) => (
+                                    <div className="country-card">
+                                        <div className="top d-flex">
+                                            {
+                                                c?.countryThumbnails[0] &&
+                                                    <div className="left relative flex">
+                                                        <img className='relative' src={c?.countryThumbnails[0]?.fileUrl} alt="image" loading="lazy" />
+                                                    </div>
+                                            }
 
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiydLR1IbCjUMVCEOi7_eX7SYgCtNwBwE2OBiFHpUDvH4S-lLZsfjeQq-ZwQSbz4B72M8&usqp=CAU" alt="image" loading="lazy" />
+                                            <div className="right">
+                                            {
+                                                c?.countryThumbnails[1] &&
+                                                <div className='aspect-ratio-1 relative'>
+                                                <img className='relative' src={c?.countryThumbnails[1]?.fileUrl} alt="image" loading="lazy" />
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span className='country'>Madagascar</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufCrjk2SFAKt1IPEi8Udiwl7EAgF2kwIrACMRa8qwrJA-adVlWgNtdU4J5LXFrJS9kGw&usqp=CAU" alt="image" loading="lazy" />
+                                            </div>
+                                            }
+                                            {
+                                                c?.countryThumbnails[2] &&
+                                                <div className='aspect-ratio-1 relative'>
+                                                    <img className='relative' src={c?.countryThumbnails[2]?.fileUrl} alt="image" loading="lazy" />
 
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUPAYDkwIcace5s0tjpnSyRzy9QeNG1ond-B6X8WzTcjwOQa0sjTUp5znh1cVMXXfxeWI&usqp=CAU" alt="image" loading="lazy" />
-
+                                                </div>
+                                            }
+                                            
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        <div className="capt">
+                                            <div className="flex justify-content-between">
+                                                <div className="flex align-items-center gap-10 mb-10">
+                                                    <img src={c?.flag?.fileUrl} height={20} alt="" />
+                                                    <span className='country'>{c?.name}</span>
+                                                </div>
+                                                <Gem size={19} />
+                                            </div>
+                                            <div className="flex gap-5 mb-5">
+                                                <p className="pib"><small>USD</small> 4,4B</p>
+                                                <p className="pnb"><small>USD</small> 1,6K</p>
+                                                <p className="hab">25M</p>
+                                            </div>
+                                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
+                                            <div className="flex mt-10">
+                                                <Link to={`pays/${c.id}`} className="btn-transparent flex-1">Explorer</Link>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://i.pinimg.com/236x/a4/e1/4d/a4e14dc67bcd5b2bd9fdbdee17bec8eb--costa-rica-travel-costa-rica-itinerary.jpg" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span className='country'>Ceuta</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1"><Link to={'/explorer/test'}>Explorer</Link></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmPgGQ7Jto4C0WR4DunyBaXvdW5_mIE1GefrE36QsY8yDsUF59r2rg53cDyP-JKN6DraQ&usqp=CAU" alt="image" loading="lazy" />
-
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh27gHetVgYY4FtxqEczB3_NEefsSuv2x_nCAkpIkYMie8wntrqR_BXLXq0rVAYED5Ev4&usqp=CAU" alt="image" loading="lazy" />
+                                ))
+                        }
 
 
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5fNsuFp2Q2VHX9icQdlOgOqO-222gbTllpEr7hMrk5y2SCgrX7R73IgB2iVoNTqYc5mE&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span className='country'>Algerie</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ54AwBiw0hXfnEvpikAhNLklmaN8iS4hvtWaNIi3tTbgB8I3JExkDE1ng723LNLZJGCI&usqp=CAU" alt="image" loading="lazy" />
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsGIYjJ9Yxa5hscRdfcue_SVaW1x48SJ5DkZ9XSZ7ampj2qhPBJXFg6vDv4mn0-c2Def0&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiydLR1IbCjUMVCEOi7_eX7SYgCtNwBwE2OBiFHpUDvH4S-lLZsfjeQq-ZwQSbz4B72M8&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span className='country'>Madagascar</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufCrjk2SFAKt1IPEi8Udiwl7EAgF2kwIrACMRa8qwrJA-adVlWgNtdU4J5LXFrJS9kGw&usqp=CAU" alt="image" loading="lazy" />
-
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUPAYDkwIcace5s0tjpnSyRzy9QeNG1ond-B6X8WzTcjwOQa0sjTUp5znh1cVMXXfxeWI&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://i.pinimg.com/236x/a4/e1/4d/a4e14dc67bcd5b2bd9fdbdee17bec8eb--costa-rica-travel-costa-rica-itinerary.jpg" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span className='country'>Ceuta</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmPgGQ7Jto4C0WR4DunyBaXvdW5_mIE1GefrE36QsY8yDsUF59r2rg53cDyP-JKN6DraQ&usqp=CAU" alt="image" loading="lazy" />
-
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh27gHetVgYY4FtxqEczB3_NEefsSuv2x_nCAkpIkYMie8wntrqR_BXLXq0rVAYED5Ev4&usqp=CAU" alt="image" loading="lazy" />
 
 
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5fNsuFp2Q2VHX9icQdlOgOqO-222gbTllpEr7hMrk5y2SCgrX7R73IgB2iVoNTqYc5mE&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span className='country'>Algerie</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ54AwBiw0hXfnEvpikAhNLklmaN8iS4hvtWaNIi3tTbgB8I3JExkDE1ng723LNLZJGCI&usqp=CAU" alt="image" loading="lazy" />
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsGIYjJ9Yxa5hscRdfcue_SVaW1x48SJ5DkZ9XSZ7ampj2qhPBJXFg6vDv4mn0-c2Def0&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiydLR1IbCjUMVCEOi7_eX7SYgCtNwBwE2OBiFHpUDvH4S-lLZsfjeQq-ZwQSbz4B72M8&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Madagascar.svg" height={20} alt="" />
-                                        <span className='country'>Madagascar</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufCrjk2SFAKt1IPEi8Udiwl7EAgF2kwIrACMRa8qwrJA-adVlWgNtdU4J5LXFrJS9kGw&usqp=CAU" alt="image" loading="lazy" />
-
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUPAYDkwIcace5s0tjpnSyRzy9QeNG1ond-B6X8WzTcjwOQa0sjTUp5znh1cVMXXfxeWI&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://i.pinimg.com/236x/a4/e1/4d/a4e14dc67bcd5b2bd9fdbdee17bec8eb--costa-rica-travel-costa-rica-itinerary.jpg" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_Ceuta.svg" height={20} alt="" />
-                                        <span className='country'>Ceuta</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="country-card">
-                            <div className="top d-flex">
-                                <div className="left relative flex">
-                                    <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmPgGQ7Jto4C0WR4DunyBaXvdW5_mIE1GefrE36QsY8yDsUF59r2rg53cDyP-JKN6DraQ&usqp=CAU" alt="image" loading="lazy" />
-
-                                </div>
-                                <div className="right">
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh27gHetVgYY4FtxqEczB3_NEefsSuv2x_nCAkpIkYMie8wntrqR_BXLXq0rVAYED5Ev4&usqp=CAU" alt="image" loading="lazy" />
-
-
-                                    </div>
-                                    <div className='aspect-ratio-1 relative'>
-                                        <img className='relative' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5fNsuFp2Q2VHX9icQdlOgOqO-222gbTllpEr7hMrk5y2SCgrX7R73IgB2iVoNTqYc5mE&usqp=CAU" alt="image" loading="lazy" />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="capt">
-                                <div className="flex justify-content-between">
-                                    <div className="flex align-items-center gap-10 mb-10">
-                                        <img src="/img/flags/Flag_of_Algeria.svg" height={20} alt="" />
-                                        <span className='country'>Algerie</span>
-                                    </div>
-                                    <Gem size={19} />
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <p className="pib"><small>USD</small> 4,4B</p>
-                                    <p className="pnb"><small>USD</small> 1,6K</p>
-                                    <p className="hab">25M</p>
-                                </div>
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aliquid aliquam nulla amet optio</p>
-                                <div className="flex mt-10">
-                                    <button className="btn-transparent flex-1">Explorer</button>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        
+                        
                     </div>
                     <div className="countries-list-color-indicator flex align-items-center gap-10 px-15">
                         <div className="flex align-items-center gap-10">

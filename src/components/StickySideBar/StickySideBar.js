@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useContext } from 'react'
-const StickySideBar = ({ children, top = 90, className }) => {
+const StickySideBar = ({ children, top = 90, bottom = 20, className }) => {
     const sticky = useRef();
     const innitSticky = (sticky) => {
         if (sticky.current !== null) {
@@ -7,14 +7,14 @@ const StickySideBar = ({ children, top = 90, className }) => {
                 sticky.current.style.top = top + 'px'
             } else {
 
-                sticky.current.style.top = (top - Math.abs((top + sticky.current.offsetHeight + 20) - document.body.offsetHeight)) + 'px'
+                sticky.current.style.top = (top - Math.abs((top + sticky.current.offsetHeight + bottom) - document.body.offsetHeight)) + 'px'
             }
         }
     }
     useEffect(() => {
 
         if (sticky.current !== null) {
-            
+
             innitSticky(sticky);
 
 
@@ -40,25 +40,25 @@ const StickySideBar = ({ children, top = 90, className }) => {
 
 
 
-    }, [children,sticky.current?.offsetHeight])
+    }, [children, sticky.current?.offsetHeight])
 
-    useEffect(()=>{
+    useEffect(() => {
         const myObserver = new ResizeObserver(entries => {
             // this will get called whenever div dimension changes
-             entries.forEach(entry => {
+            entries.forEach(entry => {
                 innitSticky(sticky)
-             });
-           });
-           
-           // start listening to changes
-           myObserver.observe(sticky.current);
-    
+            });
+        });
+
+        // start listening to changes
+        myObserver.observe(sticky.current);
+
         return () => {
             myObserver.disconnect();
         }
-    },[])
+    }, [])
     return (
-        <div className={'stickyBar '+className} ref={sticky} style={{ position: 'sticky',height:'auto', top: 0, left: 0, right: 0, transition: '.5s' }}>
+        <div className={'stickyBar ' + className} ref={sticky} style={{ position: 'sticky', height: 'auto', top: 0, left: 0, right: 0, transition: '.5s' }}>
             {
                 (children) ? children : ''
             }
