@@ -5,29 +5,45 @@ import Slider from 'react-slick'
 import Avatar from '../../components/Avatar/Avatar'
 import VideoCard from '../../components/VideoCard/VideoCard'
 
-const last=[
+const last = [
   {
-    img:'/img/video/smaven.PNG',
-    title:'SMAVEN - Mahery aligny',
-    duration:'03:40',
-    user:{
-      name:'Hira Gasy',
+    img: '/img/video/smaven.PNG',
+    title: 'SMAVEN - Mahery aligny',
+    duration: '03:40',
+    user: {
+      name: 'Hira Gasy',
     }
   },
   {
-    img:'/img/video/smaven.PNG',
-    title:'TANN FAYA - Safidiko',
-    duration:'04:00',
-    user:{
-      name:'Hira Gasy',
+    img: '/img/video/ckicky.PNG',
+    title: 'CKICKY - Tsy ahefa',
+    duration: '04:00',
+    user: {
+      name: 'Gasitera',
     }
   },
   {
-    img:'/img/video/smaven.PNG',
-    title:'SMAVEN - Mahery aligny',
-    duration:'04:20',
-    user:{
-      name:'Hira Gasy',
+    img: '/img/video/rimka.PNG',
+    title: 'RIM KA - Lasako',
+    duration: '04:20',
+    user: {
+      name: 'DagoZik',
+    }
+  },
+  {
+    img: '/img/video/lion.PNG',
+    title: 'LION HILL - Atovo tonga agny',
+    duration: '03:10',
+    user: {
+      name: 'DagoZik',
+    }
+  },
+  {
+    img: '/img/video/tsota.PNG',
+    title: 'TSOTA - Adolatsento',
+    duration: '04:20',
+    user: {
+      name: 'DagoZik',
     }
   }
 ]
@@ -145,79 +161,67 @@ const Music = () => {
           </Slider>
         </div>
       </div>
-      
+
       <div className="last-music-slider mb-5">
-          <div className="heading">
-            <h1>Les plus réscents</h1>
-          </div>
-          <Slider {...settings}>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-            <div className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
-              <VideoCard/>
-            </div>
-          </Slider>
+        <div className="heading">
+          <h1>Les plus réscents</h1>
         </div>
+        <Slider {...settings}>
+          {
+            last.map((v, i) => (
+              <div key={i} className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
+                <VideoCard videoData={v}/>
+              </div>
+            ))
+          }
+
+
+        </Slider>
+      </div>
 
       <div className="top-artist-slider">
         <div className="heading">
           <h1>Artistes populaires</h1>
         </div>
         <Slider {...settings}>
-            <div className="top-artist-slide relative" style={{ width: 150}}>
-    
-                <div className="flag-avatar">
-                  <Avatar width={100} height={100} src='/img/artists/5.png' />
-                  <img src='/img/flags/Flag_of_Madagascar.svg' />
-                </div>
-                <h1>Rema-En live</h1>
-                
+          <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+            <div className="flag-avatar">
+              <Avatar width={100} height={100} src='/img/artists/5.png' />
+              <img src='/img/flags/Flag_of_Madagascar.svg' />
             </div>
-            <div className="top-artist-slide relative" style={{ width: 150}}>
-    
-                <div className="flag-avatar">
-                  <Avatar width={100} height={100} src='/img/artists/3.png' />
-                  <img src='/img/flags/Flag_of_Madagascar.svg' />
-                </div>
-                <h1>Rema-En live</h1>
-                
+            <h1>Rema-En live</h1>
+
+          </div>
+          <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+            <div className="flag-avatar">
+              <Avatar width={100} height={100} src='/img/artists/3.png' />
+              <img src='/img/flags/Flag_of_Madagascar.svg' />
             </div>
-            <div className="top-artist-slide relative" style={{ width: 150}}>
-    
-                <div className="flag-avatar">
-                  <Avatar width={100} height={100} src='/img/artists/2.png' />
-                  <img src='/img/flags/Flag_of_Madagascar.svg' />
-                </div>
-                <h1>Rema-En live</h1>
-                
+            <h1>Rema-En live</h1>
+
+          </div>
+          <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+            <div className="flag-avatar">
+              <Avatar width={100} height={100} src='/img/artists/2.png' />
+              <img src='/img/flags/Flag_of_Madagascar.svg' />
             </div>
-            <div className="top-artist-slide relative" style={{ width: 150}}>
-    
-                <div className="flag-avatar">
-                  <Avatar width={100} height={100} src='/img/artists/1.png' />
-                  <img src='/img/flags/Flag_of_Madagascar.svg' />
-                </div>
-                <h1>Rema-En live</h1>
-                
+            <h1>Rema-En live</h1>
+
+          </div>
+          <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+            <div className="flag-avatar">
+              <Avatar width={100} height={100} src='/img/artists/1.png' />
+              <img src='/img/flags/Flag_of_Madagascar.svg' />
             </div>
-            
-          </Slider>
+            <h1>Rema-En live</h1>
+
+          </div>
+
+        </Slider>
       </div>
     </div>
   )

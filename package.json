@@ -2,7 +2,7 @@
   "name": "gateafri",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api2.gateafri.com",
+  "proxy": "https://localhost:8000",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",

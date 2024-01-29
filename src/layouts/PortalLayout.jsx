@@ -68,18 +68,18 @@ const PortalLayout = () => {
                         <div className="portal-nav">
                             <ul>
                                 <li>
-                                    <DoNavLink to="accueil" activeClass='active'><HouseDoor size={16} /><span>Accueil</span></DoNavLink>
+                                    <DoNavLink to="accueil" activeClass='active'><span>Accueil</span></DoNavLink>
                                 </li>
                                 <li>
-                                    <DoNavLink to='a-propos' activeClass='active'><ExclamationDiamond size={16} stroke='3px' /><span>Apropos</span></DoNavLink>
+                                    <DoNavLink to='a-propos' activeClass='active'><span>Apropos</span></DoNavLink>
                                 </li>
                                 <li>
                                     <DoNavLink to='actualite' activeClass='active'>
-                                        <FilePost size={16} /><span>Actualité</span>
+                                        <span>Actualité</span>
                                     </DoNavLink>
                                 </li>
-                                <li><Link><Briefcase size={16} /><span>Emplois</span></Link></li>
-                                <li><Link><People size={16} /><span>Emloyés</span></Link></li>
+                                <li><Link><span>Emplois</span></Link></li>
+                                <li><Link><span>Emloyés</span></Link></li>
                             </ul>
                         </div>
                         <div className="bottom">
