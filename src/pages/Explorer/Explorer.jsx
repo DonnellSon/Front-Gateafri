@@ -8,9 +8,13 @@ import Avatar from './../../components/Avatar/Avatar';
 import { CustomNextArrow, CustomPrevArrow } from "../../components/Arrows/Arrows";
 import { CarreSlider, CountrySlider } from "../../components/Slider/Slider";
 import StickySideBar from "../../components/StickySideBar/StickySideBar";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
   const carouseulItem = useRef()
+  
   const settingsItemCarouseul = {
     arrows: false,
     dots: false,
@@ -20,6 +24,8 @@ const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
     slidesToScroll: 1,
     autoplay: false,
   };
+
+ 
 
   return (
     <>
@@ -65,7 +71,7 @@ const Explorer = () => {
     infinite: false,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
 
   const settingsVideo = {
@@ -88,35 +94,38 @@ const Explorer = () => {
 
   };
 
+  const { countryId } = useParams()
+
+  const { data: country, error: countryErr, isLoading: countryLoading } = useQuery(['country', countryId], () => {
+    return axios({
+      url: `${process.env.REACT_APP_API_DOMAIN}/api/pays/${countryId}`,
+      method: 'get', withCredentials: true
+    }).then((res) => res.data)
+  })
+
+  useEffect(() => {
+    console.log(country, 'COUNTRYdet')
+  }, [country])
+
 
 
   return (
     <div id="explorer-container">
-      {/* <div className="content-overlay">
-        <h1>Lorem, ipsum.</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, illum.</p>
-      </div> */}
 
-      <div className="country-slide relative">
-
-        <CountrySlider titleSlider={[
+      <div className="country-slider relative">
+        <Slider autoplay={true} fade={true}>
           {
-            contains: 'Madagascar',
-            country: 'Afrique',
-            image: 'https://www.alibabuy.com/photos/library/1500/10311.jpg'
-          },
-          {
-            contains: 'Madagascar',
-            country: 'Afrique',
-            image: 'https://photo.comptoir.fr/asset/guide/107/646647-1260x630-village-typique-pres-du-parc-national-andringitra-madagascar.jpg'
+            country?.countryThumbnails?.map((t,i) => (
+              <div key={i} className="country-slider-img">
+                <img src={t.fileUrl} alt="" />
+              </div>
+            ))
           }
-          ,
-          {
-            contains: 'Madagascar',
-            country: 'Afrique',
-            image: '/img/other/baobab.webp'
-          }
-        ]} />
+        </Slider>
+        <div className="caption">
+          <h1>{country?.name}</h1>
+          {/* <span>Tsimbazaza</span> */}
+        </div>
       </div>
 
 
@@ -125,7 +134,7 @@ const Explorer = () => {
         <div className="invest">
           <StickySideBar top={20}>
             <div className="invest-content">
-              <h1 className='h1-text'>Pourquoi investir à Madagascar?</h1>
+              <h1 className='h1-text'>Pourquoi investir à {country?.name}?</h1>
               <div className="invest-gride">
                 <div className="invest-gride-item">
                   <div className="invest-gride-svg ">
@@ -190,7 +199,7 @@ const Explorer = () => {
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS
                         </h1>
-                        <p>Madagascar est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
+                        <p>{country?.name} est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
                       </div>
                     </li>
 
@@ -200,7 +209,7 @@ const Explorer = () => {
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS
                         </h1>
-                        <p>Madagascar est doté d’un potentiel minier, agricole, énergétique, de pêche. Particulièrement dense et variée, qui doit être exploitée. L’unicité et la richesse de sa biodiversité (le taux de biodiversité est de 90% (n ° 1 en Afrique) et le taux d’endémicité est le plus élevé au monde) sont également un atout pour les investissements touristiques.</p>
+                        <p>{country?.name} est doté d’un potentiel minier, agricole, énergétique, de pêche. Particulièrement dense et variée, qui doit être exploitée. L’unicité et la richesse de sa biodiversité (le taux de biodiversité est de 90% (n ° 1 en Afrique) et le taux d’endémicité est le plus élevé au monde) sont également un atout pour les investissements touristiques.</p>
                       </div>
                     </li>
 
@@ -222,7 +231,7 @@ const Explorer = () => {
                       <div>
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS</h1>
-                        <p>Madagascar met en œuvre des réformes juridiques, procédurales et administratives importantes visant à faciliter les pratiques commerciales et à encourager les investissements locaux et étrangers. D’ici 2016, plus de 20 réformes ont été mises en œuvre dans les domaines du droit des affaires, la justice commerciale, import-export, le démarrage d’une entreprise, la facilitation du crédit, la fiscalité, etc. Diverses lois favorisant les investissements ont été promulgués, notamment la loi sur les Free Zones and Companies, qui permet aux sociétés à part entière de bénéficier d’exonérations de droits de douane et de TVA sur les importations; et les impôts sur le revenu pour les 15 premières années.
+                        <p>{country?.name} met en œuvre des réformes juridiques, procédurales et administratives importantes visant à faciliter les pratiques commerciales et à encourager les investissements locaux et étrangers. D’ici 2016, plus de 20 réformes ont été mises en œuvre dans les domaines du droit des affaires, la justice commerciale, import-export, le démarrage d’une entreprise, la facilitation du crédit, la fiscalité, etc. Diverses lois favorisant les investissements ont été promulgués, notamment la loi sur les Free Zones and Companies, qui permet aux sociétés à part entière de bénéficier d’exonérations de droits de douane et de TVA sur les importations; et les impôts sur le revenu pour les 15 premières années.
 
                         </p>
                       </div>
@@ -234,7 +243,7 @@ const Explorer = () => {
                       <div>
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS</h1>
-                        <p>Madagascar est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
+                        <p>{country?.name} est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
                       </div>
                     </li>
 
@@ -244,7 +253,7 @@ const Explorer = () => {
                       <div>
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS</h1>
-                        <p>Madagascar est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
+                        <p>{country?.name} est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
                       </div>
                     </li>
 
@@ -253,7 +262,7 @@ const Explorer = () => {
                       <div>
                         <h1 className="purple-text-gradient">
                           ACCÈS POTENTIEL À UN MARCHÉ DE 600 MILLIONS DE CONSOMMATEURS</h1>
-                        <p>Madagascar est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
+                        <p>{country?.name} est membre de la Communauté de développement de l’Afrique australe (SADC), COMESA (Marché commun pour l’Afrique orientale et australe) et la COI (Commission de l’océan Indien), des organisations régionales de libre-échange totalisant plus de 600 millions de consommateurs potentiels. Investir à Madagascar donnera aux investisseurs un accès – en plus des avantages concurrentiels du pays – à ces zones de libre-échange à fort potentiel. En juillet, Madagascar a signé l’Accord tripartite de libre-échange (TFTA), qui combine SADC, COMESA et la Communauté de l’Afrique de l’Est (EAC), qui comprend 57% de la population africaine totale</p>
                       </div>
                     </li>
 
@@ -269,7 +278,7 @@ const Explorer = () => {
 
         <div className="travel">
 
-          <StickySideBar top={20}>
+          <StickySideBar top={20} bottom={5}>
             <div className="top-destination">
               <h1>Découvrez des destinations qui éveilleront vos sens</h1>
               <p><a href="#">Afficher plus</a></p>
@@ -328,8 +337,8 @@ const Explorer = () => {
                 </div>
               </div>
               <div className="ville-carouseul relative">
-                <CustomNextArrow onClick={() => villeSlide.current?.slickNext()} />
-                <CustomPrevArrow onClick={() => villeSlide.current?.slickPrev()} />
+                <CustomNextArrow onClick={villeSlide.current?.slickNext} />
+                <CustomPrevArrow onClick={villeSlide.current?.slickPrev} />
                 <Slider ref={villeSlide} {...settingsVille}>
                   <div className="ville-item-premier relative">
                     <img src="/img/other/baobab.webp" alt="image" />
@@ -473,8 +482,8 @@ const Explorer = () => {
                 </div>
               </div>
               <div className="video-carouseul relative">
-                <CustomNextArrow onClick={() => videoSlide.current?.slickNext()} />
-                <CustomPrevArrow onClick={() => videoSlide.current?.slickPrev()} />
+                <CustomNextArrow onClick={videoSlide.current?.slickNext} />
+                <CustomPrevArrow onClick={videoSlide.current?.slickPrev} />
                 <Slider ref={videoSlide} {...settingsVideo}>
                   <div className="video-item relative">
 
@@ -795,7 +804,6 @@ const Explorer = () => {
               </div>
 
               <div className="geographie-detail-right">
-                <img src="/img/other/Madagascar-carte.png" alt="image" />
               </div>
 
             </div>

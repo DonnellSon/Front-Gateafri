@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, salary, grade, type } }) => {
   const { currency, currenciesBaseUSD } = useContext(CurrencyContext)
   const htmlToJsx = new Parser()
-  const [from, to] = [currenciesBaseUSD[salary?.currency.code], currenciesBaseUSD[currency?.code]]
+  const [from, to] = [currenciesBaseUSD[salary?.currency?.code], currenciesBaseUSD[currency?.code]]
   return (
     <div className="job-details">
       <div className="cover relative">
@@ -70,9 +70,9 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
               <span>SALAIRE</span>
               {
                 (from && to) ?
-                <b>{(salary?.min && salary?.max) ? millify(convertCurrency(salary?.min, from, to)) + "-" + millify(convertCurrency(salary?.max, from, to)) : millify(convertCurrency(salary[0], from, to))} {currency.code}</b>
+                <b>{(salary?.min && salary?.max) ? millify(convertCurrency(salary?.min, from, to)) + "-" + millify(convertCurrency(salary?.max, from, to)) : millify(convertCurrency(salary[0], from, to))} {currency?.code}</b>
                 :
-                <b>{(salary?.min && salary?.max) ? millify(salary?.min) + "-" + millify(salary?.max) : millify(salary[0])} {salary?.currency.code}</b>
+                <b>{(salary?.min && salary?.max) ? millify(salary?.min) + "-" + millify(salary?.max) : millify(salary[0])} {salary?.currency?.code}</b>
               }
 
             </>

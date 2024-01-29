@@ -64,8 +64,8 @@ export const CountrySlider = ({ titleSlider }) => {
       <Slider ref={countrySlide} {...settings}>
         {titleSlider?.map((data, i) => (
           <div className="country-slide-item" key={i}>
-            <img src={data.image} alt="image" />
-            <div className="country-slide-container" >
+            <img src={data.image} alt="image" style={{background:'red',display:'block !important'}}/>
+            {/* <div className="country-slide-container" >
               <h1>{data.contains}</h1>
 
               <div className='country-rating'>
@@ -79,7 +79,7 @@ export const CountrySlider = ({ titleSlider }) => {
                 />
               </div>
 
-            </div>
+            </div> */}
           </div>
         ))}
       </Slider>
@@ -95,7 +95,7 @@ export const CarreSlider = ({ donneSlider }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1
   };
 
