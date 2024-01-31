@@ -65,6 +65,7 @@ import CurrencyContext from './context/CurrencyContext';
 import ExplorerLayout from './layouts/ExplorerLayout';
 import Explorer from './pages/Explorer/Explorer';
 import City from './pages/Stay/City';
+import HotelsHome from './pages/Hotels/HotelsHome';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -91,9 +92,9 @@ function App() {
     }
   }, [socket])
 
-  useEffect(()=>{
-    document.scrollingElement.scrollTop=0
-  },[window.location.pathname])
+  useEffect(() => {
+    document.scrollingElement.scrollTop = 0
+  }, [window.location.pathname])
 
 
   /**
@@ -357,12 +358,15 @@ function App() {
                         <Route index element={<Music />} />
                       </Route>
 
-                      <Route path='/explorer/pays/:countryId' element={<ExplorerLayout />}>
-
-                        <Route index element={<Explorer />} />
-                        <Route path='ville/:cityId' element={<City />} />
+                      <Route element={<ExplorerLayout />}>
+                        <Route path='/explorer'>
+                          <Route path='pays/:countryId'>
+                            <Route index element={<Explorer />} />
+                            <Route path='ville/:cityId' element={<City />} />
+                          </Route>
+                        </Route>
+                        <Route path='hotels' element={<HotelsHome />} />
                       </Route>
-
                     </Routes>
                   </BrowserRouter>
                 </div>

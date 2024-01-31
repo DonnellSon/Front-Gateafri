@@ -53,7 +53,7 @@ const ExplorerNavBar = () => {
 
                     <div className='item-center'>
                         <div className='svg-container'>
-                            <DoNavLink className='svg' activeClass='active' to='/explorer'>
+                            <DoNavLink className='svg' activeClass='active' end={false} to='/explorer'>
                             <GlobeEuropeAfrica size={22}/>
                             <span>Explorer</span>
                             </DoNavLink>

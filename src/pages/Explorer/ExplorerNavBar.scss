@@ -7,8 +7,8 @@
         justify-content: space-between;
         padding: 0 15px;
         align-items: center;
-        height: 80px;
-        margin-bottom: -80px;
+        height: 70px;
+        margin-bottom: -70px;
         background: linear-gradient(rgba(14, 14, 14, 0.979) -40%, rgba(14, 14, 14, 0.014) 95%);
 
         transition: .3s;
@@ -20,8 +20,6 @@
         z-index: 100;
 
         &:not(.top) {
-            height: 60px;
-        margin-bottom: -60px;
             margin-top: 0 !important;
             background: themed('background', 3);
             box-shadow: var(--elevation-1);
@@ -32,7 +30,7 @@
                 &.active{
                     color: themed("mainColor",purple) !important;
                     &::before{
-                        top: -4px !important;
+                        top: -9px !important;
                         background: themed("mainColor",purple) !important;
                     }
                 }
@@ -41,7 +39,6 @@
     
                 .container-right {
                     color: themed('text',2);
-                    background: themed('background', 5);
                     padding: 10px;
                     border-radius: 5px;
                 }
@@ -92,11 +89,11 @@
                         &::before {
                             content: "";
                             width: 30px;
-                            height: 3px;
+                            height: 5px;
                             background: white;
                             position: absolute;
-                            top: -18px;
-                            border-radius: 0 0 8px 8px;
+                            top: -14px;
+                            border-radius: 0 0 15px 15px;
                             left: calc(50% - 15px);
                         }
 
