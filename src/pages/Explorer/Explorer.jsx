@@ -612,7 +612,7 @@ const Explorer = () => {
                       <div className="item-bottom">
                         <h1>Hotel Carlton
                         </h1>
-                        <p>4 etolie</p>
+                        <p>4 Etolie</p>
                       </div>
                     </div>
 
@@ -645,7 +645,7 @@ const Explorer = () => {
                       <div className="item-bottom">
                         <h1>Hotel Tsika.
                         </h1>
-                        <p>1 étoile.</p>
+                        <p>1 Etoile.</p>
                       </div>
                     </div>
 
@@ -662,7 +662,7 @@ const Explorer = () => {
                       <div className="item-bottom">
                         <h1>Restaurant Tsara dia.
                         </h1>
-                        <p>3 étoile.</p>
+                        <p>3 Etoile.</p>
                       </div>
                     </div>
 
@@ -695,7 +695,7 @@ const Explorer = () => {
                       <div className="item-bottom">
                         <h1>Ny soa Hotel.
                         </h1>
-                        <p>5 étoile.</p>
+                        <p>5 Etoiless.</p>
                       </div>
                     </div>
 
