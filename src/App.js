@@ -358,7 +358,6 @@ function App() {
                       </Route>
 
                       <Route path='/explorer/pays/:countryId' element={<ExplorerLayout />}>
-
                         <Route index element={<Explorer />} />
                         <Route path='ville/:cityId' element={<City />} />
                       </Route>
