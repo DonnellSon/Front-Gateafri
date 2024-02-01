@@ -1,9 +1,470 @@
 @import '../../style.scss';
 
-#city-page
-{
-    @include themify($themes){
-        background: themed("background",0);
-      
+#city-page {
+    @include themify($themes) {
+        .city-slider {
+            height: calc(100vh - 100px);
+
+            .slick-slider {
+                position: absolute;
+                width: 100%;
+                height: calc(100vh - 100px);
+            }
+
+            .city-slider-container {
+                height: calc(100vh - 100px);
+                position: relative;
+
+                img {
+                    position: absolute;
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                .city-slider-text {
+                    position: relative;
+                    top: 65%;
+                    z-index: 3;
+                    left: 5%;
+                    color: white;
+                    width: 450px;
+                }
+            }
+        }
+
+        .city-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+            h1 {
+                font-size: 36px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .city-about {
+                display: flex;
+                gap: 15px;
+
+                .city-about-item {
+                    width: 75%;
+                }
+
+                .caption {
+                    width: 25%;
+                    display: flex;
+                    gap: 15px;
+
+                    .caption-item {
+                        background: #edebe9;
+                        width: 50%;
+                        transition: 0.5s;
+                        cursor: pointer;
+
+                        &:hover {
+                            box-shadow: var(--elevation-1);
+                            transform: scale(1.1);
+                        }
+
+                        .caption-item-text {
+                            padding: 35px;
+
+                            h1 {
+                                color: #4661d5;
+                                font-size: 14px;
+                            }
+
+                            p {
+                                color: #605e5c;
+                                font-size: 15px;
+                            }
+
+                            span {
+                                color: #323130;
+                                font-weight: bold;
+                            }
+                        }
+
+                        li {
+                            padding-bottom: 10px;
+                        }
+
+                    }
+
+                    .caption-map {
+                        width: 50%;
+
+                    }
+                }
+            }
+
+            .city-view {
+                margin-top: 50px;
+
+                .city-view-title {}
+
+                .slick-track {
+                    display: flex;
+                    gap: 15px;
+                }
+
+                .carousel-city {
+
+                    &:hover {
+
+                        .custom-left,
+                        .custom-right {
+                            opacity: 1 !important;
+                        }
+                    }
+
+                    .custom-left,
+                    .custom-right {
+                        transition: 0.5s;
+                        opacity: 0 !important;
+                    }
+
+                    .city-item {
+
+                        height: 300px;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        cursor: pointer;
+
+                        img {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: 0.5s;
+
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
+
+                        .city-item-content {
+                            position: absolute;
+                            z-index: 5;
+                            bottom: 3%;
+                            left: 5%;
+
+                            p {
+                                color: white;
+                            }
+
+                            li {
+                                .svg {
+                                    display: flex;
+                                    align-items: center;
+                                    height: 20px;
+                                    gap: 5px;
+                                }
+
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .item-ul {
+                ul {
+                    border: 1px solid gray;
+                    width: 250px;
+                    height: 50px;
+                    overflow: visible;
+
+                    li {
+
+                        margin-top: 25px;
+
+                        .text {
+                            position: absolute;
+                            bottom: 10px;
+                        }
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.attraction-modal {
+    @include themify($themes) {
+        .modalContent {
+            width: 100vw;
+            height: 100vh;
+            background: themed('background', 0);
+            overflow: auto;
+
+            >.top {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                height: 58px;
+                box-shadow: var(--elevation-1);
+                border-bottom: 1px solid themed('border', 2);
+                padding: 0 15px;
+                background: themed('background', 3);
+                .logo-gate{
+                img{
+                    height: 35px;
+                    
+                }
+                }
+            }
+          
+            .attraction-modal-nav {
+                left: 50%;
+                transform: translateX(-50%);
+                ul {
+                    li {
+                        color: themed('text', 2);
+                        font-weight: themed('weight', 700);
+                        width: 80px;
+                        border-radius: 5px;
+                        height: 40px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &.active{
+                            background: themed('background',5);
+
+                        }
+                    }
+                }
+            }
+
+            .body {
+
+
+                .left {
+                    width: 190px;
+                    min-width: 190px;
+                    background: themed('background', 3);
+                    position: sticky;
+                    top:58px;
+                    height: calc(100vh - 58px);
+                    overflow: auto;
+
+                    @media (min-width:900px) {
+                        &::-webkit-scrollbar {
+                            background: none;
+                            width: 10px;
+                          
+                        }
+                      
+                        &::-webkit-scrollbar-thumb {
+                          
+                            background: themed("scrollbar", scrollbarBg);
+                            border-radius: 6px;
+                            border: 2px solid themed('background',3);
+
+                          
+                      
+                        }
+                        &::-webkit-scrollbar-button:single-button {
+                            display: none;
+                           
+                        
+                          }
+                    }
+
+                    >div {
+                        aspect-ratio: 1 !important;
+                        margin-bottom: 10px;
+                        position: relative;
+                        img {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            border-radius: 5px;
+                        }
+                        .text-img{
+                            z-index: 5;
+                            position: absolute;
+                            bottom: 5px;
+                            left: 10px;
+                            color:white;
+                        }
+                    }
+                }
+
+                .center {
+                    flex-grow: 1;
+                    background: themed('background', 3);
+                    min-width: 0;
+                    padding: 15px;
+                    gap: 25px;
+
+                    .center-left {
+
+                        flex: 1;
+                        min-width: 0;
+
+                        .active-attraction-slider {
+                            width: 100%;
+                            border-radius: 5px;
+                            overflow: hidden;
+
+                            .active-attraction-slide {
+                                aspect-ratio: 100/70;
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    border-radius: 5px;
+
+                                }
+                            }
+                        }
+                    }
+
+                    .center-right {
+                        flex: 1;
+
+                        .top-left {
+                            h1 {
+                                color: themed('text', 1);
+                            }
+
+                            p {
+                                color: themed('text', 3);
+                            }
+                        }
+
+                        .attraction-description {
+                            p {
+                                color: themed('text', 1);
+                            }
+                        }
+
+                        .attraction-info {
+                            li {
+                                color: themed('text', 1);
+                            }
+                        }
+
+                        .attraction-tabs {
+                            margin-top: 20px;
+
+                            >.top {
+                                height: 60px;
+                                border-bottom: 1px solid themed('border', 2);
+
+                                li {
+                                    color: themed('text', 2);
+                                }
+                            }
+                        }
+
+                        .body {
+                            .attraction-notice {
+                                .top {
+                                    .note {
+                                        h1 {
+                                            font-size: 40px;
+                                            color: themed('text', 1);
+                                        }
+
+                                        p {
+                                            color: themed('text', 2);
+
+                                        }
+
+                                        .gems {
+                                            .rating-diamond-img {
+                                                width: 25px;
+                                                height: 25px;
+                                            }
+                                        }
+                                    }
+
+                                    .evaluation-cart {
+                                        ul {
+                                            li {
+                                                span {
+                                                    color: themed('text', 2);
+                                                }
+
+                                                .evaluation-progres {
+                                                    flex-grow: 1;
+                                                    min-width: 0;
+                                                    background: themed('background', 5);
+
+                                                    >div {
+                                                        width: 20%;
+                                                        background: var(--orange);
+                                                        height: 5px;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .article-cart {
+                                        >h1 {
+                                            color: themed('text', 1);
+                                            font-size: 15px;
+                                            font-weight: themed('weight', bold);
+                                        }
+
+                                        .article-item {
+                                            .rating-diamond-img {
+                                                width: 15px;
+                                                height: 15px;
+                                            }
+
+                                            span {
+                                                color: themed('text', 3);
+                                            }
+
+                                        }
+
+                                        .description-article {
+                                            color: themed('text', 1);
+                                            span{
+                                                color: themed('mainColor',purple);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                .right {
+                    width: 280px;
+                    min-width: 280px;
+                    padding: 10px;
+                    z-index: 5;
+                   
+                    .attraction-location-map{
+                        aspect-ratio: 1;
+                        
+                    }
+                    // background: themed('background',4);
+                }
+            }
+        }
     }
 }
