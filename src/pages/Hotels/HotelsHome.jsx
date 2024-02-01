@@ -19,7 +19,7 @@ const HotelsHome = () => {
                         <div className='flex align-items-center'><span>Sam. 30 jan.</span> <ArrowRight /> <span>Jeu. 12 fev.</span><ChevronDown /></div>
                     </div>
                     <div className="include-inpt flex align-items-center">
-                        <div className='flex align-items-center gap-5'><People /> <span>Adultes</span> <span>Enfants</span> <span>Chambres</span> <span>Animales</span> <ChevronDown /></div>
+                        <div className='flex align-items-center gap-5'><People /> <span>Adultes</span><span>Chambres</span><ChevronDown /></div>
                     </div>
                     <div className="search-btn">
                         <button className="btn btn-purple"><Search /></button>
