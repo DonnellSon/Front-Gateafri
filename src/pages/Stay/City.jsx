@@ -390,7 +390,7 @@ const City = () => {
         <div className='description '>
           <div className='description-text'>
             <h1 >À propos de cet endroit</h1>
-            <p>Antananarivo ou Tananarive dans sa version francisée est la capitale économique et politique de Madagascar, de la province d'Antananarivo et de la région Analamanga. Ses habitants s'appellent les Antananariviens, ou Tananariviens. Sa population dépasse 1,6 millions d'habitants, et son agglomération approche les 3,6 millions d'habitants. La ville est divisée en six arrondissements et 192 fokontany.</p>
+            <p>Antananarivo ou Tananarive dans sa version francisée est la capitale économique et politique de Madagascar, de la province d'Antananarivo et de la région Analamanga. Ses habitants s'appellent les Antananariviens, ou Tananariviens. Sa population dépasse 1,6 millions d'habitants, et son agglomération approche les 3,6 millions d'habitants. La ville est divisée en six arrondissements et 192 fokontanyz.</p>
           </div>
           <div className='description-map'>
             <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}   >
