@@ -36,52 +36,52 @@ const AttractionSlider = () => {
   )
 }
 
-const attractionData=[
+const attractionData = [
   {
-    image:'/img/other/entreprise.jpg',
-    name:"Visite d'entreprise"
+    image: '/img/other/entreprise.jpg',
+    name: "Visite d'entreprise"
   },
   {
-    image:'/img/other/musee.jpg',
-    name:"Historiques • monuments"
+    image: '/img/other/musee.jpg',
+    name: "Historiques • monuments"
   },
   {
-    image:'/img/other/galerie.jpg',
-    name:"Galeries d'art"
+    image: '/img/other/galerie.jpg',
+    name: "Galeries d'art"
   },
   {
-    image:'/img/other/festival.jpg',
-    name:"Événements • Festivals"
+    image: '/img/other/festival.jpg',
+    name: "Événements • Festivals"
   },
   {
-    image:'/img/other/maki.jpg',
-    name:"Parcs • Espaces verts"
+    image: '/img/other/maki.jpg',
+    name: "Parcs • Espaces verts"
   },
   {
-    image:'/img/other/culture.jpg',
-    name:"Culture"
+    image: '/img/other/culture.jpg',
+    name: "Culture"
   },
   {
-    image:'/img/other/cuisine.jpg',
-    name:"Cuisine locale"
+    image: '/img/other/cuisine.jpg',
+    name: "Cuisine locale"
   },
   {
-    image:'/img/other/kayak.jpg',
-    name:"Plein air"
+    image: '/img/other/kayak.jpg',
+    name: "Plein air"
   },
   {
-    image:'/img/other/shopping.jpg',
-    name:"Shopping"
+    image: '/img/other/shopping.jpg',
+    name: "Shopping"
   },
   {
-    image:'/img/other/sport.jpg',
-    name:"Sport"
+    image: '/img/other/sport.jpg',
+    name: "Sport"
   },
   {
-    image:'/img/other/spa.jpg',
-    name:"Bien-être • Détente"
+    image: '/img/other/spa.jpg',
+    name: "Bien-être • Détente"
   },
-  
+
 ]
 const Attraction = ({ data }) => {
   const [open, setOpen] = useState(false)
@@ -90,7 +90,8 @@ const Attraction = ({ data }) => {
   return (
     <>
 
-      <div className='divertissementModal relative' onClick={()=>{setOpen(true)
+      <div className='divertissementModal relative' onClick={() => {
+        setOpen(true)
       }}>
         <img className='image-hover-scale' src={data.image} alt="" />
         <div className='divertissementText'>
@@ -360,26 +361,26 @@ const City = () => {
       <div className='city-slider relative'>
         <Slider arrows={false} fade={true}>
           <div className='city-slider-container'>
-            <img src="/img/other/plage_3.jpg" alt="image" />
+            <img src="/img/other/antananarivo.jpg" alt="image" />
 
             <div className='city-slider-text'>
               <h1>Antananarivo</h1>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit rem earum nesciunt dolorem aperiam consequatur numquam amet quaerat modi nihil....</p>
+              {/* <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit rem earum nesciunt dolorem aperiam consequatur numquam amet quaerat modi nihil....</p> */}
             </div>
           </div>
           <div className='city-slider-container'>
-            <img src="/img/other/plage.jpg" alt="" />
+            <img src="/img/other/madagascar_antananarivo.jpg" alt="" />
             <div className='city-slider-text'>
               <h1>Antananarivo</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis consequuntur harum a, ratione ut quisquam maxime maiores assumenda nemo. Tempore.....</p>
+              {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis consequuntur harum a, ratione ut quisquam maxime maiores assumenda nemo. Tempore.....</p> */}
             </div>
           </div>
 
           <div className='city-slider-container'>
-            <img src="https://www.booking-hotel-madagascar.com/wp-content/uploads/2019/07/Analakely-antananarivo.jpg" alt="image" />
+            <img src="/img/other/paysage_4.jpg" alt="image" />
             <div className='city-slider-text'>
               <h1>Antananarivo</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores omnis facere autem aperiam dolor eaque soluta repellat neque natus eos?....</p>
+              {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores omnis facere autem aperiam dolor eaque soluta repellat neque natus eos?....</p> */}
             </div>
           </div>
         </Slider>
@@ -405,6 +406,22 @@ const City = () => {
         </div>
 
         <div className='center-container'>
+
+          <div className='inscription'>
+            <div className='inscription-image relative'>
+              <div className='image'>
+                <img src="/img/other/parc.jpg" alt="" />
+              </div>
+              <div className='inscription'>
+                <h1>GateAfri</h1>
+                <p>Inscrivez vous dès maintenant pour explorer un continent,ville pour savoir les cultures des pays</p>
+                <div className='text'>
+                  <p>S'inscrire</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className='divertissement'>
             <h1>Divertissement</h1>
             <div className='slider-divertissement relative'>
@@ -419,10 +436,10 @@ const City = () => {
 
 
                 {
-                attractionData.map((a,i)=>(
-                  <Attraction data={a} key={i} />
+                  attractionData.map((a, i) => (
+                    <Attraction data={a} key={i} />
 
-                ))
+                  ))
                 }
 
               </Slider>
@@ -587,7 +604,7 @@ const City = () => {
 
                       <li className='body'>
                         <p>Anosy</p>
-                        <p>400 000 MGA</p>
+                        <p><b>400 000 MGA</b></p>
                         <p>Par nuit</p>
                       </li>
                     </ul>
@@ -632,7 +649,7 @@ const City = () => {
 
                 <div className='destination-caroseul-item'>
                   <div className="img">
-                    <img src="/img/other/maki_2.png" alt="" />
+                    <img src="/img/other/maki_2.png"  className="image-hover-scale" alt="" />
                   </div>
 
                   <div className='destination-caroseul-text'>
@@ -720,6 +737,41 @@ const City = () => {
                 </div>
               </Slider>
             </div>
+          </div>
+
+          <div className='suggest'>
+            <div className="suggest-header">
+              <div className='suggest-logo'>
+                <img src="/img/other/hotelLogo.jpg" alt='' />
+              </div>
+              <div className='suggest-title'>
+                <h1>Découvrée Hotel Tsingy</h1>
+                <p>Découvre Hotel tsingy situe aux centre de la capital</p>
+              </div>
+            </div>
+            <div className='suggest-image'>
+              <div className='item-image relative'>
+                <img src="/img/other/morondava.jpg" className='image-hover-scale' alt="" />
+                <div className='item-image-text'>
+                  <span>Piscine</span>
+                </div>
+              </div>
+
+              <div className='item-image relative'>
+                <img src="/img/other/chambre_1.jpg" className='image-hover-scale' alt="" />
+                <div className='item-image-text'>
+                  <span>Chambre</span>
+                </div>
+              </div>
+
+              <div className='item-image relative'>
+                <img src="/img/other/fianarantsoa.jpg" className='image-hover-scale' alt="" />
+                <div className='item-image-text'>
+                  <span>Hotel</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
 
