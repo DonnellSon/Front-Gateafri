@@ -208,7 +208,7 @@
         .modalContent {
             width: 100vw;
             height: 100vh;
-            background: themed('background', 0);
+            background: themed('background', 3);
             overflow: auto;
 
             >.top {
@@ -216,33 +216,36 @@
                 top: 0;
                 z-index: 100;
                 height: 58px;
-                box-shadow: var(--elevation-1);
+                // box-shadow: var(--elevation-1);
                 border-bottom: 1px solid themed('border', 2);
                 padding: 0 15px;
                 background: themed('background', 3);
-                .logo-gate{
-                img{
-                    height: 35px;
-                    
-                }
+
+                .logo-gate {
+                    img {
+                        height: 30px;
+
+                    }
                 }
             }
-          
+
             .attraction-modal-nav {
                 left: 50%;
                 transform: translateX(-50%);
+
                 ul {
                     li {
                         color: themed('text', 2);
-                        font-weight: themed('weight', 700);
+                        font-weight: themed('weight', 500);
                         width: 80px;
                         border-radius: 5px;
                         height: 40px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        &.active{
-                            background: themed('background',5);
+
+                        &.active {
+                            background: themed('background', 5);
 
                         }
                     }
@@ -253,11 +256,12 @@
 
 
                 .left {
-                    width: 190px;
-                    min-width: 190px;
-                    background: themed('background', 3);
+                    width: 170px;
+                    min-width: 170px;
+                    // background: themed('background', 3);
+                    border-right: 1px solid themed('border',2);
                     position: sticky;
-                    top:58px;
+                    top: 58px;
                     height: calc(100vh - 58px);
                     overflow: auto;
 
@@ -265,29 +269,31 @@
                         &::-webkit-scrollbar {
                             background: none;
                             width: 10px;
-                          
+
                         }
-                      
+
                         &::-webkit-scrollbar-thumb {
-                          
+
                             background: themed("scrollbar", scrollbarBg);
                             border-radius: 6px;
                             border: 2px solid themed('background',3);
 
-                          
-                      
+
+
                         }
+
                         &::-webkit-scrollbar-button:single-button {
                             display: none;
-                           
-                        
-                          }
+
+
+                        }
                     }
 
                     >div {
                         aspect-ratio: 1 !important;
                         margin-bottom: 10px;
                         position: relative;
+
                         img {
                             display: block;
                             width: 100%;
@@ -295,19 +301,20 @@
                             object-fit: cover;
                             border-radius: 5px;
                         }
-                        .text-img{
+
+                        .text-img {
                             z-index: 5;
                             position: absolute;
                             bottom: 5px;
                             left: 10px;
-                            color:white;
+                            color: white;
                         }
                     }
                 }
 
                 .center {
                     flex-grow: 1;
-                    background: themed('background', 3);
+                    // background: themed('background', 3);
                     min-width: 0;
                     padding: 15px;
                     gap: 25px;
@@ -342,6 +349,7 @@
                         .top-left {
                             h1 {
                                 color: themed('text', 1);
+                                font-size: 30px;
                             }
 
                             p {
@@ -365,6 +373,10 @@
                             margin-top: 20px;
 
                             >.top {
+                                position: sticky;
+                                top: 58px;
+                                z-index: 10;
+                                background: themed('background',3);
                                 height: 60px;
                                 border-bottom: 1px solid themed('border', 2);
 
@@ -377,6 +389,7 @@
                         .body {
                             .attraction-notice {
                                 .top {
+
                                     .note {
                                         h1 {
                                             font-size: 40px;
@@ -440,8 +453,9 @@
 
                                         .description-article {
                                             color: themed('text', 1);
-                                            span{
-                                                color: themed('mainColor',purple);
+
+                                            span {
+                                                color: themed('mainColor', purple);
                                             }
                                         }
                                     }
@@ -453,15 +467,16 @@
                 }
 
                 .right {
-                    width: 280px;
-                    min-width: 280px;
+                    width: 230px;
+                    min-width: 230px;
                     padding: 10px;
                     z-index: 5;
-                   
-                    .attraction-location-map{
+
+                    .attraction-location-map {
                         aspect-ratio: 1;
-                        
+
                     }
+
                     // background: themed('background',4);
                 }
             }
