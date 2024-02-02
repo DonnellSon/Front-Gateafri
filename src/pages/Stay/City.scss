@@ -352,7 +352,7 @@
         .modalContent {
             width: 100vw;
             height: 100vh;
-            background: themed('background', 3);
+            background: themed('background', 0);
             overflow: auto;
 
             >.top {
@@ -360,19 +360,18 @@
                 top: 0;
                 z-index: 100;
                 height: 58px;
-                // box-shadow: var(--elevation-1);
+                box-shadow: var(--elevation-1);
                 border-bottom: 1px solid themed('border', 2);
                 padding: 0 15px;
                 background: themed('background', 3);
 
                 .logo-gate {
                     img {
-                        height: 30px;
+                        height: 35px;
 
                     }
                 }
             }
-
 
             .attraction-modal-nav {
                 left: 50%;
@@ -381,7 +380,7 @@
                 ul {
                     li {
                         color: themed('text', 2);
-                        font-weight: themed('weight', 500);
+                        font-weight: themed('weight', 700);
                         width: 80px;
                         border-radius: 5px;
                         height: 40px;
@@ -392,56 +391,42 @@
                         &.active {
                             background: themed('background', 5);
 
-                            &.active {
-                                background: themed('background', 5);
-
-                            }
                         }
                     }
                 }
+            }
 
-                .body {
-
-
-                    .left {
-                        width: 170px;
-                        min-width: 170px;
-                        // background: themed('background', 3);
-                        border-right: 1px solid themed('border', 2);
-                        position: sticky;
-                        top: 58px;
-                        top: 58px;
-                        height: calc(100vh - 58px);
-                        overflow: auto;
-
-                        @media (min-width:900px) {
-                            &::-webkit-scrollbar {
-                                background: none;
-                                width: 10px;
+            .body {
 
 
-                            }
+                .left {
+                    width: 190px;
+                    min-width: 190px;
+                    background: themed('background', 3);
+                    position: sticky;
+                    top: 58px;
+                    height: calc(100vh - 58px);
+                    overflow: auto;
 
+                    @media (min-width:900px) {
+                        &::-webkit-scrollbar {
+                            background: none;
+                            width: 10px;
 
-                            &::-webkit-scrollbar-thumb {
+                        }
 
+                        &::-webkit-scrollbar-thumb {
 
-                                background: themed("scrollbar", scrollbarBg);
-                                border-radius: 6px;
-                                border: 2px solid themed('background', 3);
+                            background: themed("scrollbar", scrollbarBg);
+                            border-radius: 6px;
+                            border: 2px solid themed('background', 3);
 
 
 
+                        }
 
-
-                            }
-
-
-                            &::-webkit-scrollbar-button:single-button {
-                                display: none;
-
-
-                            }
+                        &::-webkit-scrollbar-button:single-button {
+                            display: none;
 
 
                         }
@@ -452,7 +437,6 @@
                         margin-bottom: 10px;
                         position: relative;
 
-
                         img {
                             display: block;
                             width: 100%;
@@ -462,189 +446,177 @@
                         }
 
                         .text-img {
-
-                            .text-img {
-                                z-index: 5;
-                                position: absolute;
-                                bottom: 5px;
-                                left: 10px;
-                                color: white;
-                                color: white;
-                            }
-                        }
-                    }
-
-                    .center {
-                        flex-grow: 1;
-                        // background: themed('background', 3);
-                        min-width: 0;
-                        padding: 15px;
-                        gap: 25px;
-
-                        .center-left {
-
-                            flex: 1;
-                            min-width: 0;
-
-                            .active-attraction-slider {
-                                width: 100%;
-                                border-radius: 5px;
-                                overflow: hidden;
-
-                                .active-attraction-slide {
-                                    aspect-ratio: 100/70;
-
-                                    img {
-                                        height: 100%;
-                                        width: 100%;
-                                        object-fit: cover;
-                                        border-radius: 5px;
-
-                                    }
-                                }
-                            }
-                        }
-
-                        .center-right {
-                            flex: 1;
-
-                            .top-left {
-                                h1 {
-                                    color: themed('text', 1);
-                                    font-size: 30px;
-                                }
-
-                                p {
-                                    color: themed('text', 3);
-                                }
-                            }
-
-                            .attraction-description {
-                                p {
-                                    color: themed('text', 1);
-                                }
-                            }
-
-                            .attraction-info {
-                                li {
-                                    color: themed('text', 1);
-                                }
-                            }
-
-                            .attraction-tabs {
-                                margin-top: 20px;
-
-                                >.top {
-                                    position: sticky;
-                                    top: 58px;
-                                    z-index: 10;
-                                    background: themed('background', 3);
-                                    height: 60px;
-                                    border-bottom: 1px solid themed('border', 2);
-
-                                    li {
-                                        color: themed('text', 2);
-                                    }
-                                }
-                            }
-
-                            .body {
-                                .attraction-notice {
-                                    .top {
-
-                                        .note {
-                                            h1 {
-                                                font-size: 40px;
-                                                color: themed('text', 1);
-                                            }
-
-                                            p {
-                                                color: themed('text', 2);
-
-                                            }
-
-                                            .gems {
-                                                .rating-diamond-img {
-                                                    width: 25px;
-                                                    height: 25px;
-                                                }
-                                            }
-                                        }
-
-                                        .evaluation-cart {
-                                            ul {
-                                                li {
-                                                    span {
-                                                        color: themed('text', 2);
-                                                    }
-
-                                                    .evaluation-progres {
-                                                        flex-grow: 1;
-                                                        min-width: 0;
-                                                        background: themed('background', 5);
-
-                                                        >div {
-                                                            width: 20%;
-                                                            background: var(--orange);
-                                                            height: 5px;
-
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        .article-cart {
-                                            >h1 {
-                                                color: themed('text', 1);
-                                                font-size: 15px;
-                                                font-weight: themed('weight', bold);
-                                            }
-
-                                            .article-item {
-                                                .rating-diamond-img {
-                                                    width: 15px;
-                                                    height: 15px;
-                                                }
-
-                                                span {
-                                                    color: themed('text', 3);
-                                                }
-
-                                            }
-
-                                            .description-article {
-                                                color: themed('text', 1);
-
-                                                span {
-                                                    color: themed('mainColor', purple);
-
-                                                    span {
-                                                        color: themed('mainColor', purple);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-
-                        .right {
-                            width: 230px;
-                            min-width: 230px;
-                            padding: 10px;
                             z-index: 5;
-
-                            .attraction-location-map {
-                                aspect-ratio: 1;
-
-                            }
-
-                            // background: themed('background',4);
+                            position: absolute;
+                            bottom: 5px;
+                            left: 10px;
+                            color: white;
                         }
                     }
                 }
+
+                .center {
+                    flex-grow: 1;
+                    background: themed('background', 3);
+                    min-width: 0;
+                    padding: 15px;
+                    gap: 25px;
+
+                    .center-left {
+
+                        flex: 1;
+                        min-width: 0;
+
+                        .active-attraction-slider {
+                            width: 100%;
+                            border-radius: 5px;
+                            overflow: hidden;
+
+                            .active-attraction-slide {
+                                aspect-ratio: 100/70;
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    border-radius: 5px;
+
+                                }
+                            }
+                        }
+                    }
+
+                    .center-right {
+                        flex: 1;
+
+                        .top-left {
+                            h1 {
+                                color: themed('text', 1);
+                            }
+
+                            p {
+                                color: themed('text', 3);
+                            }
+                        }
+
+                        .attraction-description {
+                            p {
+                                color: themed('text', 1);
+                            }
+                        }
+
+                        .attraction-info {
+                            li {
+                                color: themed('text', 1);
+                            }
+                        }
+
+                        .attraction-tabs {
+                            margin-top: 20px;
+
+                            >.top {
+                                height: 60px;
+                                border-bottom: 1px solid themed('border', 2);
+
+                                li {
+                                    color: themed('text', 2);
+                                }
+                            }
+                        }
+
+                        .body {
+                            .attraction-notice {
+                                .top {
+                                    .note {
+                                        h1 {
+                                            font-size: 40px;
+                                            color: themed('text', 1);
+                                        }
+
+                                        p {
+                                            color: themed('text', 2);
+
+                                        }
+
+                                        .gems {
+                                            .rating-diamond-img {
+                                                width: 25px;
+                                                height: 25px;
+                                            }
+                                        }
+                                    }
+
+                                    .evaluation-cart {
+                                        ul {
+                                            li {
+                                                span {
+                                                    color: themed('text', 2);
+                                                }
+
+                                                .evaluation-progres {
+                                                    flex-grow: 1;
+                                                    min-width: 0;
+                                                    background: themed('background', 5);
+
+                                                    >div {
+                                                        width: 20%;
+                                                        background: var(--orange);
+                                                        height: 5px;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .article-cart {
+                                        >h1 {
+                                            color: themed('text', 1);
+                                            font-size: 15px;
+                                            font-weight: themed('weight', bold);
+                                        }
+
+                                        .article-item {
+                                            .rating-diamond-img {
+                                                width: 15px;
+                                                height: 15px;
+                                            }
+
+                                            span {
+                                                color: themed('text', 3);
+                                            }
+
+                                        }
+
+                                        .description-article {
+                                            color: themed('text', 1);
+
+                                            span {
+                                                color: themed('mainColor', purple);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                .right {
+                    width: 280px;
+                    min-width: 280px;
+                    padding: 10px;
+                    z-index: 5;
+
+                    .attraction-location-map {
+                        aspect-ratio: 1;
+
+                    }
+
+                    // background: themed('background',4);
+                }
             }
         }
+    }
+}
