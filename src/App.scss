@@ -13,11 +13,12 @@
   --invert-gradient: linear-gradient(315deg, #f6daaf 60%, #9f98e8 120%);
 
 }
- .purple-text-gradient{
-      background: linear-gradient(180deg,#8b23e6,#ef0d88);
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
- }
+
+.purple-text-gradient {
+  background: linear-gradient(180deg, #8b23e6, #ef0d88);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .rating-diamond-img {
   width: 38px;
@@ -376,14 +377,16 @@ a {
 .gap-5 {
   gap: 5px;
 }
-.column-gap-5{
+
+.column-gap-5 {
   column-gap: 5px;
 }
 
 .gap-10 {
   gap: 10px;
 }
-.column-gap-10{
+
+.column-gap-10 {
   column-gap: 10px;
 }
 
@@ -426,17 +429,19 @@ a {
   position: relative;
 }
 
+
 /*text*/
 .text-center {
   text-align: center;
 }
-.line-clamp-2{
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 
@@ -537,21 +542,22 @@ a {
 }
 
 /**badges**/
-.badge{
+.badge {
   @include themify($themes) {
-    background: themed("background",5);
-    color: themed("text",2);
+    background: themed("background", 5);
+    color: themed("text", 2);
     border-radius: 5px;
     padding: 0 5px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    font-weight: themed("weight",600);
+    font-weight: themed("weight", 600);
     height: 25px;
     min-width: 25px;
-    &.purple{
-      color: themed("mainColor",purple);
+
+    &.purple {
+      color: themed("mainColor", purple);
       background: #9645aa27;
     }
   }
@@ -609,7 +615,8 @@ a {
 .pb-15 {
   padding-bottom: 15px;
 }
-.px-20{
+
+.px-20 {
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -690,12 +697,24 @@ a {
   aspect-ratio: 16/9;
 }
 
+
+.image-hover-scale{
+  transition: 0.5s;
+  &:hover {
+    transform: scale(1.2);
+  }
+
+}
+
 @media (max-width:768px) {
 
   #App>* {
     overflow-x: hidden;
   }
 }
+
+
+
 
 /*animations*/
 @keyframes boomRed {

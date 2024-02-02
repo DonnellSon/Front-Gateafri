@@ -36,30 +36,73 @@ const AttractionSlider = () => {
   )
 }
 
-const Attraction = ({ dataAttraction }) => {
+const attractionData=[
+  {
+    image:'/img/other/entreprise.jpg',
+    name:"Visite d'entreprise"
+  },
+  {
+    image:'/img/other/musee.jpg',
+    name:"Historiques • monuments"
+  },
+  {
+    image:'/img/other/galerie.jpg',
+    name:"Galeries d'art"
+  },
+  {
+    image:'/img/other/festival.jpg',
+    name:"Événements • Festivals"
+  },
+  {
+    image:'/img/other/maki.jpg',
+    name:"Parcs • Espaces verts"
+  },
+  {
+    image:'/img/other/culture.jpg',
+    name:"Culture"
+  },
+  {
+    image:'/img/other/cuisine.jpg',
+    name:"Cuisine locale"
+  },
+  {
+    image:'/img/other/kayak.jpg',
+    name:"Plein air"
+  },
+  {
+    image:'/img/other/shopping.jpg',
+    name:"Shopping"
+  },
+  {
+    image:'/img/other/sport.jpg',
+    name:"Sport"
+  },
+  {
+    image:'/img/other/spa.jpg',
+    name:"Bien-être • Détente"
+  },
+  
+]
+const Attraction = ({ data }) => {
   const [open, setOpen] = useState(false)
 
 
   return (
     <>
-      <div className='city-item relative' onClick={() => setOpen(true)}>
-        <img src={dataAttraction?.image} alt="" />
-        <ul className='city-item-content'>
-          <li>{dataAttraction?.city}</li>
-          <li>
-            <div className='svg'>
-              <p><Shop /></p>
-              <p>{dataAttraction?.title}</p>
-            </div>
-          </li>
-          <li>{dataAttraction?.attraction}</li>
-        </ul>
+
+      <div className='divertissementModal relative' onClick={()=>{setOpen(true)
+      }}>
+        <img className='image-hover-scale' src={data.image} alt="" />
+        <div className='divertissementText'>
+          <p className='line-clamp-2'>{data.name}</p>
+        </div>
       </div>
+
 
       <Modal open={open} className="attraction-modal" >
         <div className="top flex justify-content-between align-items-center relative">
           <div className='logo-gate'>
-            <img src='/img/logo/GATEAFR.png' alt=''/>
+            <img src='/img/logo/GATEAFR.png' alt='' />
           </div>
           <nav className='attraction-modal-nav flex align-items-center absolute'>
             <ul className='flex align-item-center gap-20'>
@@ -325,7 +368,7 @@ const City = () => {
             </div>
           </div>
           <div className='city-slider-container'>
-            <img src="/img/other/plage.jpg" alt="image" />
+            <img src="/img/other/plage.jpg" alt="" />
             <div className='city-slider-text'>
               <h1>Antananarivo</h1>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis consequuntur harum a, ratione ut quisquam maxime maiores assumenda nemo. Tempore.....</p>
@@ -344,92 +387,345 @@ const City = () => {
 
       <div className='city-content'>
 
-        <div className='city-about'>
-          <div className='city-about-item'>
-            <h1>À propos de cet endroit</h1>
+        <div className='description '>
+          <div className='description-text'>
+            <h1 >À propos de cet endroit</h1>
             <p>Antananarivo ou Tananarive dans sa version francisée est la capitale économique et politique de Madagascar, de la province d'Antananarivo et de la région Analamanga. Ses habitants s'appellent les Antananariviens, ou Tananariviens. Sa population dépasse 1,6 millions d'habitants, et son agglomération approche les 3,6 millions d'habitants. La ville est divisée en six arrondissements et 192 fokontany.</p>
           </div>
-
-          <div className='caption'>
-            <div className='caption-item'>
-              <div className='caption-item-text'>
-                <ul>
-                  <li><h1>VOYAGE À ANTANANARIVO</h1></li>
-                  <li><p>Durée moyenne de séjour</p></li>
-                  <li><span>6 jours</span></li>
-                </ul>
-              </div>
-            </div>
-
-            <div className='caption-map'>
-              <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[51.505, -0.09]}>
-                </Marker>
-              </MapContainer>
-            </div>
-          </div>
-        </div>
-
-        <div className='city-view relative'>
-          <div className='city-view-title'>
-            <h1>A voir et à faire</h1>
-          </div>
-          <div className='carousel-city relative'>
-            <CustomNextArrow onClick={citySlider.current?.slickNext} />
-            <CustomPrevArrow onClick={citySlider.current?.slickPrev} />
-
-            <Slider ref={citySlider} {...setting}>
-              <Attraction dataAttraction={{
-                image: 'https://upload.wikimedia.org/wikipedia/commons/2/24/La_for%C3%AAt_de_la_colline_royale_d%27Ambohimanga_Rova%2C_Antananarivo_Madagascar..jpg',
-                city: 'Ananakely',
-                title: 'Tsena Analakely',
-                attraction: 'Shooping'
-              }
-              }
+          <div className='description-map'>
+            <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}   >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-
-              <Attraction dataAttraction={{
-                image: 'https://upload.wikimedia.org/wikipedia/commons/2/24/La_for%C3%AAt_de_la_colline_royale_d%27Ambohimanga_Rova%2C_Antananarivo_Madagascar..jpg',
-                city: 'Ananakely',
-                title: 'Tsena Analakely',
-                attraction: 'Shooping'
-              }
-              } />
-
-              <Attraction dataAttraction={{
-                image: 'https://voyage-madagascar.org/wp-content/uploads/Palais-de-59ha.jpg',
-                city: 'Ananakely',
-                title: 'Tsena Analakely',
-                attraction: 'Shooping'
-              }
-              } />
-
-              <Attraction dataAttraction={{
-                image: 'https://www.booking-hotel-madagascar.com/wp-content/uploads/2019/07/Analakely-antananarivo.jpg',
-                city: 'Ananakely',
-                title: 'Tsena Analakely',
-                attraction: 'Shooping'
-              }
-              } />
-
-
-              <Attraction dataAttraction={{
-                image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/0d/9e/5e/analakely-market.jpg?w=1200&h=-1&s=1',
-                city: 'Ananakely',
-                title: 'Tsena Analakely',
-                attraction: 'Shooping'
-              }
-              } />
-
-            </Slider>
+              <Marker position={[51.505, -0.09]}>
+              </Marker>
+            </MapContainer>
           </div>
         </div>
-      </div >
-    </div >
+
+        <div className='center-container'>
+          <div className='divertissement'>
+            <h1>Divertissement</h1>
+            <div className='slider-divertissement relative'>
+              <Slider {...{
+                arrows: false,
+                dots: false,
+                infinite: false,
+                speed: 500,
+                slidesToShow: 7,
+                slidesToScroll: 1
+              }} className='sliderCarousel' >
+
+
+                {
+                attractionData.map((a,i)=>(
+                  <Attraction data={a} key={i} />
+
+                ))
+                }
+
+              </Slider>
+            </div>
+          </div>
+
+          <div className="hotels">
+            <div className='header-hotels'>
+              <h1>Hotels</h1>
+              <p>Voir plus</p>
+            </div>
+
+            <div className='slider-hotels relative'>
+              <Slider {...{
+                arrows: false,
+                dots: false,
+                infinite: false,
+                speed: 500,
+                slidesToShow: 4,
+                slidesToScroll: 1
+              }} className='hotelsModal'>
+
+                <div className='hotelsItem'>
+                  <div className='img'>
+                    <img className="image-hover-scale" src="/img/other/chambre_7.jpg" alt="" />
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className='img'>
+                    <img className="image-hover-scale" src="/img/other/chambre_1.jpg" alt="" />
+                  </div>
+
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className="img">
+                    <img className="image-hover-scale" src="/img/other/chambre_2.jpg" alt="" />
+
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className="img">
+                    <img className="image-hover-scale" src="/img/other/chambre_3.jpg" alt="" />
+
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className="img">
+                    <img className="image-hover-scale" src="/img/other/chambre_4.jpg" alt="" />
+
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className="img">
+                    <img className="image-hover-scale" src="/img/other/chambre_5.jpg" alt="" />
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
+                <div className='hotelsItem'>
+                  <div className="img">
+                    <img className="image-hover-scale" src="/img/other/chambre_6.jpg" alt="" />
+
+                  </div>
+                  <div className='hoteltext'>
+                    <ul>
+                      <li className='header'>
+                        <p>8.8/10 Execption (avis)</p>
+                        <p>Hotel Carlton</p>
+                      </li>
+
+                      <li className='body'>
+                        <p>Anosy</p>
+                        <p>400 000 MGA</p>
+                        <p>Par nuit</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </Slider>
+            </div>
+          </div>
+
+          <div className='destination'>
+            <h1>Destination populaire et en vogue</h1>
+            <div className='destination-caroseul relative'>
+              <Slider {...{
+                arrows: false,
+                dots: false,
+                infinite: false,
+                speed: 500,
+                slidesToShow: 5,
+                slidesToScroll: 1
+              }} className="modalCaroseul">
+
+                <div className='destination-caroseul-item'>
+                  <div className='img'>
+                    <img className="image-hover-scale" src="/img/other/market_analakely.jpg" alt="" />
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Analakely</p>
+                    <p>Tsena Analakely</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/hakanto.jpg" className="image-hover-scale" alt="" />
+                  </div>
+
+                  <div className='destination-caroseul-text'>
+                    <p>Ankadibaoka</p>
+                    <p>Hakanto</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/maki_2.png" alt="" />
+                  </div>
+
+                  <div className='destination-caroseul-text'>
+                    <p>Parc national</p>
+                    <p>Tsimbazaza</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/rovamanjakamiadana.jpg" className="image-hover-scale" alt="" />
+
+                  </div>
+
+                  <div className='destination-caroseul-text'>
+                    <p>Andohalo</p>
+                    <p>Rova Manjakamiadana</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/lac.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Itasy</p>
+                    <p>Mantasoa</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/antananarivo.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Antaninarenina</p>
+                    <p>Antanananarivo</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/plage.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Parc national</p>
+                    <p>Tsimbazaza</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/plage.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Parc national</p>
+                    <p>Tsimbazaza</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/plage.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Parc national</p>
+                    <p>Tsimbazaza</p>
+                  </div>
+                </div>
+
+                <div className='destination-caroseul-item'>
+                  <div className="img">
+                    <img src="/img/other/plage.jpg" className='image-hover-scale' alt="" />
+
+                  </div>
+                  <div className='destination-caroseul-text'>
+                    <p>Parc national</p>
+                    <p>Tsimbazaza</p>
+                  </div>
+                </div>
+              </Slider>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
   )
 }
 export default City
