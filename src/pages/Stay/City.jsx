@@ -163,7 +163,7 @@ const Attraction = ({ data }) => {
           </div>
           <div className="center flex">
             <div className="center-left">
-              <StickySideBar top={85}>
+              <StickySideBar top={70}>
                 <AttractionSlider />
               </StickySideBar>
             </div>
