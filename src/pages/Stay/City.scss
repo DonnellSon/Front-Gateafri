@@ -50,12 +50,13 @@
                     width: 100%;
                     max-width: 1100px;
                     padding: 15px 15px 15px 0;
-                    h1{
-                        color:themed('text',2)
-                    }
-                    p{
-                        color:themed('text',3)
 
+                    h1 {
+                        color: themed('text', 2)
+                    }
+
+                    p {
+                        color: themed('text', 3)
                     }
                 }
 
@@ -74,7 +75,7 @@
                 .divertissement {
                     h1 {
                         padding: 5px 0;
-                        color: themed('text',2);
+                        color: themed('text', 2);
                         font-size: 20px;
                     }
 
@@ -131,8 +132,9 @@
                         align-items: center;
                         justify-content: space-between;
                         padding: 10px 0;
+
                         h1 {
-                            color: themed('text',2);
+                            color: themed('text', 2);
                             font-size: 20px;
                         }
 
@@ -151,6 +153,7 @@
                                 aspect-ratio: 100/70;
                                 border-radius: 5px;
                                 overflow: hidden;
+
                                 img {
                                     height: 100%;
                                     width: 100%;
@@ -161,7 +164,8 @@
 
 
                             .hoteltext {
-                                color: themed('text',3);
+                                color: themed('text', 3);
+
                                 ul {
                                     li {
                                         &.header {
@@ -177,8 +181,10 @@
                 .destination {
 
                     padding: 15px;
-                    border-radius: 5px; h1 {
-                        color: themed('text',2);
+                    border-radius: 5px;
+
+                    h1 {
+                        color: themed('text', 2);
                         font-size: 20px;
                     }
 
@@ -202,23 +208,25 @@
                             }
 
                             .destination-caroseul-item {
-                                
-                                >.img{
+
+                                >.img {
                                     aspect-ratio: 16/9;
                                     cursor: pointer;
                                     overflow: hidden;
+
                                     img {
                                         width: 100%;
                                         height: 100%;
                                         object-fit: cover;
                                     }
                                 }
-                             
+
 
                                 .destination-caroseul-text {
                                     padding: 5px;
-                                    p{
-                                        color: themed('text',3);
+
+                                    p {
+                                        color: themed('text', 3);
                                     }
                                 }
                             }
@@ -277,56 +285,56 @@
                         &.active {
                             background: themed('background', 5);
 
-                        &.active {
-                            background: themed('background', 5);
+                            &.active {
+                                background: themed('background', 5);
 
+                            }
                         }
                     }
                 }
-            }
 
-            .body {
-
-
-                .left {
-                    width: 170px;
-                    min-width: 170px;
-                    // background: themed('background', 3);
-                    border-right: 1px solid themed('border',2);
-                    position: sticky;
-                    top: 58px;
-                    top: 58px;
-                    height: calc(100vh - 58px);
-                    overflow: auto;
-
-                    @media (min-width:900px) {
-                        &::-webkit-scrollbar {
-                            background: none;
-                            width: 10px;
+                .body {
 
 
-                        }
+                    .left {
+                        width: 170px;
+                        min-width: 170px;
+                        // background: themed('background', 3);
+                        border-right: 1px solid themed('border', 2);
+                        position: sticky;
+                        top: 58px;
+                        top: 58px;
+                        height: calc(100vh - 58px);
+                        overflow: auto;
+
+                        @media (min-width:900px) {
+                            &::-webkit-scrollbar {
+                                background: none;
+                                width: 10px;
 
 
-                        &::-webkit-scrollbar-thumb {
+                            }
 
 
-                            background: themed("scrollbar", scrollbarBg);
-                            border-radius: 6px;
-                            border: 2px solid themed('background', 3);
+                            &::-webkit-scrollbar-thumb {
 
+
+                                background: themed("scrollbar", scrollbarBg);
+                                border-radius: 6px;
+                                border: 2px solid themed('background', 3);
 
 
 
 
-                        }
+
+                            }
 
 
-                        &::-webkit-scrollbar-button:single-button {
-                            display: none;
+                            &::-webkit-scrollbar-button:single-button {
+                                display: none;
 
 
-                        }
+                            }
 
 
                         }
@@ -348,188 +356,188 @@
 
                         .text-img {
 
-                        .text-img {
-                            z-index: 5;
-                            position: absolute;
-                            bottom: 5px;
-                            left: 10px;
-                            color: white;
-                            color: white;
+                            .text-img {
+                                z-index: 5;
+                                position: absolute;
+                                bottom: 5px;
+                                left: 10px;
+                                color: white;
+                                color: white;
+                            }
                         }
                     }
-                }
 
-                .center {
-                    flex-grow: 1;
-                    // background: themed('background', 3);
-                    min-width: 0;
-                    padding: 15px;
-                    gap: 25px;
-
-                    .center-left {
-
-                        flex: 1;
+                    .center {
+                        flex-grow: 1;
+                        // background: themed('background', 3);
                         min-width: 0;
+                        padding: 15px;
+                        gap: 25px;
 
-                        .active-attraction-slider {
-                            width: 100%;
-                            border-radius: 5px;
-                            overflow: hidden;
+                        .center-left {
 
-                            .active-attraction-slide {
-                                aspect-ratio: 100/70;
+                            flex: 1;
+                            min-width: 0;
 
-                                img {
-                                    height: 100%;
-                                    width: 100%;
-                                    object-fit: cover;
-                                    border-radius: 5px;
+                            .active-attraction-slider {
+                                width: 100%;
+                                border-radius: 5px;
+                                overflow: hidden;
 
+                                .active-attraction-slide {
+                                    aspect-ratio: 100/70;
+
+                                    img {
+                                        height: 100%;
+                                        width: 100%;
+                                        object-fit: cover;
+                                        border-radius: 5px;
+
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    .center-right {
-                        flex: 1;
+                        .center-right {
+                            flex: 1;
 
-                        .top-left {
-                            h1 {
-                                color: themed('text', 1);
-                                font-size: 30px;
+                            .top-left {
+                                h1 {
+                                    color: themed('text', 1);
+                                    font-size: 30px;
+                                }
+
+                                p {
+                                    color: themed('text', 3);
+                                }
                             }
 
-                            p {
-                                color: themed('text', 3);
+                            .attraction-description {
+                                p {
+                                    color: themed('text', 1);
+                                }
                             }
-                        }
 
-                        .attraction-description {
-                            p {
-                                color: themed('text', 1);
-                            }
-                        }
-
-                        .attraction-info {
-                            li {
-                                color: themed('text', 1);
-                            }
-                        }
-
-                        .attraction-tabs {
-                            margin-top: 20px;
-
-                            >.top {
-                                position: sticky;
-                                top: 58px;
-                                z-index: 10;
-                                background: themed('background',3);
-                                height: 60px;
-                                border-bottom: 1px solid themed('border', 2);
-
+                            .attraction-info {
                                 li {
-                                    color: themed('text', 2);
+                                    color: themed('text', 1);
                                 }
                             }
-                        }
 
-                        .body {
-                            .attraction-notice {
-                                .top {
+                            .attraction-tabs {
+                                margin-top: 20px;
 
-                                    .note {
-                                        h1 {
-                                            font-size: 40px;
-                                            color: themed('text', 1);
-                                        }
+                                >.top {
+                                    position: sticky;
+                                    top: 58px;
+                                    z-index: 10;
+                                    background: themed('background', 3);
+                                    height: 60px;
+                                    border-bottom: 1px solid themed('border', 2);
 
-                                        p {
-                                            color: themed('text', 2);
+                                    li {
+                                        color: themed('text', 2);
+                                    }
+                                }
+                            }
 
-                                        }
+                            .body {
+                                .attraction-notice {
+                                    .top {
 
-                                        .gems {
-                                            .rating-diamond-img {
-                                                width: 25px;
-                                                height: 25px;
+                                        .note {
+                                            h1 {
+                                                font-size: 40px;
+                                                color: themed('text', 1);
+                                            }
+
+                                            p {
+                                                color: themed('text', 2);
+
+                                            }
+
+                                            .gems {
+                                                .rating-diamond-img {
+                                                    width: 25px;
+                                                    height: 25px;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    .evaluation-cart {
-                                        ul {
-                                            li {
-                                                span {
-                                                    color: themed('text', 2);
+                                        .evaluation-cart {
+                                            ul {
+                                                li {
+                                                    span {
+                                                        color: themed('text', 2);
+                                                    }
+
+                                                    .evaluation-progres {
+                                                        flex-grow: 1;
+                                                        min-width: 0;
+                                                        background: themed('background', 5);
+
+                                                        >div {
+                                                            width: 20%;
+                                                            background: var(--orange);
+                                                            height: 5px;
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        .article-cart {
+                                            >h1 {
+                                                color: themed('text', 1);
+                                                font-size: 15px;
+                                                font-weight: themed('weight', bold);
+                                            }
+
+                                            .article-item {
+                                                .rating-diamond-img {
+                                                    width: 15px;
+                                                    height: 15px;
                                                 }
 
-                                                .evaluation-progres {
-                                                    flex-grow: 1;
-                                                    min-width: 0;
-                                                    background: themed('background', 5);
+                                                span {
+                                                    color: themed('text', 3);
+                                                }
 
-                                                    >div {
-                                                        width: 20%;
-                                                        background: var(--orange);
-                                                        height: 5px;
+                                            }
 
+                                            .description-article {
+                                                color: themed('text', 1);
+
+                                                span {
+                                                    color: themed('mainColor', purple);
+
+                                                    span {
+                                                        color: themed('mainColor', purple);
                                                     }
                                                 }
                                             }
                                         }
                                     }
 
-                                    .article-cart {
-                                        >h1 {
-                                            color: themed('text', 1);
-                                            font-size: 15px;
-                                            font-weight: themed('weight', bold);
-                                        }
-
-                                        .article-item {
-                                            .rating-diamond-img {
-                                                width: 15px;
-                                                height: 15px;
-                                            }
-
-                                            span {
-                                                color: themed('text', 3);
-                                            }
-
-                                        }
-
-                                        .description-article {
-                                            color: themed('text', 1);
-
-                                            span {
-                                                color: themed('mainColor', purple);
-
-                                            span {
-                                                color: themed('mainColor', purple);
-                                            }
-                                        }
-                                    }
                                 }
                             }
+                        }
 
+                        .right {
+                            width: 230px;
+                            min-width: 230px;
+                            padding: 10px;
+                            z-index: 5;
+
+                            .attraction-location-map {
+                                aspect-ratio: 1;
+
+                            }
+
+                            // background: themed('background',4);
                         }
                     }
                 }
-
-                .right {
-                    width: 230px;
-                    min-width: 230px;
-                    padding: 10px;
-                    z-index: 5;
-
-                    .attraction-location-map {
-                        aspect-ratio: 1;
-
-                    }
-
-                    // background: themed('background',4);
-                }
             }
         }
-    }
-}
