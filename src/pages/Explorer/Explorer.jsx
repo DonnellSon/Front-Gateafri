@@ -135,7 +135,9 @@ const Explorer = () => {
           <StickySideBar top={20}>
             <div className="invest-content">
               <h1 className='h1-text'>Pourquoi investir à {country?.name}?</h1>
+
               <div className="invest-gride">
+
                 <div className="invest-gride-item">
                   <div className="invest-gride-svg ">
                     <Bank />
