@@ -2,7 +2,7 @@ import React from 'react'
 import './City.scss';
 import Slider from 'react-slick'
 import { MapContainer, TileLayer, UseMap, Marker, Popup } from 'react-leaflet';
-import { Alarm, CaretRight, Cloud, CloudSleet, Diamond, Gem, GeoAltFill, Globe, Heart, Phone, Search, Shop, Speaker, X, XLg } from 'react-bootstrap-icons';
+import { Alarm, CaretRight, Cloud, CloudSleet, Diamond, Facebook, Gem, GeoAltFill, Globe, Heart, Instagram, Phone, Search, Shop, Speaker, X, XLg, Linkedin } from 'react-bootstrap-icons';
 import { CustomNextArrow, CustomPrevArrow } from '../../components/Arrows/Arrows';
 import { useRef, useState } from 'react';
 import Modal from '../../components/Modal/Modal'
@@ -410,14 +410,15 @@ const City = () => {
           <div className='inscription'>
             <div className='inscription-image relative'>
               <div className='image'>
-                <img src="/img/other/parc.jpg" alt="" />
+                <img src="/img/other/vacances.jpg" alt="" />
               </div>
               <div className='inscription'>
                 <h1>GateAfri</h1>
                 <p>Inscrivez vous dès maintenant pour explorer un continent,ville pour savoir les cultures des pays</p>
-                <div className='text'>
-                  <p>S'inscrire</p>
-                </div>
+
+                <button className='btn-outline-white'>
+                  S'incrire
+                </button>
               </div>
             </div>
           </div>
@@ -649,7 +650,7 @@ const City = () => {
 
                 <div className='destination-caroseul-item'>
                   <div className="img">
-                    <img src="/img/other/maki_2.png"  className="image-hover-scale" alt="" />
+                    <img src="/img/other/maki_2.png" className="image-hover-scale" alt="" />
                   </div>
 
                   <div className='destination-caroseul-text'>
@@ -771,10 +772,98 @@ const City = () => {
                 </div>
               </div>
             </div>
-
           </div>
+        </div>
+
+        <div className="footer">
+
+          <div>
+            <div className="logo-header">
+              <img src="/img/logo/GATEAFR.png" alt="" />
+            </div>
+
+            <div className="footer-body">
+
+              <div className='footer-content'>
+
+                <h4 className='py-5'><b>Autres produits GateAfri</b></h4>
+
+                <ul className='flex gap-10'>
+                  <li>
+                    <img src="/img/logo/gateNews.png" alt="" height={30} />
+                  </li>
+                  <li>
+                    <img src="/img/logo/afrimuzlogo.png" alt="" height={30} />
+                  </li>
+                </ul>
+
+              </div>
+
+              <div className='footer-content'>
+                <h4 className='py-5'><b>Destination</b></h4>
+
+                <ul>
+                  <li>Cape Town : notre choix d’hôtels</li>
+                  <li>Le Caire : notre choix d’hôtels</li>
+                  <li>Le Cap : notre choix d’hôtels</li>
+                  <li>Dakar : notre choix d’hôtels</li>
+                  <li>Tunis : notre choix d’hôtels</li>
+                  <li>Nairobi : notre choix d’hôtels</li>
+                  <li>Dar es Salaam : notre choix d’hôtels</li>
+                  <li>Antananarivo : notre choix d’hôtels</li>
+                  <li>Accra : notre choix d’hôtels</li>
+                  <li>Lagos : notre choix d’hôtels</li>
+                  <li>Gaborone : notre choix d’hôtels</li>
+                </ul>
+
+              </div>
+
+              <div className='footer-content'>
+                <h4 className='py-5'><b>Pays et régions principaux</b></h4>
+
+                <ul>
+                  <li>Afrique du Sud : notre choix d’hôtels</li>
+                  <li>Maroc : notre choix d’hôtels</li>
+                  <li>Égypte : notre choix d’hôtels</li>
+                  <li>Île Maurice : notre choix d’hôtels</li>
+                  <li>Sénégal : notre choix d’hôtels</li>
+                  <li>Tunisie : notre choix d’hôtels</li>
+                  <li>Kenya : notre choix d’hôtels</li>
+                  <li>Tanzanie : notre choix d’hôtels</li>
+                  <li>Madagascar : notre choix d’hôtels</li>
+                  <li>Ghana : notre choix d’hôtels</li>
+                  <li>Nigeria : notre choix d’hôtels</li>
+                  <li>Botswana : notre choix d’hôtels</li>
+                </ul>
+
+              </div>
+
+              <div className='footer-content'>
+                <h4 className='py-5'><b>Politique de confidentialité</b></h4>
+
+                <ul>
+                  <li>Conditions générales d'utilisation</li>
+                  <li>Politique de remboursement</li>
+                  <li>Politique de cookies</li>
+                  <li>Politique de sécurité des données</li>
+                </ul>
+              </div>
+
+              <div className='footer-content'>
+                <h4 className='py-5'><b>Autres informations</b></h4>
+
+                <ul>
+                  <li>Qui sommes-nous ?</li>
+                  <li>Emplois</li>
+                  <li>Guides de voyage</li>
+                </ul>
+
+              </div>
 
 
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
