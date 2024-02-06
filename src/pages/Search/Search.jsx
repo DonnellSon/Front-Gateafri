@@ -179,6 +179,17 @@ const Search = () => {
                     }
 
                 </div>
+
+                <div className="persons-results">
+                    <Slider {...{
+                        slidesToShow:4,
+                        slidesToScroll:1
+                    }}>
+                        
+                    </Slider>
+                </div>
+
+
                 {
                     investsLoading ?
                         <InvestListSkeleton /> :

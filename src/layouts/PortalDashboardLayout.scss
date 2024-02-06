@@ -3,7 +3,7 @@
 #portal-dashboard-layout {
     @include themify($themes) {
         display: flex;
-
+        height: calc(100vh - 58px);
         >.left {
             max-width: 260px;
             min-width: 260px;
@@ -50,6 +50,8 @@
 
         >.center {
             flex-grow: 1;
+            min-width: 0;
+            overflow-y: auto;
         }
 
         .my-portals {

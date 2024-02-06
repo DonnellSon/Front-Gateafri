@@ -32,26 +32,26 @@ const PortalAdminLayout = () => {
                         </DoNavLink>
                     </li>
                     <li>
-                        <DoNavLink to={`/portail/${portalId}/dashboard/a-propos`} activeClass='active'>
+                        <DoNavLink to={`/portail/${portalId}/dashboard/statistiques`} activeClass='active'>
                             <div className="ico"><BarChart size={18}/></div>
                             <span className='text-ellipsis'>Statistiques de mon portail</span>
                         </DoNavLink>
                     </li>
                     <li>
-                        <DoNavLink to={`/portail/${portalId}/dashboard/a-propos`} activeClass='active'>
+                        <DoNavLink to={`/portail/${portalId}/dashboard/messagerie`} activeClass='active'>
                             <div className="ico"><ChatLeftDots size={18}/></div>
                             <span className='text-ellipsis'>Messagerie</span>
                         </DoNavLink>
                     </li>
                     <li>
-                        <DoNavLink to={`/portail/${portalId}/dashboard/accès`} activeClass='active'>
+                        <DoNavLink to={`/portail/${portalId}/dashboard/acces`} activeClass='active'>
                             <div className="ico"><ShieldLock size={18}/></div>
                             <span className='text-ellipsis'>Accès à mon portail</span>
                         </DoNavLink>
                     </li>
                     
                     <li>
-                        <DoNavLink activeClass='active'>
+                        <DoNavLink to={`/portail/${portalId}/dashboard/modifier`} activeClass='active'>
                             <div className="ico"><PencilSquare/></div>
                             <span className='text-ellipsis'>Modifier {portal?.name}</span>
                         </DoNavLink>
@@ -64,14 +64,14 @@ const PortalAdminLayout = () => {
                     </li>
                     <li>
                         <hr />
-                        <DoNavLink to={`/portail/${portalId}/dashboard/a-propos`} activeClass='active'>
+                        <DoNavLink activeClass='active'>
                             <div className="ico"><BuildingUp size={18}/></div>
-                            <span className='text-ellipsis'>GateAfri for Business</span>
+                            <span className='text-ellipsis'>GateAfri for Business <div className="badge">Bientôt</div></span>
                         </DoNavLink>
                     </li>
                 </ul>
             </div>
-            <div className="content flex-grow-1">
+            <div style={{overflowX:'auto'}} className="content minimal-scroll-bar flex-grow-1">
                 <Outlet />
             </div>
         </div>

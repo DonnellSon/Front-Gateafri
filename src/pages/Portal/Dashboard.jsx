@@ -123,7 +123,7 @@ const Dashboard = () => {
                 <h2>Dernieres publications</h2>
                 <Link className="view-more flex gap-5 align-items-center">Voir Plus <ChevronRight /></Link>
               </div>
-              {/* <div className="posts-slider">
+              <div className="posts-slider">
                 {
                   postsLoadingStatus === 'loading' ? (
                     <>
@@ -141,7 +141,6 @@ const Dashboard = () => {
                       slidesToShow: 1,
                       slidesToScroll: 1,
                       autoplay: false,
-                      variableWidth: true,
                       arrows: false,
                       dots: false
                     }}>
@@ -176,7 +175,7 @@ const Dashboard = () => {
                     ? ''
                     : ''}
                 <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal} />
-              </div> */}
+              </div>
 
             </div>
           </div>

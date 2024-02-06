@@ -227,6 +227,36 @@ img.emoji {
   }
 }
 
+.minimal-scroll-bar {
+  @include themify($themes) {
+    &::-webkit-scrollbar {
+      background: none;
+      width: 10px;
+      height: 10px;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+
+      background: themed("scrollbar", scrollbarBg);
+      border-radius: 6px;
+      border: 2px solid themed('background', 3);
+
+
+
+    }
+
+    &::-webkit-scrollbar-button:single-button {
+      display: none;
+
+
+    }
+  }
+
+ 
+
+}
+
 @media (min-width:900px) {
   *::-webkit-scrollbar {
     @include themify($themes) {
@@ -451,6 +481,8 @@ a {
   max-width: 45px !important;
 }
 
+
+
 /*buttons*/
 [class*="btn-"] {
   all: unset;
@@ -461,7 +493,8 @@ a {
   align-items: center;
   justify-content: center;
   height: 35px;
-  padding: 0 10px;
+  font-weight: 600;
+  padding: 0 15px;
   cursor: pointer;
   transition: .3s;
   white-space: pre;
@@ -698,8 +731,9 @@ a {
 }
 
 
-.image-hover-scale{
+.image-hover-scale {
   transition: 0.5s;
+
   &:hover {
     transform: scale(1.2);
   }

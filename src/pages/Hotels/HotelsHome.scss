@@ -341,7 +341,7 @@
             color: themed('text',3);
         }
         .slick-slider{
-            margin-top: 10px;
+            margin-top: 15px;
             margin-left: -15px !important;
             margin-right: -15px !important;
         }
@@ -379,14 +379,12 @@
 
 .beach-slider {
     @include themify($themes) {
-        background: themed('background', 3);
-        border-radius: 5px;
-        box-shadow: var(--elevation-1);
         margin-top: 45px;
-        padding: 15px;
-
+        h3{
+            color: themed('text',1);
+        }
         .slick-slider {
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .slick-slide>div {
@@ -404,6 +402,7 @@
                 border-radius: 5px;
                 overflow: hidden;
                 position: relative;
+                box-shadow: var(--elevation-1);
 
                 img {
                     position: absolute;
