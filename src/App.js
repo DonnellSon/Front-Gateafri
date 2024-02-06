@@ -66,6 +66,10 @@ import ExplorerLayout from './layouts/ExplorerLayout';
 import Explorer from './pages/Explorer/Explorer';
 import City from './pages/Stay/City';
 import HotelsHome from './pages/Hotels/HotelsHome';
+import Statistics from './pages/Portal/Statistics';
+import PortalMessenger from './pages/Portal/PortalMessenger';
+import Access from './pages/Portal/Access';
+import Edit from './pages/Portal/Edit';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -315,7 +319,10 @@ function App() {
                                   <Route path=':portalId' element={<PortalAdminLayout />}>
                                     <Route path='dashboard'>
                                       <Route index element={<Dashboard />} />
-                                      <Route path='a-propos' element={<DashboardAbout />} />
+                                      <Route path='statistiques' element={<Statistics/>} />
+                                      <Route path='messagerie' element={<PortalMessenger/>} />
+                                      <Route path='acces' element={<Access/>} />
+                                      <Route path='modifier' element={<Edit/>} />
                                     </Route>
                                   </Route>
                                   <Route path='nouveau' element={<CreatePortal />} />

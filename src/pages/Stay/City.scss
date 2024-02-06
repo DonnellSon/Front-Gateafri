@@ -249,15 +249,13 @@
                 border-bottom: 1px solid themed('border', 2);
                 padding: 0 15px;
                 background: themed('background', 3);
-
-                .logo-gate {
-                    img {
-                        height: 30px;
-
-                    }
+                .logo-gate{
+                img{
+                    height: 35px;
+                    
+                }
                 }
             }
-
 
             .attraction-modal-nav {
                 left: 50%;
@@ -277,9 +275,6 @@
                         &.active {
                             background: themed('background', 5);
 
-                        &.active {
-                            background: themed('background', 5);
-
                         }
                     }
                 }
@@ -295,7 +290,6 @@
                     border-right: 1px solid themed('border',2);
                     position: sticky;
                     top: 58px;
-                    top: 58px;
                     height: calc(100vh - 58px);
                     overflow: auto;
 
@@ -304,12 +298,9 @@
                             background: none;
                             width: 10px;
 
-
                         }
 
-
                         &::-webkit-scrollbar-thumb {
-
 
                             background: themed("scrollbar", scrollbarBg);
                             border-radius: 6px;
@@ -317,16 +308,10 @@
 
 
 
-
-
                         }
-
 
                         &::-webkit-scrollbar-button:single-button {
                             display: none;
-
-
-                        }
 
 
                         }
@@ -337,7 +322,6 @@
                         margin-bottom: 10px;
                         position: relative;
 
-
                         img {
                             display: block;
                             width: 100%;
@@ -347,13 +331,10 @@
                         }
 
                         .text-img {
-
-                        .text-img {
                             z-index: 5;
                             position: absolute;
                             bottom: 5px;
                             left: 10px;
-                            color: white;
                             color: white;
                         }
                     }
@@ -500,9 +481,6 @@
 
                                         .description-article {
                                             color: themed('text', 1);
-
-                                            span {
-                                                color: themed('mainColor', purple);
 
                                             span {
                                                 color: themed('mainColor', purple);

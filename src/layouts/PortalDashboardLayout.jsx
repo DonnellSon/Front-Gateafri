@@ -43,7 +43,7 @@ const PortalDashboardLayout = () => {
                     </div>} query={(keyword) => user ? getUserCompanies(user.id, keyword) : getCompanies({ filters: keyword ? `name=${keyword}` : null })} mapping={
                         (c) => (
 
-                            <DoNavLink to={`/portail/${c.id}/dashboard`} activeClass='active' className='flex gap-10 align-items-center'>
+                            <DoNavLink to={`/portail/${c.id}/dashboard`} end={false} activeClass='active' className='flex gap-10 align-items-center'>
                                 <Avatar src={c.activeLogo ? c.activeLogo.fileUrl : null} /> <span>{c.name}</span><ChevronRight/>
                             </DoNavLink>
 

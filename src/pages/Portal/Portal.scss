@@ -11,35 +11,33 @@
             padding: 15px 0;
 
             >.left {
-                max-width: 1150px;
+                max-width: 1030px;
                 margin: auto;
                 .banner {
-                    height: 250px;
+                    aspect-ratio: 100/18;
                     background: themed("background", 5);
                     border-radius: 5px;
                 }
                 .portal-info{
-                    max-width: 1000px;
-                    
+                    max-width: 1010px;
+                    padding: 0 10px 0px 10px;
                     margin: auto;
                     margin-top: -70px;
                     h1{
                         color: themed("text",1);
-                        margin-bottom: 3px;
                         font-size: 23px;
                     }
                     .bottom{
                         margin-top: 20px;
                     }
                     .portal-domains{
-                        color: themed("text",3);
+                        color: themed("text",4);
                     }
                     .avatar > img{
                         border-radius: 5px !important;
                         background: themed("background", 6);
                     }
                     .evaluation {
-                        margin-bottom: 3px;
                         .moy{
                             width: 30px;
                             background: themed("background", 5);
@@ -58,8 +56,8 @@
                         gap: 3px;
 
                         img{
-                            width: 23px;
-                            height: 20px;
+                            width: 18px;
+                            height: 16px;
                             display: block;
                         }
                     }
@@ -75,6 +73,8 @@
             border-bottom: 1px solid themed("border", 2);
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 58px;
             padding: 8px 0 8px 0;
             color: themed("text",2);
             >ul {
@@ -91,12 +91,12 @@
                     justify-content: center;
                     align-items: center;
                     flex: 1;
-                    min-width: 100px;
-                    max-width: 100px;
+                    min-width: 80px;
                     border-radius: 5px;
                     padding: 3px 0;
                     font-weight: themed("weight", 600);
                     position: relative;
+                    height: 38px;
                 }
 
                 >li>a.active {
