@@ -363,6 +363,9 @@ a {
 .flex-1 {
   flex: 1 !important;
 }
+.flex-2 {
+  flex: 2 !important;
+}
 
 .flex-grow-1 {
   flex-grow: 1;
@@ -648,6 +651,10 @@ a {
 .pb-15 {
   padding-bottom: 15px;
 }
+.pb-5{
+  padding-bottom: 5px;
+
+}
 
 .px-20 {
   padding-left: 20px;
@@ -693,6 +700,10 @@ a {
 
 .form-group {
   margin-bottom: 15px;
+}
+
+.pl-15{
+  padding-left: 15px;
 }
 
 

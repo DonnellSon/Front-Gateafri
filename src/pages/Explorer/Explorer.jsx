@@ -139,6 +139,7 @@ const Explorer = () => {
               <div className="invest-gride">
 
                 <div className="invest-gride-item">
+                  
                   <div className="invest-gride-svg ">
                     <Bank />
                   </div>
