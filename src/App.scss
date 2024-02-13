@@ -364,6 +364,10 @@ a {
   flex: 1 !important;
 }
 
+.flex-2 {
+  flex: 2 !important;
+}
+
 .flex-grow-1 {
   flex-grow: 1;
 }
@@ -637,6 +641,23 @@ a {
   margin-left: 10px;
 }
 
+.mr-10 {
+  margin-right: 10px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mx-5{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .p-5 {
   padding: 5px;
 }
@@ -689,6 +710,10 @@ a {
 
 .p-20 {
   padding: 20px;
+}
+
+.p-30 {
+  padding: 30px;
 }
 
 .form-group {

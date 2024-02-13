@@ -70,6 +70,7 @@ import Statistics from './pages/Portal/Statistics';
 import PortalMessenger from './pages/Portal/PortalMessenger';
 import Access from './pages/Portal/Access';
 import Edit from './pages/Portal/Edit';
+import JobDetails from './pages/JobFinding/JobDetails';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -282,6 +283,7 @@ function App() {
                                 <Route path='nouveau' element={<CreateJob />} />
                                 <Route path='cv' element={<CreateCv />} />
                               </Route>
+                              <Route path='detail' element={<JobDetails />} />
                             </Route>
 
                             <Route path='/profil'>
