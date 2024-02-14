@@ -66,42 +66,42 @@ const AttractionReservation = ({ data }) => {
 }
 
 
-const AvisCard =({data}) =>{
-  return(
+const AvisCard = ({ data }) => {
+  return (
     <div className="avis-card p-15">
-    <div className='card-title flex gap-15 align-items-center'>
-      <div className='avatar'>
-        <img src={data.img} alt='' />
+      <div className='card-title flex gap-15 align-items-center'>
+        <div className='avatar'>
+          <img src={data.img} alt='' />
+        </div>
+        <div className='content-card'>
+          <div className='content-card-title'>
+            <p><b>{data.nom}</b> a écrit un avis (8 févr.)</p>
+          </div>
+          <div className='content-card-container'>
+            <p>3 contributions • 1 vote utile</p>
+          </div>
+        </div>
       </div>
-      <div className='content-card'>
-        <div className='content-card-title'>
-          <p><b>{data.nom}</b> a écrit un avis (8 févr.)</p>
-        </div>
-        <div className='content-card-container'>
-          <p>3 contributions • 1 vote utile</p>
-        </div>
+      <div className='content-body py-10'>
+        <ul>
+          <li className='py-5'>
+            <Rating
+              readonly
+              initialRating={3.5}
+              onChange={(value) => { }}
+              fractions={2}
+              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+            />
+          </li>
+          <li className='py-5'>
+            <h4><b>{data.title}</b></h4>
+          </li>
+          <li>{data.text}</li>
+          <li className='flex align-items-center gap-5 py-5'><span style={{ textDecoration: 'underline' }}>Plus</span> <ChevronDown /></li>
+        </ul>
       </div>
     </div>
-    <div className='content-body py-10'>
-      <ul>
-        <li className='py-5'>
-          <Rating
-            readonly
-            initialRating={3.5}
-            onChange={(value) => { }}
-            fractions={2}
-            emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-            fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-          />
-        </li>
-        <li className='py-5'>
-          <h4><b>{data.title}</b></h4>
-        </li>
-        <li>{data.text}</li>
-        <li className='flex align-items-center gap-5 py-5'><span style={{ textDecoration: 'underline' }}>Plus</span> <ChevronDown /></li>
-      </ul>
-    </div>
-  </div>
   )
 }
 
@@ -154,38 +154,38 @@ const HotelsReservation = () => {
 
   ]
 
-  const avisData=[
+  const avisData = [
     {
-      nom:'Dominique',
-      img:'/img/other/2.webp',
-      title:'Mon hotel préfere',
-      text:'Le service, les repas du petit-déjeuner, déjeuner et dîner aux deux restaurants sont excellent. La chambre est très bien équipée avec des matériaux hauts de gamme. Le personnel est d’une gentillesse très positive. C’était je crois ma 15eme visite depuis l’ouverture. De mieux en mieux'
+      nom: 'Dominique',
+      img: '/img/other/2.webp',
+      title: 'Mon hotel préfere',
+      text: 'Le service, les repas du petit-déjeuner, déjeuner et dîner aux deux restaurants sont excellent. La chambre est très bien équipée avec des matériaux hauts de gamme. Le personnel est d’une gentillesse très positive. C’était je crois ma 15eme visite depuis l’ouverture. De mieux en mieux'
     },
     {
-      nom:'Donnel',
-      img:'/img/other/avatar.jpg',
-      title:'Incroyable',
-      text:"Quel incroyable hôtel Tout était parfait, le confort du lit, la vue sur le petit lac et la ville, la salle de sport tout équipée et la piscine sur le toit ! Le restaurant est très raffiné, nous nous sommes régalés Et que dire du petit déjeuner ?? Le meilleur que nous n'ayons jamais vu !!! Il y a tout, vraiment tout c'était dingue"
+      nom: 'Donnel',
+      img: '/img/other/avatar.jpg',
+      title: 'Incroyable',
+      text: "Quel incroyable hôtel Tout était parfait, le confort du lit, la vue sur le petit lac et la ville, la salle de sport tout équipée et la piscine sur le toit ! Le restaurant est très raffiné, nous nous sommes régalés Et que dire du petit déjeuner ?? Le meilleur que nous n'ayons jamais vu !!! Il y a tout, vraiment tout c'était dingue"
     },
     {
-      nom:'Antema Nirina',
-      img:'/img/other/avatar_3.png',
-      title:'Superbe expérience !',
-      text:"Accueil chaleureux et nuit exceptionnel au sein de votre établissement. Très satisfaite. La chambre est bien équipée et nous avions été accueilli par quelques douceurs. Le personnel est aux petits soins"
+      nom: 'Antema Nirina',
+      img: '/img/other/avatar_3.png',
+      title: 'Superbe expérience !',
+      text: "Accueil chaleureux et nuit exceptionnel au sein de votre établissement. Très satisfaite. La chambre est bien équipée et nous avions été accueilli par quelques douceurs. Le personnel est aux petits soins"
     },
     {
-      nom:'Ny aina',
-      img:'/img/other/avatar_2.png',
-      title:'Unforgettable Luxury: Radisson Blu Madagascar',
-      text:"Accueil chaleureux et nuit exceptionnel au sein de votre établissement. Très satisfaite. La chambre est bien équipée et nous avions été accueilli par quelques douceurs. Le personnel est aux petits soinsTout d'abord, le personnel du Radisson Blu, en particulier Fandresena, Myriane et Miorakanto, mérite les plus grands éloges. Leur dévouement inébranlable pour assurer le confort et la satisfaction des clients comme moi était vraiment remarquable. L'attention aux détails et la gentillesse de Fandresena ont rendu chaque interaction un plaisir."
+      nom: 'Ny aina',
+      img: '/img/other/avatar_2.png',
+      title: 'Unforgettable Luxury: Radisson Blu Madagascar',
+      text: "Accueil chaleureux et nuit exceptionnel au sein de votre établissement. Très satisfaite. La chambre est bien équipée et nous avions été accueilli par quelques douceurs. Le personnel est aux petits soinsTout d'abord, le personnel du Radisson Blu, en particulier Fandresena, Myriane et Miorakanto, mérite les plus grands éloges. Leur dévouement inébranlable pour assurer le confort et la satisfaction des clients comme moi était vraiment remarquable. L'attention aux détails et la gentillesse de Fandresena ont rendu chaque interaction un plaisir."
     },
     {
-      nom:'Gate Tech',
-      img:'/img/other/avatar_4.jpg',
-      title:'Erreur de facturation',
-      text:"Erreur de facturation reconnue au départ de l'hôtel. La comptabilité étant fermée, on me promet une régularisation ultérieure. Depuis, plus aucune nouvelle, aucune réponse à mes mails. Le prix est élevé, ce type de gestion est inadmissible pour un hôtel de ce standing."
+      nom: 'Gate Tech',
+      img: '/img/other/avatar_4.jpg',
+      title: 'Erreur de facturation',
+      text: "Erreur de facturation reconnue au départ de l'hôtel. La comptabilité étant fermée, on me promet une régularisation ultérieure. Depuis, plus aucune nouvelle, aucune réponse à mes mails. Le prix est élevé, ce type de gestion est inadmissible pour un hôtel de ce standing."
     }
-  ] 
+  ]
 
   return (
     <div id="hotelsReservation">
@@ -222,26 +222,26 @@ const HotelsReservation = () => {
 
             <div className='body-hotels-slider'>
               <div className='text-body'>
-                <ImageFill color='white'/>
+                <ImageFill color='white' />
                 <span>4</span>
               </div>
               <Slider {...{
-                slidesToShow:1,
-                slidesToScroll:1,
-                dots:false,
-                infinite:true,
-                autoplay:true,
-                speed:500,
-                arrows:false
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: false,
+                infinite: true,
+                autoplay: true,
+                speed: 500,
+                arrows: false
               }}>
                 <div className="body-item-hotels">
-                  <img src='/img/other/chambre_5.jpg' alt=''/>
+                  <img src='/img/other/chambre_5.jpg' alt='' />
                 </div>
                 <div className="body-item-hotels">
-                  <img src='/img/other/chambre_3.jpg' alt=''/>
+                  <img src='/img/other/chambre_3.jpg' alt='' />
                 </div>
                 <div className="body-item-hotels">
-                  <img src='/img/other/chambre_4.jpg' alt=''/>
+                  <img src='/img/other/chambre_4.jpg' alt='' />
                 </div>
               </Slider>
             </div>
@@ -1248,39 +1248,39 @@ const HotelsReservation = () => {
                 }}>Tout Afficher</p>
               </div>
               <div className="caroseul-slider">
-              <Slider {...{
-                arrows: false,
-                dots: false,
-                infinite: false,
-                speed: 500,
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                responsive: [
-                  {
-                    breakpoint: 1024,
-                    settings: {
-                      slidesToShow: 3,
-                      slidesToScroll: 1,
-                      infinite: false,
-                      dots: false
+                <Slider {...{
+                  arrows: false,
+                  dots: false,
+                  infinite: false,
+                  speed: 500,
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  responsive: [
+                    {
+                      breakpoint: 1024,
+                      settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: false,
+                        dots: false
+                      }
+                    },
+                    {
+                      breakpoint: 600,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                      }
+                    },
+                    {
+                      breakpoint: 480,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                      }
                     }
-                  },
-                  {
-                    breakpoint: 600,
-                    settings: {
-                      slidesToShow: 2,
-                      slidesToScroll: 1,
-                    }
-                  },
-                  {
-                    breakpoint: 480,
-                    settings: {
-                      slidesToShow: 1,
-                      slidesToScroll: 1
-                    }
-                  }
-                ]
-              }}>
+                  ]
+                }}>
                   {procheData.map((a, i) => (
                     <AttractionReservation data={a} key={i} />
                   ))}
@@ -1293,9 +1293,9 @@ const HotelsReservation = () => {
           <div className="grid-avis-content">
             <h4 className='px-15 pb-5'>Avis utilisateur</h4>
             <div className='grid-avis'>
-                {avisData.map((a,i) => (
-              <AvisCard data={a} key={i} />
-                ))}
+              {avisData.map((a, i) => (
+                <AvisCard data={a} key={i} />
+              ))}
             </div>
           </div>
 

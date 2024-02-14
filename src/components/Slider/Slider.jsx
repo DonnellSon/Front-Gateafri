@@ -90,13 +90,39 @@ export const CountrySlider = ({ titleSlider }) => {
 
 export const CarreSlider = ({ donneSlider }) => {
   const devertisementSlide = useRef()
+
   const settingsDivertisement = {
     arrows: false,
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive:[
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   return (
@@ -104,7 +130,7 @@ export const CarreSlider = ({ donneSlider }) => {
       <CustomNextArrow onClick={devertisementSlide.current?.slickNext} />
       <CustomPrevArrow onClick={devertisementSlide.current?.slickPrev} />
 
-      <Slider ref={devertisementSlide} {...settingsDivertisement}>
+      <Slider ref={devertisementSlide} {...settingsDivertisement} >
         {
           donneSlider?.map((data, i) => (
             <div className="divertisement-item-caroseul" key={i}>

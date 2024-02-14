@@ -2,7 +2,7 @@
 
 #hotelsReservation {
   @include themify($themes) {
-
+    color: themed('text',0);
     .nav {
       height: 70px;
       background: themed('background', 3);
@@ -275,6 +275,7 @@
                 grid-template-columns:
                   repeat(auto-fit,
                     minmax(min(200px, 100%), 1fr));
+
                 grid-gap: 15px;
 
                 .description-item {
@@ -334,7 +335,9 @@
               border-radius: 5px;
               cursor: pointer;
               border: 1px solid rgba(128, 128, 128, 0.53);
-
+              &:hover{
+                background:rgba(109, 107, 107, 0.123) !important
+              }
             }
 
             .search-container-item-right {
@@ -347,6 +350,9 @@
               padding: 5px;
               border-radius: 5px;
               cursor: pointer;
+              &:hover{
+                background:rgba(109, 107, 107, 0.123) !important
+              }
 
             }
           }
