@@ -6,6 +6,7 @@ import Avatar from '../../components/Avatar/Avatar'
 import VideoCard from '../../components/VideoCard/VideoCard'
 import { useRef } from 'react';
 import { TfiAlignJustify } from "react-icons/tfi";
+import SliderNav from '../../components/SliderNav/SliderNav'
 const ProfilMusic = () => {
     const caroseul = useRef()
     const data = [
@@ -224,8 +225,8 @@ const ProfilMusic = () => {
                 <div className='background-cover'>
                 </div>
             </div>
-            <div className='content-profil'>
 
+            <div className='content-profil'>
                 <div className='profil-header flex'>
                     <div className='card-header'>
                         <Avatar src={'/img/other/2.webp'} height={120} width={120} online={false} />
@@ -241,35 +242,23 @@ const ProfilMusic = () => {
                                 <span><b>• 3,09 k abonnés </b></span>
                                 <span><b>• 25 vidéos</b></span>
                             </div>
-
                             <div className='span-2'>
                                 <ThreeDotsVertical size={25} />
                             </div>
-
-
                         </div>
                     </div>
-
-
-
                 </div>
-                <nav>
-                    <Slider {...{
-                        slidesToShow: 10,
-                        slidesToScroll: 1,
-                        infinite: false,
-                    }}>
-                        <div className='navbar flex justify-content-center align-items-center'>
-                            <p>Acceui</p>
-                        </div>
-                        <div className='navbar flex justify-content-center align-items-center'>
-                            <p>Vidéo</p>
-                        </div>
-                        <div className='navbar flex justify-content-center align-items-center'>
-                            <p>Communaté</p>
-                        </div>
-                    </Slider>
-                </nav>
+
+                <div className="music-top-nav">
+                    <SliderNav>
+                        <span onClick={() => { }}>Tous</span>
+                        <span onClick={() => { }}>Populaires</span>
+                        <span onClick={() => { }}>Nouveaux</span>
+                        <span onClick={() => { }}>Tous</span>
+                        <span onClick={() => { }}>Ma musique</span>
+                        <span onClick={() => { }}>Tous</span>
+                    </SliderNav>
+                </div>
 
                 <div className='all-music'>
 
@@ -309,7 +298,7 @@ const ProfilMusic = () => {
                 </div>
 
                 <div className='playlist'>
-                    <div className="playlist flex">
+                    <div className="playlist-title flex">
                         <div className='header'>
                             <h1>Videos récentes</h1>
                         </div>
@@ -345,13 +334,13 @@ const ProfilMusic = () => {
 
                     <div className='album-carousel'>
                         <Slider
-                        {...{
-                            slidesToShow:5,
-                            slidesToScroll:1,
-                            arrows:false,
-                            dots:false,
-                            speed:500
-                        }}
+                            {...{
+                                slidesToShow: 5,
+                                slidesToScroll: 1,
+                                arrows: false,
+                                dots: false,
+                                speed: 500
+                            }}
                         >
                             <div className='album-item'>
                                 <div className='img'>
@@ -419,7 +408,7 @@ const ProfilMusic = () => {
                 </div>
 
                 <div className='Featuring'>
-                    <div className="playlist flex">
+                    <div className="playlist-title flex">
                         <div className='header'>
                             <h1>Featuring</h1>
                         </div>                        <div className='arows flex align-items-center gap-5'>
