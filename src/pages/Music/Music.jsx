@@ -58,7 +58,30 @@ const Music = () => {
     autoplay: false,
     variableWidth: true,
     arrows: false,
-    dots: false
+    dots: false,
+    responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 950,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
   };
   const settings2 = {
     infinite: true,
@@ -68,7 +91,30 @@ const Music = () => {
     autoplay: false,
     variableWidth: true,
     arrows: false,
-    dots: false
+    dots: false,
+    responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 950,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+      ],
   };
 
 
@@ -166,7 +212,7 @@ const Music = () => {
         <div className="heading">
           <h1>Les plus réscents</h1>
         </div>
-        <Slider {...settings}>
+        <Slider {...settings2}>
           {
             last.map((v, i) => (
               <div key={i} className="last-musique-slide relative" style={{ width: 230, aspectRatio: '16/9' }}>
@@ -183,8 +229,8 @@ const Music = () => {
         <div className="heading">
           <h1>Artistes populaires</h1>
         </div>
-        <Slider {...settings}>
-          <div className="top-artist-slide relative" style={{ width: 150 }}>
+        <Slider {...settings2}>
+          <div className="top-artist-slide relative" >
 
             <div className="flag-avatar">
               <Avatar width={100} height={100} src='/img/artists/5.png' />
@@ -193,7 +239,7 @@ const Music = () => {
             <h1>Rema-En live</h1>
 
           </div>
-          <div className="top-artist-slide relative" style={{ width: 150 }}>
+          <div className="top-artist-slide relative" >
 
             <div className="flag-avatar">
               <Avatar width={100} height={100} src='/img/artists/3.png' />
@@ -202,7 +248,7 @@ const Music = () => {
             <h1>Rema-En live</h1>
 
           </div>
-          <div className="top-artist-slide relative" style={{ width: 150 }}>
+          <div className="top-artist-slide relative" >
 
             <div className="flag-avatar">
               <Avatar width={100} height={100} src='/img/artists/2.png' />
@@ -211,7 +257,7 @@ const Music = () => {
             <h1>Rema-En live</h1>
 
           </div>
-          <div className="top-artist-slide relative" style={{ width: 150 }}>
+          <div className="top-artist-slide relative" >
 
             <div className="flag-avatar">
               <Avatar width={100} height={100} src='/img/artists/1.png' />
