@@ -247,6 +247,7 @@ const HotelsHome = () => {
                                 <p className='line-clamp-2'>Partez à la découverte d'une entreprises très prometteur et exerçant dans divers domaines et métiers d'avenir</p>
                             </div>
                         </div>
+                        
                         <div className="entreprises-visit-slider-item">
                             <div className="cover">
 

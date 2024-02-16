@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+
 const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
   const carouseulItem = useRef()
 

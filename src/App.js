@@ -67,6 +67,8 @@ import Explorer from './pages/Explorer/Explorer';
 import City from './pages/Stay/City';
 import HotelsHome from './pages/Hotels/HotelsHome';
 import HotelsReservation from './pages/HotelReservation/HotelsReservation';
+import HotelTest from './pages/HotelTest/HotelTest';
+import ProfilMusic from './pages/ProfilMusic/ProfilMusic';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -358,6 +360,7 @@ function App() {
 
                       <Route path='/musique' element={<MusicLayout />}>
                         <Route index element={<Music />} />
+                        <Route path='profil' element={<ProfilMusic/>} />
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
@@ -370,6 +373,9 @@ function App() {
                         </Route>
                         <Route path='hotels' element={<HotelsHome />} />
                       </Route>
+
+                      <Route path='test' element={<HotelTest/>}/>
+
                     </Routes>
                   </BrowserRouter>
                 </div>
