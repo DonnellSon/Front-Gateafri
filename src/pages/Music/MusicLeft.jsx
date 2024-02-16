@@ -17,7 +17,6 @@ const MusicLeft = () => {
         className={`music-left ${
           BigScreen ? "opened" : open ? "opened" : "closed"
         }`}
-        style={{ transition: "all 2s" }}
       >
         <StickySideBar top={58}>
           <div className="inside-sticky">
