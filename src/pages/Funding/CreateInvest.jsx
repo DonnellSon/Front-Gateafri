@@ -91,7 +91,7 @@ const CreateInvest = () => {
 
     return (
         <div id='create-invest'>
-            <div className="left">
+            <div className="formulaire">
                 <div className="top">
                     <h2>Nouvel investissement</h2>
                     <small>La collecte de fonds consiste à solliciter des contributions financières pour soutenir une cause, organisation, projet, ou événement spécifique.</small>

@@ -1,6 +1,9 @@
 @import '../../style.scss';
 
 .music-home {
+    @media (max-width:600px){
+        margin-left: 70px;
+}
     @include themify($themes) {
         .top {
             border-radius: 5px !important;
@@ -58,7 +61,7 @@
             background: themed("background", 5);
             aspect-ratio: 16/9;
             border-radius: 5px;
-            width: 380px !important;
+            width: 340px ;
 
             >img {
                 position: absolute;
@@ -121,6 +124,7 @@
             flex-direction: column;
             border-radius: 5px;
             padding: 10px;
+            width: auto;
             cursor: pointer;
             transition: .5s;
 

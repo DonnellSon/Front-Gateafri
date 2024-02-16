@@ -94,7 +94,6 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
             <Link to="/notifications"><Bell size={22} /></Link>
           </RequireAuthOnClick>
           <CurrencySelector/>
-
           {
             user ?
               <span className='flex gap-5 align-items-center' onClick={() => {
