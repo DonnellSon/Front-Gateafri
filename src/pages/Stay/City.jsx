@@ -83,13 +83,13 @@ const attractionData = [
   },
 
 ]
+
 const Attraction = ({ data }) => {
   const [open, setOpen] = useState(false)
 
 
   return (
     <>
-
       <div className='divertissementModal relative' onClick={() => {
         setOpen(true)
       }}>
@@ -122,14 +122,12 @@ const Attraction = ({ data }) => {
 
         <div className="body flex">
           <div className="left p-10">
-
             <div>
               <img src='/img/other/antananarivo.jpg' alt='' />
               <div className='text-img'>
                 <span>Analakely</span>
               </div>
             </div>
-
             <div>
               <img src='/img/other/baobab.jpg' alt='' />
               <div className='text-img'>
@@ -851,17 +849,12 @@ const City = () => {
 
               <div className='footer-content'>
                 <h4 className='py-5'><b>Autres informations</b></h4>
-
                 <ul>
                   <li>Qui sommes-nous ?</li>
                   <li>Emplois</li>
                   <li>Guides de voyage</li>
                 </ul>
-
               </div>
-
-
-
             </div>
           </div>
         </div>

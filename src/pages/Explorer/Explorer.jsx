@@ -12,9 +12,10 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+
 const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
   const carouseulItem = useRef()
-  
+
   const settingsItemCarouseul = {
     arrows: false,
     dots: false,
@@ -25,7 +26,7 @@ const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
     autoplay: false,
   };
 
- 
+
 
   return (
     <>
@@ -54,6 +55,7 @@ const Explorer = () => {
   const videoSlide = useRef()
   const reservationSlide = useRef()
   const carouseulItem = useRef()
+  const navbar=useRef()
   const settingsItemCarouseul = {
     arrows: false,
     dots: false,
@@ -72,6 +74,31 @@ const Explorer = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   const settingsVideo = {
@@ -80,7 +107,32 @@ const Explorer = () => {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   const settingsReservation = {
@@ -91,6 +143,31 @@ const Explorer = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     draggable: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
 
   };
 
@@ -115,7 +192,7 @@ const Explorer = () => {
       <div className="country-slider relative">
         <Slider autoplay={true} fade={true}>
           {
-            country?.countryThumbnails?.map((t,i) => (
+            country?.countryThumbnails?.map((t, i) => (
               <div key={i} className="country-slider-img">
                 <img src={t.fileUrl} alt="" />
               </div>
@@ -139,7 +216,8 @@ const Explorer = () => {
               <div className="invest-gride">
 
                 <div className="invest-gride-item">
-                  <div className="invest-gride-svg ">
+
+                  <div className="invest-gride-svg">
                     <Bank />
                   </div>
                   <p>Paysage diversifié, opportunités d'affaires, secteur touristique en plein essor.</p>
@@ -427,12 +505,6 @@ const Explorer = () => {
                   </div>
                 </div>
 
-                <div class="grille-item">
-                  <img src="/img/other/fianarantsoa.jpg" alt="image" />
-                  <div className="grille-item-content">
-                    <p>Arts et culture.</p>
-                  </div>
-                </div>
 
                 <div class="grille-item">
                   <img src="/img/other/antananarivo.jpg" alt="image" />
@@ -608,7 +680,6 @@ const Explorer = () => {
                           "/img/other/paysage_2.jpg",
                           "/img/other/paysage.jpg"]}
                           priceReservation={"400 000"}
-
                         />
                       </div>
                       <div className="item-bottom">
@@ -710,13 +781,45 @@ const Explorer = () => {
           </StickySideBar>
         </div>
       </div>
+
+      <div className="nav-bar-country relative">
+      <CustomNextArrow children={<ArrowRight size={10} />} onClick={()=>{navbar.current?.slickNext()}} />
+      <CustomPrevArrow children={<ArrowLeft size={10} />} onClick={()=>{navbar.current?.slickPrev()}} />
+        <Slider
+          {...{
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: false,
+            dots: false,
+            speed: 500,
+            infinite:false
+          }}
+          ref={navbar}
+          >
+       
+          <div className="nav-bar-item flex justify-content-center align-items-center active">
+            <p>A propos</p>
+          </div>
+          <div className="nav-bar-item flex justify-content-center align-items-center">
+            <p>Géographie</p>
+          </div>
+          <div className="nav-bar-item flex justify-content-center align-items-center">
+            <p>Histoire</p>
+          </div>
+          <div className="nav-bar-item flex justify-content-center align-items-center">
+            <p>Politique</p>
+          </div>
+          <div className="nav-bar-item flex justify-content-center align-items-center">
+            <p>société</p>
+          </div>
+
+        </Slider>
+      </div>
+
       <div className="country-details">
-
         <div className="country-details-section-right">
-
           <StickySideBar top={75}>
             <div className="country-details-heading">Sommaire</div>
-
             <div className="country-details-list">
               <ul>
                 <li>
@@ -741,16 +844,19 @@ const Explorer = () => {
                 <li>
                   <div className="country-details-item">
                     <Signpost />
-                  </div>Politique et société
+                  </div>Politique
+                </li>
+                <li>
+                  <div className="country-details-item">
+                    <Signpost />
+                  </div>Société
                 </li>
               </ul>
             </div>
           </StickySideBar>
 
         </div>
-
         <div className="country-details-section-center">
-
           <div className="country-details-navbar">
             <div className="country-details-navbar-item"><h1>À propos</h1> </div>
             <div className="country-details-navbar-item-left">

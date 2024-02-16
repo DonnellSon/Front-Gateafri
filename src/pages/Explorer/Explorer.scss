@@ -1,7 +1,7 @@
 @import '../../style.scss';
 
 #explorer-container {
-    
+
     @include themify($themes) {
         position: relative;
 
@@ -10,24 +10,28 @@
 
         }
 
-        .country-slider{
+        .country-slider {
             height: calc(100vh - 120px);
-            .slick-slider{
+
+            .slick-slider {
                 position: absolute;
                 width: 100%;
                 height: calc(100vh - 120px);
             }
-            .caption{
+
+            .caption {
                 position: absolute;
                 bottom: 100px;
                 left: 100px;
                 color: white;
             }
         }
-        .country-slider-img{
+
+        .country-slider-img {
             height: calc(100vh - 120px);
             position: relative;
-            img{
+
+            img {
                 position: absolute;
                 display: block;
                 height: 100%;
@@ -172,12 +176,6 @@
             display: flex;
             width: 100%;
 
-
-
-
-
-
-
             .travel {
                 width: 60%;
                 padding: 5px;
@@ -193,10 +191,11 @@
                         display: flex;
                         // gap: 15px
                     }
+
                     .slick-slide {
                         margin: 0 7.5px;
                     }
-                    
+
                     /* the parent */
                     .slick-list {
                         margin: 0 -7.5px;
@@ -220,7 +219,10 @@
                     .invest-gride {
                         display: grid;
                         height: auto;
-                        grid-template-columns: repeat(1, 1fr);
+                        grid-template-columns:
+                            repeat(auto-fit,
+                                minmax(min(300px, 100%), 1fr));
+                        gap: 15px;
 
                         .invest-gride-item {
                             overflow: hidden;
@@ -357,10 +359,11 @@
                         display: flex;
                         // gap: 15px;
                     }
+
                     .slick-slide {
                         margin: 0 7.5px;
                     }
-                    
+
                     /* the parent */
                     .slick-list {
                         margin: 0 -7.5px;
@@ -477,7 +480,9 @@
                 .grille-item-nature {
                     height: auto;
                     display: grid;
-                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-columns:
+                        repeat(auto-fit,
+                            minmax(min(200px, 100%), 1fr));
                     grid-gap: 15px;
                     align-items: center;
                     cursor: pointer;
@@ -534,10 +539,11 @@
                         display: flex;
                         // gap: 15px
                     }
+
                     .slick-slide {
                         margin: 0 7.5px;
                     }
-                    
+
                     /* the parent */
                     .slick-list {
                         margin: 0 -7.5px;
@@ -675,31 +681,34 @@
                         .slick-track {
                             display: flex;
                             gap: 0px;
+                            
                         }
 
                         .item-carouseul {
-                            height: calc(100vh - 350px);
+                            display: flex !important;
+                            flex-direction: column;
                             padding: 5px;
+
                             .custom-left,
                             .custom-right {
                                 background: none !important;
-                                color: white!important;
+                                color: white !important;
                                 opacity: 0 !important;
                                 transition: 0.5s !important;
                             }
 
-                            .item-top-price{
+                            .item-top-price {
                                 position: absolute;
-                                top:10%;
+                                top: 10%;
                                 left: 40%;
                                 z-index: 2;
                                 background-color: rgba(0, 0, 0, 0.462);
 
-                                p{
+                                p {
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                
+
                                     height: 50px;
                                     color: white;
                                 }
@@ -707,23 +716,25 @@
 
 
                             .item-top {
+                                flex: 1;
                                 .slick-track {
                                     display: flex !important;
                                     gap: 0 !important;
                                 }
 
-                                &:hover{
+                                &:hover {
+
                                     .custom-left,
                                     .custom-right {
-                                      
+
                                         opacity: 1 !important;
                                     }
                                 }
-                                height: 50%;
+
 
                                 .sliderTop {
                                     .carouseulItem {
-                                        img{
+                                        img {
                                             width: 100%;
                                             object-fit: cover;
                                             height: 169px;
@@ -736,20 +747,20 @@
                             }
 
                             .item-bottom {
-                                height: 50%;
+                                flex: 1;
                                 box-shadow: var(--elevation-1);
+
                                 h1 {
                                     padding: 0;
                                     color: themed('text', 2);
                                     font-size: 14px;
-                                    padding:15px
+                                    padding: 15px
                                 }
 
                                 p {
                                     padding: 0;
                                     color: themed('text', 3);
-                                    padding:15px
-
+                                    padding: 15px
                                 }
                             }
 
@@ -757,8 +768,89 @@
                     }
                 }
             }
+
+        }
+
+        .nav-bar-country {
+            display: none;
+        }
+
+
+        @media (max-width:1024px) {
+            .divertisement {
+                flex-direction: column;
+
+                .invest {
+                    margin: 5px;
+                    width: 98% !important;
+                    border-radius: 5px;
+                }
+
+                .travel {
+                    width: 100% !important;
+                }
+            }
+
+            .country-details {
+                justify-content: center;
+
+                .country-details-section-right {
+                    display: none !important;
+                }
+
+                .country-details-content {
+                    flex-direction: column;
+                    gap: 15px;
+
+                }
+
+                .country-detail-content-item-left {
+                    margin-left: 0 !important;
+                }
+
+                .geographie-detail-left {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+            }
+
+            .nav-bar-country {
+                display: block;
+
+                .custom-left,
+                .custom-right {
+                  
+                    border-radius: 50px;
+                    background-color: rgba(0, 0, 0, 0.473);
+                    color: white !important;
+                    opacity: 0;
+                    transition: 0.5s;
+                    &:hover{
+                        opacity: 1;
+                    }
+                }
+
+
+                .slick-track {
+                    display: flex;
+                    gap: 15px;
+                }
+
+                .nav-bar-item {
+                    margin: 10px 0;
+                    height: 35px;
+                    background: themed('background', 3);
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                }
+
+                .active {
+                    background: rgba(255, 166, 0, 0.702) !important;
+                    color: black;
+                    border: 1px solid orange;
+                }
+            }
         }
     }
 }
-
-

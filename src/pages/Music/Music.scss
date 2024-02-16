@@ -6,36 +6,41 @@
             border-radius: 5px !important;
         }
 
-        .music-top-nav {
-            padding: 10px 15px;
-            background: themed("background", 3);
-            margin-bottom: 4px;
-            box-shadow: var(--elevation-1);
-            border-radius: inherit;
 
-            .slider-nav {
-                padding: 0 !important;
-                margin: 0;
-
-                ul {
-                    padding: 0;
-
-                    li {
-                        box-shadow: none;
-
-                        &:not(.active) {
-                            background: themed("background", 5);
-                        }
-                    }
-                }
-
-            }
-        }
 
     }
 }
 
-.top-music-slider,.last-music-slider {
+.music-top-nav {
+    @include themify($themes) {
+        padding: 10px 15px;
+        background: themed("background", 3);
+        margin-bottom: 4px;
+        box-shadow: var(--elevation-1);
+        border-radius: 5px;
+
+        .slider-nav {
+            padding: 0 !important;
+            margin: 0;
+
+            ul {
+                padding: 0;
+
+                li {
+                    box-shadow: none;
+
+                    &:not(.active) {
+                        background: themed("background", 5);
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.top-music-slider,
+.last-music-slider {
     @include themify($themes) {
         background: themed("background", 3);
         box-shadow: var(--elevation-1);
@@ -118,6 +123,7 @@
             padding: 10px;
             cursor: pointer;
             transition: .5s;
+
             &:hover {
                 background: themed("background", 5);
             }

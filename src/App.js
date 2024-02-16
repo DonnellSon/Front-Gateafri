@@ -66,6 +66,9 @@ import ExplorerLayout from './layouts/ExplorerLayout';
 import Explorer from './pages/Explorer/Explorer';
 import City from './pages/Stay/City';
 import HotelsHome from './pages/Hotels/HotelsHome';
+import HotelsReservation from './pages/HotelReservation/HotelsReservation';
+import HotelTest from './pages/HotelTest/HotelTest';
+import ProfilMusic from './pages/ProfilMusic/ProfilMusic';
 import Statistics from './pages/Portal/Statistics';
 import PortalMessenger from './pages/Portal/PortalMessenger';
 import Access from './pages/Portal/Access';
@@ -334,6 +337,7 @@ function App() {
                                 </Route>
 
                               </Route>
+
                               <Route path=':portalId' element={<PortalLayout />}>
                                 <Route index element={<PortalHome />} />
                                 <Route path='accueil' element={<PortalHome />} />
@@ -368,10 +372,12 @@ function App() {
 
                       <Route path='/musique' element={<MusicLayout />}>
                         <Route index element={<Music />} />
+                        <Route path='profil' element={<ProfilMusic/>} />
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
                         <Route path='/explorer'>
+                        <Route path='hotelsReservation' element={<HotelsReservation/>} />
                           <Route path='pays/:countryId'>
                             <Route index element={<Explorer />} />
                             <Route path='ville/:cityId' element={<City />} />
@@ -380,6 +386,9 @@ function App() {
                         <Route path='hotels' element={<HotelsHome />} />
 
                       </Route>
+
+                      <Route path='test' element={<HotelTest/>}/>
+
                       <Route path='*' element={<NotFound />} />
                     </Routes>
                     
