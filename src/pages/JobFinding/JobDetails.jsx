@@ -1,21 +1,20 @@
 import React from "react"
 import './JobDetails.scss'
 import { Save, Folder } from 'react-bootstrap-icons'
+import Logo from "../../components/Logo/Logo"
 
 const JobDetails = () => {
     return (
         <main id="job-detail">
             <div className="container">
                 <div className="cover-image">
-                    <div className="profile-image">
-                        <div className="profile-image-circle">
-                            <img src="/img/test/image_test.jpg" />
-                        </div>
-                    </div>
+
                 </div>
 
                 <div className="main-content">
+
                     <div>
+                        <Logo width={60} height={60} />
                         <h1 >Nom du poste</h1>
                         <h4>Nom du company</h4>
                         <div className="location-date-actions flex justify-content-between align-items-center">
@@ -29,13 +28,13 @@ const JobDetails = () => {
                                     <Save size={20} className="mr-10" />
                                     Sauvegarder
                                 </button>
-                                <button className="btn btn-purple ml-10">Appliquer</button>
+                                <button className="btn btn-purple ml-10">Postuler</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-10 justify-content-between mt-20">
-                    <div className="flex flex-column flex-2 gap-10">
+                <div className="flex gap-5 justify-content-between">
+                    <div className="flex flex-column flex-2 gap-5">
                         <div className="card about-job">
                             <div>
                                 <h3>Apropos du poste</h3>

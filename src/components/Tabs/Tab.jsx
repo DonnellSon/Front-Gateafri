@@ -1,6 +1,6 @@
 import React,{Children, useEffect} from 'react'
 
-const Tab = ({title,children}) => {
+const Tab = ({enabled=true,title,children}) => {
   return children
 }
 

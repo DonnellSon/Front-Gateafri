@@ -26,12 +26,26 @@ import { addPostNotification } from '../../api/notification'
 const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
   const { user } = useSelector(store => store.user)
-  const {socket}=useContext(SocketIOContext)
+  const { socket } = useContext(SocketIOContext)
   const [author, setAuthor] = useState(null)
   const [postContent, setPostContent] = useState('')
   const [postMedias, setPostMedias] = useState([])
   const [isLoading, setIsloading] = useState(false)
-  const [survey, setSurvey] = useState({})
+  const [survey, setSurvey] = useState(null)
+
+  const isEmptySurvey = () => {
+    if (survey) {
+      const { title, options } = survey
+      if (title !== '' || (options.some(o=>(o.title && o.title !== '')))) {
+        return false
+      }
+      return true
+    }
+    return true
+  }
+  const isEmptyPostMedias=()=>{
+    return postMedias.length>0 ? false : true
+  }
 
   const publishPost = () => {
 
@@ -47,8 +61,13 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
         postFormData.append('file[]', pm)
       })
     }
-    if (survey.title !== '' && survey.options.length > 0) {
-      postFormData.append('survey', survey)
+    if (survey?.title !== '' && survey?.options?.length > 0) {
+      postFormData.append('survey', JSON.stringify({
+        title:survey.title,
+        choices:survey.options,
+        startDate:survey.startDate,
+        limitDate:survey.limitDate,
+      }))
     }
     setIsloading(true)
     axios({
@@ -62,12 +81,12 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
       console.log(res.data, 'PublishedPost')
       addPostNotification(`/api/posts/${res.data.id}`).then((res) => {
         socket?.emit('sendNotification', {
-          notification:res.data,
-          currentUser:user.id
+          notification: res.data,
+          currentUser: user.id
         })
       }).catch((err) => console.log(err.response))
 
-      showToast({ content: <span>Votre post a été ajouté avec succès</span>,type:'success' })
+      showToast({ content: <span>Votre post a été ajouté avec succès</span>, type: 'success' })
 
 
     }).catch((err) => {
@@ -127,7 +146,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
           </>}>
             <div contentEditable={true} onKeyUp={(e) => { setPostContent(e.target.innerText) }}>Votre texte Ici</div>
           </Tab>
-          <Tab title={<div className='li flex flex-column align-items-center'>
+          <Tab enabled={isEmptySurvey()} title={<div className='li flex flex-column align-items-center'>
             <FileEarmarkImage size={18} />
 
             <span className='text-ellipsis' style={{ width: '100%' }}>Images/Videos</span>
@@ -137,7 +156,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
             <MediasSelector setMediasState={setPostMedias} />
 
           </Tab>
-          <Tab title={<>
+          <Tab enabled={isEmptyPostMedias()} title={<>
             <BarChart size={18} />
             <span>Sondage</span>
           </>}>

@@ -18,6 +18,7 @@ import { getCountryList } from '../../api/coutry'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
 import { showToast } from '../../utils/toastUtils'
+import Logo from '../../components/Logo/Logo'
 
 const CreatePortal = () => {
     const { deviceType } = useContext(MediaContext)
@@ -41,6 +42,15 @@ const CreatePortal = () => {
 
     })
 
+    useEffect(()=>{
+        console.log({
+            ...company, country: company.value,
+            companySize: `/api/company_sizes/${company.companySize?.id}`,
+            companyType: `/api/company_types/${company.companyType?.id}`,
+            domains: company.domains.map(d => `/api/domains/${d.id}`)
+        },'COMP')
+    },[company])
+
     const handleChangeInput = (e) => {
         setCompany(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -50,6 +60,10 @@ const CreatePortal = () => {
 
     const createPortal = () => {
         setCreatePortalLoading(true)
+        setCompany(c => ({
+            ...c, country: c.value,
+            domains: c.domains.map(d => d.value)
+        }))
         const data = new FormData()
         for (var key in company) {
             if (Array.isArray(company[key])) {
@@ -69,7 +83,7 @@ const CreatePortal = () => {
         }).then((res) => {
             setCreatePortalLoading(false)
             navigate(`/portail/${res.data.id}`)
-            showToast({content:<span>Votre portail a été crée avec succès</span>})
+            showToast({ content: <span>Votre portail a été crée avec succès</span> })
         }).catch((err) => {
             setCreatePortalLoading(false)
             console.log(err.response, 'COMPERR')
@@ -148,7 +162,7 @@ const CreatePortal = () => {
                                         </div>
                                         <div className="right">
                                             <MultiSelectSearch
-                                                onChange={(sel) => { setCompany(prev => ({ ...prev, domains: sel.map((s) => s.value || null) })) }}
+                                                onChange={(domains) => { setCompany(prev => ({ ...prev, domains })) }}
                                                 placeholder='Choisir un domaine'
                                                 searchPlaceholder='Rechercher un domaine'
                                                 query={getDomains}
@@ -172,13 +186,13 @@ const CreatePortal = () => {
                                         <div className="right">
                                             <SelectSearch
                                                 searchFields={['name']}
-                                                onChange={(p) => { setCompany(prev => ({ ...prev, country: p.value })) }}
+                                                onChange={(country) => { setCompany(prev => ({ ...prev, country })) }}
                                                 placeholder='Selectionner un pays'
                                                 searchPlaceholder='Rechercher un pays'
                                                 query={(filters) => getCountryList({ filters })}
                                                 repoName="coutryListRepo"
                                                 toPlaceholder={(elem) => elem.name}
-                                                objectMapping={(p) => ({ name: p.name, value: `/api/pays/${p.id}`, flag: p.flag?.fileUrl })}
+                                                objectMapping={(p) => ({ ...p, value: `/api/pays/${p.id}` })}
                                                 mapping={(p) => <Link>
                                                     <img src={p.flag} width={25} alt="" />
                                                     <span>{p.name}</span>
@@ -279,16 +293,19 @@ const CreatePortal = () => {
                                                 <div className="banner"></div>
                                                 <div className="portal-info">
                                                     <div className="top flex align-items-end gap-10">
-                                                        <Avatar src={company?.activeLogo ? company?.activeLogo.fileUrl : null} height={60} width={60} />
-                                                        <img src="/img/flags/Flag_of_Madagascar.svg" width={35} alt="" />
+                                                        <Logo src={company?.companyLogo ? URL.createObjectURL(company?.companyLogo) : null} height={60} width={60} />
+                                                        <img src={company?.country?.flag.fileUrl} width={35} alt="" />
                                                     </div>
                                                     <div className="bottom flex justify-content-between">
                                                         <div className="left">
                                                             <div className="flex align-items-center gap-10">
-                                                                <h1>{company?.Name}</h1>
-                                                                <span className='flex align-items-center'><GeoAlt /> {company?.Adress}</span>
+                                                                <h1>{company?.name}</h1>
+                                                                {
+                                                                    company.adress &&
+                                                                    <span className='flex align-items-center'><GeoAlt /> {company?.adress}</span>
+                                                                }
                                                             </div>
-                                                            <div className="evaluation flex align-items-center gap-5">
+                                                            {/* <div className="evaluation flex align-items-center gap-5">
                                                                 <div className="moy">4.5</div>
                                                                 <Rating
                                                                     readonly
@@ -299,14 +316,14 @@ const CreatePortal = () => {
                                                                     fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
                                                                 />
                                                                 <span className='orange-txt flex align-items-center gap-5'>500K evaluations <ChevronDown /></span>
-                                                            </div>
+                                                            </div> */}
                                                             <span className='portal-domains'>{
-                                                                company?.domaine?.map((d) => d.title).join(',')
+                                                                company?.domains?.map((d) => d?.title).join(',')
                                                             }</span>
                                                         </div>
-                                                        <div className="right">
+                                                        {/* <div className="right">
                                                             <button className="btn btn-purple" onClick={createPortal}>Prise de contact</button>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>

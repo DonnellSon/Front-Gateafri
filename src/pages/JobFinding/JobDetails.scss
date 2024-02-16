@@ -19,8 +19,8 @@
             >.cover-image {
                 position: relative;
                 height: 175px;
-                border-bottom-left-radius: 30px;
-                border-bottom-right-radius: 30px;
+                border-radius: 5px;
+                margin-top: 10px;
                 background-image: url('https://localhost:3000/img/test/image_test.jpg');
 
             }
@@ -51,9 +51,12 @@
             }
 
             .main-content {
-                padding-left: $padding-left;
-                margin-top: 100px;
-
+                margin-top: 5px;
+                margin-bottom: 5px;
+                box-shadow: var(--elevation-1);
+                background: themed("background",3);
+                border-radius: 5px;
+                padding: 15px;
                 .location-date-actions {
                     margin-top: 1rem;
                     color: themed('text', 4);
@@ -61,7 +64,7 @@
             }
 
             .card{
-                padding: $padding-left;
+                padding: 20px;
                 border-radius: 5px;
                 background-color: themed('background',3);
                 box-shadow: var(--elevation-1);

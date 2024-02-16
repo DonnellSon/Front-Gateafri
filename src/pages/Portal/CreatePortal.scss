@@ -106,6 +106,7 @@
                     background: themed("background",3);
                     .banner{
                         height: 120px;
+                        aspect-ratio: unset;
                     }
                 }
             }

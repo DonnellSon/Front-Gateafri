@@ -15,6 +15,10 @@
                 .top{
                     padding: 3px 10px 6px 10px;
                     border-bottom: 1px solid themed("border",2);
+                    background: themed('background',3) !important;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100 !important;
                 }
             }
             .heading{
@@ -87,6 +91,11 @@
             cursor: pointer;
             padding: 4px 5px 2px 5px;
             color: themed("text",3);
+            &.disabled{
+                pointer-events: none;
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ const HomeBannerSlider = () => {
                         <Slider {...settings}>
                             {
                                 [...new Array(7)].map((d, i) => <div key={i} style={{ width: 230, aspectRatio: 1 }}>
-                                    <GoodDealCardSkeleton />
+                                    <GoodDealCardSkeleton/>
                                 </div>)
                             }
                         </Slider>
@@ -57,7 +57,7 @@ const HomeBannerSlider = () => {
                         <Slider ref={self} {...settings}>
                             {
                                 [
-                                    <RequireAuthOnClick>
+                                    <RequireAuthOnClick key={'/investissements/nouveau'}>
                                         <Link to="/investissements/nouveau" className='add-invest' style={{ width: 230, aspectRatio: 1, display: 'block' }}>
                                             <div>
                                                 <div>
@@ -67,7 +67,7 @@ const HomeBannerSlider = () => {
                                             </div>
                                         </Link>
                                     </RequireAuthOnClick>
-                                    , ...invests?.reverse().map((d, i) => <div key={i} style={{ width: 230, aspectRatio: 1 }}>
+                                    , ...invests?.map((d, i) => <div key={i} style={{ width: 230, aspectRatio: 1 }}>
                                         <GoodDealCard data={d} />
                                     </div>)
                                 ]

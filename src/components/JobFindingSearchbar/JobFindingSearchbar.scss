@@ -7,6 +7,7 @@
         background-image: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
         box-shadow: var(--nav-elevation);
         position: sticky;
+        overflow: visible !important;
         top: -48px;
         z-index: 900;
         
@@ -91,7 +92,7 @@
                     width: 1px;
                     height: 20px;
                     top: 10px;
-                    background: themed("border",1);
+                    background: #a1a1a144;
                     right: 1px;
                 }
             }
@@ -103,6 +104,66 @@
                 }
             }
         }
+
+        @media (max-width:768px) {
+            & {
+                position: static;
+                padding: 15px;
+            }
+        
+            & .search-form {
+                flex-wrap: wrap;
+                height: auto !important;
+                padding: 0 !important;
+                gap: 0 !important;
+
+            }
+        
+            & .search-form>* {
+                height: 45px;
+                display: flex;
+                width: calc(50% - 4px);
+                align-items: center;
+                padding: 0 10px;
+                border-radius: 5px;
+                margin: 0 !important;
+            }
+            & .search-form > *:nth-child(1),& .search-form > *:nth-child(2){
+                width: 100% !important;
+                border-bottom: 1px solid #a1a1a144 !important;
+                margin-bottom: 0 !important;
+                border-radius: 0 !important;
+            }
+            & .search-form > *:not(:nth-child(3)):after{
+                display: none !important;
+            }
+            & .search-form>*:last-child {
+                border-right: none;
+                padding: 0;
+                height: unset;
+            }
+            & .search-form > *:last-child{
+                padding: 8px;
+                width: unset !important;
+                min-width: unset !important;
+                button{
+                    height: 35px !important;
+                    width: 37px !important;
+                    padding: 0 !important;
+                    svg{
+                        color: white !important;
+                    }
+                }
+            }
+            & .search-form > *:nth-child(3),& .search-form > *:nth-child(4){
+                flex: 1 !important;
+                flex-grow: 1;
+            }
+        
+        }
+
+
+
     }
 }
 
@@ -120,41 +181,3 @@
     min-width: 1em;
 }
 
-@media (max-width:768px) {
-    .job-finding-searchbar {
-        position: static;
-        padding: 15px;
-    }
-
-    .job-finding-searchbar .search-form {
-        flex-wrap: wrap;
-        height: unset;
-        padding: 12px !important;
-        gap: 8px;
-    }
-
-    .job-finding-searchbar .search-form>* {
-        height: 45px;
-        border: 1px solid #eee;
-        display: flex;
-        width: calc(50% - 4px);
-        align-items: center;
-        padding: 0 10px;
-        border-radius: 5px;
-        margin: 0 !important;
-    }
-
-    .job-finding-searchbar .search-form>*:last-child {
-        flex-grow: 1;
-        border-right: none;
-        margin-right: 30px;
-        padding: 0;
-        height: unset;
-    }
-
-    .job-finding-searchbar .search-form button {
-        width: 100% !important;
-        height: 45px;
-    }
-
-}

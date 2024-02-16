@@ -1,13 +1,15 @@
 import React, { useRef, useState,useEffect } from 'react'
 import './Survey.scss'
-import { FileImageFill, Nut, Plus, PlusLg, X, XLg } from 'react-bootstrap-icons'
+import { FileImageFill, Nut, Plus, PlusLg, Textarea, X, XLg } from 'react-bootstrap-icons'
 import SurveyOption from './SurveyOption'
 
 const Survey = ({ options = [{},{},{}], setOptions = () => { }, readOnly = false,onChange=()=>{} }) => {
 
     const [survey,setSurvey]=useState({
         title:'',
-        options:[]
+        options:[
+            {},{}
+        ]
     })
     
     const setSurveyOptions=(options)=>{
@@ -26,9 +28,9 @@ const Survey = ({ options = [{},{},{}], setOptions = () => { }, readOnly = false
 
     return (
         <div className='survey'>
-            <input type="text" onChange={(e)=>{
+            <textarea type="text" onChange={(e)=>{
                 setSurvey((prev)=>({...prev,title:e.target.value}))
-            }} className='survey-title' placeholder='Votre question/titre ?'/>
+            }} className='survey-title' placeholder='Votre question/titre ?'></textarea>
             {
                 survey.options.map((o, i) => (
                     <SurveyOption 
@@ -42,9 +44,17 @@ const Survey = ({ options = [{},{},{}], setOptions = () => { }, readOnly = false
                 ))
             }
             <div className="bottom flex justify-content-between">
-                <button className="btn btn-purple" onClick={addSurveyOption}><PlusLg/></button>
-                <button className="btn btn-transparent"><Nut/></button>
+                <button className="btn btn-purple" onClick={addSurveyOption}><PlusLg/> Ajouter une option</button>
+                {/* <button className="btn btn-transparent"><Nut/></button> */}
             </div>
+            <div className="limit-date mb-10">
+                <label htmlFor="">Durée du sondage</label>
+                <div className="flex gap-10">
+                    <input type="date" placeholder='Début' className="inpt" />
+                    <input type="date" placeholder='Fin du sondage' className="inpt" />
+                </div>
+            </div>
+            
         </div>
     )
 }

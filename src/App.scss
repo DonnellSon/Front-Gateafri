@@ -100,6 +100,10 @@ img.emoji {
       }
     }
 
+    .bg-5{
+      background: themed("background", 5) !important;
+    }
+
     .post-plus-btn {
       border: none;
       background: themed("background", 5);

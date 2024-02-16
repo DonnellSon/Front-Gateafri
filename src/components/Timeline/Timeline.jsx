@@ -117,11 +117,11 @@ const Timeline = () => {
                 <SliderNav defaultActive={1}>
                     {
                         [
-                            user && <span className='flex align-items-center' onClick={()=>{
+                            user && <span key='k1' className='flex align-items-center' onClick={()=>{
                                 setChooseDomains(true)
                                 return false
                             }}><Sliders size={18} /></span>,
-                            <span onClick={() => setFilters(null)}>Tous</span>,
+                            <span key='k2' onClick={() => setFilters(null)}>Tous</span>,
 
                             ...(userDomains || domains).map((d, i) =>
                                 <span key={i} onClick={() => setFilters((prev) => ({ ...prev, ['author.domain']: d.title }))}>
@@ -145,7 +145,7 @@ const Timeline = () => {
                         <p>Error: {error.message}</p>
                     ) : (postsList?.pages[0]?.data?.length > 0 ? postsList?.pages?.map((group, i) => (
                         <React.Fragment key={i}>
-                            {group.data.map((p) => (
+                            {group.data.map((p,i) => (
                                 <PostCard
                                     key={i}
                                     data={p}

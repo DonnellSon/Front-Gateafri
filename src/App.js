@@ -71,6 +71,7 @@ import PortalMessenger from './pages/Portal/PortalMessenger';
 import Access from './pages/Portal/Access';
 import Edit from './pages/Portal/Edit';
 import JobDetails from './pages/JobFinding/JobDetails';
+import NotFound from './pages/Eroors/NotFound';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -262,7 +263,9 @@ function App() {
               <div id="AppTheme" className={`theme-${theme}`}>
                 <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
                   <BrowserRouter>
+                
                     <Routes>
+                    
                       <Route element={<Default />}>
                         {
                           !pageLoading &&
@@ -283,7 +286,7 @@ function App() {
                                 <Route path='nouveau' element={<CreateJob />} />
                                 <Route path='cv' element={<CreateCv />} />
                               </Route>
-                              <Route path='detail' element={<JobDetails />} />
+                              <Route path='details' element={<JobDetails />} />
                             </Route>
 
                             <Route path='/profil'>
@@ -321,10 +324,10 @@ function App() {
                                   <Route path=':portalId' element={<PortalAdminLayout />}>
                                     <Route path='dashboard'>
                                       <Route index element={<Dashboard />} />
-                                      <Route path='statistiques' element={<Statistics/>} />
-                                      <Route path='messagerie' element={<PortalMessenger/>} />
-                                      <Route path='acces' element={<Access/>} />
-                                      <Route path='modifier' element={<Edit/>} />
+                                      <Route path='statistiques' element={<Statistics />} />
+                                      <Route path='messagerie' element={<PortalMessenger />} />
+                                      <Route path='acces' element={<Access />} />
+                                      <Route path='modifier' element={<Edit />} />
                                     </Route>
                                   </Route>
                                   <Route path='nouveau' element={<CreatePortal />} />
@@ -375,8 +378,11 @@ function App() {
                           </Route>
                         </Route>
                         <Route path='hotels' element={<HotelsHome />} />
+
                       </Route>
+                      <Route path='*' element={<NotFound />} />
                     </Routes>
+                    
                   </BrowserRouter>
                 </div>
                 <PageLoader open={pageLoading} />

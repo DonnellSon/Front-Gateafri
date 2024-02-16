@@ -7,7 +7,8 @@ const Tabs = ({ children, navRight = "", className = "" }) => {
   const [bodyWidth, setBodyWidth] = useState(0)
   useEffect(() => {
     setTabs(children.map((c, i) =>{
-      return ({ title: c.props.title, content: c.props.children })
+      console.log(c.props.enabled)
+      return ({ title: c.props.title, content: c.props.children,enabled:c.props.enabled })
     }  
     ))
   }, [children])
@@ -21,7 +22,7 @@ const Tabs = ({ children, navRight = "", className = "" }) => {
       <div className='top flex justify-content-between align-items-center'>
         <ul className="tabs-heading">
           {
-            tabs.map((t, i) => <li key={i} onClick={() => setOpenedTab(i)} className={openedTab === i ? "active" : ""}>{t.title}</li>)
+            tabs.map((t, i) => <li key={i} onClick={() => setOpenedTab(i)} className={`${openedTab === i ? "active" : ""}${(t.enabled===false) ? " disabled" : ""}`}>{t.title}</li>)
           }
         </ul>
         <div className="flex align-items-center gap-5">

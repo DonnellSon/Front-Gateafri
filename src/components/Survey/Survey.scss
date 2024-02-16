@@ -3,15 +3,44 @@
 
 .survey {
     @include themify($themes) {
-        border: 1px solid themed("border", 2);
         border-radius: 5px;
-        padding: 10px 10px 0 10px;
-
+        .survey-title{
+            resize: vertical;
+            min-height: 80px;
+            padding: 8px;
+        }
         .survey-option {
             border: 1px solid themed("border", 4);
             border-radius: 5px;
-            padding: 5px;
             transition: .5s;
+
+            &:hover,
+            &:focus {
+                background: themed("background", 3) !important;
+                border: 1px solid #702f80cb;
+                transition: .3s;
+                box-shadow: 0px 0px 0px 3px #702f8044;
+
+            }
+
+            .remove {
+                cursor: pointer;
+                color: grey;
+
+                min-width: 26px;
+                height: 26px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 5px;
+                border-radius: 50%;
+
+                &:hover {
+                    color: themed('text', 1);
+                    background: themed('background', 5);
+                }
+            }
+
             .thumbnail {
                 width: 50px;
                 height: 50px;
@@ -23,6 +52,7 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
+
             .progress {
                 background: themed("background", 5);
                 border-radius: 5px;
@@ -31,17 +61,15 @@
             }
 
             input {
-                height: 100%;
-                width: 100%;
                 border: none;
                 background: none !important;
+
             }
         }
+
         .bottom {
-            position: sticky;
-            bottom: 0;
             background: themed("background", 3);
-            padding: 10px 0;
+            margin-bottom: 15px;
         }
     }
 
@@ -51,14 +79,9 @@
 
 
 
-.survey .survey-option .remove {
-    cursor: pointer;
-    color: grey;
-}
 
-.survey .survey-option .remove:hover {
-    color: #333;
-}
+
+
 
 .survey .survey-option:not(:last-child) {
     margin-bottom: 15px;
@@ -67,11 +90,6 @@
 
 
 
-.survey .survey-option:hover {
-    border: 1px solid #702f80cb;
-    transition: .3s;
-    box-shadow: 0px 0px 0px 3px #702f8044;
-}
 
 
 
