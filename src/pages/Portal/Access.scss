@@ -1,0 +1,138 @@
+@import "../../style.scss";
+#portal-access {
+  @include themify($themes) {
+    width: 80%;
+    flex: 1;
+    overflow: hidden;
+    padding: 0 15px;
+    h1 {
+      border-bottom: 1px solid var(--border-grey);
+      padding: 30px 0;
+      font-size: 18px;
+    }
+    h2 {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+    }
+    .person,
+    .community-manager-content {
+      width: 70%;
+    }
+    .person {
+      .apropos {
+        margin-left: 20px;
+      }
+    }
+    .access-tache {
+      margin: 30px 0;
+    }
+    .blue {
+      color: rgb(52, 52, 228);
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .dot3 {
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-access {
+  @include themify($themes) {
+      .modal-access-container {
+        margin-top: 70px;
+        border-radius: 5px;
+      background-color: themed("background", 3);
+      padding: 15px 0;
+      width: 100%;
+      max-width: 600px;
+      .head {
+        padding:15px;
+        border-bottom: 1px solid themed("border", 3);
+        h1 {
+          font-size: 18px;
+        }
+        .close{
+            cursor: pointer;
+        }
+      }
+      .corps {
+        .selectionner{
+            padding: 3px 15px 8px;
+            .apropos{
+                margin-left: 15px;
+                h2{
+                    font-size: 16px;
+                }
+            }
+            .trash{
+                padding: 10px;
+                border-radius: 5px;
+                background-color: themed("background",5);
+                flex: none;
+                cursor: pointer;
+            }
+        }
+        .roles {
+          .questions {
+            border-top: 1px solid themed("border", 3);
+            border-bottom: 1px solid themed("border", 3);
+            padding: 20px 15px;
+            // background-color: themed('background',5);
+            p{
+                font-size: 16px;
+            }
+          }
+          .items {
+            padding: 0 15px;
+            .item {
+              padding: 10px 0;
+              display: flex;
+              .circle {
+                width: 20px;
+                height: 20px;
+                border: 1px solid themed("border", 2);
+                border-radius: 50%;
+                margin-right: 15px;
+                flex: none;
+                cursor: pointer;
+                &.active {
+                  width: 18px;
+                  height: 18px;
+                  border: 4px solid rgba(21, 52, 226, 0.603);
+                  border-radius: 50%;
+                  cursor: pointer;
+                }
+              }
+              .text {
+                h2 {
+                  font-size: 16px;
+                  font-weight: 500;
+                }
+                p {
+                  font-weight: 400;
+                }
+              }
+            }
+          }
+        }
+      }
+      .foot{
+        border-top: 1px solid themed("border", 3);
+        padding: 10px;
+        display: flex;
+        justify-content: end;
+        button{
+            border: none;
+            padding: 8px 15px;
+            color: themed('text',1);
+            background: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+      }
+    }
+  }
+}

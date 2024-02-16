@@ -2,9 +2,18 @@
 
 #create-invest{
     @include themify($themes){
+        @media (max-width:1024px){
+            flex-direction: column-reverse;
+            height: unset;
+            .formulaire{
+                min-width: 100% !important;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
         display: flex;
         height: calc(100vh - var(--topbar-height));
-        >.left{
+        >.formulaire{
             min-width: 400px;
             max-width: 400px;
             background: themed("background",3);
