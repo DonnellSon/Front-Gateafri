@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronLeft, ChevronRight, MenuButton, MenuDown, SignDeadEnd, SignDoNotEnterFill, SignNoLeftTurnFill, Spotify, ThreeDotsVertical } from 'react-bootstrap-icons'
+import { ChevronLeft, ChevronRight, MenuButton, MenuDown, PlayFill, SignDeadEnd, SignDoNotEnterFill, SignNoLeftTurnFill, Spotify, ThreeDotsVertical } from 'react-bootstrap-icons'
 import './ProfilMusic.scss'
 import Slider from 'react-slick'
 import Avatar from '../../components/Avatar/Avatar'
@@ -229,27 +229,28 @@ const ProfilMusic = () => {
             <div className='content-profil'>
                 <div className='profil-header flex'>
                     <div className='card-header'>
-                        <Avatar src={'/img/other/2.webp'} height={120} width={120} online={false} />
+                        <Avatar src={'/img/artists/5.png'} height={120} width={120} online={false} />
                     </div>
                     <div className='card-right'>
-                        <p className='title'>Playlist</p>
+                        <p className='title'>Artiste</p>
                         <div className='artiste'>
-                            <p>Hira Gasy</p>
+                            <h1>Lion hill</h1>
                         </div>
-                        <p className='content'>chill beats, lofi vibes, new tracks every week...</p>
+                        <p className='content'>Ataovo tonga, lofi vibes, new tracks every week...</p>
                         <div className='item-card flex gap-10 justify-content-between' style={{ color: 'white' }}>
                             <div className='span'>
                                 <span><b>• 3,09 k abonnés </b></span>
                                 <span><b>• 25 vidéos</b></span>
                             </div>
                             <div className='span-2'>
-                                <ThreeDotsVertical size={25} />
+                                <ThreeDotsVertical size={20} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="music-top-nav">
+                <div className="music-top-nav flex gap-20">
+                    <div className="flex-grow-1">
                     <SliderNav>
                         <span onClick={() => { }}>Tous</span>
                         <span onClick={() => { }}>Populaires</span>
@@ -258,14 +259,16 @@ const ProfilMusic = () => {
                         <span onClick={() => { }}>Ma musique</span>
                         <span onClick={() => { }}>Tous</span>
                     </SliderNav>
+                    </div>
+                    <div>
+                        <button className="btn btn-purple"><PlayFill size={20}/> Regarder</button>
+                    </div>
+
                 </div>
 
-                <div className='all-music'>
-
-                    <div className="all-music-title flex">
-                        <div className='header'>
-                            <h1>Albums</h1>
-                        </div>
+                <div className='all-music p-15'>
+                    <div className='heading flex justify-content-between'>
+                        <h1>Populaires en ce moment</h1>
                         <div className='arows flex align-items-center gap-5'>
                             <div className='left flex align-items-center justify-content-center'>
                                 <ChevronLeft
@@ -286,7 +289,7 @@ const ProfilMusic = () => {
                                 infinite: false,
                                 arrows: false,
                                 dots: false,
-                                speed: 500
+                                speed: 500,
                             }}
                         >
                             {dataPopulaire.map((i, a) => (
@@ -297,11 +300,9 @@ const ProfilMusic = () => {
                     </div>
                 </div>
 
-                <div className='playlist'>
-                    <div className="playlist-title flex">
-                        <div className='header'>
-                            <h1>Videos récentes</h1>
-                        </div>
+                <div className='playlist p-15'>
+                    <div className='heading flex justify-content-between'>
+                        <h1>Videos récentes</h1>
                         <div className='arows flex align-items-center gap-5'>
                             <div className='left flex align-items-center justify-content-center'>
                                 <ChevronLeft />
@@ -311,6 +312,7 @@ const ProfilMusic = () => {
                             </div>
                         </div>
                     </div>
+
 
                     <Slider {...{
                         slidesToShow: 5,
@@ -326,12 +328,9 @@ const ProfilMusic = () => {
                 </div>
 
                 <div className='album'>
-                    <div className='album-title'>
-                        <div className='header'>
-                            <h1>Albums</h1>
-                        </div>
+                    <div className='heading'>
+                        <h1>Albums</h1>
                     </div>
-
                     <div className='album-carousel'>
                         <Slider
                             {...{
@@ -339,7 +338,9 @@ const ProfilMusic = () => {
                                 slidesToScroll: 1,
                                 arrows: false,
                                 dots: false,
-                                speed: 500
+                                speed: 500,
+                                centerMode: true,
+                                centerPadding: '7.6px',
                             }}
                         >
                             <div className='album-item'>
@@ -434,51 +435,6 @@ const ProfilMusic = () => {
                     </Slider>
                 </div>
 
-                <div className="tops-artist-slider">
-                    <div className="heading">
-                        <h1>Artistes similaire</h1>
-                    </div>
-                    <Slider {...settings}>
-                        <div className="top-artist-slide relative" style={{ width: 150 }}>
-
-                            <div className="flag-avatar">
-                                <Avatar width={100} height={100} src='/img/artists/5.png' />
-                                <img src='/img/flags/Flag_of_Madagascar.svg' />
-                            </div>
-                            <h1>Rema-En live</h1>
-
-                        </div>
-                        <div className="top-artist-slide relative" style={{ width: 150 }}>
-
-                            <div className="flag-avatar">
-                                <Avatar width={100} height={100} src='/img/artists/3.png' />
-                                <img src='/img/flags/Flag_of_Madagascar.svg' />
-                            </div>
-                            <h1>Rema-En live</h1>
-
-                        </div>
-                        <div className="top-artist-slide relative" style={{ width: 150 }}>
-
-                            <div className="flag-avatar">
-                                <Avatar width={100} height={100} src='/img/artists/2.png' />
-                                <img src='/img/flags/Flag_of_Madagascar.svg' />
-                            </div>
-                            <h1>Rema-En live</h1>
-
-                        </div>
-                        <div className="top-artist-slide relative" style={{ width: 150 }}>
-
-                            <div className="flag-avatar">
-                                <Avatar width={100} height={100} src='/img/artists/1.png' />
-                                <img src='/img/flags/Flag_of_Madagascar.svg' />
-                            </div>
-                            <h1>Rema-En live</h1>
-
-                        </div>
-
-                    </Slider>
-                </div>
-
                 <div className='show'>
                     <div className="show-title">
                         <div className='heading'>
@@ -527,6 +483,53 @@ const ProfilMusic = () => {
                         </Slider>
                     </div>
                 </div>
+
+                <div className="tops-artist-slider">
+                    <div className="heading">
+                        <h1>Artistes similaire</h1>
+                    </div>
+                    <Slider {...settings}>
+                        <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+                            <div className="flag-avatar">
+                                <Avatar width={100} height={100} src='/img/artists/5.png' />
+                                <img src='/img/flags/Flag_of_Madagascar.svg' />
+                            </div>
+                            <h1>Rema-En live</h1>
+
+                        </div>
+                        <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+                            <div className="flag-avatar">
+                                <Avatar width={100} height={100} src='/img/artists/3.png' />
+                                <img src='/img/flags/Flag_of_Madagascar.svg' />
+                            </div>
+                            <h1>Rema-En live</h1>
+
+                        </div>
+                        <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+                            <div className="flag-avatar">
+                                <Avatar width={100} height={100} src='/img/artists/2.png' />
+                                <img src='/img/flags/Flag_of_Madagascar.svg' />
+                            </div>
+                            <h1>Rema-En live</h1>
+
+                        </div>
+                        <div className="top-artist-slide relative" style={{ width: 150 }}>
+
+                            <div className="flag-avatar">
+                                <Avatar width={100} height={100} src='/img/artists/1.png' />
+                                <img src='/img/flags/Flag_of_Madagascar.svg' />
+                            </div>
+                            <h1>Rema-En live</h1>
+
+                        </div>
+
+                    </Slider>
+                </div>
+
+
 
             </div>
         </div>

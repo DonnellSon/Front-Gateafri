@@ -148,11 +148,11 @@ img.emoji {
     .heading {
       display: flex;
       align-items: center;
-
+      margin-bottom: 20px;
       h1 {
         font-size: 20px;
         position: relative;
-        margin-bottom: 22px;
+        
         color: themed("text", 1);
       }
     }
