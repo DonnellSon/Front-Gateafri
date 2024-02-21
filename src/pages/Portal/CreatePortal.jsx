@@ -42,14 +42,7 @@ const CreatePortal = () => {
 
     })
 
-    useEffect(()=>{
-        console.log({
-            ...company, country: company.value,
-            companySize: `/api/company_sizes/${company.companySize?.id}`,
-            companyType: `/api/company_types/${company.companyType?.id}`,
-            domains: company.domains.map(d => `/api/domains/${d.id}`)
-        },'COMP')
-    },[company])
+    
 
     const handleChangeInput = (e) => {
         setCompany(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -61,8 +54,9 @@ const CreatePortal = () => {
     const createPortal = () => {
         setCreatePortalLoading(true)
         setCompany(c => ({
-            ...c, country: c.value,
-            domains: c.domains.map(d => d.value)
+            ...c, 
+            country: c?.value,
+            domains: c.domains.map(d => d?.value)
         }))
         const data = new FormData()
         for (var key in company) {
