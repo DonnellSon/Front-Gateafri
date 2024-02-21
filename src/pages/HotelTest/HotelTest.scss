@@ -77,3 +77,40 @@ nav{
    }
    
 }
+
+.img {
+    position: relative;
+
+    /* La classe .img ne contient plus le pseudo-élément ::before */
+    img {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    /* Nouveau conteneur pour le pseudo-élément ::before */
+    .hover-container::before {
+        content: '';
+        display: block;
+        background: rgba(0, 0, 0, 0.458);
+        height: 250px;
+        width: 250px;
+        position: absolute;
+    }
+
+    /* Utilisation de :hover sur le conteneur pour changer la couleur du pseudo-élément ::before */
+    .hover-container:hover::before {
+        background: rgba(255, 0, 0, 0.243);
+    }
+}
+
+
+.progress-bar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(closest-side, white 79%, transparent 80% 100%),
+      conic-gradient(hotpink 75%, pink 0);    
+  }
+  

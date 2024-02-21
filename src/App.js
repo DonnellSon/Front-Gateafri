@@ -75,6 +75,7 @@ import Access from './pages/Portal/Access';
 import Edit from './pages/Portal/Edit';
 import JobDetails from './pages/JobFinding/JobDetails';
 import NotFound from './pages/Eroors/NotFound';
+import HotelsSearch from './pages/HotelsSearch/HotelsSearch';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -378,13 +379,13 @@ function App() {
                       <Route element={<ExplorerLayout />}>
                         <Route path='/explorer'>
                         <Route path='hotelsReservation' element={<HotelsReservation/>} />
+                        <Route path='hotelsSearch' element={<HotelsSearch/>}/>
                           <Route path='pays/:countryId'>
                             <Route index element={<Explorer />} />
                             <Route path='ville/:cityId' element={<City />} />
                           </Route>
                         </Route>
                         <Route path='hotels' element={<HotelsHome />} />
-
                       </Route>
 
                       <Route path='test' element={<HotelTest/>}/>
