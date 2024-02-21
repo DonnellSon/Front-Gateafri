@@ -319,7 +319,7 @@
     box-shadow: var(--elevation-1);
     display: flex;
     align-items: stretch;
-    width: 850px;
+    max-width: 850px;
     position: sticky;
     top: 9px;
 
