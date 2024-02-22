@@ -7,17 +7,18 @@ import Avatar from "../../components/Avatar/Avatar";
 
 const PortalEvaluation = () => {
   const [isCroissant, setIsCroissant] = useState(true);
-  const [isActive, setIsActive] = useState('Date');
+  const [isActive, setIsActive] = useState("Date");
 
-const handleClick = (value) => {
+  const handleClick = (value) => {
     setIsActive(value);
     setIsCroissant((val) => !val);
   };
   return (
     <div className="portal-evaluation">
       <div className="head elevated-card px-15 mt-15 pb-15">
-        <div className="heading2">
+        <div className="heading2 justify-content-between">
           <h3>Avis des Employés</h3>
+          <button className="btn-evaluer-nous">Evaluer Nous</button>
         </div>
         <div className="triage">
           <div className="selection flex">
@@ -40,56 +41,6 @@ const handleClick = (value) => {
               </select>
             </div>
           </div>
-          {/* <div className="categorie">
-            <h3>Notes par Categorie</h3>
-            <div className="notes flex">
-              <div className="note">
-                <p>
-                  3,0{" "}
-                  <span>
-                    <Gem />
-                  </span>{" "}
-                  Equilibre vie privée/proffessionnelle
-                </p>
-              </div>
-              <div className="note">
-                <p>
-                  2,9{" "}
-                  <span>
-                    <Gem />
-                  </span>{" "}
-                  Salaire et avantages
-                </p>
-              </div>
-              <div className="note">
-                <p>
-                  2,7{" "}
-                  <span>
-                    <Gem />
-                  </span>{" "}
-                  Sécurité et évolution
-                </p>
-              </div>
-              <div className="note">
-                <p>
-                  2,8{" "}
-                  <span>
-                    <Gem />
-                  </span>{" "}
-                  Direction
-                </p>
-              </div>
-              <div className="note">
-                <p>
-                  2,9{" "}
-                  <span>
-                    <Gem />
-                  </span>{" "}
-                  Culture d'entreprise
-                </p>
-              </div>
-            </div>
-          </div> */}
           <div className="bottom">
             <div className="trie">
               <h3>Trier par</h3>
@@ -119,9 +70,9 @@ const handleClick = (value) => {
         <span>3200</span> avis correspondant à votre recherche{" "}
         <Link>Voir touts</Link>
       </p>
-      <div className="avis elevated-card mt-15 px-15 flex">
+      <div className="avis mt-15 flex">
         <div className="list-avis ">
-          <div className="avi-item">
+          <div className="avi-item elevated-card px-15 mb-15">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -170,7 +121,7 @@ const handleClick = (value) => {
               </div>
             </div>
           </div>
-          <div className="avi-item">
+          <div className="avi-item avi-item elevated-card px-15 mb-15">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -231,7 +182,7 @@ const handleClick = (value) => {
               </div>
             </div>
           </div>
-          <div className="avi-item">
+          <div className="avi-item avi-item elevated-card px-15 mb-15">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -280,7 +231,7 @@ const handleClick = (value) => {
               </div>
             </div>
           </div>
-          <div className="avi-item">
+          <div className="avi-item avi-item elevated-card px-15 mb-15">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -329,7 +280,7 @@ const handleClick = (value) => {
               </div>
             </div>
           </div>
-          <div className="avi-item">
+          <div className="avi-item avi-item elevated-card px-15 mb-15">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -380,78 +331,94 @@ const handleClick = (value) => {
           </div>
         </div>
         <div className="right">
-          <div className="note-global container">
+          <div className="note-global container elevated-card">
             <h3>Note globale</h3>
-            <div className="rating">
-              <div className="progress-bar">
-                <span>4.5</span>
-              </div>
-              <Rating
-                readonly
-                initialRating={3.5}
-                className="portal-evaluation-note"
-                fractions={2}
-                emptySymbol={
-                  <img
-                    src="/img/icons/diamond_grey.png"
-                    className="icon rating-diamond-img"
-                  />
-                }
-                fullSymbol={
-                  <img
-                    src="/img/icons/diamond.png"
-                    className="icon rating-diamond-img"
-                  />
-                }
-              />
-              {/* <span className="note">3.5</span> */}
-            </div>
-            <p>D'après 3200 avis</p>
-            <div className="rating-breakdown">
-              <div className="item">
-                <span className="numero">
-                  5 <img src="/img/icons/diamond.png" alt="" />{" "}
-                </span>
-                <div className="bar-container">
-                  <div className="bar-progress" style={{ width: "70%" }}></div>
+            <div className="content">
+              <div className="rating">
+                <div className="progress-bar">
+                  <span>4.5</span>
                 </div>
-                <span class="compte">3,5k</span>
+                <Rating
+                  readonly
+                  initialRating={3.5}
+                  className="portal-evaluation-note"
+                  fractions={2}
+                  emptySymbol={
+                    <img
+                      src="/img/icons/diamond_grey.png"
+                      className="icon rating-diamond-img"
+                    />
+                  }
+                  fullSymbol={
+                    <img
+                      src="/img/icons/diamond.png"
+                      className="icon rating-diamond-img"
+                    />
+                  }
+                />
+                {/* <span className="note">3.5</span> */}
               </div>
-              <div className="item">
-                <span className="numero">4 </span>
-                <img src="/img/icons/diamond.png" alt="" />
-                <div className="bar-container">
-                  <div className="bar-progress" style={{ width: "50%" }}></div>
+              <div className="rating-breakdown">
+                <p>D'après 3200 avis</p>
+                <div className="item">
+                  <span className="numero">5</span>
+                  <img src="/img/icons/diamond.png" alt="" />{" "}
+                  <div className="bar-container">
+                    <div
+                      className="bar-progress"
+                      style={{ width: "70%" }}
+                    ></div>
+                  </div>
+                  <span class="compte">3,5k</span>
                 </div>
-                <span class="compte">2,5k</span>
-              </div>
-              <div className="item">
-                <span className="numero">3 </span>
-                <img src="/img/icons/diamond.png" alt="" />
-                <div className="bar-container">
-                  <div className="bar-progress" style={{ width: "30%" }}></div>
+                <div className="item">
+                  <span className="numero">4 </span>
+                  <img src="/img/icons/diamond.png" alt="" />
+                  <div className="bar-container">
+                    <div
+                      className="bar-progress"
+                      style={{ width: "50%" }}
+                    ></div>
+                  </div>
+                  <span class="compte">2,5k</span>
                 </div>
-                <span class="compte">1,3k</span>
-              </div>
-              <div className="item">
-                <span className="numero">2 </span>
-                <img src="/img/icons/diamond.png" alt="" />
-                <div className="bar-container">
-                  <div className="bar-progress" style={{ width: "40%" }}></div>
+                <div className="item">
+                  <span className="numero">3 </span>
+                  <img src="/img/icons/diamond.png" alt="" />
+                  <div className="bar-container">
+                    <div
+                      className="bar-progress"
+                      style={{ width: "30%" }}
+                    ></div>
+                  </div>
+                  <span class="compte">1,3k</span>
                 </div>
-                <span class="compte">2k</span>
-              </div>
-              <div className="item">
-                <span className="numero">1 </span>
-                <img src="/img/icons/diamond.png" alt="" />
-                <div className="bar-container">
-                  <div className="bar-progress" style={{ width: "20%" }}></div>
+                <div className="item">
+                  <span className="numero">2 </span>
+                  <img src="/img/icons/diamond.png" alt="" />
+                  <div className="bar-container">
+                    <div
+                      className="bar-progress"
+                      style={{ width: "40%" }}
+                    ></div>
+                  </div>
+                  <span class="compte">2k</span>
                 </div>
-                <span class="compte">1,1k</span>
+                <div className="item">
+                  <span className="numero">1 </span>
+                  <img src="/img/icons/diamond.png" alt="" />
+                  <div className="bar-container">
+                    <div
+                      className="bar-progress"
+                      style={{ width: "20%" }}
+                    ></div>
+                  </div>
+                  <span class="compte">1,1k</span>
+                </div>
               </div>
             </div>
           </div>
-          <div className="question container">
+          <div className="question container elevated-card">
             <h3>Voulez-vous poser une question ?</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
@@ -461,7 +428,7 @@ const handleClick = (value) => {
             </p>
             <div className="btn">Poser une question</div>
           </div>
-          <div className="job-populaire container">
+          <div className="job-populaire container elevated-card">
             <h3>Travails populaire:</h3>
             <ul>
               <li>-Super administrateur</li>
