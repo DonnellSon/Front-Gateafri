@@ -88,7 +88,7 @@ import Edit from "./pages/Portal/Edit";
 import JobDetails from "./pages/JobFinding/JobDetails";
 import NotFound from "./pages/Eroors/NotFound";
 import PortalEvaluation from "./pages/Portal/PortalEvaluation";
-import HotelsSearch from './pages/HotelsSearch/HotelsSearch';
+import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -471,16 +471,21 @@ function App() {
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
-                        <Route path='/explorer'>
-                        <Route path='hotelsReservation' element={<HotelsReservation/>} />
-                        <Route path='hotelsSearch' element={<HotelsSearch/>}/>
-                          <Route path='pays/:countryId'>
+                        <Route path="/explorer">
+                          <Route
+                            path="hotelsReservation"
+                            element={<HotelsReservation />}
+                          />
+                          <Route
+                            path="hotelsSearch"
+                            element={<HotelsSearch />}
+                          />
+                          <Route path="pays/:countryId">
                             <Route index element={<Explorer />} />
                             <Route path="ville/:cityId" element={<City />} />
                           </Route>
                         </Route>
-                        <Route path='hotels' element={<HotelsHome />} />
-
+                        <Route path="hotels" element={<HotelsHome />} />
                       </Route>
 
                       <Route path="test" element={<HotelTest />} />
