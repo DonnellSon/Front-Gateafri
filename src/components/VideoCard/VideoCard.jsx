@@ -11,7 +11,7 @@ const VideoCard = ({videoData}) => {
         <div className="length">{videoData?.duration}</div>
       </div>
       <div className="capt">
-        <h1><Link to='/video/play'>{videoData.title}</Link></h1>
+        <h1 className='text-ellipsis'><Link to='/video/play'>{videoData.title}</Link></h1>
         <p><span>200k vues</span>|<span>30 diamonds</span></p>
         <Link to='/profil' className="artist-info flex align-items-center gap-10 ">
             <Avatar/>

@@ -51,10 +51,12 @@
         padding-right: 0;
         border-radius: 5px;
 
-
+        .slick-slider{
+            margin-left: -7.5px;
+        }
         .slick-track {
             display: flex;
-            gap: 10px;
+            
         }
 
         .top-musique-slide {

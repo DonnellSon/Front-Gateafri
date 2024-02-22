@@ -204,6 +204,39 @@ const Music = () => {
                 <span className='text-ellipsis'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga nihil atque explicabo ex dolor voluptates vero, nostrum voluptatem eius, itaque numquam cum illum? Fugit cumque aliquam minima, quaerat numquam vel.</span>
               </div>
             </div>
+            <div className="top-musique-slide relative" style={{ width: 400, aspectRatio: '16/9' }}>
+              <img src='/img/posters/poster2.jpg' />
+              <div className="capt">
+                <div className="flag-avatar">
+                  <Avatar width={40} height={40} src='/img/artists/5.png' />
+                  <img src='/img/flags/Flag_of_Madagascar.svg' />
+                </div>
+                <h1>Rema-En live</h1>
+                <span className='text-ellipsis'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga nihil atque explicabo ex dolor voluptates vero, nostrum voluptatem eius, itaque numquam cum illum? Fugit cumque aliquam minima, quaerat numquam vel.</span>
+              </div>
+            </div>
+            <div className="top-musique-slide relative" style={{ width: 400, aspectRatio: '16/9' }}>
+              <img src='/img/posters/poster2.jpg' />
+              <div className="capt">
+                <div className="flag-avatar">
+                  <Avatar width={40} height={40} src='/img/artists/5.png' />
+                  <img src='/img/flags/Flag_of_Madagascar.svg' />
+                </div>
+                <h1>Rema-En live</h1>
+                <span className='text-ellipsis'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga nihil atque explicabo ex dolor voluptates vero, nostrum voluptatem eius, itaque numquam cum illum? Fugit cumque aliquam minima, quaerat numquam vel.</span>
+              </div>
+            </div>
+            <div className="top-musique-slide relative" style={{ width: 400, aspectRatio: '16/9' }}>
+              <img src='/img/posters/poster2.jpg' />
+              <div className="capt">
+                <div className="flag-avatar">
+                  <Avatar width={40} height={40} src='/img/artists/5.png' />
+                  <img src='/img/flags/Flag_of_Madagascar.svg' />
+                </div>
+                <h1>Rema-En live</h1>
+                <span className='text-ellipsis'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga nihil atque explicabo ex dolor voluptates vero, nostrum voluptatem eius, itaque numquam cum illum? Fugit cumque aliquam minima, quaerat numquam vel.</span>
+              </div>
+            </div>
           </Slider>
         </div>
       </div>
