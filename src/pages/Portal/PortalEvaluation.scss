@@ -1,0 +1,283 @@
+@import "../../style.scss";
+
+.portal-evaluation {
+  @include themify($themes) {
+    @media (max-width:992px){
+        
+    }
+    .head {
+      h3 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 15px 0;
+      }
+      .triage {
+        .selection {
+          justify-content: space-between;
+          div {
+            width: 32.5%;
+          }
+        }
+        // .categorie {
+        //   .notes {
+        //     flex-wrap: wrap;
+        //     gap: 10px;
+        //     .note {
+        //       padding: 6px 15px;
+        //       border: 1px solid themed("border", 1);
+        //       border-radius: 20px;
+        //       cursor: pointer;
+        //       p {
+        //         display: flex;
+        //         align-items: center;
+        //         font-size: 13px;
+        //         span {
+        //           margin: 0 5px;
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+      }
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        .trie {
+          .option {
+            display: flex;
+            gap: 10px;
+            .item {
+              display: flex;
+              align-items: center;
+              padding: 7px 15px;
+              color: var(--purple);
+              cursor: pointer;
+              border: 1px solid themed('border',1);
+              border-radius: 5px;
+              .arrow {
+                opacity: 0;
+                margin-left: 10px;
+              }
+              &.active {
+                color: black;
+                font-weight: 600;
+                background-color: themed("background", 1);
+                .arrow {
+                  opacity: 1;
+                }
+              }
+            }
+            // .item:last-child {
+            //   border-top-right-radius: 5px;
+            //   border-bottom-right-radius: 5px;
+            //   border-left: 1px solid themed('border',1);
+            // }
+            // .item:first-child {
+            //   border-top-left-radius: 5px;
+            //   border-bottom-left-radius: 5px;
+            //   border-right: 1px solid themed('border',1);
+            // }
+          }
+        }
+        .langue {
+          width: 150px;
+        }
+      }
+    }
+    .titre {
+      margin: 20px;
+      span {
+        font-weight: 700;
+      }
+    }
+    .avis {
+      .list-avis {
+        max-width: 650px;
+        .avi-item {
+          display: flex;
+          border-bottom: 1px solid themed("border", 3);
+          padding: 30px 0;
+          .left {
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+            .profil {
+              display: flex;
+              align-items: center;
+            }
+            .text {
+              margin-left: 10px;
+              display: flex;
+              flex-direction: column;
+              .name {
+                font-size: 17px;
+                font-weight: 600;
+              }
+              .date {
+                font-size: 10px;
+              }
+            }
+            .info {
+              font-size: 13px;
+            }
+          }
+          .content {
+            margin-left: 20px;
+            max-width: 500px;
+            .top {
+              display: flex;
+              align-items: center;
+              .portal-evaluation-note {
+                display: flex !important;
+                gap: 3px;
+                img {
+                  width: 16px;
+                  height: 14px;
+                  display: block;
+                }
+              }
+              .note {
+                margin-left: 10px;
+                font-size: 16px;
+                font-weight: 700;
+              }
+            }
+            h3 {
+              font-size: 16px;
+              margin: 15px 0;
+            }
+          }
+          .bottom {
+            margin-top: 15px;
+            .question {
+              p {
+                font-size: 12px;
+              }
+              .btn {
+                button {
+                  border: 1px solid var(--purple);
+                  padding: 5px 10px;
+                  border-radius: 5px;
+                  margin-right: 5px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
+      .right {
+        position: relative;
+        top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        .container {
+          margin-top: 15px;
+          width: 250px;
+          border: 1px solid themed("border", 1);
+          padding: 15px;
+          border-radius: 5px;
+          h3 {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: 16px;
+          }
+          .btn {
+            border: 1px solid var(--purple);
+            color: var(--purple);
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+          }
+        }
+        .note-global {
+          p {
+            font-size: 12px;
+          }
+
+          .rating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0;
+            .portal-evaluation-note {
+              display: flex !important;
+              gap: 3px;
+              img {
+                width: 20px;
+                height: 18px;
+                display: block;
+              }
+            }
+            .progress-bar {
+              display: grid;
+              place-items: center;
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              margin-bottom: 15px;
+              background: radial-gradient(
+                  closest-side,
+                  white 79%,
+                  transparent 80% 100%
+                ),
+                conic-gradient(var(--purple) 75%, rgba(162, 89, 196, 0.39) 0);
+              transform: rotatez(90deg);
+              span {
+                transform: rotateZ(-90deg);
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--purple);
+              }
+            }
+          }
+          .rating-breakdown {
+            .item {
+              display: flex;
+              align-items: center;
+              .numero {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+              }
+              img {
+                width: 10px;
+                height: 10px;
+                margin: 0 5px;
+              }
+              .bar-container {
+                width: 70%;
+                background-color: themed("background", 1);
+                border-radius: 50px;
+                height: 7px;
+                .bar-progress {
+                  // width: 70%;
+                  height: 100%;
+                  background-color: var(--purple);
+                  border-radius: 50px;
+                }
+              }
+              .compte {
+                margin-left: 10px;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+        .question{
+            p{
+                font-size: 14px;
+            }
+        }
+      }
+    }
+  }
+}

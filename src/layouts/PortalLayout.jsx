@@ -80,6 +80,9 @@ const PortalLayout = () => {
                                 </li>
                                 <li><Link><span>Emplois</span></Link></li>
                                 <li><Link><span>Emloyés</span></Link></li>
+                                <li>
+                                    <DoNavLink to="evaluation" activeClass='active'><span>Evaluation</span></DoNavLink>
+                                </li>
                             </ul>
                         </div>
                         <div className="bottom">
