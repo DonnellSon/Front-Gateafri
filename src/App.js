@@ -267,9 +267,9 @@ function App() {
               <div id="AppTheme" className={`theme-${theme}`}>
                 <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
                   <BrowserRouter>
-                
+
                     <Routes>
-                    
+
                       <Route element={<Default />}>
                         {
                           !pageLoading &&
@@ -373,26 +373,26 @@ function App() {
 
                       <Route path='/musique' element={<MusicLayout />}>
                         <Route index element={<Music />} />
-                        <Route path='profil' element={<ProfilMusic/>} />
+                        <Route path='profil' element={<ProfilMusic />} />
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
                         <Route path='/explorer'>
-                        <Route path='hotelsReservation' element={<HotelsReservation/>} />
-                        <Route path='hotelsSearch' element={<HotelsSearch/>}/>
                           <Route path='pays/:countryId'>
                             <Route index element={<Explorer />} />
                             <Route path='ville/:cityId' element={<City />} />
                           </Route>
                         </Route>
                         <Route path='hotels' element={<HotelsHome />} />
+                        <Route path='hotels/reservation' element={<HotelsReservation />} />
+                        <Route path='hotels/search' element={<HotelsSearch />} />
                       </Route>
 
-                      <Route path='test' element={<HotelTest/>}/>
+                      <Route path='test' element={<HotelTest />} />
 
                       <Route path='*' element={<NotFound />} />
                     </Routes>
-                    
+
                   </BrowserRouter>
                 </div>
                 <PageLoader open={pageLoading} />

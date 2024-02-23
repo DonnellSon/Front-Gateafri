@@ -8,6 +8,7 @@ import CommentList from '../../components/commentList/CommentList'
 import Slider from 'react-slick'
 import Avatar from '../../components/Avatar/Avatar'
 import MediaContext from '../../context/MediaContext'
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer'
 
 const Video = () => {
     const { deviceType } = useContext(MediaContext)
@@ -16,7 +17,19 @@ const Video = () => {
             <div className="center flex-grow-1 px-15">
                 <div className="video">
                     <div className="video-player">
-                        <video src="/vid/vid2.mp4" autoPlay infinite></video>
+                        <VideoPlayer options={
+                            {
+                                autoplay:true,
+                                controls: true,
+                                sources:[
+                                    {
+                                        src: 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
+                                        type: 'application/x-mpegURL'
+                                    }
+                                ]
+                            }
+                        } />
+                        {/* <video src="https://localhost:3000/vid/vid2.mp4" autoPlay infinite></video> */}
                         <div className="vid-controllers p-10">
                             <div className="top flex align-items-center gap-10">
                                 <div className="elapsed-time"><span>0:00</span></div>
@@ -45,7 +58,7 @@ const Video = () => {
                                         <Shuffle strokeWidth={0.15} stroke='black' size={20} />
                                     </div>
                                     <div className="btn">
-                                        <SkipBackward size={20} strokeWidth={0.15} stroke='black'/>
+                                        <SkipBackward size={20} strokeWidth={0.15} stroke='black' />
                                     </div>
                                     <div className="btn">
                                         <ArrowCounterclockwise strokeWidth={0.15} stroke='black' size={20} />
@@ -76,7 +89,7 @@ const Video = () => {
                                 </div>
                             </div>
                             <div className="video-player-capt mt-5">
-                                <h1 className='video-ttl flex align-items-center gap-5'>M. Pokora - Qui on est (Clip officiel) <ChevronDown strokeWidth={0.5} stroke='black'/></h1>
+                                <h1 className='video-ttl flex align-items-center gap-5'>M. Pokora - Qui on est (Clip officiel) <ChevronDown strokeWidth={0.5} stroke='black' /></h1>
                             </div>
                         </div>
                     </div>

@@ -206,14 +206,14 @@ const HotelsSearch = () => {
                 </div>
               </div>
 
-              <div className='caroseul-hotel-gride'>
-                <div className="caroseul-hotel-item flex">
+              <div className='hotel-search-results'>
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_0.jpg' alt='' />
                     <div className='img-text'>
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />Hotel Radison</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
@@ -248,14 +248,14 @@ const HotelsSearch = () => {
                   </div>
                 </div>
 
-                <div className="caroseul-hotel-item flex">
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_1.jpg' alt='' />
                     <div className='img-text'>
 
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />Hotel Colbert</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
@@ -291,14 +291,14 @@ const HotelsSearch = () => {
 
                 </div>
 
-                <div className="caroseul-hotel-item flex">
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_2.jpg' alt='' />
                     <div className='img-text'>
 
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />Carlton</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
@@ -334,13 +334,13 @@ const HotelsSearch = () => {
                 </div>
 
 
-                <div className="caroseul-hotel-item flex">
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_3.jpg' alt='' />
                     <div className='img-text'>
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />NovoHotel</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
@@ -375,14 +375,14 @@ const HotelsSearch = () => {
                   </div>
                 </div>
 
-                <div className="caroseul-hotel-item flex">
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_4.jpg' alt='' />
                     <div className='img-text'>
 
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />Hotel Androhy</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
@@ -418,14 +418,14 @@ const HotelsSearch = () => {
                 </div>
 
 
-                <div className="caroseul-hotel-item flex">
+                <div className="hotel-search-results-item flex">
                   <div className='img relative'>
                     <img src='/img/other/chambre_5.jpg' alt='' />
                     <div className='img-text'>
 
                     </div>
                   </div>
-                  <div className='caroseul-content'>
+                  <div className='caption'>
                     <h4 className='flex gap-5 align-items-center'><FaHotel />Hotels</h4>
                     <p>Antananarivo</p>
                     <div className='gems flex'>
