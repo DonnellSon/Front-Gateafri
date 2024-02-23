@@ -72,7 +72,7 @@ const PortalEvaluation = () => {
       </p>
       <div className="avis mt-15 flex">
         <div className="list-avis ">
-          <div className="avi-item elevated-card px-15 mb-15">
+          <div className="avi-item elevated-card px-15 mb-5">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -121,7 +121,7 @@ const PortalEvaluation = () => {
               </div>
             </div>
           </div>
-          <div className="avi-item avi-item elevated-card px-15 mb-15">
+          <div className="avi-item avi-item elevated-card px-15 mb-5">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -182,7 +182,7 @@ const PortalEvaluation = () => {
               </div>
             </div>
           </div>
-          <div className="avi-item avi-item elevated-card px-15 mb-15">
+          <div className="avi-item avi-item elevated-card px-15 mb-5">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -231,7 +231,7 @@ const PortalEvaluation = () => {
               </div>
             </div>
           </div>
-          <div className="avi-item avi-item elevated-card px-15 mb-15">
+          <div className="avi-item avi-item elevated-card px-15 mb-5">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />
@@ -280,7 +280,7 @@ const PortalEvaluation = () => {
               </div>
             </div>
           </div>
-          <div className="avi-item avi-item elevated-card px-15 mb-15">
+          <div className="avi-item avi-item elevated-card px-15 mb-5">
             <div className="left">
               <div className="profil">
                 <Avatar width={40} height={40} />

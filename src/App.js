@@ -89,6 +89,8 @@ import JobDetails from "./pages/JobFinding/JobDetails";
 import NotFound from "./pages/Eroors/NotFound";
 import PortalEvaluation from "./pages/Portal/PortalEvaluation";
 import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
+import PortalEmplois from "./pages/Portal/PortalEmplois";
+import PortalFaq from "./pages/Portal/PortalFaq";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -430,6 +432,14 @@ function App() {
                                 <Route
                                   path="actualite"
                                   element={<PortalActu />}
+                                />
+                                <Route
+                                  path="emplois"
+                                  element={<PortalEmplois />}
+                                />
+                                <Route
+                                  path="faq"
+                                  element={<PortalFaq />}
                                 />
                                 <Route
                                   path="evaluation"

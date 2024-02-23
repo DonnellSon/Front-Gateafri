@@ -91,9 +91,9 @@
     .head {
         .heading2{
             button{
-                border: 1px solid var(--purple);
+                border: 1px solid themed('mainColor',purple);
                 border-radius: 5px;
-                color: var(--purple);
+                color: themed('mainColor',purple);
             }
         }
       h3 {
@@ -121,7 +121,7 @@
               display: flex;
               align-items: center;
               padding: 7px 15px;
-              color: var(--purple);
+              color: themed('mainColor',purple);
               cursor: pointer;
               border: 1px solid themed("border", 1);
               border-radius: 5px;
@@ -130,7 +130,7 @@
                 margin-left: 10px;
               }
               &.active {
-                color: black;
+                color: themed('text',1);
                 font-weight: 600;
                 background-color: themed("background", 1);
                 .arrow {
@@ -152,7 +152,7 @@
       }
     }
     .avis {
-        gap: 15px;
+        gap: 5px;
       .list-avis {
         flex: 1;
         .avi-item {
@@ -217,7 +217,10 @@
               }
               .btn {
                 button {
-                  border: 1px solid var(--purple);
+                //   border: 1px solid themed('mainColor',purple);
+                border: none;
+                  background: themed('background',1);
+                  color: themed('text',2);
                   padding: 5px 10px;
                   border-radius: 5px;
                   margin-right: 5px;
@@ -234,7 +237,7 @@
         align-items: center;
         // flex: 1;
         .container {
-          margin-bottom: 15px;
+          margin-bottom: 5px;
           width: 250px;
           padding: 15px;
           border-radius: 5px;
@@ -247,8 +250,8 @@
             font-size: 16px;
           }
           .btn {
-            border: 1px solid var(--purple);
-            color: var(--purple);
+            border: 1px solid themed('mainColor',purple);
+            color: themed('mainColor',purple);
             flex: 1;
             text-align: center;
             padding: 8px;
@@ -295,7 +298,7 @@
                   transform: rotateZ(-90deg);
                   font-size: 20px;
                   font-weight: 700;
-                  color: var(--purple);
+                  color: themed('mainColor',purple);
                 }
               }
             }

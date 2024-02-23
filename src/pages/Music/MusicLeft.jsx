@@ -25,7 +25,7 @@ const MusicLeft = () => {
                 <h2 className="hamburgerMenu" onClick={() => setOpen(true)}>
                   <GiHamburgerMenu size={25} />
                 </h2>
-                <h2 className="menu">Menu</h2>
+                {/* <h2 className="menu">Menu</h2> */}
                 {!BigScreen && (
                   <div className="close" onClick={() => setOpen(false)}>
                     <X size={25} />
@@ -37,7 +37,7 @@ const MusicLeft = () => {
                   <Link className="active">
                     <i className="icon">
                       <House size={20} />
-                    </i>{" "}
+                    </i>
                     <span>Accueil</span>
                   </Link>
                 </li>
@@ -45,7 +45,7 @@ const MusicLeft = () => {
                   <Link>
                     <i className="icon">
                       <PlayBtn size={20} />
-                    </i>{" "}
+                    </i>
                     <span>Videos</span>
                   </Link>
                 </li>
@@ -61,7 +61,7 @@ const MusicLeft = () => {
                   <Link>
                     <i className="icon">
                       <MusicNote size={20} />
-                    </i>{" "}
+                    </i>
                     <span>Ma musique</span>
                   </Link>
                 </li>
