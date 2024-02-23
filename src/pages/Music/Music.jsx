@@ -299,7 +299,6 @@ const Music = () => {
             <h1>Rema-En live</h1>
 
           </div>
-
         </Slider>
       </div>
     </div>
