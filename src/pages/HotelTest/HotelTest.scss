@@ -114,3 +114,34 @@ nav{
       conic-gradient(hotpink 75%, pink 0);    
   }
   
+  .dropdown{
+ max-width: 400px ;
+ margin: auto;
+ .dropdown-btn{
+    padding: 15px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    background: red;
+    .dropdown-btn-icone{
+        color: black;
+    }
+    
+ }
+ .dropdown-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+   .dropdown-item{
+    background: pink;
+    transition: 0.5s;
+    &:hover{
+        background: red !important;
+
+    }
+   } 
+}
+  }
+  

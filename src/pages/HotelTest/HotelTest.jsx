@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuApp } from 'react-bootstrap-icons'
+import { ChevronBarDown, ChevronBarUp, MenuApp } from 'react-bootstrap-icons'
 import { GiHamburger, GiTopHat } from 'react-icons/gi'
 import './HotelTest.scss'
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -7,11 +7,15 @@ import { useState, useRef } from 'react';
 import { CloseButton } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { HashRouter } from 'react-router-dom';
+import DropDown from './../../components/DropDown/DropDown';
 const HotelTest = () => {
     const [openMenu, setOpenMenu] = useState(false)
     const [opentest, setOpenTest] = useState(false)
     const [openAccordeon, setAccordeon] = useState(false)
+    const [isSelect, setIsSelect] = useState('choisir votre choix')
     const refTest = useRef()
+    const [dropDown, setDropDown] = useState(false)
+    const Data = ["react", "vue"];
     const testRef = () => {
         console.log(refTest.current)
     }
@@ -106,10 +110,36 @@ const HotelTest = () => {
                     <img src='/img/other/chambre_0.jpg' alt='' />
                 </div>
             </div>
+
             <div className="progress-bar"></div>
+            <div className='dropdown'>
+                <div className="dropdown-btn" onClick={() => setDropDown(!dropDown)}>
+                    <div className="dropdown-btn-icone">{isSelect}</div>
+                    <div className="dropdown-btn-icone"> {dropDown ?<ChevronBarUp /> : <ChevronBarDown/>}
+                    </div>
+                </div>
+                {dropDown && (
+                   <Dropdown Data={Data} isSelect={isSelect} setIsSelect={setIsSelect} setDropDown={setDropDown} dropDown={dropDown}/>
+                    )}
+            </div>
+
 
         </main>
     )
 }
 
 export default HotelTest
+
+
+const Dropdown = ({Data,setIsSelect,setDropDown,dropDown}) => {
+    return (
+        <>
+            <div className='dropdown-content' onClick={(e) => {
+                setIsSelect(e.target.outerText)
+                setDropDown(!dropDown)
+            }} on>
+                {Data.map((e, i) => (<div className="dropdown-item" key={i} >{e}</div>))}
+            </div>
+        </>
+    )
+}

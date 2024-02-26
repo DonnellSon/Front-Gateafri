@@ -9,23 +9,18 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import StickySideBar from '../../components/StickySideBar/StickySideBar';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
+import DropDown from '../../components/DropDown/DropDown';
+import { Link } from 'react-router-dom';
 
 const NavbarPrice = ({ setOpen }) => {
   const [boxShadow, setBoxShadow] = useState(false);
   useEffect(() => {
 
-    const onScroll = () => {
-      scollingElem.scrollTop >= 192 ?
-        setBoxShadow(true) : setBoxShadow(false)
-    }
-    const scollingElem = document.getElementById('App');
-    scollingElem?.addEventListener('scroll', onScroll)
 
     const handleResize = () => {
       const largeur = window.innerWidth;
       const hauteur = window.innerHeight;
-      // console.log('Nouvelle taille de l\'écran - Largeur :', largeur, ', Hauteur :', hauteur);
+      console.log('Nouvelle taille de l\'écran - Largeur :', largeur, ', Hauteur :', hauteur);
       if (largeur <= 1200) {
         setOpen(true)
       }
@@ -34,7 +29,6 @@ const NavbarPrice = ({ setOpen }) => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      scollingElem.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', handleResize);
 
     }
@@ -42,7 +36,7 @@ const NavbarPrice = ({ setOpen }) => {
     , [])
   return (
     <div className="hotel-search-price">
-      <div className={`hotel-search-price-content ${boxShadow ? ' active' : ''}`}>
+      <div className={`hotel-search-price-content`}>
         <div className='hotel-search-item'>
           <div className='hotel-price'>
             <span><b>Prix : </b> par nuit</span>
@@ -97,14 +91,29 @@ const NavbarPrice = ({ setOpen }) => {
 }
 const HotelsSearch = () => {
   const [open, setOpen] = useState(false)
+  const [boxShadow, setBoxShadow] = useState(false);
 
+  useEffect(() => {
+    const onScroll = () => {
+      console.log(scollingElem.scrollTop)
+      scollingElem.scrollTop >= 172 ?
+        setBoxShadow(true) : setBoxShadow(false)
+    }
+    const scollingElem = document.getElementById('App');
+    scollingElem?.addEventListener('scroll', onScroll)
+
+    return () => {
+      scollingElem.removeEventListener('scroll', onScroll)
+
+    }
+  }, [])
 
   return (
     <div id='HotelsSearch'>
       <div id='top-bannerSearch' className="relative" ></div>
       <div className='search'>
 
-        <div className='search-page-input'>
+        <div className={`search-page-input ${boxShadow ? ' active' : ''}`}>
           <form className="hotel-searchbar flex">
             <div className="keyword-inpt flex-grow-1">
               <input type="text" placeholder='Antanananarivo destination' />
@@ -194,14 +203,26 @@ const HotelsSearch = () => {
                     <p>Nous avons trouvé <b>49 </b>hôtels sur <b>272</b> sites</p>
                   </div>
 
-
-                  <div className="content-title-item-right">
-                    <span><b>Trier par</b></span>
-                    <div className='suggest flex'>
-                      <span>Nos suggestion</span>
-                      <ChevronCompactDown />
+                  <DropDown>
+                    <div className="content-title-item-right" >
+                      <span><b>Trier par</b></span>
+                      <div className='suggest flex'>
+                        <span>Nos suggestion</span>
+                        <ChevronCompactDown />
+                      </div>
                     </div>
-                  </div>
+                    <div className=''>
+                      <ul>
+                        <li>
+                          <Link to='/explorer'>Prix uniquement</Link>
+                        </li>
+                        <li>
+                          <Link>Evaluation et suggestion</Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </DropDown>
+
 
                 </div>
               </div>
