@@ -3,51 +3,9 @@
 .portalEmplois {
   @include themify($themes) {
     .search-emplois {
-        .job-finding-searchbar{
-            border-radius: 5px;
-        }
-    //   > span {
-    //     display: block;
-    //     margin-top: -15px;
-    //     margin-bottom: 20px;
-    //   }
-
-    //   .search {
-    //     display: flex;
-    //     height: 45px;
-    //     width: 100%;
-    //     border-radius: 50px;
-    //     margin: 15px auto;
-    //     .job,
-    //     .location {
-    //       position: relative;
-    //       flex: 1;
-    //       border-right: 1px solid themed("border", 1);
-    //       .icon {
-    //         position: absolute;
-    //         top: 50%;
-    //         left: 15px;
-    //         transform: translateY(-50%);
-    //       }
-    //       input {
-    //         height: 100%;
-    //         width: 100%;
-    //         padding-left: 45px;
-    //       }
-    //     }
-    //     .job {
-    //       input {
-    //         border-radius: 5px 0 0 5px;
-    //       }
-    //     }
-    //     button {
-    //       border: 1px solid themed("mainColor", purple);
-    //       border-radius: 0 5px 5px 0;
-    //       background-color: themed("mainColor", purple);
-    //       height: 95%;
-    //       width: 100px;
-    //     }
-    //   }
+      .job-finding-searchbar {
+        border-radius: 5px;
+      }
     }
     .sorting {
       > p {
@@ -70,116 +28,74 @@
       align-items: flex-start;
       gap: 5px;
       .job-list {
-        //   flex: 1;
-          margin-top: 0;
-
-          width: 450px;
-        }
-        .job-detail{
-          position: sticky;
-          top: 63px;
-          height: 90vh;
-          overflow-y: scroll;
+        margin-top: 0;
         flex: 1;
+        .job {
+          width: 100%;
+        }
       }
-    //   .filter {
-    //     width: 250px;
-    //     position:sticky;
-    //     top: 58px;
-    //     height: 100vh;
-    //     span {
-    //       color: themed("mainColor", purple);
-    //       cursor: pointer;
-    //     }
-    //     .header {
-    //       display: flex;
-    //       justify-content: space-between;
-    //       h2 {
-    //         font-size: 17px;
-    //       }
-    //     }
-    //     .box {
-    //       .head {
-    //         display: flex;
-    //       justify-content: space-between;
-    //         h4 {
-    //           font-size: 15px;
-    //           color: var(--orange);
-    //         }
-    //       }
-    //       .item {
-    //         display: flex;
-    //         align-items: center;
-    //         gap: 10px;
-    //         padding: 10px 0;
-    //       }
-    //       .search-location{
-    //         position: relative;
-    //         width: 100%;
-    //         .icon{
-    //             position: absolute;
-    //             top: 50%;
-    //             left: 10px;
-    //             transform: translateY(-50%);
-    //         }
-    //         input{
-    //             border-radius: 5px;
-    //             padding: 8px 15px 8px 30px;
-    //             width: 100%;
-    //         }
-    //       }
-    //     }
-    //   }
+      .job-detail {
+        position: sticky;
+        top: 63px;
+        height: 90vh;
+        overflow-y: scroll;
+        width: 550px;
+      }
     }
-    // .job-list{
-    //     display: flex;
-    //     gap: 10px;
-    //     flex-wrap: wrap;
-    //     .job{
-    //         width: 49%;      }
-    // }
-    // .list-emplois {
-    //   .emploi-item {
-    //     .title {
-    //       h2 {
-    //         font-size: 15px;
-    //       }
-    //     }
-    //     .detail {
-    //       margin: 15px 0;
-    //       .icon {
-    //         color: themed("mainColor", purple);
-    //         margin-right: 10px;
-    //       }
-    //     }
-    //     .description {
-    //       width: 90%;
-    //       margin-bottom: 15px;
-    //       @media (max-width: 600px) {
-    //         width: 100%;
-    //       }
-    //     }
-    //     .bottom {
-    //       .require {
-    //         span {
-    //           height: 25px;
-    //           padding: 3px 15px 0 15px;
-    //           background-color: themed("background", 5);
-    //           border-radius: 20px;
-    //           color: themed("mainColor", purple);
-    //         }
-    //       }
-    //       .btn- {
-    //         margin-left: 50px;
-    //         color: themed("mainColor", purple);
-    //         border: 1px solid themed("mainColor", purple);
-    //       }
-    //     }
-    //   }
-    //   .emploi-item:hover {
-    //     // border:1px solid themed('mainColor',purple)
-    //     box-shadow: 0 0 2px 1px themed('text',5);
-    //   }
-    // }
+    @media (max-width: 1200px) {
+      .result {
+        .job-detail {
+          height: 82vh;
+        }
+      }
+    }
+    @media (max-width: 1010px) {
+      .result {
+        .job-detail {
+          display: none;
+        }
+      }
+    }
+  }
+}
+.modal {
+  @include themify($themes) {
+    display: none;
+    .modalContent {
+      width: 100%;
+      .content {
+        position: relative;
+        background-color: themed("background", 3);
+        min-height: 100vh;
+        border-radius: 5px;
+        padding-bottom: 60px;
+        .job-details{
+            border-radius: 5px;
+        }
+        .close {
+            background-color: themed('background',3);
+            display: flex;
+            justify-content: end;
+            padding: 15px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 1234;
+            border-radius: 5px;
+          button {
+            padding: 10px 15px;
+            border: 1px solid themed("mainColor", purple);
+            color: themed("mainColor", purple);
+            border-radius: 5px;
+            background-color: transparent;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+    @media (max-width: 1010px) {
+        display: flex;
+      }
   }
 }

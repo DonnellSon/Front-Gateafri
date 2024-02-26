@@ -12,9 +12,13 @@ import JobCard from "../../components/JobCard/JobCard";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import JobDetails from "../../components/JobDetails/JobDetails";
 import JobFindingSearchBar from "../../components/JobFindingSearchbar/JobFindingSearchbar";
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 const PortalEmplois = () => {
   const { company } = useOutletContext();
+  const [open, setOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null)
 
   const jobDataList = [
     {
@@ -28,7 +32,8 @@ const PortalEmplois = () => {
       domaine: "Technologie",
       summary:
         "Résumé de l'emploi... Lorem, ipsum dolor sit amet consectetur adipisicing elitPossimus, suscipit accusamus, incidunt voluptatum dignissimosquaerat blanditiis ut nostrum harum, provident quam nemo",
-      description: "Description détaillée de l'emploi...<br><br>Entreprise X est à la recherche d'un développeur Full Stack expérimenté pour rejoindre notre équipe de développement. Vous serez responsable de la conception, du développement et de la maintenance de nos applications web et mobiles. Nous recherchons quelqu'un qui est passionné par la technologie et qui a une expérience prouvée dans le développement Full Stack. Vous travaillerez en étroite collaboration avec notre équipe de produits pour créer des solutions qui répondent à nos besoins métier. Nous offrons un environnement de travail stimulant et une opportunité de croissance professionnelle.",
+      description:
+        "Description détaillée de l'emploi...<br><br>Entreprise X est à la recherche d'un développeur Full Stack expérimenté pour rejoindre notre équipe de développement. Vous serez responsable de la conception, du développement et de la maintenance de nos applications web et mobiles. Nous recherchons quelqu'un qui est passionné par la technologie et qui a une expérience prouvée dans le développement Full Stack. Vous travaillerez en étroite collaboration avec notre équipe de produits pour créer des solutions qui répondent à nos besoins métier. Nous offrons un environnement de travail stimulant et une opportunité de croissance professionnelle.",
       createdAt: "2023-04-01T00:00:00Z",
       xp: "2 ans",
       salary: {
@@ -216,29 +221,14 @@ const PortalEmplois = () => {
     },
   ];
 
+  const show = (element)=>{
+    setOpen(true);
+    setSelectedJob(element)
+  }
   return (
     <div className="portalEmplois">
       <div className="search-emplois mt-15">
-        <JobFindingSearchBar/>
-        {/* <div className="heading2">
-          <h3>Emplois chez Design</h3>
-        </div>
-        <span>Trouver un emploi chez nous:</span>
-        <div className="search">
-          <div className="job">
-            <div className="icon">
-              <Search size={20} />
-            </div>
-            <input type="text" placeholder="Emplois, mot clés ..." />
-          </div>
-          <div className="location">
-            <div className="icon">
-              <GeoAlt size={20} />
-            </div>
-            <input type="text" placeholder="Emplacement" />
-          </div>
-          <button className="btn-">Search</button>
-        </div> */}
+        <JobFindingSearchBar />
       </div>
       <div className="sorting flex justify-content-between p-15">
         <p>
@@ -258,126 +248,26 @@ const PortalEmplois = () => {
         <div className="job-list">
           {jobDataList.map((jobData, i) => (
             <div className="job" key={i}>
-              <JobCard data={jobData} />
+              <JobCard data={jobData} handleShow={()=>show(jobData)}/>
+              <div className="modal-container">
+                <Modal open={open} className="modal">
+                  <div className="content">
+                    <JobDetails data={selectedJob} />
+                    <div className="close">
+                      <button onClick={() => setOpen(false)}>
+                        Fermer
+                      </button>
+                    </div>
+                  </div>
+                </Modal>
+              </div>
             </div>
           ))}
         </div>
         <div className="job-detail elevated-card p-15">
-            <JobDetails data={jobDataList[0]}/>
+          <JobDetails data={jobDataList[0]} />
         </div>
-        {/* <div className="filter">
-          <div className="header elevated-card p-15 mb-5">
-            <h2>Job Filter</h2>
-            <span>Clear All</span>
-          </div>
-          <div className="level box elevated-card p-15 mb-5">
-            <div className="head">
-              <h4>Experience Level</h4>
-              <span>Clear</span>
-            </div>
-            <div className="choix ">
-              <div className="item">
-                <CheckBox />
-                Junior
-              </div>
-              <div className="item">
-                <CheckBox />
-                Confirmer
-              </div>
-              <div className="item">
-                <CheckBox />
-                Senior
-              </div>
-            </div>
-          </div>
-          <div className="location box elevated-card p-15 mb-5">
-            <div className="head">
-              <h4>Location</h4>
-              <span>Clear</span>
-            </div>
-            <div className="choix ">
-              <div className="item">
-                <CheckBox />
-                Remote
-              </div>
-              <div className="item">
-                <CheckBox />
-                On site
-              </div>
-              <div className="search-location">
-                <div className="icon">
-                  <GeoAlt size={15} />
-                </div>
-                <input type="text" />
-              </div>
-            </div>
-          </div>
-          <div className="type box elevated-card p-15 mb-5">
-            <div className="head">
-              <h4>Type</h4>
-              <span>Clear</span>
-            </div>
-            <div className="choix">
-              <div className="item">
-                <CheckBox />
-                Full Time
-              </div>
-              <div className="item">
-                <CheckBox />
-                Freelance
-              </div>
-              <div className="item">
-                <CheckBox />
-                Part Time
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
-      {/* <div className="list-emplois">
-        {Array.from({ length: 20 }, (_, index) => (
-          <div className="emploi-item elevated-card p-15 mb-15" key={index}>
-            <div className="title">
-              <h2>Designer graphique</h2>
-            </div>
-            <div className="detail flex gap-20">
-              <div className="place flex align-items-center">
-                <div className="icon">
-                  <GeoAlt size={15} />
-                </div>
-                <span>Tana</span>
-              </div>
-              <div className="time flex align-items-center">
-                <div className="icon">
-                  <Calendar3 size={15} />
-                </div>
-                <span>Full-time</span>
-              </div>
-            </div>
-            <div className="description">
-              <Accordion>
-                <p>Voir details</p>
-                <p className="mb-15">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Possimus, suscipit accusamus, incidunt voluptatum dignissimos
-                  quaerat blanditiis ut nostrum harum, provident quam nemo.
-                  Distinctio quas est optio aliquid exercitationem voluptatum
-                  excepturi.
-                </p>
-              </Accordion>
-            </div>
-            <div className="bottom flex justify-content-between align-items-end">
-              <div className="require flex align-items-center gap-10 flex-wrap">
-                <span>Créativité</span>
-                <span>conception graphique</span>
-                <span>Adobe</span>
-                <span>Figma</span>
-              </div>
-              <div className="btn-">Postuler</div>
-            </div>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };
