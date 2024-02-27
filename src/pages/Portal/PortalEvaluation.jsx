@@ -10,7 +10,7 @@ import PortalAvis from './PortalAvis'
 const PortalEvaluation = () => {
   const [isCroissant, setIsCroissant] = useState(true);
   const [isActive, setIsActive] = useState("Date");
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const handleClick = (value) => {
     setIsActive(value);
@@ -21,9 +21,9 @@ const PortalEvaluation = () => {
       <div className="head elevated-card px-15 mt-15 pb-15">
         <div className="heading2 justify-content-between">
           <h3>Avis des Employés</h3>
-          <button className="btn-evaluer-nous">Evaluer Nous</button>
+          <button className="btn-evaluer-nous" onClick={()=>setOpen(true)}>Evaluer Nous</button>
           <Modal open={open} className='modal-evaluation'>
-            <PortalAvis/>
+            <PortalAvis handleClose={setOpen}/>
           </Modal>
         </div>
         <div className="triage">

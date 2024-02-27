@@ -352,8 +352,7 @@
 .modal-evaluation {
   .modalContent {
     overflow: scroll;
-    max-width: 800px;
-    .portal-avis {
-    }
+    overflow-x: hidden;
+    max-width: 700px;
   }
 }
