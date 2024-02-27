@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import StickySideBar from '../../components/StickySideBar/StickySideBar'
 import { getUser } from '../../api/users'
-import { useQuery } from 'react-query'
+import { useQuery,useMutation } from 'react-query'
 import Timeline from '../../components/Timeline/Timeline'
 import PlanSlider from '../../components/PlanSlider/PlanSlider'
 import DonationCard from '../../components/DonationCard/DonationCard'

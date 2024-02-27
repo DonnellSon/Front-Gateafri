@@ -43,7 +43,7 @@ const PortalLayout = () => {
     isLoading: companyLoading,
   } = useQuery(["repoCompany", portalId], () => getCompany(portalId));
   useEffect(() => {
-    console.log(company?.domaine, "DOM");
+    console.log(company, "DOM");
   }, [company]);
   return (
     <div className="portal-page">

@@ -801,3 +801,16 @@ a {
   }
 
 }
+
+@keyframes slideTop {
+  0%{
+    margin-top: 50px;
+  }
+  100%{
+    margin-top: 0;
+  }
+}
+
+.anim-slide-top{
+  animation: slideTop .5s ease-out;
+}

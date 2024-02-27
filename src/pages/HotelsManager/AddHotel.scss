@@ -1,0 +1,17 @@
+@import '../../style.scss';
+
+form{
+    table{
+        border-spacing: 15px;
+    }
+    input[type="radio"]{
+        display: block;
+        margin: 0;
+    }
+    
+}
+.stars-number{
+    svg{
+        color: var(--orange);
+    }
+}

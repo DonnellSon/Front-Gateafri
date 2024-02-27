@@ -4,7 +4,7 @@ import "./PostCardSkeleton.scss"
 
 const PostCardSkeleton = () => {
     return (
-        <div className='post-card-skeleton'>
+        <div className='post-card-skeleton anim-slide-top'>
             <div className="top flex flex-grow-1 justify-content-between">
                 <div className='flex gap-10 flex-grow-1'>
                     <Skeleton height={40} width={40} radius="50%"/>

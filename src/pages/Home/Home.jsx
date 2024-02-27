@@ -49,7 +49,7 @@ const Home = () => {
                 </div>
                 <span className='text-ellipsis flex-grow-1'>Collectes de Dons</span>
               </li>
-              <li><div className="ico"><Briefcase size={18} /></div><span className='text-ellipsis flex-grow-1'>Offre d'emplois</span></li>
+              <li><div className="ico"><Briefcase size={18} /></div><span className='text-ellipsis flex-grow-1'>Mes contacts</span></li>
               <li><div className="ico"><Megaphone size={18} /></div><span className='text-ellipsis flex-grow-1'>Promotions</span></li>
             </ul>
             <hr style={{ margin: '20px 10px' }} />

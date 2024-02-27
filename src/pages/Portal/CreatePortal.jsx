@@ -53,19 +53,17 @@ const CreatePortal = () => {
 
     const createPortal = () => {
         setCreatePortalLoading(true)
-        setCompany(c => ({
-            ...c, 
-            country: c?.value,
-            domains: c.domains.map(d => d?.value)
-        }))
+        const toSend={...company,
+            country: company.country?.value,
+            domains: company.domains.map(d => d?.value)}
         const data = new FormData()
-        for (var key in company) {
-            if (Array.isArray(company[key])) {
-                company[key].forEach(v => {
+        for (var key in toSend) {
+            if (Array.isArray(toSend[key])) {
+                toSend[key].forEach(v => {
                     data.append(`${key}[]`, v)
                 });
             } else {
-                data.append(`${key}`, company[key])
+                data.append(`${key}`, toSend[key])
             }
         }
 
@@ -288,7 +286,7 @@ const CreatePortal = () => {
                                                 <div className="portal-info">
                                                     <div className="top flex align-items-end gap-10">
                                                         <Logo src={company?.companyLogo ? URL.createObjectURL(company?.companyLogo) : null} height={60} width={60} />
-                                                        <img src={company?.country?.flag.fileUrl} width={35} alt="" />
+                                                        <img src={company?.country?.flag?.fileUrl} width={35} alt="" />
                                                     </div>
                                                     <div className="bottom flex justify-content-between">
                                                         <div className="left">

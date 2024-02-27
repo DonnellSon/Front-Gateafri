@@ -252,12 +252,11 @@ const ProfilMusic = () => {
                 <div className="music-top-nav flex gap-20">
                     <div className="flex-grow-1">
                     <SliderNav>
-                        <span onClick={() => { }}>Tous</span>
-                        <span onClick={() => { }}>Populaires</span>
-                        <span onClick={() => { }}>Nouveaux</span>
-                        <span onClick={() => { }}>Tous</span>
-                        <span onClick={() => { }}>Ma musique</span>
-                        <span onClick={() => { }}>Tous</span>
+                        <span onClick={() => { }}>Accueil</span>
+                        <span onClick={() => { }}>Clips</span>
+                        <span onClick={() => { }}>Playlists</span>
+                        <span onClick={() => { }}>Evenements</span>
+                        <span onClick={() => { }}>À propos</span>
                     </SliderNav>
                     </div>
                     <div>
