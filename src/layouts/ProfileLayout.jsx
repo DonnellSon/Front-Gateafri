@@ -1,27 +1,24 @@
-import React, { useState, useEffect, useId, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import './ProfileLayout.scss'
 import { Briefcase, Building, Calendar, Diamond, ExclamationCircle, ExclamationDiamond, FileEarmarkPerson, Gem, House, LayoutWtf, Pencil, PencilSquare, Person, PlusLg, ThreeDots } from 'react-bootstrap-icons'
-import PostCard from '../components/PostCard/PostCard'
 import Avatar from '../components/Avatar/Avatar'
 import { FilePostFill, HouseDoorFill, ExclamationDiamondFill, BriefcaseFill, PeopleFill, Check2, ChevronLeft, ChevronRight } from 'react-bootstrap-icons'
 import DoNavLink from '../components/DoNavLink/DoNavLink'
 import { Link, useParams } from 'react-router-dom'
-import PostCardLoader from '../components/SkeletonLoaders/PostCardLoader'
-import axios from 'axios'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
 import StickySideBar from '../components/StickySideBar/StickySideBar'
 import { getUser } from '../api/users'
-import { useQuery } from 'react-query'
-import Timeline from '../components/Timeline/Timeline'
-import PlanSlider from '../components/PlanSlider/PlanSlider'
+import { useQuery, useQueryClient, useMutation } from 'react-query'
 import DonationCard from '../components/DonationCard/DonationCard'
 import ProfilePictureSelectorModal from '../components/ProfilePictureSelectorModal/ProfilePictureSelectorModal'
 import MediaContext from '../context/MediaContext'
 import { DESKTOP } from '../constants/MediaTypeConstants'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+
+import CoverImage from '../components/CoverImage/CoverImage'
+import NotFound from '../pages/Eroors/NotFound'
 
 
 const ProfileLayout = () => {
@@ -31,6 +28,7 @@ const ProfileLayout = () => {
     const [posts, setPosts] = useState([])
     const [postsLoading, setPostsLoading] = useState(false)
     const [tmpProfilePicture, setTmpProfilePicture] = useState(null)
+    
     /**
      * Recuperation de l'user
      */
@@ -42,17 +40,19 @@ const ProfileLayout = () => {
 
 
     return (
+        userLoading ? <h1></h1> :
+        user ?
         <div id='profile-page'>
 
             {
-                userLoading ? <h1></h1> :
-                    user ?
+                
+                    
                         <>
                             <div className="left">
                                 <div className="content">
                                     <div className="top">
-                                        <div className="profile-banner">
-                                            <button className=""><PencilSquare /> Modifier la bannier</button>
+                                        <div className="profile-banner relative">
+                                            <CoverImage user={user}/>
                                         </div>
                                         <div className="profile-user flex  gap-20">
                                             <Avatar width={90} height={90} editable={true} onChange={(e) => {
@@ -135,10 +135,11 @@ const ProfileLayout = () => {
                                 </div>
                             }
                         </>
-                        : <h1>Cet user n'existe pas</h1>
+                        
             }
             <ProfilePictureSelectorModal file={tmpProfilePicture} />
-        </div>
+        </div> :
+        <NotFound/>
     )
 }
 

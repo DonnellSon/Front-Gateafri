@@ -21,12 +21,6 @@ const BottomNav = ({ setOpenRightbar = () => { } }) => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to="/investissements" activeClass='active'>
-                <Buildings strokeWidth={0.1} size={25} />
-                <span>Fonds</span>
-              </DoNavLink>
-            </li>
-            <li>
               <DoNavLink to="/emplois" activeClass='active'>
                 <Briefcase strokeWidth={0.1} size={25} />
                 <span>Emplois</span>
@@ -39,9 +33,8 @@ const BottomNav = ({ setOpenRightbar = () => { } }) => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to="/video" activeClass='active'>
-                <PersonVideo2 strokeWidth={0.1} size={25} />
-                <span>Regarder</span>
+              <DoNavLink className='top-to-afrimuz' to="/musique" activeClass='active'>
+                <img src='/img/logo/afrimuz2.png' width={54}/>
               </DoNavLink>
             </li>
           </ul>

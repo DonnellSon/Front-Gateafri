@@ -101,8 +101,8 @@ const HotelsSearch = () => {
 
   return (
     <div id='HotelsSearch'>
-      <div id='top-bannerSearch' className="relative" ></div>
-      <div className='search'>
+      <div id='top-bannerSearch' className="relative" style={{ background: 'url(/img/other/hotelbanner.jpg)' }}></div>
+      <div className='search' >
 
         <div className='search-page-input'>
           <form className="hotel-searchbar flex">
@@ -129,7 +129,7 @@ const HotelsSearch = () => {
 
             <div className="content-left">
               <div className="content-title">
-                <p style={{ fontSize: '25px', fontWeight: 'bold', padding: '15px 0' }}>Antananarivo ,hotels disponible</p>
+                <h3>Antananarivo ,hotels disponible</h3>
                 <div className='content-suggest-search'>
                   <div className="content-item-search relative">
                     <img className="image-hover-scale" src='/img/other/montagne.jpg' alt='' />

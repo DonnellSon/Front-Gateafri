@@ -107,9 +107,9 @@ const JobFindingHome = () => {
                                     ))}
                                 </React.Fragment>
 
-                            )) : <div className="empty-timeline">
-                                <h1>Aucune offre d'emplois à afficher</h1>
-                                <p>Nous vous invitons à créer une première offre d'emplois pour commencer commencer le recrutement pour votre entreprise</p>
+                            )) : <div className="empty-job flex flex-column justify-content-center align-items-center gap-5">
+                                <h4>Aucune offre d'emplois à afficher</h4>
+                                <p>Nous vous invitons à créer une première offre d'emplois pour commencer le recrutement pour votre entreprise</p>
                                 <Link to='/emplois/nouveau' className="btn btn-gradient">Créer une offre d'emplois</Link>
                             </div>)
                         }

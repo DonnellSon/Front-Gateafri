@@ -13,12 +13,13 @@ import { getUserCompanies } from '../../api/company';
 import { useSelector } from 'react-redux';
 import DomainsSelector from '../DomainsSelector/DomainsSelector';
 import PostModal from '../PostModal/PostModal';
+import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick';
 const Timeline = () => {
 
     const { user } = useSelector(store => store.user)
     const [posts, setPosts] = useState([])
     const [filters, setFilters] = useState(null)
-    const [openPostModal,setOpenPostModal]=useState(false)
+    const [openPostModal, setOpenPostModal] = useState(false)
 
     /**
      * Recuperation userDomains
@@ -107,17 +108,17 @@ const Timeline = () => {
 
     }, [postsListFetchingNextPage, isFetching])
 
-    const [chooseDomains,setChooseDomains]=useState(false)
+    const [chooseDomains, setChooseDomains] = useState(false)
 
     return (
         <div className='timeline'>
-            <DomainsSelector open={chooseDomains} onClose={()=>setChooseDomains(false)}/>
+            <DomainsSelector open={chooseDomains} onClose={() => setChooseDomains(false)} />
             {
                 (userDomains || domains) &&
                 <SliderNav defaultActive={1}>
                     {
                         [
-                            user && <span key='k1' className='flex align-items-center' onClick={()=>{
+                            user && <span key='k1' className='flex align-items-center' onClick={() => {
                                 setChooseDomains(true)
                                 return false
                             }}><Sliders size={18} /></span>,
@@ -145,7 +146,7 @@ const Timeline = () => {
                         <p>Error: {error.message}</p>
                     ) : (postsList?.pages[0]?.data?.length > 0 ? postsList?.pages?.map((group, i) => (
                         <React.Fragment key={i}>
-                            {group.data.map((p,i) => (
+                            {group.data.map((p, i) => (
                                 <PostCard
                                     key={i}
                                     data={p}
@@ -153,11 +154,13 @@ const Timeline = () => {
                                 />
                             ))}
                         </React.Fragment>
-                        
-                    )) : <div className="empty-timeline" onClick={()=>setOpenPostModal(true)}>
+
+                    )) : <div className="empty-timeline" onClick={() => setOpenPostModal(true)}>
                         <h1>Aucun post à afficher</h1>
                         <p>Nous vous invitons à créer un premier post pour commencer vos activités et intéragir avec d'autres opérateurs économiques en Afrique</p>
-                        <button className="btn btn-gradient">Créer un post</button>
+                        <RequireAuthOnClick>
+                            <button className="btn btn-gradient">Créer un post</button>
+                        </RequireAuthOnClick>
                     </div>)
                 }
                 {postsListFetchingNextPage
@@ -166,7 +169,7 @@ const Timeline = () => {
                         ? ''
                         : ''}
             </div>
-            <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal}/>
+            <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal} />
         </div>
     )
 }

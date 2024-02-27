@@ -211,7 +211,7 @@ const Explorer = () => {
         <div className="invest">
           <StickySideBar top={20}>
             <div className="invest-content">
-              <h1 className='h1-text'>Pourquoi investir à {country?.name}?</h1>
+              <h3>Pourquoi investir à {country?.name}?</h3>
 
               <div className="invest-gride">
 
@@ -360,7 +360,7 @@ const Explorer = () => {
 
           <StickySideBar top={20} bottom={5}>
             <div className="top-destination">
-              <h1>Découvrez des destinations qui éveilleront vos sens</h1>
+              <h3>Découvrez des destinations qui éveilleront vos sens</h3>
               <p><a href="#">Afficher plus</a></p>
               <div className="travel-caroseul relative">
                 <CarreSlider donneSlider={[
@@ -409,8 +409,7 @@ const Explorer = () => {
 
               <div className="ville-title">
                 <div>
-                  <h1>Trouvez des idées pour votre prochain voyage
-                  </h1>
+                  <h3>Trouvez des idées pour votre prochain voyage</h3>
                 </div>
                 <div>
                   <p><a href="#">Plus</a></p>
@@ -479,7 +478,7 @@ const Explorer = () => {
 
             <div className="nature">
               <div className="nature-title">
-                <h1>Explorez nos catégories de voyages</h1>
+                <h3>Explorez nos catégories de voyages</h3>
               </div>
 
               <div class="grille-item-nature">
@@ -548,8 +547,7 @@ const Explorer = () => {
             <div className="video">
               <div className="video-title">
                 <div>
-                  <h1>Video court metrage
-                  </h1>
+                  <h3>Videos/Court metrage</h3>
                 </div>
                 <div>
                   <p><a href="#">Plus</a></p>
@@ -654,7 +652,7 @@ const Explorer = () => {
             <div className="reservation">
 
               <div className="reservation-title">
-                <h1>Réservation d'Hôtel</h1>
+                <h3>Réservation d'Hôtel</h3>
                 <p><a href="#">Afficher plus</a></p>
               </div>
 

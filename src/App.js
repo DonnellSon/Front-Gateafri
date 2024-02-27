@@ -91,6 +91,8 @@ import PortalEvaluation from "./pages/Portal/PortalEvaluation";
 import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
 import PortalEmplois from "./pages/Portal/PortalEmplois";
 import PortalFaq from "./pages/Portal/PortalFaq";
+import AddHotelLayout from "./layouts/AddHotelLayout";
+import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -268,7 +270,7 @@ function App() {
                   style={{
                     paddingBottom:
                       (deviceType === SMARTPHONE || deviceType === TABLET) &&
-                      !window.location.pathname.startsWith("/messages")
+                        !window.location.pathname.startsWith("/messages")
                         ? "var(--bottom-nav-height)"
                         : 0,
                   }}
@@ -475,6 +477,9 @@ function App() {
             </Route> */}
 
                         <Route path="/explorer" element={<Countries />} />
+                        {
+                          !pageLoading && <Route path="*" element={<NotFound />} />
+                        }
                       </Route>
 
                       <Route path="/musique" element={<MusicLayout />}>
@@ -489,14 +494,21 @@ function App() {
                             <Route path="ville/:cityId" element={<City />} />
                           </Route>
                         </Route>
-                        <Route path='hotels' element={<HotelsHome />} />
-                        <Route path='hotels/reservation' element={<HotelsReservation />} />
-                        <Route path='hotels/search' element={<HotelsSearch />} />
+                        <Route path='hotels'>
+                          <Route index element={<HotelsHome />} />
+                          <Route path='nouveau' element={<AddHotelLayout />}>
+                            <Route path="identite" element={<AddHotelIdentity />} />
+                          </Route>
+                          <Route path='reservation' element={<HotelsReservation />} />
+                          <Route path='recherche' element={<HotelsSearch />} />
+                        </Route>
+
+
                       </Route>
 
                       <Route path='test' element={<HotelTest />} />
 
-                      <Route path="*" element={<NotFound />} />
+
                     </Routes>
 
                   </BrowserRouter>

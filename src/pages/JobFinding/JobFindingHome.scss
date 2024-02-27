@@ -31,6 +31,19 @@
                 margin-bottom: 15px;
             }
         }
+        .empty-job{
+            background: themed('background',3);
+            border-radius: 5px;
+            margin-top: 5px;
+            box-shadow: var(--elevation-1);
+            padding: 20px;
+            text-align: center;
+            height: 300px;
+            a{
+                margin-top: 10px;
+                width: 190px;
+            }
+        }
         > .right{
             background: themed("background",3);
             box-shadow: var(--elevation-1);

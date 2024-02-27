@@ -24,15 +24,15 @@ const RequireAuthOnClick = ({ children }) => {
         setModalOpen(false);
     };
 
-    const child = React.cloneElement(children, { onClick: (e)=>{
-        handleClick(e)
-        children.props.onClick && children.props.onClick()
-    } });
+    // const child = React.cloneElement(children, { onClick: (e)=>{
+    //     handleClick(e)
+    //     children.props.onClick && children.props.onClick()
+    // } });
 
     return (
         <>
-            <div onClick={handleClick}>
-                {child}
+            <div onClick={handleClick} onTouchStart={handleClick}>
+                {children}
             </div>
 
             {isModalOpen &&
