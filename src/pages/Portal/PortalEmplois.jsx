@@ -250,7 +250,7 @@ const PortalEmplois = () => {
             <div className="job" key={i}>
               <JobCard data={jobData} handleShow={()=>show(jobData)}/>
               <div className="modal-container">
-                <Modal open={open} className="modal">
+                <Modal open={open} className="modal-emplois">
                   <div className="content">
                     <JobDetails data={selectedJob} />
                     <div className="close">
