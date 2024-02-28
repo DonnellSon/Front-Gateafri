@@ -1,0 +1,240 @@
+@import "../style.scss";
+
+#hotelsLayout {
+    @include themify($themes) {
+        nav {
+            min-height: 125px;
+            background: linear-gradient(#9198e5, transparent);
+        }
+
+        .hotelsPayement-content {
+            max-width: 1100px;
+            margin: auto;
+
+            .hotelsPayement-Header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                padding: 15px 0;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+
+                    span {
+                        font-size: 15px;
+                    }
+
+                    .svg,
+                    .number,
+                    .number-2 {
+                        height: 25px;
+                        width: 25px;
+                        border-radius: 50px;
+                        background: rgba(148, 2, 181, 0.452);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .number-2 {
+                        background: none;
+                        border: 1px solid themed('border', 1);
+                    }
+                }
+            }
+
+            .hotelsPayement-body {
+                display: flex;
+                margin-bottom: 10px;
+                gap: 10px;
+
+                .hotelsPayement-left {
+                    flex: 0.8;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .hotelsPayement-card {
+                        padding: 15px;
+                        border-radius: 5px;
+                        background: themed('background', 3);
+                        box-shadow: var(--elevation-1);
+
+                        .title {
+                            padding: 5px 0;
+
+                            p {
+                                font-weight: bolder;
+                                color: themed('text', 3);
+                            }
+
+                        }
+
+                        .content {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+
+                            p:nth-of-type(2) {
+                                color: rgba(148, 2, 181, 0.452);
+                                font-size: 14px;
+                            }
+
+                            .card-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+
+                                span {
+                                    font-size: 13px;
+                                }
+
+                                span:first-child {
+                                    display: flex;
+                                    height: 25px;
+                                    width: 30px;
+                                    background: purple;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border-radius: 5px;
+                                }
+
+                                span:nth-of-type(3) {
+                                    color: gray;
+                                }
+                            }
+
+                            .card-gride {
+                                display: grid;
+                                grid-template-columns:
+                                    repeat(auto-fit,
+                                        minmax(min(75px, 100%), 1fr));
+
+                                .item-card {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 5px;
+                                }
+                            }
+                        }
+                    }
+
+                    .hotelsPayement-card-details {
+                        background: themed('background', 3);
+                        box-shadow: var(--elevation-1);
+                        padding: 15px;
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .title {
+
+                            p {
+                                font-weight: bolder;
+                                color: themed('text', 3);
+                            }
+                        }
+
+                        .content-details {
+                            display: flex;
+                            justify-content: space-between;
+
+                            .item-details:nth-of-type(2) {
+                                width: 1px;
+                                background: rgba(128, 128, 128, 0.387);
+                            }
+
+                            .item-details {
+                                p:first-child {
+                                    padding: 5px 0;
+                                }
+
+                                p:nth-of-type(2) {
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+
+                        .footer-details {
+                            p:first-child {
+                                font-weight: 500;
+                            }
+
+                            p {
+                                font-weight: bold;
+                            }
+                        }
+
+                    }
+
+                    .hotelsPayement-card-price {
+                        background: themed('background', 3);
+                        box-shadow: var(--elevation-1);
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .title {
+                            padding: 10px 15px;
+
+                            p {
+                                font-weight: bolder;
+                                color: themed('text', 3);
+                            }
+                        }
+
+                        .montant {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 10px 15px;
+                            background: rgba(112, 5, 112, 0.273);
+
+                            .montant-left {
+                                span {
+                                    font-size: 25px;
+                                    font-weight: bold;
+                                }
+                            }
+
+                            .montant-right {
+                                p:first-child {
+                                    font-size: 20px;
+                                    font-weight: bold;
+
+                                }
+                            }
+                        }
+
+                        .info {
+                            padding: 5px 15px;
+
+                            p:first-child {
+                                padding: 5px 0;
+                                color: themed('text', 3);
+                            }
+
+                            ul {
+                                li {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 5px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .hotelsPayement-right {
+                    flex: 2.2;
+                }
+
+            }
+        }
+    }
+}

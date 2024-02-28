@@ -1,0 +1,66 @@
+@import '../../style.scss';
+
+.HotelsConfirmation{
+    @include themify($themes){
+        a{
+            text-decoration: underline;
+            color: blue;
+            font-size: 12px;
+        }
+        .info{
+            display: flex;
+            align-items: center;
+            padding: 20px 15px 20px 15px ;
+            background: themed('background',3);
+            border-radius: 5px;
+            box-shadow: var(--elevation-1);
+            gap: 5px;
+           .content{
+            p:first-child{
+                font-weight: bold;
+                padding: 10px 0;
+                font-size: 20px;
+            }
+           }
+           .img{
+            img{
+                height: 50px;
+                width:  50px;
+                object-fit: cover;
+            }
+           }
+        }
+
+        .checkbox{
+            a{
+                font-size: 14px;
+            }
+            padding: 20px 15px 20px 15px ;
+            background: themed('background',3);
+            border-radius: 5px;
+            box-shadow: var(--elevation-1);
+            margin: 5px 0;
+            .checkbox-item{
+                padding: 10px 0;
+                font-size: 18px;
+            }
+            .footer-text{
+                p:first-child{
+                    font-size: 12px;
+                    padding: 10px 0;
+                }
+                p:nth-of-type(2){
+
+                }
+            }
+        }
+        .footer-button{
+            .btn-button:first-child{
+                background: none;
+                border: 1px solid purple;
+                span{color: purple;}
+            }
+        }
+
+    }
+}

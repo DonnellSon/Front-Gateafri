@@ -1,0 +1,221 @@
+@import "../../style.scss";
+
+.hotelsPayement-right {
+    @include themify($themes) {
+
+        
+                .information {
+                    padding: 15px;
+                    border-radius: 5px;
+                    background: themed('background', 3);
+                    box-shadow: var(--elevation-1);
+
+                    .title {
+                        padding: 5px 0;
+
+                        p {
+                            font-size: 25px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .input-type-gride {
+                        display: grid;
+                        grid-template-columns:
+                            repeat(auto-fit,
+                                minmax(min(300px, 100%), 1fr));
+                        gap: 15px;
+                        padding: 15px 0;
+
+                        .item {
+                            height: 50px;
+
+                            input {
+                                width: 350px;
+                                height: 40px;
+                                border-radius: 5px;
+                                padding: 15px;
+                                border: 1px solid themed('border', 2) !important;
+                                background: themed('background', 3) !important;
+                            }
+                        }
+
+                        .input-region {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            width: 350px;
+                            height: 40px;
+                            border-radius: 5px;
+                            padding: 15px;
+                            border: 1px solid themed('border', 2);
+                            background: themed('background', 3)
+                        }
+                    }
+
+                    .checkbox-info {
+                        display: flex;
+                        gap: 10px;
+                    }
+
+                    .reserve {
+                        border-top: 1px solid themed('border', 1);
+                        padding: 10px 0;
+                        margin: 10px 0;
+
+                        .reserve-checkbox {
+                            .item {
+                                input {}
+                            }
+                        }
+
+                    }
+                }
+
+                .savoir {
+                    padding: 15px;
+                    box-shadow: var(--elevation-1);
+                    background: themed('background', 3);
+                    margin: 5px 0;
+                    border-radius: 5px;
+
+                    .title {
+                        p {
+                            font-size: 20px;
+                            font-weight: bold;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .item-savoir {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        padding: 5px 0;
+                    }
+                }
+
+                .payement-details {
+                    padding: 15px;
+                    box-shadow: var(--elevation-1);
+                    background: themed('background', 3);
+                    margin: 5px 0;
+                    border-radius: 5px;
+
+                    .title {
+                        p {
+                            font-size: 20px;
+                            font-weight: bold;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .item-details {
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 5px 0;
+
+                        .text {
+                            flex: 0.8;
+                            gap: 10px;
+                        }
+
+                        .svg {}
+                    }
+                }
+
+                .payement-details,
+                .appointment-details,
+                .regle-details {
+                    padding: 15px;
+                    box-shadow: var(--elevation-1);
+                    background: themed('background', 3);
+                    margin: 5px 0;
+                    border-radius: 5px;
+
+                    .title {
+                        p {
+                            font-size: 20px;
+                            font-weight: bold;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .item-details {
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 5px 0;
+
+                        .text {
+                            flex: 0.8;
+                            gap: 10px;
+                        }
+
+                        .svg {}
+                    }
+                }
+
+                .appointment-details {
+                    .appointment-item {
+                        padding: 5px 0;
+
+                        p {
+                            padding: 5px 0;
+
+                            font-weight: bold;
+                        }
+
+                        .appointment-input {
+                            width: 250px;
+                            justify-content: space-between;
+                            height: 40px;
+                            padding: 0 5px;
+                            border: 1px solid themed('border', 3);
+                            border-radius: 5px;
+                        }
+                    }
+                }
+
+                .regle {
+                    padding: 15px;
+                    box-shadow: var(--elevation-1);
+                    background: themed('background', 3);
+                    margin: 5px 0;
+                    border-radius: 5px;
+
+                    .title {
+                        p {
+                            font-size: 20px;
+                            font-weight: bold;
+                            padding: 10px 0;
+                        }
+                    }
+
+                }
+
+                .regle-details {
+                    .item-details {
+                        gap: 5px;
+                        justify-content: unset;
+                    }
+                }
+
+                .footer-button {
+                    display: flex;
+                    justify-content: flex-end;
+                    padding: 15px;
+
+                    .btn-button {
+                        background: purple;
+                        box-shadow: var(--elevation-1);
+
+                        span {
+                            color: white;
+                        }
+                    }
+                }
+            }
+        
+    
+
+}

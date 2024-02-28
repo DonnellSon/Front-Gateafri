@@ -76,6 +76,9 @@ import Edit from './pages/Portal/Edit';
 import JobDetails from './pages/JobFinding/JobDetails';
 import NotFound from './pages/Eroors/NotFound';
 import HotelsSearch from './pages/HotelsSearch/HotelsSearch';
+import HotelsLayout from './layouts/HotelsLayout';
+import HotelsInfo from './pages/HotelsInfo/HotelsInfo';
+import HotelsConfirmation from './pages/HotelsConfirmation/HotelsConfirmation';
 function App() {
   const { user } = useSelector(store => store.user)
   const [socket, setSocket] = useState(null);
@@ -263,9 +266,9 @@ function App() {
               <div id="AppTheme" className={`theme-${theme}`}>
                 <div id="App" style={{ paddingBottom: (((deviceType === SMARTPHONE) || (deviceType === TABLET)) && !window.location.pathname.startsWith("/messages")) ? 'var(--bottom-nav-height)' : 0 }}>
                   <BrowserRouter>
-                
+
                     <Routes>
-                    
+
                       <Route element={<Default />}>
                         {
                           !pageLoading &&
@@ -369,26 +372,35 @@ function App() {
 
                       <Route path='/musique' element={<MusicLayout />}>
                         <Route index element={<Music />} />
-                        <Route path='profil' element={<ProfilMusic/>} />
+                        <Route path='profil' element={<ProfilMusic />} />
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
                         <Route path='/explorer'>
-                        <Route path='hotelsReservation' element={<HotelsReservation/>} />
-                        <Route path='hotelsSearch' element={<HotelsSearch/>}/>
+                          <Route path='hotelsReservation' element={<HotelsReservation />} />
+                          <Route path='hotelsSearch' element={<HotelsSearch />} />
                           <Route path='pays/:countryId'>
                             <Route index element={<Explorer />} />
                             <Route path='ville/:cityId' element={<City />} />
                           </Route>
                         </Route>
                         <Route path='hotels' element={<HotelsHome />} />
+                        {/* <Route path='hotels/payement' element={<HotelsPayement />} /> */}
+
+                        <Route element={<HotelsLayout />} >
+                          <Route path='Hotels/payement'>
+                            <Route path='info' element={<HotelsInfo />} />
+                            <Route path='confirmation' element ={<HotelsConfirmation/>} />
+                          </Route>
+                        </Route>
+
                       </Route>
 
-                      <Route path='test' element={<HotelTest/>}/>
+                      <Route path='test' element={<HotelTest />} />
 
                       <Route path='*' element={<NotFound />} />
                     </Routes>
-                    
+
                   </BrowserRouter>
                 </div>
                 <PageLoader open={pageLoading} />
