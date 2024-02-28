@@ -1,15 +1,14 @@
 @import "../../style.scss";
 @media (max-width: 600px) {
   .music-left {
-    position: fixed;
+    position: fixed !important;
     z-index: 123;
   }
 }
 
 .music-left {
-    
   @include themify($themes) {
-    transition: .5s;
+    transition: 0.5s;
     width: 240px;
     min-width: 240px;
     max-width: 240px;
@@ -18,12 +17,11 @@
     flex-direction: column;
     gap: 3px;
     .inside-sticky {
-      width: 100%;
-      height: 100vh;
+    //   height: 100vh;
       background-color: white;
       .music-menu {
         border-radius: 0;
-        width: 100%;
+        // width: 100%;
         .menu-container {
           display: flex;
           justify-content: space-between;
@@ -31,6 +29,9 @@
         ul {
           display: flex;
           flex-direction: column;
+        li{
+            display: block
+        };
         }
       }
     }
@@ -50,7 +51,7 @@
             color: themed("text", 2);
             display: flex;
             align-items: center;
-            gap: 10px;
+            // gap: 10px;
             border-radius: 5px;
             transition: 0.5s;
             margin: 0 -10px;
@@ -64,41 +65,41 @@
       }
     }
     &.opened {
-        .hamburgerMenu {
-          display: none;
-        }
-        .close {
-          display: block;
-        }
+      .hamburgerMenu {
+        display: none;
       }
-      &.closed {
-        width: 70px ;
-        min-width: 70px ;
-          max-width: 70px ;
-        .inside-sticky {
-          .music-menu {
-            .menu-container {
-              .menu {
-                display: none;
-              }
-              .close {
-                display: none;
-              }
+      .close {
+        display: block;
+      }
+    }
+    &.closed {
+      width: 70px;
+      min-width: 70px;
+      max-width: 70px;
+      .inside-sticky {
+        .music-menu {
+          .menu-container {
+            .menu {
+              display: none;
             }
-            ul {
-              li {
-                padding: 5px 3px;
-              }
+            .close {
+              display: none;
             }
-            box-shadow: none;
           }
-        }
-        span {
-          display: none;
-        }
-        .popular-artists-list {
-          display: none;
+          ul {
+            li {
+              padding: 5px 3px;
+            }
+          }
+          box-shadow: none;
         }
       }
+      span {
+        display: none;
+      }
+      .popular-artists-list {
+        display: none;
+      }
+    }
   }
 }

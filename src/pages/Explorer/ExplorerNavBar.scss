@@ -9,9 +9,10 @@
         align-items: center;
         height: 70px;
         margin-bottom: -70px;
-        background: linear-gradient(rgba(14, 14, 14, 0.979) -40%, rgba(14, 14, 14, 0.014) 95%);
 
         transition: .3s;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
 
         // box-shadow: var(--elevation-1);
         // border-bottom: 1px solid themed("border", 2);
@@ -21,7 +22,7 @@
 
         &:not(.top) {
             margin-top: 0 !important;
-            background: themed('background', 3);
+            background: themed('background', 3) !important;
             box-shadow: var(--elevation-1);
             border-bottom: 1px solid themed("border", 2);
             a{

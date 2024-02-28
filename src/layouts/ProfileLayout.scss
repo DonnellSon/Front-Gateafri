@@ -15,31 +15,7 @@
                 max-width: 850px;
 
                 >.top {
-                    >.profile-banner {
-                        background: themed("background", 5);
-                        border-radius: 6px;
-                        height: 180px;
-                        position: relative;
-
-                        button {
-                            all: unset;
-                            background: themed("background", 3);
-                            color: themed("text", 1);
-                            display: flex;
-                            align-items: center;
-                            height: 35px;
-                            padding: 0 10px;
-                            border-radius: 5px;
-                            box-shadow: var(--elevation-1);
-                            gap: 10px;
-                            font-weight: themed("weight", 500);
-                            font-size: 14px;
-                            position: absolute;
-                            right: 10px;
-                            top: 10px;
-                            cursor: pointer;
-                        }
-                    }
+                    
 
                     .profile-user {
                         padding: 0 20px;

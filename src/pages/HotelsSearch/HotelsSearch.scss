@@ -9,7 +9,9 @@
             background-repeat: no-repeat !important;
             background-size: cover !important;
             box-shadow: var(--elevation-1);
-            background:themed('background',3);
+            background-repeat: no-repeat !important;
+        background-size: cover !important;
+
 
         }
 
@@ -23,7 +25,7 @@
                 margin: auto;
                 background:themed('background',4);
                 position: sticky;
-                top: -75px;
+                top: -79px;
                 z-index: 200;
                 border: 1px solid themed('border',2);
                 transition: 0.5s;
@@ -273,7 +275,7 @@
                         }
                     }
 
-                    .caroseul-hotel-gride {
+                    .hotel-search-results {
                         display: grid;
                         height: auto;
                         grid-template-columns:
@@ -281,7 +283,7 @@
                                 minmax(min(250px, 100%), 1fr));
                         gap: 10px;
 
-                        .caroseul-hotel-item {
+                        .hotel-search-results-item {
                             flex-direction: column;
                             gap: 5px;
                             border-radius: 5px ;
@@ -307,11 +309,15 @@
                             }
 
                             .img {
+                                aspect-ratio: 16/9;
+                                position: relative;
                                 img {
+                                    position: absolute;
                                     width: 100%;
+                                    height: 100%;
                                     object-fit: cover;
                                     border-radius: 5px 5px 0 0;
-                                    aspect-ratio: 16/9;
+                                    
                                 }
 
                                 .img-text {
@@ -323,7 +329,7 @@
                                 }
                             }
 
-                            .caroseul-content {
+                            .caption {
                                 display: flex;
                                 flex-direction: column;
                                 gap: 5px;

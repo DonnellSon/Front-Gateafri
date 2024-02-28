@@ -34,7 +34,7 @@ const ExplorerNavBar = () => {
 
     return (
         <>
-            <div className={`navbar-explorer${top && !Boolean(match) ? ' top' : ''}`} >
+            <div className={`navbar-explorer${top && !Boolean(match) ? ' top' : ''}`}  style={{ background: 'linear-gradient(rgba(14, 14, 14, 0.979) -40%, rgba(14, 14, 14, 0.014) 95%),url(/img/other/hotelbanner.jpg)' }}>
 
                 <div className='item'>
                     <Link to='/' className='item-left topbar-logo'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo'/></Link>
@@ -62,7 +62,7 @@ const ExplorerNavBar = () => {
 
                     <div className='item-center'>
                         <div className='svg-container'>
-                            <DoNavLink className='svg' activeClass='active' to='/hotels'>
+                            <DoNavLink className='svg' activeClass='active' end={false} to='/hotels'>
                             <GiCableStayedBridge size={22}/>
                             <span>Hotels</span>
                             </DoNavLink>
