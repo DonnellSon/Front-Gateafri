@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Search.scss";
 import Avatar from "../../components/Avatar/Avatar";
 import StickySideBar from "../../components/StickySideBar/StickySideBar";
-import { ArrowRight, Award, CupHot, Water, Wifi } from "react-bootstrap-icons";
+import {
+  ArrowRight,
+  Award,
+  CupHot,
+  GeoAlt,
+  Water,
+  Wifi,
+} from "react-bootstrap-icons";
 import { useQuery } from "react-query";
 import { getInvests } from "../../api/invest";
 import Slider from "react-slick";
@@ -20,6 +27,7 @@ import PostCard from "../../components/PostCard/PostCard";
 import ArtistsListSkeleton from "./ArtistsListSkeleton";
 import MusiquesListSkeleton from "./MusiquesListSkeleton";
 import VideoCard from "../../components/VideoCard/VideoCard";
+import Rating from "react-rating";
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -139,6 +147,23 @@ const Search = () => {
       evaluationCount: 5,
       evaluationSum: 25,
     },
+    {
+      id: 2,
+      author: {
+        id: 2,
+        firstName: "John",
+        lastName: "Doe",
+        activeProfilePicture: { fileUrl: "/img/other/avatar.png" },
+        domains: [{ title: "Développement" }],
+        country: { name: "France", flag: { fileUrl: "url_du_drapeau" } },
+      },
+      content:
+        "Contenu du premier post Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus accusantium id suscipit? Nesciunt temporibus ipsa, aliquam itaque neque, sint nostrum, reprehenderit ex nihil libero eligendi quisquam suscipit corrupti. Mollitia, natus      Aperiam maiores exercitationem consequatur illo explicabo omnis quod vero culpa debitis impedit praesentium cum nihil, facere non nulla numquam, quisquam sequi. At exercitationem aliquid, id illum corporis repellat necessitatibus animi Voluptate soluta atque architecto laudantium totam, accusantium quos sint. Fuga hic, molestias dolor dolorum itaque id et alias! Laboriosam repellendus dolorum maiores, adipisci eius repellat laudantium porro nesciunt facilis totam.",
+      thumbnails: ["url_image1", "url_image2"],
+      createdAt: "2023-04-01T10:00:00Z",
+      evaluationCount: 5,
+      evaluationSum: 25,
+    },
   ];
   const videosData = [
     {
@@ -182,6 +207,57 @@ const Search = () => {
       },
     },
   ];
+  const attractionsData = [
+    {
+      URLImage: "/img/other/rovamanjakamiadana.jpg",
+      name: "Rova Manjakamiadana blabalblablalalablbl",
+      location: "Antananarivo",
+      nbVote: 58,
+      type: "Monument",
+    },
+    {
+      URLImage: "/img/other/baobab.webp",
+      name: "Allée des Baobab",
+      location: "Morondava",
+      nbVote: 512,
+      type: "Parc",
+    },
+    {
+      URLImage: "/img/other/festival.jpg",
+      name: "Tomorrowland",
+      location: "Kenya",
+      nbVote: 1903,
+      type: "Festival",
+    },
+    {
+      URLImage: "/img/other/galerie.jpg",
+      name: "Is'Art Galerie",
+      location: "Botswana",
+      nbVote: 23,
+      type: "Galerie d'art",
+    },
+    {
+      URLImage: "/img/other/kayak.jpg",
+      name: "Kayak Africa",
+      location: "Island",
+      nbVote: 695,
+      type: "Plei air",
+    },
+    {
+      URLImage: "/img/other/market_analakely.jpg",
+      name: "Analakely Market",
+      location: "Antanarivo",
+      nbVote: 489,
+      type: "Marché",
+    },
+    {
+      URLImage: "/img/other/sport.jpg",
+      name: "Foot Salle",
+      location: "Antananarivo",
+      nbVote: 489,
+      type: "Sport",
+    },
+  ];
   return (
     <div id="search-page">
       <div className="left">
@@ -211,7 +287,7 @@ const Search = () => {
                 <Link>Hôtels</Link>
               </li>
               <li>
-                <Link>Divertissements</Link>
+                <Link>Attractions</Link>
               </li>
             </ul>
           </div>
@@ -260,12 +336,37 @@ const Search = () => {
         </div>
 
         <div className="persons-results ">
-          <Slider
-            {...{
-              slidesToShow: 4,
-              slidesToScroll: 1,
-            }}
-          ></Slider>
+          <div className="top">
+            <h2>Persons</h2>
+          </div>
+          <div className="persons-results-list flex flex-column">
+            <div className="person flex justify-content-between align-items-center ">
+              <div className="flex align-items-center gap-10">
+                <Avatar width={50} height={50} />
+                <div className="info flex flex-column gap-5">
+                  <h3>John Doe</h3>
+                  <p>Lorem ipsum</p>
+                </div>
+              </div>
+              <div className="right flex gap-10">
+                <buttton className="btn-purple">Contacter</buttton>
+                <buttton className="btn- recruter">Recruter</buttton>
+              </div>
+            </div>
+            <div className="person flex justify-content-between align-items-center ">
+              <div className="flex align-items-center gap-10">
+                <Avatar width={50} height={50} />
+                <div className="info flex flex-column gap-5">
+                  <h3>John Doe</h3>
+                  <p>Lorem ipsum</p>
+                </div>
+              </div>
+              <div className="right flex gap-10">
+                <buttton className="btn-purple">Contacter</buttton>
+                <buttton className="btn- recruter">Recruter</buttton>
+              </div>
+            </div>
+          </div>
         </div>
 
         {investsLoading ? (
@@ -300,9 +401,11 @@ const Search = () => {
               <div className="top">
                 <h2>Actualités</h2>
               </div>
-              {postsData.map((p, i) => (
-                <PostCard key={i} data={p} onDelete={() => {}} />
-              ))}
+              <div className="posts-results-list flex flex-column gap-10">
+                {postsData.map((p, i) => (
+                  <PostCard key={i} data={p} onDelete={() => {}} />
+                ))}
+              </div>
               <div className="footer">
                 <button className="btn btn-transparent">Voir plus</button>
               </div>
@@ -425,7 +528,9 @@ const Search = () => {
                 <div className="top">
                   <span>Hôte professionnel</span>
                   <h3>Le Grand Mellis Hôtel & Spa</h3>
-                  <span>Antananarivo</span>
+                  <span className="flex align-items-center gap-5">
+                    <GeoAlt /> Antananarivo
+                  </span>
                   <div className="flex">
                     <div className="flex gap-15">
                       <small className="flex align-items-center gap-5 py-5">
@@ -462,7 +567,7 @@ const Search = () => {
                     </div>
                     {/* </div> */}
                     <small>pour 2 nuits</small>
-                    <p>47 € par nuit</p>
+                    {/* <p>47 € par nuit</p> */}
                     <small>taxes et frais compris</small>
                   </div>
                 </div>
@@ -490,7 +595,10 @@ const Search = () => {
                 <div className="top">
                   <span>Hôte professionnel</span>
                   <h3>Le Grand Mellis Hôtel & Spa</h3>
-                  <span>Antananarivo</span>
+                  <span className="flex align-items-center gap-5">
+                    <GeoAlt />
+                    Antananarivo
+                  </span>
                   <div className="flex">
                     <div className="flex gap-15">
                       <small className="flex align-items-center gap-5 py-5">
@@ -519,20 +627,43 @@ const Search = () => {
                     </div>
                   </div>
                   <div className="right flex align-items-end flex-column">
-                    {/* <div className="reduction"> */}
                     <div className="reduction">-28 %</div>
                     <div className="prix flex gap-5 py-5">
                       <p>129 €</p>
                       <h4>93 €</h4>
                     </div>
-                    {/* </div> */}
                     <small>pour 2 nuits</small>
-                    <p>47 € par nuit</p>
                     <small>taxes et frais compris</small>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="footer">
+            <button className="btn btn-transparent">Voir plus</button>
+          </div>
+        </div>
+        <div className="attractions-results">
+          <div className="top">
+            <h2>Attractions</h2>
+          </div>
+          <div className="attractions-results-list mt-10">
+            <Slider {...settings}>
+              {attractionsData.map((a, i) => (
+                <div className="attraction" key={i}>
+                  <div className="attraction-image">
+                    <img src={a.URLImage} alt={a.name} />
+                  </div>
+                  <div className="attraction-text">
+                    <h3>{a.name}</h3>
+                    <span className="location flex align-items-center gap-5">
+                      <GeoAlt /> {a.location}
+                    </span>
+                    <p>{a.type}</p>
+                  </div>
+                </div>
+              ))}
+            </Slider>
           </div>
           <div className="footer">
             <button className="btn btn-transparent">Voir plus</button>

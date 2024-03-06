@@ -93,6 +93,7 @@ import PortalEmplois from "./pages/Portal/PortalEmplois";
 import PortalFaq from "./pages/Portal/PortalFaq";
 import AddHotelLayout from "./layouts/AddHotelLayout";
 import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
+import ProfileRecommendation from "./pages/Profile/ProfileRecommandation";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -349,7 +350,7 @@ function App() {
                                         replace={true}
                                       />
                                     }
-                                  />
+                                  />    
                                   <Route
                                     path="etudes-et-emplois"
                                     element={<Studies />}
@@ -359,6 +360,7 @@ function App() {
                                     element={<Contact />}
                                   />
                                 </Route>
+                                <Route path="recommandations" element={<ProfileRecommendation/>}/>
                               </Route>
                             </Route>
 

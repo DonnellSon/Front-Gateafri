@@ -275,26 +275,58 @@
   }
 }
 
-.square-ad {
-  margin-top: 15px;
-
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: var(--elevation-1);
-  }
-}
-.actualites-results {
-  @include themify($themes) {
-    background: themed("background", 3);
+.persons-results{
+    @include themify($themes){
+        background: themed("background", 3);
     box-shadow: var(--elevation-1);
     border-radius: 5px;
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
     margin-bottom: 15px;
+    .person{
+    border-radius: 5px;
+    padding: 10px;
+        .info{
+
+            h3{
+                font-size: 16px;
+                color: themed('text',2);
+            }
+            p{
+                font-size: 13px;
+            }
+        }
+        .right{
+            .recruter{
+                color: var(--orange);
+                border: 1px solid var(--orange);
+                cursor: pointer;
+            }
+        }
+    }
+    }
+}
+.actualites-results {
+  @include themify($themes) {
+    // background: themed("background", 3);
+    box-shadow: var(--elevation-1);
+    border-radius: 5px;
+    // padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+    .post-card {
+      margin-bottom: 0;
+    }
+    .top,
+    .footer {
+      background: themed("background", 3);
+      border-radius: 5px;
+      padding: 15px;
+    }
   }
 }
 .artists-results {
@@ -457,9 +489,10 @@
     margin-bottom: 15px;
     .hotels-results-list {
       .hotel {
-        height: 230px;
+        height: 200px;
         border-radius: 5px;
-        box-shadow: var(--elevation-1);
+        // border: 1px solid themed('border',1);
+        cursor: pointer;
         .hotel-image {
           width: 35%;
           height: 100%;
@@ -483,33 +516,41 @@
         .hotel-detail {
           flex: 1;
           padding: 10px 15px;
-          .left {
-            .cumule{
-                margin-bottom: 20px;
-                .icon{
-                    color: themed('mainColor',purple);
-                }
-            }
-            .avis {
-              font-size: 14px;
-              .note {
-                background-color: themed("background", 1);
-                padding: 5px;
-                border-radius: 5px;
-              }
+          .top {
+            h3 {
+              font-size: 16px;
+              color: themed("text", 1);
             }
           }
-          .right {
-            .reduction {
-              background-color: var(--orange);
-              color: white;
-              padding: 5px;
-              border-radius: 5px;
-              font-size: 12px;
+          .bottom {
+            .left {
+              .cumule {
+                margin-bottom: 20px;
+                .icon {
+                  color: themed("mainColor", purple);
+                }
+              }
+              .avis {
+                font-size: 14px;
+                .note {
+                  background-color: themed("background", 1);
+                  padding: 5px;
+                  border-radius: 5px;
+                }
+              }
             }
-            .prix {
-              p {
-                text-decoration: underline line-through;
+            .right {
+              .reduction {
+                background-color: var(--orange);
+                color: white;
+                padding: 3px;
+                border-radius: 5px;
+                font-size: 12px;
+              }
+              .prix {
+                p {
+                  text-decoration: underline line-through;
+                }
               }
             }
           }
@@ -518,3 +559,65 @@
     }
   }
 }
+.attractions-results {
+  @include themify($themes) {
+    background: themed("background", 3);
+    color: themed("text", 4);
+    border-radius: 5px;
+    box-shadow: var(--elevation-1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .attractions-results-list {
+      .attraction {
+        width: 200px !important;
+        // margin:0 5px;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: themed("background", 5);
+        }
+        .attraction-image {
+          img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+        }
+        .attraction-text {
+          margin-top: 10px;
+          h3 {
+            font-size: 15px;
+            color: themed("text", 1);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* Nombre de lignes à afficher */
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis; /* Ajoute les points de suspension */
+          }
+          .location {
+            font-size: 13px;
+          }
+          > p {
+            font-size: 13px;
+            color: themed('mainColor',purple);
+          }
+        }
+      }
+    }
+  }
+}
+
+.square-ad {
+    margin-top: 15px;
+  
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: var(--elevation-1);
+    }
+  }
