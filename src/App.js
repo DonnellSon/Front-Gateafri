@@ -94,6 +94,7 @@ import PortalFaq from "./pages/Portal/PortalFaq";
 import AddHotelLayout from "./layouts/AddHotelLayout";
 import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
 import ProfileRecommendation from "./pages/Profile/ProfileRecommandation";
+import Residences from "./pages/Profile/Residences";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -359,6 +360,7 @@ function App() {
                                     path="mes-coordonnees"
                                     element={<Contact />}
                                   />
+                                  <Route path="residences" element={<Residences/>} />
                                 </Route>
                                 <Route path="recommandations" element={<ProfileRecommendation/>}/>
                               </Route>
