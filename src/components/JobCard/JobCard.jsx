@@ -11,7 +11,7 @@ import { useCurrencyConverter } from '../../Hooks/currencyHooks'
 import CurrencyContext from '../../context/CurrencyContext'
 import { convertCurrency } from '../../utils/currencyUtils'
 
-const JobCard = ({ active = false, data: { id, title, author, domaine, summary, description, createdAt, xp, salary } }) => {
+const JobCard = ({handleShow, active = false, data: { id, title, author, domaine, summary, description, createdAt, xp, salary } }) => {
     const { currency,currenciesBaseUSD } = useContext(CurrencyContext)
     const [from,to]=[currenciesBaseUSD[salary.currency.code],currenciesBaseUSD[currency?.code]]
 
@@ -59,7 +59,7 @@ const JobCard = ({ active = false, data: { id, title, author, domaine, summary, 
                 <p className="description">{htmlToJsx.parse(summary || description)}</p>
                 <div className="bottom flex gap-10">
                     <button className="btn-transparent orange-txt">Postuler</button>
-                    <button className="btn-transparent"><Eye /></button>
+                    <button className="btn-transparent" onClick={()=>handleShow()}><Eye /></button>
                 </div>
             </div>
         </div>

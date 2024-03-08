@@ -91,6 +91,10 @@ import PortalEvaluation from "./pages/Portal/PortalEvaluation";
 import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
 import PortalEmplois from "./pages/Portal/PortalEmplois";
 import PortalFaq from "./pages/Portal/PortalFaq";
+import AddHotelLayout from "./layouts/AddHotelLayout";
+import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
+import ProfileRecommendation from "./pages/Profile/ProfileRecommandation";
+import Residences from "./pages/Profile/Residences";
 
 import AddHotel from "./pages/HotelsManager/AddHotel";
 import Contacts from "./pages/Contacts/Contacts";
@@ -405,7 +409,7 @@ function App() {
                                         replace={true}
                                       />
                                     }
-                                  />
+                                  />    
                                   <Route
                                     path="etudes-et-emplois"
                                     element={<Studies />}
@@ -414,7 +418,9 @@ function App() {
                                     path="mes-coordonnees"
                                     element={<Contact />}
                                   />
+                                  <Route path="residences" element={<Residences/>} />
                                 </Route>
+                                <Route path="recommandations" element={<ProfileRecommendation/>}/>
                               </Route>
                             </Route>
 

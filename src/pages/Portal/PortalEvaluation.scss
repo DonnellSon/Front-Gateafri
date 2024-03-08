@@ -2,20 +2,20 @@
 
 .portal-evaluation {
   @include themify($themes) {
-    @media (max-width:600px){
-        .avis{
-            .list-avis{
-                .avi-item{
-                    flex-direction: column;
-                    .left{
-                        margin-bottom: 15px;
-                    }
-                    .content{
-                        margin-left: 50px !important;
-                    }
-                }
+    @media (max-width: 600px) {
+      .avis {
+        .list-avis {
+          .avi-item {
+            flex-direction: column;
+            .left {
+              margin-bottom: 15px;
             }
+            .content {
+              margin-left: 50px !important;
+            }
+          }
         }
+      }
     }
     @media (max-width: 992px) {
       .head {
@@ -32,45 +32,45 @@
           }
         }
       }
-      .titre{
+      .titre {
         max-width: 680px;
         padding: 0 15px;
-        margin:15px auto !important;
+        margin: 15px auto !important;
       }
       .avis {
         flex-direction: column-reverse;
         .list-avis {
-        margin: auto;
+          margin: auto;
         }
         .right {
           top: 0 !important;
           .container {
             width: 100% !important;
             align-items: flex-start;
-            h3{
-                position: relative;
-                text-align: left !important;
-                display: table;
+            h3 {
+              position: relative;
+              text-align: left !important;
+              display: table;
             }
-            h3::after{
-                content: '';
-                position: absolute;
-                width: 25px;
-                height: 5px;
-                right: -35px;
-                top: 50%;
-                background-color: rgba(128, 0, 128, 0.26);
-                border-radius: 5px;
+            h3::after {
+              content: "";
+              position: absolute;
+              width: 25px;
+              height: 5px;
+              right: -35px;
+              top: 50%;
+              background-color: rgba(128, 0, 128, 0.26);
+              border-radius: 5px;
             }
             .content {
               width: 100% !important;
               justify-content: space-between;
-              .rating-breakdown{
+              .rating-breakdown {
                 flex: 1;
                 display: table;
                 margin-left: 20px;
-                .bar-container{
-                    width: 90% !important;
+                .bar-container {
+                  width: 90% !important;
                 }
               }
             }
@@ -82,20 +82,21 @@
               align-items: center;
             }
           }
-          .question, .job-populaire{
+          .question,
+          .job-populaire {
             display: none;
           }
         }
       }
     }
     .head {
-        .heading2{
-            button{
-                border: 1px solid themed('mainColor',purple);
-                border-radius: 5px;
-                color: themed('mainColor',purple);
-            }
+      .heading2 {
+        button {
+          border: 1px solid themed("mainColor", purple);
+          border-radius: 5px;
+          color: themed("mainColor", purple);
         }
+      }
       h3 {
         font-size: 15px;
         font-weight: 600;
@@ -121,7 +122,7 @@
               display: flex;
               align-items: center;
               padding: 7px 15px;
-              color: themed('mainColor',purple);
+              color: themed("mainColor", purple);
               cursor: pointer;
               border: 1px solid themed("border", 1);
               border-radius: 5px;
@@ -130,7 +131,7 @@
                 margin-left: 10px;
               }
               &.active {
-                color: themed('text',1);
+                color: themed("text", 1);
                 font-weight: 600;
                 background-color: themed("background", 1);
                 .arrow {
@@ -152,7 +153,7 @@
       }
     }
     .avis {
-        gap: 5px;
+      gap: 5px;
       .list-avis {
         flex: 1;
         .avi-item {
@@ -217,10 +218,10 @@
               }
               .btn {
                 button {
-                //   border: 1px solid themed('mainColor',purple);
-                border: none;
-                  background: themed('background',1);
-                  color: themed('text',2);
+                  //   border: 1px solid themed('mainColor',purple);
+                  border: none;
+                  background: themed("background", 1);
+                  color: themed("text", 2);
                   padding: 5px 10px;
                   border-radius: 5px;
                   margin-right: 5px;
@@ -250,8 +251,8 @@
             font-size: 16px;
           }
           .btn {
-            border: 1px solid themed('mainColor',purple);
-            color: themed('mainColor',purple);
+            border: 1px solid themed("mainColor", purple);
+            color: themed("mainColor", purple);
             flex: 1;
             text-align: center;
             padding: 8px;
@@ -261,7 +262,7 @@
           }
         }
         .note-global {
-            max-width: 680px;
+          max-width: 680px;
           p {
             font-size: 12px;
           }
@@ -298,7 +299,7 @@
                   transform: rotateZ(-90deg);
                   font-size: 20px;
                   font-weight: 700;
-                  color: themed('mainColor',purple);
+                  color: themed("mainColor", purple);
                 }
               }
             }
@@ -307,7 +308,7 @@
                 display: flex;
                 align-items: center;
                 .numero {
-                    width: 10px;
+                  width: 10px;
                   display: flex;
                   align-items: center;
                   font-weight: 600;
@@ -345,5 +346,13 @@
         }
       }
     }
+}
+}
+
+.modal-evaluation {
+  .modalContent {
+    overflow: scroll;
+    overflow-x: hidden;
+    max-width: 700px;
   }
 }

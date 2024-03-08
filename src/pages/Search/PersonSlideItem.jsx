@@ -4,7 +4,7 @@ import DiamondRating from '../../components/DiamondRating/DiamondRating'
 
 const PersonSlideItem = () => {
   return (
-    <div className='person-slide-item flex gap-10'>
+    <div className='person-slide-item flex gap-10 mb-15'>
       <div className="left">
         <Avatar/>
       </div>

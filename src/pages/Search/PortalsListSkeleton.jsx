@@ -3,7 +3,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 
 const PortalsListSkeleton = () => {
     return (
-        <div className='portals-list-skeleton flex flex-column gap-20'>
+        <div className='portals-list-skeleton flex flex-column gap-20 mb-15'>
             <div className="">
                 <Skeleton height={15} width='20%' />
             </div>

@@ -4,10 +4,13 @@ import { ArrowDownShort, ArrowUpShort, Gem } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import Rating from "react-rating";
 import Avatar from "../../components/Avatar/Avatar";
+import Modal from "../../components/Modal/Modal";
+import PortalAvis from './PortalAvis'
 
 const PortalEvaluation = () => {
   const [isCroissant, setIsCroissant] = useState(true);
   const [isActive, setIsActive] = useState("Date");
+  const [open, setOpen] = useState(false)
 
   const handleClick = (value) => {
     setIsActive(value);
@@ -18,7 +21,10 @@ const PortalEvaluation = () => {
       <div className="head elevated-card px-15 mt-15 pb-15">
         <div className="heading2 justify-content-between">
           <h3>Avis des Employés</h3>
-          <button className="btn-evaluer-nous">Evaluer Nous</button>
+          <button className="btn-evaluer-nous" onClick={()=>setOpen(true)}>Evaluer Nous</button>
+          <Modal open={open} className='modal-evaluation'>
+            <PortalAvis handleClose={setOpen}/>
+          </Modal>
         </div>
         <div className="triage">
           <div className="selection flex">
