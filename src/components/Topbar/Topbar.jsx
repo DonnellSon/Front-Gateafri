@@ -15,10 +15,10 @@ import CurrencySelector from '../CurrencySelector/CurrencySelector'
 import CurrencyContext from '../../context/CurrencyContext'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
-  const { user,socket } = useSelector(state => state.user)
+  const { user, socket } = useSelector(state => state.user)
   const navigate = useNavigate()
 
-  
+
 
   return (
     <>
@@ -48,7 +48,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                 <Briefcase style={{ marginTop: 4 }} strokeWidth={0.1} size={24} />
               </DoNavLink>
             </li>
-            
+
             <li>
               <DoNavLink className='top-to-afrimuz' to="/musique" activeClass='active'>
                 <img src='/img/logo/afrimuz2.png' />
@@ -93,14 +93,16 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
           <RequireAuthOnClick>
             <Link to="/notifications"><Bell size={22} /></Link>
           </RequireAuthOnClick>
-          <CurrencySelector/>
+          <CurrencySelector />
           {
             user ?
-              <span className='flex gap-5 align-items-center' onClick={() => {
+              <span className='profile flex gap-5 align-items-center' onClick={() => {
                 setOpenRightbar(true)
               }}>
-                <Avatar src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} />
-                <ChevronLeft size={16} />
+                <Avatar width={40} height={40} src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} />
+                <div className="ico">
+                  <ChevronLeft />
+                </div>
               </span>
               :
               <Link to="/connexion"><Person size={23} /></Link>

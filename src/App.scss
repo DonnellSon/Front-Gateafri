@@ -79,6 +79,7 @@ img.emoji {
 
   // overflow-y: scroll;
   @include themify($themes) {
+    overflow-y: scroll;
     .errorLabel>* {
       color: var(--red) !important;
       font-size: 13px;
@@ -511,6 +512,10 @@ a {
   white-space: pre;
   overflow: hidden;
   font-size: 14px;
+  &:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 [class*="btn-"]:hover {

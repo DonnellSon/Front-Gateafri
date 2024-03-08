@@ -116,9 +116,6 @@ const Messenger = ({ discu }) => {
                         }</h5>
                         <span>Actif</span>
                     </div>
-                    <button className="btn-transparent">
-                        <ChevronDown />
-                    </button>
                 </div>
             </div>
             <div className="content" ref={scrollRef}>

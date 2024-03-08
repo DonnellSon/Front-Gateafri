@@ -20,6 +20,7 @@ import MediaContext from '../../context/MediaContext'
 import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants'
 import { useMutation, useQuery } from 'react-query'
 import { deleteDiscussion, getDiscussions } from '../../api/discussion'
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
 const Messages = () => {
 
 
@@ -27,12 +28,21 @@ const Messages = () => {
 
     const { discuId } = useParams()
     const [activeDiscu, setActiveDiscu] = useState(null)
-    const { data: discussions, error, isLoading: discussionsLoading } = useQuery('repoDiscu',getDiscussions)
-    // const { data: discussions, err, loading: discussionsLoading } = useReq({ url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`, method: 'get', withCredentials: true }, [])
-
-    // useMutation(deleteDiscussion,{
-    //     onMutate:
-    // })
+    const { data: discussions, error, isLoading: discussionsLoading } = useQuery('repoDiscu', getDiscussions)
+    const { data: discuList,
+        flatData: discuListFlat,
+        error: discuListErr,
+        hasNextPage: discuListNextPage,
+        isFetching: discuListFetching,
+        isFetchingNextPage: discuListFetchingNextPage,
+        status: discuListLoadingStatus,
+        refetch,
+        refetchPage
+    } = useInfiniteScroll({
+        url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`,
+        ipp: 10,
+        queryKey: ['discuList'],
+    })
 
 
     useEffect(() => {
@@ -100,7 +110,7 @@ const Messages = () => {
                         </div>
                     </div>
                     <Tabs className='post-comments-tabs'>
-                        <Tab title={<span>Discussions (200)</span>}>
+                        <Tab title={<span>Discussions ({discuList?.pages[0]?.totalItems})</span>}>
                             <div className="discussion-list">
                                 {
                                     (deviceType !== SMARTPHONE) &&
@@ -108,22 +118,38 @@ const Messages = () => {
                                 }
 
                                 {
-                                    discussionsLoading ?
-
+                                    discuListLoadingStatus === 'loading' ? (
                                         <>
-                                            <DiscussionSkeleton />
-                                            <DiscussionSkeleton />
-                                            <DiscussionSkeleton />
-                                            <DiscussionSkeleton />
-                                            <DiscussionSkeleton /></>
+                                            <>
+                                                <DiscussionSkeleton />
+                                                <DiscussionSkeleton />
+                                                <DiscussionSkeleton />
+                                                <DiscussionSkeleton />
+                                                <DiscussionSkeleton /></>
+                                        </>
+                                    ) : discuListLoadingStatus === 'error' ? (
+                                        <p>Error: {error.message}</p>
+                                    ) : (discuList?.pages[0]?.data?.length > 0 ? discuList?.pages?.map((group, i) => (
+                                        <React.Fragment key={i}>
+                                            {group.data.map((d, i) => (
+                                                <Discussion key={i} data={d} active={d.id === discuId} />
+                                            ))}
+                                        </React.Fragment>
 
-                                        :
 
-                                        discussions.length > 0 ?
-                                            discussions.map((d, i) => <Discussion key={i} data={d} active={d.id === discuId} />)
-                                            :
-                                            <h5>Aucune discussion</h5>
+                                    )) : <div className="empty-job flex flex-column justify-content-center align-items-center gap-5">
+                                        <h4>Aucune discussion disponible</h4>
+                                        <p className='text-center'>Nous vous invitons à prendre contact avec d'autres personnes ou entités pour demarrer une discussion</p>
+                                    </div>)
                                 }
+                                {discuListFetchingNextPage
+                                    ? <>
+                                        <DiscussionSkeleton />
+                                        <DiscussionSkeleton />
+                                        <DiscussionSkeleton /></>
+                                    : discuListNextPage
+                                        ? ''
+                                        : ''}
 
                             </div>
                         </Tab>

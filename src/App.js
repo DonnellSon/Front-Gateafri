@@ -91,8 +91,9 @@ import PortalEvaluation from "./pages/Portal/PortalEvaluation";
 import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
 import PortalEmplois from "./pages/Portal/PortalEmplois";
 import PortalFaq from "./pages/Portal/PortalFaq";
-import AddHotelLayout from "./layouts/AddHotelLayout";
-import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
+
+import AddHotel from "./pages/HotelsManager/AddHotel";
+import Contacts from "./pages/Contacts/Contacts";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -291,6 +292,8 @@ function App() {
                             <Route path="/recherche">
                               <Route index element={<Search />} />
                             </Route>
+
+
                             <Route
                               path="/image/:image_id"
                               element={<Image />}
@@ -313,6 +316,59 @@ function App() {
                                 <Route path="cv" element={<CreateCv />} />
                               </Route>
                               <Route path="details" element={<JobDetails />} />
+                            </Route>
+                            <Route
+                              element={<AuthRedirect requireAuth={true} />}
+                            >
+                              <Route path="/contacts" element={<Contacts />}>
+                                <Route index element={<h1>Hello World</h1>} />
+                                <Route path="profil">
+                                  <Route
+                                    index
+                                    element={
+                                      connectedUser ? (
+                                        <Navigate
+                                          to={`${connectedUser.id}`}
+                                          replace={true}
+                                        />
+                                      ) : (
+                                        <AuthRedirect requireAuth={true} />
+                                      )
+                                    }
+                                  />
+                                  <Route path=":userId" element={<ProfileLayout />}>
+                                    <Route
+                                      index
+                                      element={
+                                        <Navigate to="actu" replace={true} />
+                                      }
+                                    />
+                                    <Route path="actu" element={<ProfileActu />} />
+                                    <Route
+                                      path="a-propos-de-moi"
+                                      element={<ProfileAbout />}
+                                    >
+                                      <Route
+                                        index
+                                        element={
+                                          <Navigate
+                                            to="etudes-et-emplois"
+                                            replace={true}
+                                          />
+                                        }
+                                      />
+                                      <Route
+                                        path="etudes-et-emplois"
+                                        element={<Studies />}
+                                      />
+                                      <Route
+                                        path="mes-coordonnees"
+                                        element={<Contact />}
+                                      />
+                                    </Route>
+                                  </Route>
+                                </Route>
+                              </Route>
                             </Route>
 
                             <Route path="/profil">
@@ -463,6 +519,7 @@ function App() {
                                 element={<Messages />}
                               />
                             </Route>
+
                             <Route element={<AuthRedirect />}>
                               <Route path="/connexion" element={<Login />} />
                             </Route>
@@ -496,9 +553,8 @@ function App() {
                         </Route>
                         <Route path='hotels'>
                           <Route index element={<HotelsHome />} />
-                          <Route path='nouveau' element={<AddHotelLayout />}>
-                            <Route path="identite" element={<AddHotelIdentity />} />
-                          </Route>
+
+                          <Route path="nouveau/*" element={<AddHotel />} />
                           <Route path='reservation' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
                         </Route>
@@ -506,7 +562,7 @@ function App() {
 
                       </Route>
 
-                      <Route path='test' element={<HotelTest />} />
+
 
 
                     </Routes>
