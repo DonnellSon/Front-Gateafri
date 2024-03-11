@@ -91,7 +91,7 @@ const ModalRecommander = () => {
         <ChatDots size={20} />
         Recommander
       </li>
-      <Modal open={open} className="modal-recommander">
+      <Modal open={open} className="modal-recommandations">
         <Formulaire isRecommander={true} setOpen={setOpen} />
       </Modal>
     </>
@@ -105,7 +105,7 @@ const ModalSolliciter = () => {
         <PencilSquare size={20} />
         Solliciter une recommandation
       </li>
-      <Modal open={open} className="modal-solliciter">
+      <Modal open={open} className="modal-recommandations">
         <Formulaire setOpen={setOpen} />
       </Modal>
     </>

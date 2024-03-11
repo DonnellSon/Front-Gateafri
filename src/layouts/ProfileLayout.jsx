@@ -1,10 +1,35 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
-import './ProfileLayout.scss'
-import { Briefcase, Building, Calendar, Diamond, ExclamationCircle, ExclamationDiamond, FileEarmarkPerson, Gem, House, LayoutWtf, Pencil, PencilSquare, Person, PlusLg, ThreeDots } from 'react-bootstrap-icons'
-import Avatar from '../components/Avatar/Avatar'
-import { FilePostFill, HouseDoorFill, ExclamationDiamondFill, BriefcaseFill, PeopleFill, Check2, ChevronLeft, ChevronRight } from 'react-bootstrap-icons'
-import DoNavLink from '../components/DoNavLink/DoNavLink'
-import { Link, useParams } from 'react-router-dom'
+import React, { useState, useEffect, useContext, useRef } from "react";
+import "./ProfileLayout.scss";
+import {
+  Briefcase,
+  Building,
+  Calendar,
+  Diamond,
+  ExclamationCircle,
+  ExclamationDiamond,
+  FileEarmarkPerson,
+  Gem,
+  House,
+  LayoutWtf,
+  Pencil,
+  PencilSquare,
+  Person,
+  PlusLg,
+  ThreeDots,
+} from "react-bootstrap-icons";
+import Avatar from "../components/Avatar/Avatar";
+import {
+  FilePostFill,
+  HouseDoorFill,
+  ExclamationDiamondFill,
+  BriefcaseFill,
+  PeopleFill,
+  Check2,
+  ChevronLeft,
+  ChevronRight,
+} from "react-bootstrap-icons";
+import DoNavLink from "../components/DoNavLink/DoNavLink";
+import { Link, useParams } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import StickySideBar from '../components/StickySideBar/StickySideBar'
@@ -190,4 +215,4 @@ const ProfileLayout = () => {
     )
 }
 
-export default ProfileLayout
+export default ProfileLayout;

@@ -2,7 +2,7 @@
 
 .profile-about{
     @include themify($themes){
-        margin: 15px 0;
+        margin:0 0 15px;
         flex-grow: 1;
         
         .heading{
