@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,cloneElement } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Modal from '../Modal/Modal'
@@ -31,9 +31,16 @@ const RequireAuthOnClick = ({ children }) => {
 
     return (
         <>
-            <div onClick={handleClick} onTouchStart={handleClick}>
-                {children}
-            </div>
+
+            {
+                cloneElement(children,{onClick:(e)=>{
+                    children.onClick && children.onClick(e)
+                    handleClick(e)
+                },onTouchStart:(e)=>{
+                    children.onTouchStart && children.onTouchStart(e)
+                    handleClick(e)
+                }})
+            }
 
             {isModalOpen &&
                 <Modal open={isModalOpen} onClick={(e) => {

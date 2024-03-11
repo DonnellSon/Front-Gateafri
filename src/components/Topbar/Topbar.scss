@@ -6,7 +6,7 @@
 
 #topbar {
     @include themify($themes) {
-        
+
         background: themed("background", 3);
 
         min-height: var(--topbar-height);
@@ -15,15 +15,18 @@
         z-index: 1000;
         box-shadow: var(--elevation-1);
         border-bottom: 1px solid themed("border", 2);
-        .top-to-afrimuz{
-            img{
+
+        .top-to-afrimuz {
+            img {
                 width: 45px;
                 height: 45px;
             }
         }
-        .topbar-mew-btn{
+
+        .topbar-mew-btn {
             padding: 0 6px;
         }
+
         >.left {
             width: 280px;
         }
@@ -36,9 +39,12 @@
         .right {
             width: 280px;
             gap: 10px;
+            >*{
+                cursor: pointer;
+            }
         }
 
-        .right > * {
+        .right>*:not(.profile) {
             transition: .5s;
             border-radius: 5px;
             cursor: pointer;
@@ -46,31 +52,58 @@
             align-items: center;
             padding: 0 8px;
             height: 35px;
-            color: themed("text",2);
-            background: themed("background",5);
-        }
-
-        .right > * > a {
-            color: themed("text", 3);
-        }
-
-        .right > span:hover,
-        #topbar .right > a:hover {
+            color: themed("text", 2);
             background: themed("background", 5);
         }
 
-        > nav {
+        .right>.profile {
+            position: relative;
+            transition: .5s;
+            background: none !important;
+            &:hover {
+                img {
+                    
+                    filter: brightness(1.3);
+                }
+
+            }
+
+            .ico {
+                position: absolute;
+                right: -3px;
+                bottom: 0px;
+                width: 15px;
+                height: 15px;
+                border-radius: 5px;
+                background: themed('background', 5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: themed('text', 2);
+            }
+        }
+
+        .right>*>a {
+            color: themed("text", 3);
+        }
+
+        .right>span:hover,
+        #topbar .right>a:hover {
+            background: themed("background", 5);
+        }
+
+        >nav {
             flex-grow: 1;
 
-            > ul {
+            >ul {
                 width: 100%;
 
-                > li {
+                >li {
                     line-height: 16px;
 
-                    > a {
+                    >a {
                         display: block;
-                        color: themed("text",4);
+                        color: themed("text", 4);
                         min-width: 65px;
                         position: relative;
 
@@ -83,14 +116,14 @@
                     }
 
                     >a.active {
-                        background: themed("background",5);
-                        
-                        color: themed("mainColor",purple);
+                        background: themed("background", 5);
+
+                        color: themed("mainColor", purple);
                     }
 
                     >a.active::before {
                         content: "";
-                        background: themed("mainColor",purple);
+                        background: themed("mainColor", purple);
                         position: absolute;
                         width: 20px;
                         height: 15px;

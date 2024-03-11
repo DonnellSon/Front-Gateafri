@@ -22,6 +22,7 @@ import PortalList from '../../components/PortalList/PortalList';
 import { useSelector } from 'react-redux';
 import CurrencyContext from '../../context/CurrencyContext';
 import { convertCurrency } from '../../utils/currencyUtils';
+import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthOnClick';
 
 const Home = () => {
   const { user } = useSelector(store => store.user)
@@ -44,13 +45,23 @@ const Home = () => {
             <ul className='left-menu'>
 
               <li>
-                <div className="ico">
+                <Link><div className="ico">
                   <Building size={18} />
                 </div>
-                <span className='text-ellipsis flex-grow-1'>Collectes de Dons</span>
+                  <span className='text-ellipsis flex-grow-1'>Collectes de Dons</span></Link>
               </li>
-              <li><div className="ico"><Briefcase size={18} /></div><span className='text-ellipsis flex-grow-1'>Mes contacts</span></li>
-              <li><div className="ico"><Megaphone size={18} /></div><span className='text-ellipsis flex-grow-1'>Promotions</span></li>
+              <li>
+                <RequireAuthOnClick>
+                  <Link to='/contacts'>
+                    <div className="ico"><Briefcase size={18} /></div><span className='text-ellipsis flex-grow-1'>Mes contacts</span>
+                  </Link>
+                </RequireAuthOnClick>
+              </li>
+              <li>
+                <Link>
+                  <div className="ico"><Megaphone size={18} /></div><span className='text-ellipsis flex-grow-1'>Promotions</span>
+                </Link>
+              </li>
             </ul>
             <hr style={{ margin: '20px 10px' }} />
 
@@ -156,8 +167,8 @@ const Home = () => {
             </StickySideBar>
           </div> : ""
         }
-      </main>
-    </div>
+      </main >
+    </div >
   )
 }
 

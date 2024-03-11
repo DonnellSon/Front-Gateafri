@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import SelectSearch from '../SelectSearch/SelectSearch'
+import './AmountInput.scss'
 import { Link } from 'react-router-dom'
 import { getCurrenciesList } from '../../api/coutry'
+import CurrencyContext from '../../context/CurrencyContext'
 
-const AmountInput = ({ placeholder,currency=null,readOnlyCurrency=false, onChange = () => { } }) => {
+const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => { },field }) => {
     const [amount, setAmount] = useState(null)
+    const { currency } = useContext(CurrencyContext)
     useEffect(() => {
         onChange(amount)
     }, [amount])
     return (
-        <div className='amount-input flex gap-5'>
-            <input type="number" name="" id="" className="inpt" onChange={
-                (e) => setAmount(prev=>({...prev,value:e.target.value}))
-            } placeholder={placeholder} />
-            <SelectSearch
-                value={currency}
-                readOnly={readOnlyCurrency}
-                searchFields={['name']}
-                onChange={(c) => { setAmount(prev => ({ ...prev, currency: c })) }}
-                placeholder='Selectionner une devise'
-                searchPlaceholder='Rechercher un devise'
-                query={(filters) => getCurrenciesList({filters})}
-                repoName="currenciesRepo"
-                toPlaceholder={(elem) => elem.code}
-                objectMapping={(c) => ({ ...c,name: c.name, value: `/api/currencies/${c.id}` })}
-                mapping={(c) => <Link>
-                    <span>{c.code}</span>
-                </Link>}
-            />
+        <div className='amount-input flex align-items-center relative'>
+            <input type="number" name="" id="" className="inpt" {...{...field,onChange:
+                (e) => {
+                    field.onChange(e)
+                    setAmount(prev => ({ ...prev, value: e.target.value }))
+                }
+            }} placeholder={placeholder} />
+            <div className="currency">
+                <span>{currency.code}</span>
+            </div>
         </div>
     )
 }

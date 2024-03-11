@@ -3,6 +3,9 @@ import './Contact.scss'
 import { Envelope, Facebook, PlusLg, Telephone, ThreeDots } from 'react-bootstrap-icons'
 
 const Contact = () => {
+
+
+    
     return (
         <>
             <section className='contacts'>

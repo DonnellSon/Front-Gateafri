@@ -12,7 +12,6 @@
         &.active {
             // background: hsl(276, 91%, 91%);
             background: themed("trans",purple);
-            border: 1px solid themed("trans",purple) !important;
         }
         .info {
             max-width: 100%;
@@ -28,7 +27,6 @@
 
 .discussion:hover {
     box-shadow: var(--elevation-1);
-    border: 1px solid #eee;
 }
 
 
