@@ -79,7 +79,6 @@ import Explorer from "./pages/Explorer/Explorer";
 import City from "./pages/Stay/City";
 import HotelsHome from "./pages/Hotels/HotelsHome";
 import HotelsReservation from "./pages/HotelReservation/HotelsReservation";
-import HotelTest from "./pages/HotelTest/HotelTest";
 import ProfilMusic from "./pages/ProfilMusic/ProfilMusic";
 import Statistics from "./pages/Portal/Statistics";
 import PortalMessenger from "./pages/Portal/PortalMessenger";
@@ -91,8 +90,6 @@ import PortalEvaluation from "./pages/Portal/PortalEvaluation";
 import HotelsSearch from "./pages/HotelsSearch/HotelsSearch";
 import PortalEmplois from "./pages/Portal/PortalEmplois";
 import PortalFaq from "./pages/Portal/PortalFaq";
-import AddHotelLayout from "./layouts/AddHotelLayout";
-import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
 import ProfileRecommendation from "./pages/Profile/ProfileRecommandation";
 import Residences from "./pages/Profile/Residences";
 
