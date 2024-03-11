@@ -26,7 +26,8 @@ const ProfileAbout = () => {
                                 <DoNavLink to='mes-coordonnees' activeClass='active'>Mes coordonnées</DoNavLink>
                             </li>
                             <li>
-                                <Link>Détails sur moi</Link>
+                                <DoNavLink to='details-sur-moi' activeClass='active'>Détails sur moi</DoNavLink>
+                                
                             </li>
                         </ul>
                     </nav>

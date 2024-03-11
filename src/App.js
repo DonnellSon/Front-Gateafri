@@ -95,6 +95,8 @@ import AddHotelLayout from "./layouts/AddHotelLayout";
 import AddHotelIdentity from "./pages/HotelsManager/AddHotelIdentity";
 import ProfileRecommendation from "./pages/Profile/ProfileRecommandation";
 import Residences from "./pages/Profile/Residences";
+import ProfileDetails from "./pages/Profile/ProfileDetails";
+import ProfileEntreprises from "./pages/Profile/ProfileEntreprises";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -272,15 +274,13 @@ function App() {
                   style={{
                     paddingBottom:
                       (deviceType === SMARTPHONE || deviceType === TABLET) &&
-                        !window.location.pathname.startsWith("/messages")
+                      !window.location.pathname.startsWith("/messages")
                         ? "var(--bottom-nav-height)"
                         : 0,
                   }}
                 >
                   <BrowserRouter>
-
                     <Routes>
-
                       <Route element={<Default />}>
                         {!pageLoading && (
                           <>
@@ -351,7 +351,7 @@ function App() {
                                         replace={true}
                                       />
                                     }
-                                  />    
+                                  />
                                   <Route
                                     path="etudes-et-emplois"
                                     element={<Studies />}
@@ -360,9 +360,17 @@ function App() {
                                     path="mes-coordonnees"
                                     element={<Contact />}
                                   />
-                                  <Route path="residences" element={<Residences/>} />
+                                  <Route
+                                    path="residences"
+                                    element={<Residences />}
+                                  />
+                                  <Route path="details-sur-moi" element={<ProfileDetails/>}/>
                                 </Route>
-                                <Route path="recommandations" element={<ProfileRecommendation/>}/>
+                                <Route
+                                  path="recommandations"
+                                  element={<ProfileRecommendation />}
+                                />
+                                <Route path="entreprises" element={<ProfileEntreprises/>}/>
                               </Route>
                             </Route>
 
@@ -445,10 +453,7 @@ function App() {
                                   path="emplois"
                                   element={<PortalEmplois />}
                                 />
-                                <Route
-                                  path="faq"
-                                  element={<PortalFaq />}
-                                />
+                                <Route path="faq" element={<PortalFaq />} />
                                 <Route
                                   path="evaluation"
                                   element={<PortalEvaluation />}
@@ -481,40 +486,41 @@ function App() {
             </Route> */}
 
                         <Route path="/explorer" element={<Countries />} />
-                        {
-                          !pageLoading && <Route path="*" element={<NotFound />} />
-                        }
+                        {!pageLoading && (
+                          <Route path="*" element={<NotFound />} />
+                        )}
                       </Route>
 
                       <Route path="/musique" element={<MusicLayout />}>
                         <Route index element={<Music />} />
-                        <Route path='profil' element={<ProfilMusic />} />
+                        <Route path="profil" element={<ProfilMusic />} />
                       </Route>
 
                       <Route element={<ExplorerLayout />}>
-                        <Route path='/explorer'>
-                          <Route path='pays/:countryId'>
+                        <Route path="/explorer">
+                          <Route path="pays/:countryId">
                             <Route index element={<Explorer />} />
                             <Route path="ville/:cityId" element={<City />} />
                           </Route>
                         </Route>
-                        <Route path='hotels'>
+                        <Route path="hotels">
                           <Route index element={<HotelsHome />} />
-                          <Route path='nouveau' element={<AddHotelLayout />}>
-                            <Route path="identite" element={<AddHotelIdentity />} />
+                          <Route path="nouveau" element={<AddHotelLayout />}>
+                            <Route
+                              path="identite"
+                              element={<AddHotelIdentity />}
+                            />
                           </Route>
-                          <Route path='reservation' element={<HotelsReservation />} />
-                          <Route path='recherche' element={<HotelsSearch />} />
+                          <Route
+                            path="reservation"
+                            element={<HotelsReservation />}
+                          />
+                          <Route path="recherche" element={<HotelsSearch />} />
                         </Route>
-
-
                       </Route>
 
-                      <Route path='test' element={<HotelTest />} />
-
-
+                      <Route path="test" element={<HotelTest />} />
                     </Routes>
-
                   </BrowserRouter>
                 </div>
                 <PageLoader open={pageLoading} />
