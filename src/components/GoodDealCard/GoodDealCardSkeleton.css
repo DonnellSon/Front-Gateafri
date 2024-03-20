@@ -1,0 +1,70 @@
+.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+
+.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+
+.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+
+@keyframes boomPurple {
+  0% {
+    box-shadow: 0 0 0 5px rgba(125, 14, 251, 0.2196078431);
+  }
+  100% {
+    box-shadow: 0 0 0 16px rgba(14, 251, 160, 0);
+  }
+}
+.theme-light .good-deal-card-skeleton {
+  width: 230px;
+  height: 200px;
+  background: #ececec;
+  border-radius: 5px;
+  box-shadow: var(--elevation-1);
+  border: 1px solid #e7e7e7;
+  position: relative;
+}
+.theme-light .good-deal-card-skeleton .capt {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  background: rgba(24, 24, 24, 0.274);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  padding: 10px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: white;
+}
+.theme-dark .good-deal-card-skeleton {
+  width: 230px;
+  height: 200px;
+  background: rgb(85, 84, 87);
+  border-radius: 5px;
+  box-shadow: var(--elevation-1);
+  border: 1px solid #4e4d50;
+  position: relative;
+}
+.theme-dark .good-deal-card-skeleton .capt {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  background: rgba(24, 24, 24, 0.274);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  padding: 10px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgb(53, 54, 56);
+}/*# sourceMappingURL=GoodDealCardSkeleton.css.map */

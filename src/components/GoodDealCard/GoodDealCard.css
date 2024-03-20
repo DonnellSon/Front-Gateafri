@@ -1,0 +1,81 @@
+.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+
+.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+
+.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+
+@keyframes boomPurple {
+  0% {
+    box-shadow: 0 0 0 5px rgba(125, 14, 251, 0.2196078431);
+  }
+  100% {
+    box-shadow: 0 0 0 16px rgba(14, 251, 160, 0);
+  }
+}
+.theme-light .good-deal-card {
+  background: #ececec;
+  border-radius: 5px;
+  height: 200px;
+  color: white;
+  box-shadow: var(--elevation-1);
+}
+.theme-dark .good-deal-card {
+  background: rgb(85, 84, 87);
+  border-radius: 5px;
+  height: 200px;
+  color: white;
+  box-shadow: var(--elevation-1);
+}
+.good-deal-card h1 a {
+  color: white;
+}
+
+.good-deal-card .top {
+  background: rgba(238, 238, 238, 0.5137254902);
+}
+
+.good-deal-card > img {
+  width: 100%;
+  height: 200px;
+  border-radius: inherit;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.good-deal-card > div {
+  bottom: 0;
+}
+
+.good-deal-card > div > div {
+  padding: 0 10px 5px 10px;
+}
+
+.good-deal-card > * {
+  min-width: 0;
+}
+
+.good-deal-card .caption {
+  background: rgba(24, 24, 24, 0.274);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border-radius: 0 0 5px 5px;
+}
+
+.good-deal-card .caption .author-name {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.good-deal-card .caption .entreprise-name {
+  font-size: 15px;
+}
+
+.good-deal-card .caption p {
+  font-size: 15px;
+}/*# sourceMappingURL=GoodDealCard.css.map */
