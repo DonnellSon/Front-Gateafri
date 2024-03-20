@@ -7,9 +7,10 @@ const useInfiniteScroll = ({
     queryKey = ['infiniteScroll'],
     queryString = null,
     ipp = 5,
+    enabled,
     scrollingElement = document.getElementById('App'),
     transformResult = (result) => {
-        return { data: result['hydra:member'],totalItems:result['hydra:totalItems'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
+        return { data: result['hydra:member'], totalItems: result['hydra:totalItems'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
     }
 }) => {
     const fetchData = ({ pageParam = 1 }) => {
@@ -40,29 +41,32 @@ const useInfiniteScroll = ({
     } = useInfiniteQuery({
         queryKey,
         queryFn: fetchData,
-        getNextPageParam: (lastPage, pages) => lastPage.nextPage
+        getNextPageParam: (lastPage, pages) => lastPage.nextPage,
+        enabled,
     })
 
     useEffect(() => {
-        if (!isFetchingNextPage && !isFetching) {
-            const { scrollHeight, scrollTop, clientHeight } = scrollingElement
-            if (scrollHeight - scrollTop <= clientHeight + 50) {
-                fetchNextPage()
-            }
-        }
-        const onScroll = (e) => {
-            console.log('scrollong')
+        if (scrollingElement) {
             if (!isFetchingNextPage && !isFetching) {
-                const { scrollHeight, scrollTop, clientHeight } = e.target
+                const { scrollHeight, scrollTop, clientHeight } = scrollingElement
                 if (scrollHeight - scrollTop <= clientHeight + 50) {
                     fetchNextPage()
                 }
             }
-        }
-        scrollingElement?.addEventListener('scroll', onScroll)
+            const onScroll = (e) => {
+                console.log('scrollong')
+                if (!isFetchingNextPage && !isFetching) {
+                    const { scrollHeight, scrollTop, clientHeight } = e.target
+                    if (scrollHeight - scrollTop <= clientHeight + 50) {
+                        fetchNextPage()
+                    }
+                }
+            }
+            scrollingElement?.addEventListener('scroll', onScroll)
 
-        return () => {
-            scrollingElement?.removeEventListener('scroll', onScroll)
+            return () => {
+                scrollingElement?.removeEventListener('scroll', onScroll)
+            }
         }
 
     }, [])

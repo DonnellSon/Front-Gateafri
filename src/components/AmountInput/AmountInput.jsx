@@ -6,8 +6,13 @@ import { getCurrenciesList } from '../../api/coutry'
 import CurrencyContext from '../../context/CurrencyContext'
 
 const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => { },field }) => {
-    const [amount, setAmount] = useState(null)
+    
     const { currency } = useContext(CurrencyContext)
+
+    const [amount, setAmount] = useState({
+        value:null,
+        currency
+    })
     useEffect(() => {
         onChange(amount)
     }, [amount])
@@ -15,7 +20,7 @@ const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => {
         <div className='amount-input flex align-items-center relative'>
             <input type="number" name="" id="" className="inpt" {...{...field,onChange:
                 (e) => {
-                    field.onChange(e)
+                    field?.onChange(e)
                     setAmount(prev => ({ ...prev, value: e.target.value }))
                 }
             }} placeholder={placeholder} />

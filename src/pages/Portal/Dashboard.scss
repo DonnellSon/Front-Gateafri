@@ -66,8 +66,8 @@
                     .posts-slider{
                         margin-top: 15px;
                     }
-                    .post-card,.top,.footer{
-                        background: themed("background",4) !important;
+                    .post-card{
+                        border: 1px solid themed('border',2);
                     }
                 }
             }

@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import AmountInput from '../AmountInput/AmountInput'
 import './SalaryInputs.scss'
 
 const EXACT = "Montant exact"
 const INTERVAL = "Fourchette"
 
 const SalaryInputs = ({onChange=()=>{}}) => {
-    const [salary, setSalary] = useState(null)
+    const [salary, setSalary] = useState({
+        amount:null,
+        currency:null
+    })
     const min=useRef()
     const max=useRef()
     const amount=useRef()
@@ -31,16 +35,16 @@ const SalaryInputs = ({onChange=()=>{}}) => {
                     layout === INTERVAL ? <div className='flex gap-10' style={{ width: '100%' }}>
                         <div className="form-group">
                             <span>Minimum</span>
-                            <input ref={min} onChange={(e)=>setSalary(prev=>({...prev,min:parseInt(e.target.value)}))} type="number" className='inpt' name='salMin' placeholder='Salaire minimum' />
+                            <AmountInput onChange={({value,currency})=>setSalary(prev=>({...prev,min:parseInt(value),currency}))} placeholder='Salaire minimum'/>
                         </div>
                         <div className="form-group">
                             <span>Maximum</span>
-                            <input ref={max} onChange={(e)=>setSalary(prev=>({...prev,max:parseInt(e.target.value)}))} type="number" className='inpt' name='salMax' placeholder='Salaire maximale' />
+                            <AmountInput onChange={({value,currency})=>setSalary(prev=>({...prev,max:parseInt(value),currency}))} placeholder='Salaire maximale'/>
                         </div>
                     </div> :
                         <div className="form-group">
                             <span>Montant</span>
-                            <input ref={amount} onChange={(e)=>setSalary({amount:parseInt(e.target.value)})} type="number" className='inpt' name='salMin' placeholder='Salaire minimum' />
+                            <AmountInput onChange={({value,currency})=>setSalary({amount:parseInt(value),currency})} placeholder='Montant du salaire'/>
                         </div>
                 }
 

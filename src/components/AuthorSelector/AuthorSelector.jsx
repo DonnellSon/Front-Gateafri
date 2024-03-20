@@ -7,10 +7,10 @@ import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { getUserCompanies } from '../../api/company'
 
-const AuthorSelector = ({ onSelect = () => { },onStart=()=>{} }) => {
+const AuthorSelector = ({ withUser = true, onSelect = () => { }, onStart = () => { } }) => {
     const [open, setOpen] = useState(false)
     const { user } = useSelector(store => store.user)
-    const [selected,setSelected]=useState(user)
+    const [selected, setSelected] = useState(withUser ? user : null)
 
     const { data: portals, error: PortalsError, isLoading: loadingPortals } = useQuery(['authorSelector', user?.id], () => getUserCompanies(user?.id))
 
@@ -23,8 +23,14 @@ const AuthorSelector = ({ onSelect = () => { },onStart=()=>{} }) => {
             <div className="author-selector">
                 <div className="author-selector-inpt inpt" onClick={() => setOpen(true)}>
                     <div className="left">
-                        <Avatar height={25} width={25} src={selected?.activeLogo?.fileUrl || selected?.activeProfilePicture?.fileUrl}/>
-                        <span>{selected?.name || `${selected?.firstName}${selected?.lastName && ' ' + selected?.lastName}`}</span>
+                        {
+                            selected ?
+                                <>
+                                    <Avatar height={25} width={25} src={selected?.activeLogo?.fileUrl || selected?.activeProfilePicture?.fileUrl} />
+                                    <span>{selected?.name || `${selected?.firstName}${selected?.lastName ? ' ' + selected?.lastName : ''}`}</span>
+                                </> :
+                                <span>Selectionner un portail</span>
+                        }
                     </div>
                     <div className="caret">
                         <CaretDownFill />
@@ -41,16 +47,19 @@ const AuthorSelector = ({ onSelect = () => { },onStart=()=>{} }) => {
                     </div>
                     <div className="body">
                         <ul>
-                            <li onClick={
-                                () => {
-                                    setOpen(false)
-                                    setSelected(user)
-                                    onSelect(user)
-                                }
-                            }>
-                                <Avatar src={user?.activeProfilePicture?.fileUrl} height={60} width={60} />
-                                <p>{user?.firstName}{' ' + user?.lastName || ''}</p>
-                            </li>
+                            {
+                                withUser &&
+                                <li onClick={
+                                    () => {
+                                        setOpen(false)
+                                        setSelected(user)
+                                        onSelect(user)
+                                    }
+                                }>
+                                    <Avatar src={user?.activeProfilePicture?.fileUrl} height={60} width={60} />
+                                    <p>{user?.firstName}{' ' + user?.lastName || ''}</p>
+                                </li>
+                            }
                             {
                                 portals?.map((p, i) => (
                                     <li onClick={

@@ -7,7 +7,7 @@ import { cloneElement } from 'react';
 import { motion } from 'framer-motion'
 const PREV = 'PREV'
 const NEXT = 'NEXT'
-const Step = ({ title, children, initialValues, validationSchema,onChange=()=>{}, onSubmit, setFormData = () => { }, formData, formErrors, validSteps, currentStep, lastPath = null, setActiveStep = () => { }, animationAction = NEXT, setAnimationAction = () => { } }) => {
+const Step = ({ title, children, initialValues, validationSchema,onChange=()=>{}, onSubmit, setFormData = () => { }, formData, formErrors, validSteps, currentStep, lastPath = null, setActiveStep = () => { }, animationAction = NEXT, setAnimationAction = () => { },submitButton=null }) => {
     const [initialFields, setInitialFields] = useState(initialValues)
     const previousStepIsValid = currentStep === 0 || validSteps[currentStep - 1];
 

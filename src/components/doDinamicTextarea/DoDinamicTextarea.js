@@ -15,7 +15,6 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
 
   useEffect(() => {
     if (emptied) {
-
       setEmpty(true)
       doDinamicTextarea.current.style.justifyContent = 'flex-end'
       if (prev.current) prev.current.style.order = 0;
@@ -75,7 +74,7 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
     <div ref={doDinamicTextarea} className={`do-dinamic-textarea do-dinamic-textarea-light`}>
       {
         medias &&
-        <div style={{ width: '100%' }}>
+        <div className='inpt-medias' style={{ width: '100%' }}>
           {
             medias
           }

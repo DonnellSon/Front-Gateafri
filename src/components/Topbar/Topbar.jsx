@@ -78,8 +78,12 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                   <li>
                     <Link to='/emplois/cv'>CV</Link>
                   </li>
+                  
                   <li>
                     <Link to='/emplois/nouveau'>Offre Démplois</Link>
+                  </li>
+                  <li>
+                    <Link to='/hotels/nouveau'>Hotel</Link>
                   </li>
                 </ul>
               </DropDown>
@@ -99,7 +103,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
               <span className='profile flex gap-5 align-items-center' onClick={() => {
                 setOpenRightbar(true)
               }}>
-                <Avatar width={40} height={40} src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} />
+                <Avatar width={35} height={35} src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} />
                 <div className="ico">
                   <ChevronLeft />
                 </div>

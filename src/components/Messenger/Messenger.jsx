@@ -9,21 +9,31 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import SocketIOContext from '../../context/SocketIOContext'
+import MediasSelector from '../MediaSelector/MediasSelector'
 
 const Messenger = ({ discu }) => {
     const { discuId } = useParams()
     const { user } = useSelector(store => store.user)
-    const {socket}=useContext(SocketIOContext)
+    const { socket } = useContext(SocketIOContext)
     const scrollRef = useRef()
     const queryClient = useQueryClient()
     const [filteredMessages, setFilteredMessages] = useState([])
-    const [tmpMessage, setTmpMessage] = useState("")
+    const [tmpMessage, setTmpMessage] = useState({
+        content: '',
+        pictures: []
+    })
+
+    const setMessagePictures = (pictures) => {
+        setTmpMessage(prev => ({ ...prev, pictures }))
+    }
+
     const [emptyMessageForm, setEmptyMessageForm] = useState(false)
     const [profilePictures, setProfilePictures] = useState(null)
+    const addImageBtn = useRef()
 
     useEffect(() => {
         setProfilePictures(discu?.members
-            ?.filter((m) => m.user.id !== user?.id && m.user.activeProfilePicture)
+            ?.filter((m) => m.user?.id !== user?.id && m.user.activeProfilePicture)
             .map((m) => m.user.activeProfilePicture))
     }, [discu?.members])
 
@@ -43,13 +53,12 @@ const Messenger = ({ discu }) => {
         }).then((res) => res.data.reverse())
     )
 
-    const messagesMutation = useMutation(addMessage, {
+    const { mutate: mutateMessages } = useMutation(addMessage, {
         onSuccess: (data) => {
-
             queryClient.setQueryData(['repoMessages', discuId], (messages) => {
                 socket?.emit('sendMessage', {
                     message: data,
-                    receivers: discu?.members?.filter((m) => m.user.id !== user?.id),
+                    receivers: discu?.members?.filter((m) => m.user?.id !== user?.id),
                     sender: user?.id
                 })
                 scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' })
@@ -59,11 +68,24 @@ const Messenger = ({ discu }) => {
         },
     })
 
+    const sendMessage = () => {
+        let formData = new FormData()
+        formData.append('content', tmpMessage.content)
+        formData.append('discussion', `/api/discussions/${discuId}`)
+        if (tmpMessage.pictures.length > 0) {
+            
+            tmpMessage.pictures.forEach(pic => {
+                formData.append('pictures[]', pic)
+            });
+        }
+        mutateMessages(formData)
+    }
+
 
     useEffect(() => {
         if (socket) {
             socket?.on('arrivalMsg', (msg) => {
-                if (msg.discussion.id === discuId) {
+                if (msg.discussion?.id === discuId) {
                     scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' });
                     queryClient.invalidateQueries(['repoMessages', discuId]);
                 }
@@ -80,7 +102,7 @@ const Messenger = ({ discu }) => {
         if (messages) {
             const groupedMessages = messages.reduce((result, message) => {
                 const lastGroup = result[result.length - 1];
-                if (lastGroup && lastGroup.author.id === message.author.id && lastGroup.messages.length < 5) {
+                if (lastGroup && lastGroup.author?.id === message.author?.id && lastGroup.messages.length < 5) {
                     lastGroup.messages.push(message);
                 } else {
                     result.push({ author: message.author, messages: [message] });
@@ -110,8 +132,8 @@ const Messenger = ({ discu }) => {
                     <div className="discu-info">
                         <h5>{
                             discu?.discuName ? discu?.discuName :
-                            discu?.members.filter((m) =>
-                                    m.user.id !== user?.id
+                                discu?.members.filter((m) =>
+                                    m.user?.id !== user?.id
                                 ).map((m) => `${m.user.firstName} ${m.user.lastName}`).join(',')
                         }</h5>
                         <span>Actif</span>
@@ -134,7 +156,7 @@ const Messenger = ({ discu }) => {
                                         <div className="messages-list">
                                             {
                                                 g.messages?.map((m, i) =>
-                                                    <Message>{m.content}</Message>
+                                                    <Message key={i} audio={m.audio} medias={m.pictures}>{m.content}</Message>
                                                 )
                                             }
 
@@ -143,65 +165,25 @@ const Messenger = ({ discu }) => {
                                 : <h4>Vous n'avez aucun message</h4>
                             : <h4>Chargement des messages</h4>
                     }
-
-                    {/* <div className="message-group mine">
-                            <div className="messages-list">
-                                <Message>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima doloremque magnam placeat aut dolore ex ratione</Message>
-                                <Message>Salut mon vieux</Message>
-                                <Message>On travaille sur notre nouvelle plateforme</Message>
-                                <Message>Hey</Message>
-                            </div>
-                        </div>
-                        <div className="message-group">
-                            <div className="left">
-                                <Avatar />
-                            </div>
-                            <div className="messages-list">
-                                <Message>Salut les gens</Message>
-                            </div>
-                        </div>
-                        <div className="message-group mine">
-                            <div className="messages-list">
-                                <Message>Oui ça va et vous?</Message>
-                            </div>
-                        </div>
-                        <div className="message-group">
-                            <div className="left">
-                                <Avatar />
-                            </div>
-                            <div className="messages-list">
-                                <Message>Coucou</Message>
-                                <Message>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, rerum. Maxime, reprehenderit? Quas magni</Message>
-                            </div>
-                        </div>
-                        <div className="message-group mine">
-                            <div className="messages-list">
-                                <Message medias={[
-                                    '/img/entreprises/vache.jpg',
-                                    '/img/entreprises/d.jpg',
-                                ]}>Des photos</Message>
-                            </div>
-                        </div> */}
                 </div>
                 <div className="footer flex justify-content-center">
                     <div>
-                        <DoDinamicTextarea avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
-                            setTmpMessage(e.target.innerText)
-                        }}
+                        <DoDinamicTextarea
+                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} setMediasState={setMessagePictures} />}
+                            avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
+                                setTmpMessage(prev => ({ ...prev, content: e.target.innerText }))
+                            }}
                             next={
                                 (
                                     <>
                                         <button><EmojiSmile size={18} /></button>
 
-                                        <button><Image size={18} /></button>
+                                        <button ref={addImageBtn}>
+                                            <Image size={18} />
+                                        </button>
                                         <button><Mic size={18} /></button>
                                         <button className="comment-send-btn" onClick={() => {
-                                            messagesMutation.mutate(
-                                                {
-                                                    content: tmpMessage,
-                                                    discussion: `/api/discussions/${discuId}`
-                                                }
-                                            )
+                                            sendMessage()
                                             setEmptyMessageForm(true)
                                         }}>
                                             <SendFill />

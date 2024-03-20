@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './CreateJob.scss'
 import JobDetails from '../../components/JobDetails/JobDetails'
 import Accordion from '../../components/Accordion/Accordion'
@@ -17,11 +17,14 @@ import CircleLoader from '../../components/CircleLoader/CircleLoader'
 import { getJobGrades, getJobTypes } from '../../api/job'
 import CreateJobSkeleton from './CreateJobSkeleton'
 import Skeleton from '../../components/Skeleton/Skeleton'
+import AuthorSelector from '../../components/AuthorSelector/AuthorSelector'
+import CurrencyContext from '../../context/CurrencyContext'
 
 const CreateJob = () => {
   const [initialData, setInitialData] = useState(null)
 
   const { user } = useSelector((store) => store.user)
+  const {currency} = useContext(CurrencyContext)
   const [activePortal, setActivePortal] = useState(null)
   const [addJobLoading, setAddJobLoading] = useState(false)
   const navigate = useNavigate()
@@ -43,7 +46,17 @@ const CreateJob = () => {
   }
 
   const addJobOffer = () => {
-    const toSend = { ...jobOffer, type: jobOffer.type.value, grade: jobOffer.grade.value, salary: JSON.stringify({ ...jobOffer.salary, currency: '/api/currencies/1' }) }
+    const toSend = { 
+      ...jobOffer, 
+      type: jobOffer.type.value, 
+      grade: jobOffer.grade.value,
+      author:`/api/authors/${jobOffer.author.id}`,
+      salary: JSON.stringify({ 
+        ...jobOffer.salary, 
+        currency: jobOffer.salary ? 
+          `/api/currencies/${jobOffer.salary.currency.id}` : `/api/currencies/${currency.id}` 
+      }) 
+    }
     const data = new FormData()
     for (var key in toSend) {
       if (Array.isArray(toSend[key])) {
@@ -101,7 +114,10 @@ const CreateJob = () => {
                         </div>
                         <div className="form-group">
                           <label htmlFor="">Nom de l'entreprise</label>
-                          {
+                          <AuthorSelector withUser={false} onSelect={(p)=>{
+                            setJobOffer(prev => ({ ...prev, author: p }))
+                          }}/>
+                          {/* {
                             userCompanies && <SelectSearch
                               searchFields={['name']}
                               onChange={(p) => { setJobOffer(prev => ({ ...prev, author: p.value })) }}
@@ -115,7 +131,7 @@ const CreateJob = () => {
                                 <span>{p.name}</span>
                               </Link>}
                             />
-                          }
+                          } */}
                         </div>
                         <div className="form-group">
                           <label htmlFor="">Experience</label>
@@ -261,7 +277,7 @@ const CreateJob = () => {
 
       </div>
       <div className="content">
-        <JobDetails data={{ ...jobOffer, author: activePortal && activePortal }} />
+        <JobDetails data={jobOffer} />
       </div>
     </div>
   )
