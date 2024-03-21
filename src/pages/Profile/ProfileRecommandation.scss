@@ -18,15 +18,13 @@
           border-radius: 5px;
         }
         ul {
-          li {
+          li a {
             display: flex;
             gap: 10px;
             align-items: center;
-            padding: 5px 8px;
             border-radius: 5px;
-            &:hover {
-              background-color: themed("background", 5);
-            }
+            line-height: 20px;
+            padding: 5px;
           }
         }
       }

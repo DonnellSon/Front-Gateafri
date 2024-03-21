@@ -88,8 +88,10 @@ const ModalRecommander = () => {
   return (
     <>
       <li onClick={() => setOpen(true)}>
-        <ChatDots size={20} />
-        Recommander
+        <Link>
+          <ChatDots size={20} />
+          Recommander
+        </Link>
       </li>
       <Modal open={open} className="modal-recommandations">
         <Formulaire isRecommander={true} setOpen={setOpen} />
@@ -102,8 +104,10 @@ const ModalSolliciter = () => {
   return (
     <>
       <li onClick={() => setOpen(true)}>
-        <PencilSquare size={20} />
-        Solliciter une recommandation
+        <Link>
+          <PencilSquare size={20} />
+          Solliciter une recommandation
+        </Link>
       </li>
       <Modal open={open} className="modal-recommandations">
         <Formulaire setOpen={setOpen} />

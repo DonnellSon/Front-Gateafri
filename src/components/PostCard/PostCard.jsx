@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import Cookies from 'js-cookie'
 import { getRandomNumber } from '../../functions'
 import millify from 'millify'
+import TextViewMore from '../TextViewMore/TextViewMore'
 
 const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const { deviceType } = useContext(MediaContext)
@@ -110,7 +111,7 @@ return (
     {
       data.content && <div className="body">
 
-        <p>{data.content}</p></div>
+        <TextViewMore>{data.content}</TextViewMore></div>
     }
 
     <PostImagesGrid postId={data.id} images={data.thumbnails} />

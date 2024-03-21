@@ -101,6 +101,8 @@ import HotelAdminLayout from "./layouts/HotelAdminLayout";
 import HotelAdminHome from "./pages/HotelAdmin/HotelAdminHome";
 import HotelAdminReservation from "./pages/HotelAdmin/HotelAdminReservation";
 import ReservationDetails from "./pages/HotelAdmin/ReservationDetails";
+import Hebergements from "./pages/HotelAdmin/Hebergements";
+import CreateRoom from "./pages/HotelAdmin/CreateRoom";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -574,6 +576,10 @@ function App() {
                             <Route path='reservation'>
                                 <Route index element={<HotelAdminReservation/>}/>
                                 <Route path=':reservationId' element={<ReservationDetails/>}/>
+                            </Route>
+                            <Route path="hebergements">
+                                <Route index element={<Hebergements/>}/>
+                                <Route path="creation/*" element={<CreateRoom/>}/>
                             </Route>
                           </Route>
                         </Route>
