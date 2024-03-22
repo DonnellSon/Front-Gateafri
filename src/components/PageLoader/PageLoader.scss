@@ -1,9 +1,14 @@
+@import '../../style.scss';
+
 .page-loader{
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(66, 66, 66, 0.411);
     backdrop-filter: blur(10px);
+    .modalContent{
+        box-shadow: none;
+    }
 }
 .page-loader .logo{
     position: relative;

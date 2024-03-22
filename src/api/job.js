@@ -7,6 +7,13 @@ export const getJobOffers = () => {
     }).then((res) => res.data)
 }
 
+export const getJobOffer=(jobId)=>{
+    return axios({
+        url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers/${jobId}?groups[]=job_offers_read`,
+        method: 'get', withCredentials: true
+    }).then((res) => res.data)
+}
+
 export const createJobOffer = (data) => {
     return axios({
         url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers`,

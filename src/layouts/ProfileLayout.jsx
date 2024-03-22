@@ -171,7 +171,7 @@ const ProfileLayout = () => {
                                                     </DoNavLink>
                                                 </li>
                                                 <li>
-                                                    <DoNavLink to={`recommendations`}>
+                                                    <DoNavLink to={`recommandations`}>
                                                         <Gem />
                                                         <small>Recommander</small>
                                                     </DoNavLink>

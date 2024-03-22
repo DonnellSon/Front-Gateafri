@@ -59,7 +59,7 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
                 <p className="description">{htmlToJsx.parse(summary || description)}</p>
                 <div className="bottom flex gap-10">
                     <button className="btn-transparent orange-txt">Postuler</button>
-                    <button className="btn-transparent" onClick={()=>handleShow()}><Eye /></button>
+                    <Link to={`/emplois/${id}/details`} className="btn-transparent" onClick={()=>handleShow()}><Eye /> Détails</Link>
                 </div>
             </div>
         </div>
