@@ -80,6 +80,9 @@ img.emoji {
   // overflow-y: scroll;
   @include themify($themes) {
     overflow-y: scroll;
+    img{
+      user-select: none;
+    }
     .errorLabel>* {
       color: var(--red) !important;
       font-size: 13px;

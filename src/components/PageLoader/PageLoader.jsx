@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../Modal/Modal'
-import './PageLoader.css'
+import './PageLoader.scss'
 
 const PageLoader = ({ open = true }) => {
     return (

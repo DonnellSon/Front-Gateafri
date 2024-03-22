@@ -6,7 +6,7 @@ import Step from './Step';
 import { Link } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-const MultiStepForm = ({ steps, children }) => {
+const MultiStepForm = ({ steps, children,submitButton=null }) => {
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [validSteps, setValidSteps] = useState(new Array(steps.length).fill(false));
@@ -63,6 +63,9 @@ const MultiStepForm = ({ steps, children }) => {
             <div className="center">
                 <AnimatePresence>
                     <Routes>
+                        {
+                            <Route index element={<Navigate to='informations' replace={true}/>}/>
+                        }
                         {steps.map((step, index) => (
                             <Route key={index} path={step.path} element={index === 0 || validSteps[index - 1] ? <Step
                                 {...step}

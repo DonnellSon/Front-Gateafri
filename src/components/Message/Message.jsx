@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Message.scss'
-import {  ThreeDots } from 'react-bootstrap-icons'
+import { ThreeDots } from 'react-bootstrap-icons'
 import DropDown from '../DropDown/DropDown'
 import { Link } from 'react-router-dom'
+import MessageAudioVisualiser from '../MessageAudioVisualizer/MessageAudioVisualiser'
+import { WaveSurfer } from 'wavesurfer-react'
 
 const med = [
     'img/video/gims.jpeg',
@@ -10,11 +12,14 @@ const med = [
     'img/entreprises/j.jpg',
 ]
 
-const Message = ({ children, medias = [] }) => {
+const Message = ({ children, medias = [], audio = null }) => {
     const msgImgList = useRef()
     const right = useRef()
     const [width, setWidth] = useState(500)
     const [mediaList, setMediaList] = useState(medias)
+    useEffect(() => {
+        console.log(audio, 'Audio')
+    }, [audio])
     useEffect(() => {
         if (right.current && msgImgList.current) {
             msgImgList.current.style.width = `${(((mediaList.length >= 4 ? 4 : mediaList.length) * 400) / 4) - ((4 * (mediaList.length >= 4 ? 4 : mediaList.length)) + 6)}px`
@@ -24,7 +29,17 @@ const Message = ({ children, medias = [] }) => {
     return (
         <div className="message">
             <div className="left">
-                <p>{children}</p>
+                {
+                    children && <p>{children}</p>
+                }
+                {
+                    // audio &&
+                    // <div className="audio">
+                        
+                        
+                    //     <MessageAudioVisualiser url='https://localhost/upload/audio/msgAudios/65f299928439b_SpotifyMate.com - Oublie-le - Dadju.mp3'/>
+                    // </div>
+                }
                 {
                     mediaList.length > 0 ?
                         <div className="imgs" ref={msgImgList}>
@@ -33,7 +48,7 @@ const Message = ({ children, medias = [] }) => {
                                 (
                                     <div key={i} className="div">
                                         <div>
-                                            <img src={m} alt="" />
+                                            <img src={m.fileUrl} alt="" />
                                         </div>
                                     </div>
                                 )

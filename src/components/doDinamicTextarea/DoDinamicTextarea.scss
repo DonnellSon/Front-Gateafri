@@ -19,6 +19,38 @@
 		.text:empty::before {
 			color: themed("text",4);;
 		}
+		.inpt-medias{
+			
+			.medias-selector{
+				border-radius: 5px;
+				display: flex !important;
+				gap: 10px !important;
+				overflow-x: auto !important;
+				padding: 0 0 5px 0;
+				margin-bottom: 10px;
+				.fake-image-selector-input{
+					position: sticky;
+					right: 0;
+					bottom: 0;
+					z-index: 2;
+					background: themed('background',3);
+				}
+				.fake-image-selector-input,.m-parent{
+					min-width: 70px !important;
+					max-width: 70px !important;
+					height: 70px;
+				}
+				&::-webkit-scrollbar{
+					height: 8px;
+					background: none;
+				}
+				&::-webkit-scrollbar-thumb{
+					border: none !important;
+					opacity: 0.6;
+					background: themed('text',6);
+				}
+			}
+		}
 		.inpt-next button {
 			cursor: pointer;
 			background: none;
@@ -97,6 +129,7 @@
 	outline: none;
 	word-break: break-word;
 	overflow: hidden;
+	min-width: 1px !important;
 }
 
 .do-dinamic-textarea .text:empty::before {

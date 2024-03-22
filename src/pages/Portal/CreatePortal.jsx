@@ -186,7 +186,7 @@ const CreatePortal = () => {
                                                 toPlaceholder={(elem) => elem.name}
                                                 objectMapping={(p) => ({ ...p, value: `/api/pays/${p.id}` })}
                                                 mapping={(p) => <Link>
-                                                    <img src={p.flag} width={25} alt="" />
+                                                    <img src={p.flag.fileUrl} width={25} alt="" />
                                                     <span>{p.name}</span>
                                                 </Link>}
                                             />

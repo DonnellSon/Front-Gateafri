@@ -3,12 +3,13 @@ import './MediasSelector.scss';
 import SelectorMedia from '../selectorMedia/SelectorMedia';
 import { FileEarmarkImage } from 'react-bootstrap-icons';
 
-const MediasSelector = ({ gap = 10, col = 5,setMediasState=()=>{} }) => {
+const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, selectorBtn = null, hiddenIfEmpty = false }) => {
     const [tmpMediasList, setTmpMediasList] = useState([]);
 
-    useEffect(()=>{
-        setMediasState(tmpMediasList.map(tmp=>tmp.file))
-    },[tmpMediasList])
+    useEffect(() => {
+        setMediasState(tmpMediasList.map(tmp => tmp.file))
+    }, [tmpMediasList])
+
 
     const mediasInput = useRef()
     const removeTmpMedia = (index) => {
@@ -26,50 +27,53 @@ const MediasSelector = ({ gap = 10, col = 5,setMediasState=()=>{} }) => {
     const clickMediasInput = () => {
         mediasInput.current.click();
     }
+    useEffect(() => {
+        if (selectorBtn) {
+            selectorBtn.addEventListener('click', clickMediasInput)
+            return () => {
+                selectorBtn.removeEventListener('click', clickMediasInput)
+            }
+        }
+    }, [selectorBtn])
+
     return (
 
+
+
         <Fragment>
+            <input multiple ref={mediasInput} type="file" onChange={(e) => {
+                addMedias(e.target.files);
+            }}
+                style={{ display: 'none' }} />
+            {
+                (!hiddenIfEmpty || tmpMediasList.length > 0) &&
+                <div className={"medias-selector square-grid"} style={{ gridTemplateColumns: `repeat(${col},1fr)`, gridGap: gap + "px" }}>
+                    
+                    {
+                        tmpMediasList.length > 0 ? tmpMediasList.map((m, i) => {
 
+                            return (
+                                <div key={i} style={{ animation: `scaleIn .1s ${m.delay / 10}s forwards` }} className="m-parent scaleIn">
+                                    <SelectorMedia media={m} removeSelf={() => { removeTmpMedia(i) }} />
+                                </div>
+                            )
+                        }) : ''
+                    }
+                    <div onClick={clickMediasInput} className="fake-image-selector-input" style={{ minWidth: 0 }}>
+                        <div>
+                            <div><FileEarmarkImage /></div>
+                            <span>Selectionner</span>
+                        </div>
 
-            <div className={"medias-selector square-grid"} style={{ gridTemplateColumns: `repeat(${col},1fr)`, gridGap: gap + "px" }}>
-
-                {
-                    tmpMediasList.length > 0 ? tmpMediasList.map((m, i) => {
-
-                        return (
-                            <div key={i} style={{ animation: `scaleIn .1s ${m.delay / 10}s forwards` }} className="m-parent scaleIn">
-                                {/* <div className="relative">
-                                            {
-                                                
-                                                    (/^image/.test(m.type)) ?
-                                                    <img src={m.url} alt="go" />
-                                                    : ((/^video/.test(m.type)) ?
-                                                        <video src={m.url}></video>
-                                                        : ''
-                                                    )
-
-                                            }
-                                            
-                                            <div onClick={()=>{removeMedia(i)}} className="remove">&times;</div>
-                                        </div> */}
-                                <SelectorMedia media={m} removeSelf={() => { removeTmpMedia(i) }} />
-                            </div>
-                        )
-                    }) : ''
-                }
-                <div onClick={clickMediasInput} className="fake-image-selector-input" style={{ minWidth: 0 }}>
-                    <div>
-                        <div><FileEarmarkImage /></div>
-                        <span>Selectionner</span>
                     </div>
-                    <input multiple ref={mediasInput} type="file" onChange={(e) => {
-                        addMedias(e.target.files);
-                    }}
-                        style={{ display: 'none' }} />
+                    
+
                 </div>
-            </div>
+            }
+
 
         </Fragment >
+
 
     )
 }

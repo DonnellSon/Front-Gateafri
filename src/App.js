@@ -97,6 +97,10 @@ import ProfileEntreprises from "./pages/Profile/ProfileEntreprises";
 
 import AddHotel from "./pages/HotelsManager/AddHotel";
 import Contacts from "./pages/Contacts/Contacts";
+import HotelAdminLayout from "./layouts/HotelAdminLayout";
+import HotelAdminHome from "./pages/HotelAdmin/HotelAdminHome";
+import HotelAdminReservation from "./pages/HotelAdmin/HotelAdminReservation";
+import ReservationDetails from "./pages/HotelAdmin/ReservationDetails";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -561,10 +565,17 @@ function App() {
                         </Route>
                         <Route path="hotels">
                           <Route index element={<HotelsHome />} />
-
                           <Route path="nouveau/*" element={<AddHotel />} />
                           <Route path='reservation' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
+                          <Route path='hoteladmin' element={<HotelAdminLayout/>}>
+                            <Route index element={<Navigate to='home' replace={true}/>}/>
+                            <Route path='home' element={<HotelAdminHome/>}/>
+                            <Route path='reservation'>
+                                <Route index element={<HotelAdminReservation/>}/>
+                                <Route path=':reservationId' element={<ReservationDetails/>}/>
+                            </Route>
+                          </Route>
                         </Route>
                       </Route>
 

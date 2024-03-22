@@ -16,8 +16,8 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
     const [from,to]=[currenciesBaseUSD[salary.currency.code],currenciesBaseUSD[currency?.code]]
 
     useEffect(() => {
-        console.log(salary, 'SALARY')
-    }, [salary])
+        console.log(author, 'SALARY')
+    }, [author])
     const htmlToJsx = new Parser()
     return (
         <div className={`job-card${active ? ' active-job' : ''}`}>
@@ -49,9 +49,9 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
                 {
                     salary && 
                     (from && to) ?
-                    <h5>{(salary.min && salary.max) ? millify(convertCurrency(salary.min,from,to)) + "-" + millify(convertCurrency(salary.max,from,to)) : millify(convertCurrency(salary[0],from,to))} {currency.code}</h5>
+                    <h5>{(salary.min && salary.max) ? millify(convertCurrency(salary.min,from,to)) + "-" + millify(convertCurrency(salary.max,from,to)) : millify(convertCurrency(salary.amount,from,to))} {currency.code}</h5>
                     :
-                    <h5>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary[0])} {salary.currency.code}</h5>
+                    <h5>{(salary.min && salary.max) ? millify(salary.min) + "-" + millify(salary.max) : millify(salary.amount)} {salary.currency.code}</h5>
 
                 }
             </div>
@@ -59,7 +59,7 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
                 <p className="description">{htmlToJsx.parse(summary || description)}</p>
                 <div className="bottom flex gap-10">
                     <button className="btn-transparent orange-txt">Postuler</button>
-                    <button className="btn-transparent" onClick={()=>handleShow()}><Eye /></button>
+                    <Link to={`/emplois/${id}/details`} className="btn-transparent" onClick={()=>handleShow()}><Eye /> Détails</Link>
                 </div>
             </div>
         </div>

@@ -31,9 +31,9 @@ const SortableList = ({ title, repoName = 'repo', query, mapping = (elem) => ele
             <div className="flex align-items-center justify-content-between relative">
                 <h3 className='text-ellipsis'>{title}</h3>
                 {
-                    allowSearch && <Searchbar onChange={(value)=>{
+                    allowSearch && <Searchbar isLoading={isLoading} expandable onChange={(value)=>{
                         setKeyword(value)
-                    }} expandable={true} />
+                    }} />
                 }
             </div>
             {
