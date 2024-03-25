@@ -7,6 +7,10 @@
             font-size: 16px;
             color: themed("text",1)
         }
+        >.center{
+            min-width: 0 !important;
+            padding: 0 5px;
+        }
         >.right {
             min-width: 490px;
             max-width: 490px;
@@ -64,6 +68,9 @@
 .video-player{
     @include themify($themes){
         color:  themed("text",3);
+        video-js{
+            max-width: 100% !important;
+        }
         video {
             display: block;
             width: 100%;
@@ -194,6 +201,7 @@
     }
     #video-page .center{
         padding: 0 !important;
+        
     }
     #video-page>.right {
         min-width: 100vw;
