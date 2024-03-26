@@ -1,16 +1,19 @@
 import { Images, PlusCircle } from "react-bootstrap-icons";
-import "./Hebergement.scss";
+import "./Accomodations.scss";
 import TextViewMore from "../../components/TextViewMore/TextViewMore";
+import { Link } from "react-router-dom";
 
-const Hebergements = () => {
+const Accomodations = () => {
   return (
-    <div id="hebergement">
-      <div className="hebergement-head flex align-items-center">
+    <div id="accomodation">
+      <div className="accomodation-head flex align-items-center">
         <h2>Hébergements</h2>
-        <button className="btn-purple">Crée un mouvel hébergement</button>
+        <Link to="/hotels/jkdfkkdhk/hebergements/nouveau/informations">
+          <button className="btn-purple">Crée un mouvel hébergement</button>
+        </Link>
       </div>
-      <div className="hebergement-list flex gap-20 ">
-        <div className="hebergement-item elevated-card">
+      <div className="accomodation-list flex gap-20 ">
+        <div className="accomodation-item elevated-card">
           <div className="image">
             <img src="/img/other/chambre_0.jpg" alt="room" />
           </div>
@@ -42,7 +45,7 @@ const Hebergements = () => {
             </div>
           </div>
         </div>
-        <div className="hebergement-item elevated-card">
+        <div className="accomodation-item elevated-card">
           <div className="image">
             <img src="/img/other/chambre_1.jpg" alt="room" />
           </div>
@@ -74,7 +77,7 @@ const Hebergements = () => {
             </div>
           </div>
         </div>
-        <div className="hebergement-item elevated-card">
+        <div className="accomodation-item elevated-card">
           <div className="image">
             <img src="/img/other/chambre_2.jpg" alt="room" />
           </div>
@@ -106,7 +109,7 @@ const Hebergements = () => {
             </div>
           </div>
         </div>
-        <div className="hebergement-item elevated-card">
+        <div className="accomodation-item elevated-card">
           <div className="image">
             <img src="/img/other/chambre_3.jpg" alt="room" />
           </div>
@@ -149,4 +152,4 @@ const Hebergements = () => {
   );
 };
 
-export default Hebergements;
+export default Accomodations;

@@ -15,12 +15,12 @@ const HotelAdminReservation = ()=>{
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="debut">Du</label>
-                    <input type="date" name="debut" id="debut" />
+                    <label htmlFor="start">Du</label>
+                    <input type="date" name="start" id="start" />
                 </div>
                 <div>
-                    <label htmlFor="fin">Au</label>
-                    <input type="date" name="fin" id="fin" />
+                    <label htmlFor="end">Au</label>
+                    <input type="date" name="end" id="end" />
                 </div>
                 <div className="btn-purple">Voir</div>
             </form>

@@ -27,12 +27,37 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to={`sdfsd`}>
-                <Calendar2Week size={16} />
-                <small className="flex gap-5">
+            <DropDown activeClassName="surligné">
+                <Link>
+                  <Pencil size={16} />
+                  <small className="flex gap-5">
                   Tarif et disponibilités <ChevronDown />
-                </small>
-              </DoNavLink>
+                  </small>
+                </Link>
+                <ul>
+                  <li>
+                    <a href="#">Calendrier</a>
+                  </li>
+                  <li>
+                    <DoNavLink to="restrictions">Restrictions</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="control-hebergements">Ouvrir/fermer des hébergements</DoNavLink>
+                  </li>
+                  <li>
+                    <a href="#">Plans tarifaires</a>
+                  </li>
+                  <li>
+                    <a href="#">Avantages</a>
+                  </li>
+                  <li>
+                    <a href="#">Tarification par client</a>
+                  </li>
+                  <li>
+                    <a href="#">Géo-tarification</a>
+                  </li>
+                </ul>
+              </DropDown>
             </li>
             <li>
               <DoNavLink to={`reservation`}>
@@ -50,13 +75,13 @@ const HotelAdminLayout = () => {
                 </Link>
                 <ul>
                   <li>
-                    <a href="#">Le client a payé l'intégralité</a>
+                    <DoNavLink to="hotel-info">Information sur l'hotel</DoNavLink>
                   </li>
                   <li>
                     <DoNavLink to="hebergements">Hébergements</DoNavLink>
                   </li>
                   <li>
-                    <DoNavLink href="hebergement-details">Details des hébergements</DoNavLink>
+                    <DoNavLink to="hebergement-details">Details des hébergements</DoNavLink>
                   </li>
                   <li>
                     <a href="#">Le client n'a pas encore payé</a>

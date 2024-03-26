@@ -51,7 +51,7 @@
           display: flex;
           flex-direction: column;
           align-items: end;
-          .argent {
+          .coins {
             font-weight: 700;
             font-size: 17px;
           }
@@ -132,7 +132,7 @@
               background-color: themed("background", 5) !important;
             }
           }
-          .periode {
+          .period {
             background-color: themed("background", 5);
             border-radius: 0 5px 5px 0;
             border-left: 1px solid themed("border", 1);
@@ -172,7 +172,7 @@
             margin-left: 15px;
         }
       }
-      .reservation-recent {
+      .reservation-current {
         margin-top: 5px;
         padding-bottom: 15px;
         h3{
@@ -180,8 +180,8 @@
             padding-bottom: 0;
         }
       }
-      .messages, .commentaires {
-        .messages-container, .commentaires-container {
+      .messages, .comment {
+        .messages-container, .comment-container {
             padding: 15px;
             border-radius: 5px;
             &:hover{
@@ -241,7 +241,7 @@
               color: themed("text", 3);
             }
           }
-          .revenue {
+          .income {
             span {
               width: auto;
               background: transparent;

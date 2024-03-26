@@ -101,8 +101,10 @@ import HotelAdminLayout from "./layouts/HotelAdminLayout";
 import HotelAdminHome from "./pages/HotelAdmin/HotelAdminHome";
 import HotelAdminReservation from "./pages/HotelAdmin/HotelAdminReservation";
 import ReservationDetails from "./pages/HotelAdmin/ReservationDetails";
-import Hebergements from "./pages/HotelAdmin/Hebergements";
-import CreateRoom from "./pages/HotelAdmin/CreateRoom";
+import CreateRoom from "./pages/HotelAddRoom/CreateRoom";
+import Restrictions from "./pages/HotelAdmin/Restrictions";
+import Accomodations from "./pages/HotelAdmin/Accomodations";
+import AccomodationControls from "./pages/HotelAdmin/AccomodationControls";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -570,16 +572,20 @@ function App() {
                           <Route path="nouveau/*" element={<AddHotel />} />
                           <Route path='reservation' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
-                          <Route path='hoteladmin' element={<HotelAdminLayout/>}>
-                            <Route index element={<Navigate to='home' replace={true}/>}/>
-                            <Route path='home' element={<HotelAdminHome/>}/>
-                            <Route path='reservation'>
-                                <Route index element={<HotelAdminReservation/>}/>
-                                <Route path=':reservationId' element={<ReservationDetails/>}/>
+                          <Route path=":hotelId">
+                            <Route path='hoteladmin' element={<HotelAdminLayout/>}>
+                                <Route index element={<Navigate to='home' replace={true}/>}/>
+                                <Route path='home' element={<HotelAdminHome/>}/>
+                                <Route path='reservation'>
+                                    <Route index element={<HotelAdminReservation/>}/>
+                                    <Route path=':reservationId' element={<ReservationDetails/>}/>
+                                </Route>
+                                <Route path="hebergements" element={<Accomodations/>}/>
+                                <Route path = "restrictions" element={<Restrictions/>}/>
+                                <Route path="control-hebergements" element={<AccomodationControls/>}/>
                             </Route>
                             <Route path="hebergements">
-                                <Route index element={<Hebergements/>}/>
-                                <Route path="creation/*" element={<CreateRoom/>}/>
+                                <Route path="nouveau/*" element={<CreateRoom/>}/>
                             </Route>
                           </Route>
                         </Route>
