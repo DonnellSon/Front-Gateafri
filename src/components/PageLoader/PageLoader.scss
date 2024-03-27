@@ -6,8 +6,8 @@
     justify-content: center;
     background: rgba(66, 66, 66, 0.411);
     backdrop-filter: blur(10px);
-    .modalContent{
-        box-shadow: none;
+    .modalContent > *{
+        box-shadow: none !important;
     }
 }
 .page-loader .logo{
@@ -20,6 +20,7 @@
 }
 .page-loader .logo img{
     width: 250px;
+    
 }
 .loading-screen {
     margin-top: 20px;

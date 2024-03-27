@@ -1,3 +1,7 @@
+import React, { useContext, useEffect } from "react";
+import JobDetailsSkeleton from "../../components/JobDetails/JobDetailsSkeleton";
+import MediaContext from "../../context/MediaContext";
+import { DESKTOP } from "../../constants/MediaTypeConstants";
 import {
   Calendar2,
   Calendar3,
@@ -7,18 +11,52 @@ import {
 } from "react-bootstrap-icons";
 import "./PortalEmplois.scss";
 import Accordion from "../../components/Accordion/Accordion";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import JobCard from "../../components/JobCard/JobCard";
 import CheckBox from "../../components/CheckBox/CheckBox";
 import JobDetails from "../../components/JobDetails/JobDetails";
 import JobFindingSearchBar from "../../components/JobFindingSearchbar/JobFindingSearchbar";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import StickySideBar from "../../components/StickySideBar/StickySideBar";
+import useInfiniteScroll from "../../Hooks/useInfiniteScroll";
+import JobCardSkeleton from "../../components/JobCard/JobCardSkeleton";
 
 const PortalEmplois = () => {
   const { company } = useOutletContext();
+  const { deviceType } = useContext(MediaContext)
+  const { jobOfferId } = useParams()
   const [open, setOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null)
+  const [activeJob, setActiveJob] = useState(null)
+  const navigate = useNavigate()
+
+  const { data: jobOfferList,
+    flatData: jobOfferListFlat,
+    error,
+    hasNextPage: jobListNextPage,
+    isFetching: jobListFetching,
+    isFetchingNextPage: JobListFetchingNextPage,
+    status: jobsLoadingStatus,
+    refetch,
+    refetchPage
+  } = useInfiniteScroll({
+    url: `${process.env.REACT_APP_API_DOMAIN}/companies/${company.id}/job_offers`,
+    ipp: 10,
+    queryKey: ['jobOffers', company.id],
+    queryString: 'groups[]=job_offers_read',
+  })
+
+  useEffect(() => {
+    setActiveJob(jobOfferListFlat?.find((j) => j?.id == jobOfferId))
+  }, [jobOfferList, jobOfferId])
+
+  useEffect(() => {
+    if (jobOfferList && jobOfferList?.pages[0]?.data?.length > 0) {
+      setActiveJob(jobOfferList?.pages[0]?.data[0])
+      navigate(`../emplois/${jobOfferList?.pages[0]?.data[0].id}`, { absolute: true })
+    }
+  }, [jobOfferList])
 
   const jobDataList = [
     {
@@ -221,20 +259,25 @@ const PortalEmplois = () => {
     },
   ];
 
-  const show = (element)=>{
+  const show = (element) => {
     setOpen(true);
     setSelectedJob(element)
   }
   return (
     <div className="portalEmplois">
-      <div className="search-emplois mt-15">
-        <JobFindingSearchBar />
+      <div className="top mt-15">
+        <div>
+          <div className="heading2">
+            <h3>Emplois disponible chez {company.name}</h3>
+          </div>
+          <JobFindingSearchBar />
+        </div>
       </div>
-      <div className="sorting flex justify-content-between p-15">
+      <div className="sorting flex justify-content-between">
         <p>
-          <span>500</span> emplois disponible
+          <span>{jobOfferList?.pages[0]?.totalItems > 0 ? jobOfferList?.pages[0]?.totalItems : 'Aucun'}</span> emplois trouvés
         </p>
-        <div className="sort flex ">
+        <div className="sort flex">
           <p>Trier par: </p>
           <div className="selected flex align-items-center">
             <p>Date</p>
@@ -246,27 +289,48 @@ const PortalEmplois = () => {
       </div>
       <div className="result">
         <div className="job-list">
-          {jobDataList.map((jobData, i) => (
-            <div className="job" key={i}>
-              <JobCard data={jobData} handleShow={()=>show(jobData)}/>
-              <div className="modal-container">
-                <Modal open={open} className="modal-emplois">
-                  <div className="content">
-                    <JobDetails data={selectedJob} />
-                    <div className="close">
-                      <button onClick={() => setOpen(false)}>
-                        Fermer
-                      </button>
-                    </div>
-                  </div>
-                </Modal>
-              </div>
-            </div>
-          ))}
+          {
+            jobsLoadingStatus === 'loading' ? (
+              <>
+                <JobCardSkeleton />
+                <JobCardSkeleton />
+                <JobCardSkeleton />
+              </>
+            ) : jobsLoadingStatus === 'error' ? (
+              <p>Error: {error.message}</p>
+            ) : (jobOfferList?.pages[0]?.data?.length > 0 ? jobOfferList?.pages?.map((group, i) => (
+              <React.Fragment key={i}>
+                {group.data.map((job) => (
+                  <JobCard active={activeJob === job} data={job} />
+                ))}
+              </React.Fragment>
+
+            )) : <div className="empty-job flex flex-column justify-content-center align-items-center gap-5">
+              <h4>Aucune offre d'emplois à afficher</h4>
+              <p>Nous vous invitons à créer une première offre d'emplois pour commencer le recrutement pour votre entreprise</p>
+              <Link to='/emplois/nouveau' className="btn btn-gradient">Créer une offre d'emplois</Link>
+            </div>)
+          }
+          {JobListFetchingNextPage
+            ? <JobCardSkeleton />
+            : jobListNextPage
+              ? ''
+              : ''}
         </div>
-        <div className="job-detail elevated-card p-15">
-          <JobDetails data={jobDataList[0]} />
-        </div>
+        {
+          deviceType === DESKTOP &&
+          <div className="job-detail">
+            <StickySideBar top={63} bottom={5}>
+              {
+                jobListFetching ?
+                  <JobDetailsSkeleton /> :
+                  activeJob && <JobDetails data={activeJob} />
+              }
+            </StickySideBar>
+          </div>
+
+        }
+
       </div>
     </div>
   );

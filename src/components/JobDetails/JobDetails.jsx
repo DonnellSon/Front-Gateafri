@@ -97,7 +97,7 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
         description &&
         <div className="role">
           <h4>Description détaillé du poste</h4>
-          <p>{htmlToJsx.parse(description)}</p>
+          <p className='inset-list'>{htmlToJsx.parse(description)}</p>
         </div>
       }
 

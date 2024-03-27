@@ -131,7 +131,6 @@ img.emoji {
     label {
       color: themed("text", 2);
     }
-
     .btn-outline-light {
       border: 1px solid themed("border", 2);
       color: themed("text", 2);
@@ -140,7 +139,7 @@ img.emoji {
     }
 
     .btn-outline-yellow {
-      border: 1px solid var(--orange);
+      border: 1px solid themed('border',2);
       color: var(--orange);
       font-weight: 600;
     }
@@ -189,20 +188,6 @@ img.emoji {
       background: themed("background", 5) !important;
       border: themed("border", 2);
       color: themed("text", 1);
-    }
-
-    form {
-      color: themed("text", 3);
-
-      label {
-        color: themed("text", 2);
-      }
-
-      h1,
-      h2,
-      h3 {
-        color: themed("text", 1);
-      }
     }
 
     .btn-transparent {
@@ -357,6 +342,10 @@ hr {
 
 ul {
   list-style-type: none;
+}
+
+.inset-list{
+  padding-left: 15px;
 }
 
 a {

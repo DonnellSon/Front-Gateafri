@@ -175,7 +175,7 @@ const Explorer = () => {
 
   const { data: country, error: countryErr, isLoading: countryLoading } = useQuery(['country', countryId], () => {
     return axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/pays/${countryId}`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/pays/${countryId}`,
       method: 'get', withCredentials: true
     }).then((res) => res.data)
   })

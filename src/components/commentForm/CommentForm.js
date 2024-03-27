@@ -15,7 +15,7 @@ const CommentForm = ({ commentable,parent=null, focusOnShown = false, onKeyup = 
 
     const sendComment = () => {
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/comments`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/comments`,
             method: 'post',
             data: {
                 content: tmpComment,

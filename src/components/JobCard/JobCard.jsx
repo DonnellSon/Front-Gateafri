@@ -25,7 +25,7 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
                 <div className='flex gap-10'>
                     <Avatar src={author.activeLogo ? author.activeLogo.fileUrl : null} width={45} height={45} />
                     <div className="job-info">
-                        <Link to={`/emplois/${id}`}><h2>{title}</h2></Link>
+                        <Link to={`../emplois/${id}`}><h2>{title}</h2></Link>
                         <span className='flex align-items-center column-gap-5'><span className='purple-txt'>{author.name}</span>
                             <span className="job-company-eval">
                                 <Rating
@@ -59,7 +59,7 @@ const JobCard = ({handleShow, active = false, data: { id, title, author, domaine
                 <p className="description">{htmlToJsx.parse(summary || description)}</p>
                 <div className="bottom flex gap-10">
                     <button className="btn-transparent orange-txt">Postuler</button>
-                    <Link to={`/emplois/${id}/details`} className="btn-transparent" onClick={()=>handleShow()}><Eye /> Détails</Link>
+                    <Link to={`details`} className="btn-transparent"><Eye /> Détails</Link>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React,{ useContext } from "react"
+import React, { useContext } from "react"
 import './JobDetails.scss'
 import { Save, Folder } from 'react-bootstrap-icons'
 import Logo from "../../components/Logo/Logo"
@@ -10,13 +10,14 @@ import { Parser } from 'html-to-react'
 import millify from 'millify'
 import CurrencyContext from '../../context/CurrencyContext'
 import { convertCurrency } from '../../utils/currencyUtils'
+import StickySideBar from "../../components/StickySideBar/StickySideBar"
 
 const JobDetails = () => {
     const { jobOfferId } = useParams()
     const htmlToJsx = new Parser()
     const { currency, currenciesBaseUSD } = useContext(CurrencyContext)
-    
-    
+
+
     const {
         status,
         fetchStatus,
@@ -82,7 +83,7 @@ const JobDetails = () => {
                                                     jobOffer.description &&
                                                     <div className="role">
                                                         <h4>Description détaillé du poste</h4>
-                                                        <p>{htmlToJsx.parse(jobOffer.description)}</p>
+                                                        <p className="inset-list">{htmlToJsx.parse(jobOffer.description)}</p>
                                                     </div>
                                                 }
                                             </div>
@@ -117,111 +118,113 @@ const JobDetails = () => {
                                         </div>
                                     </div>
                                     <div className="flex flex-column flex-1 gap-10">
-                                        <div className="card job-specific">
-                                            {
-                                                (jobOffer.salary && ((!isNaN(jobOffer.salary?.min) && !isNaN(jobOffer.salary?.max) && jobOffer.salary?.min > 0 && jobOffer.salary?.max > 0) || (!isNaN(jobOffer.salary?.amount) && jobOffer.salary?.amount > 0))) &&
+                                        <StickySideBar bottom={5}>
+                                            <div className="card job-specific mb-5">
+                                                {
+                                                    (jobOffer.salary && ((!isNaN(jobOffer.salary?.min) && !isNaN(jobOffer.salary?.max) && jobOffer.salary?.min > 0 && jobOffer.salary?.max > 0) || (!isNaN(jobOffer.salary?.amount) && jobOffer.salary?.amount > 0))) &&
 
-                                                    (from && to) ?
-                                                    <b>{(jobOffer.salary?.min && jobOffer.salary?.max) ? millify(convertCurrency(jobOffer.salary?.min, from, to)) + "-" + millify(convertCurrency(jobOffer.salary?.max, from, to)) : millify(convertCurrency(jobOffer.salary.amount, from, to))} {currency?.code}</b>
-                                                    :
-                                                    <b>{(jobOffer.salary?.min && jobOffer.salary?.max) ? millify(jobOffer.salary?.min) + "-" + millify(jobOffer.salary?.max) : millify(jobOffer.salary.amount)} {jobOffer.salary?.currency?.code}</b>
+                                                        (from && to) ?
+                                                        <b>{(jobOffer.salary?.min && jobOffer.salary?.max) ? millify(convertCurrency(jobOffer.salary?.min, from, to)) + "-" + millify(convertCurrency(jobOffer.salary?.max, from, to)) : millify(convertCurrency(jobOffer.salary.amount, from, to))} {currency?.code}</b>
+                                                        :
+                                                        <b>{(jobOffer.salary?.min && jobOffer.salary?.max) ? millify(jobOffer.salary?.min) + "-" + millify(jobOffer.salary?.max) : millify(jobOffer.salary.amount)} {jobOffer.salary?.currency?.code}</b>
 
-                                            }
-                                            <span className="block mt-10">Salaire à peu pres </span>
-                                            <div>
-                                                <div className="flex align-items-center mt-20">
-                                                    <div className="flex px-20 align-items-center">
-                                                        <Folder size={15} />
+                                                }
+                                                <span className="block mt-10">Salaire à peu pres </span>
+                                                <div>
+                                                    <div className="flex align-items-center mt-20">
+                                                        <div className="flex px-20 align-items-center">
+                                                            <Folder size={15} />
+                                                        </div>
+                                                        <div>
+                                                            <h4>Lorem ipsum dolor sit amet.</h4>
+                                                            <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <h4>Lorem ipsum dolor sit amet.</h4>
-                                                        <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                    <div className="flex align-items-center mt-20">
+                                                        <div className="flex px-20 align-items-center">
+                                                            <Folder size={15} />
+                                                        </div>
+                                                        <div>
+                                                            <h4>Lorem ipsum dolor sit amet.</h4>
+                                                            <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex align-items-center mt-20">
+                                                        <div className="flex px-20 align-items-center">
+                                                            <Folder size={15} />
+                                                        </div>
+                                                        <div>
+                                                            <h4>Lorem ipsum dolor sit amet.</h4>
+                                                            <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex align-items-center mt-20">
+                                                        <div className="flex px-20 align-items-center">
+                                                            <Folder size={15} />
+                                                        </div>
+                                                        <div>
+                                                            <h4>Lorem ipsum dolor sit amet.</h4>
+                                                            <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex align-items-center mt-20">
-                                                    <div className="flex px-20 align-items-center">
-                                                        <Folder size={15} />
+                                                <p className="mt-20 text-grey">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, quibusdam!</p>
+                                            </div>
+
+                                            <div className="card lastest-job">
+                                                <h3>Postes récentes</h3>
+                                                <span className="block mt-10">90 postes </span>
+                                                <div className="items mt-5">
+                                                    <div className="item mt-20">
+                                                        <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
+                                                        <div className="flex align-items-center text-grey">
+                                                            <div className="company-image mr-10 ">
+                                                                <img src="/img/test/image_test.jpg" />
+                                                            </div>
+                                                            <span className="block">Nom company</span>
+                                                            <span className="block mx-5">•</span>
+                                                            <span className="block">Emplacement</span>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <h4>Lorem ipsum dolor sit amet.</h4>
-                                                        <p className="text-grey">Lorem ipsum dolor sit amet, </p>
+                                                    <div className="item mt-20">
+                                                        <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
+                                                        <div className="flex align-items-center text-grey">
+                                                            <div className="company-image mr-10 ">
+                                                                <img src="/img/test/image_test.jpg" />
+                                                            </div>
+                                                            <span className="block">Nom company</span>
+                                                            <span className="block mx-5">•</span>
+                                                            <span className="block">Emplacement</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="item mt-20">
+                                                        <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
+                                                        <div className="flex align-items-center text-grey">
+                                                            <div className="company-image mr-10 ">
+                                                                <img src="/img/test/image_test.jpg" />
+                                                            </div>
+                                                            <span className="block">Nom company</span>
+                                                            <span className="block mx-5">•</span>
+                                                            <span className="block">Emplacement</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="item mt-20">
+                                                        <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
+                                                        <div className="flex align-items-center text-grey">
+                                                            <div className="company-image mr-10 ">
+                                                                <img src="/img/test/image_test.jpg" />
+                                                            </div>
+                                                            <span className="block">Nom company</span>
+                                                            <span className="block mx-5">•</span>
+                                                            <span className="block">Emplacement</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex align-items-center mt-20">
-                                                    <div className="flex px-20 align-items-center">
-                                                        <Folder size={15} />
-                                                    </div>
-                                                    <div>
-                                                        <h4>Lorem ipsum dolor sit amet.</h4>
-                                                        <p className="text-grey">Lorem ipsum dolor sit amet, </p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex align-items-center mt-20">
-                                                    <div className="flex px-20 align-items-center">
-                                                        <Folder size={15} />
-                                                    </div>
-                                                    <div>
-                                                        <h4>Lorem ipsum dolor sit amet.</h4>
-                                                        <p className="text-grey">Lorem ipsum dolor sit amet, </p>
-                                                    </div>
+                                                <div className="flex justify-content-center">
+                                                    <button className="btn btn-transparent btn-see-all">Voir tous les postes sur cet société</button>
                                                 </div>
                                             </div>
-                                            <p className="mt-20 text-grey">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, quibusdam!</p>
-                                        </div>
-
-                                        <div className="card lastest-job">
-                                            <h3>Postes récentes</h3>
-                                            <span className="block mt-10">90 postes </span>
-                                            <div className="items mt-5">
-                                                <div className="item mt-20">
-                                                    <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
-                                                    <div className="flex align-items-center text-grey">
-                                                        <div className="company-image mr-10 ">
-                                                            <img src="/img/test/image_test.jpg" />
-                                                        </div>
-                                                        <span className="block">Nom company</span>
-                                                        <span className="block mx-5">•</span>
-                                                        <span className="block">Emplacement</span>
-                                                    </div>
-                                                </div>
-                                                <div className="item mt-20">
-                                                    <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
-                                                    <div className="flex align-items-center text-grey">
-                                                        <div className="company-image mr-10 ">
-                                                            <img src="/img/test/image_test.jpg" />
-                                                        </div>
-                                                        <span className="block">Nom company</span>
-                                                        <span className="block mx-5">•</span>
-                                                        <span className="block">Emplacement</span>
-                                                    </div>
-                                                </div>
-                                                <div className="item mt-20">
-                                                    <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
-                                                    <div className="flex align-items-center text-grey">
-                                                        <div className="company-image mr-10 ">
-                                                            <img src="/img/test/image_test.jpg" />
-                                                        </div>
-                                                        <span className="block">Nom company</span>
-                                                        <span className="block mx-5">•</span>
-                                                        <span className="block">Emplacement</span>
-                                                    </div>
-                                                </div>
-                                                <div className="item mt-20">
-                                                    <h4 className="mb-5">Nom emploi Lorem, ipsum.</h4>
-                                                    <div className="flex align-items-center text-grey">
-                                                        <div className="company-image mr-10 ">
-                                                            <img src="/img/test/image_test.jpg" />
-                                                        </div>
-                                                        <span className="block">Nom company</span>
-                                                        <span className="block mx-5">•</span>
-                                                        <span className="block">Emplacement</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex justify-content-center">
-                                                <button className="btn btn-transparent btn-see-all">Voir tous les postes sur cet société</button>
-                                            </div>
-                                        </div>
+                                        </StickySideBar>
                                     </div>
                                 </div>
                             </>

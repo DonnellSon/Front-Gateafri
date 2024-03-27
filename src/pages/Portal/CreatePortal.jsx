@@ -68,7 +68,7 @@ const CreatePortal = () => {
         }
 
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/companies`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/companies`,
             method: "post",
             data,
             withCredentials: true
@@ -88,7 +88,7 @@ const CreatePortal = () => {
     const { data: companyTypes, error: companyTypesError } = useQuery(['repoCompanyTypes'], getCompanyTypes)
 
     useEffect(() => {
-        (companySizes && companyTypes) && setCompany(prev => ({ ...prev, companySize: `/api/company_sizes/${companySizes[0]?.id}`, companyType: `/api/company_types/${companyTypes[0]?.id}` }))
+        (companySizes && companyTypes) && setCompany(prev => ({ ...prev, companySize: `/company_sizes/${companySizes[0]?.id}`, companyType: `/company_types/${companyTypes[0]?.id}` }))
     }, [companySizes, companyTypes])
 
 
@@ -159,7 +159,7 @@ const CreatePortal = () => {
                                                 searchPlaceholder='Rechercher un domaine'
                                                 query={getDomains}
                                                 repoName="domainsListRepo"
-                                                objectMapping={(d) => ({ title: d.title, value: `/api/domains/${d.id}` })} />
+                                                objectMapping={(d) => ({ title: d.title, value: `/domains/${d.id}` })} />
 
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@ const CreatePortal = () => {
                                                 query={(filters) => getCountryList({ filters })}
                                                 repoName="coutryListRepo"
                                                 toPlaceholder={(elem) => elem.name}
-                                                objectMapping={(p) => ({ ...p, value: `/api/pays/${p.id}` })}
+                                                objectMapping={(p) => ({ ...p, value: `/pays/${p.id}` })}
                                                 mapping={(p) => <Link>
                                                     <img src={p.flag.fileUrl} width={25} alt="" />
                                                     <span>{p.name}</span>
@@ -239,7 +239,7 @@ const CreatePortal = () => {
                                         <div className="right">
                                             <select name="companySize" id="" onChange={handleChangeInput} className="inpt">
                                                 {
-                                                    companySizes?.map((cs, i) => <option value={`/api/company_sizes/${cs.id}`} key={i}>{cs.size}</option>)
+                                                    companySizes?.map((cs, i) => <option value={`/company_sizes/${cs.id}`} key={i}>{cs.size}</option>)
                                                 }
                                             </select>
                                         </div>
@@ -251,7 +251,7 @@ const CreatePortal = () => {
                                         <div className="right">
                                             <select name="companyType" id="" onChange={handleChangeInput} className="inpt">
                                                 {
-                                                    companyTypes?.map((ct, i) => <option value={`/api/company_types/${ct.id}`} key={i}>{ct.type}</option>)
+                                                    companyTypes?.map((ct, i) => <option value={`/company_types/${ct.id}`} key={i}>{ct.type}</option>)
                                                 }
                                             </select>
                                         </div>

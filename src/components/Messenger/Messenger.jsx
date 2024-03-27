@@ -39,7 +39,7 @@ const Messenger = ({ discu }) => {
 
     const addMessage = async (data) => (
         await axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/messages`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/messages`,
             data,
             method: 'post',
             withCredentials: true
@@ -48,7 +48,7 @@ const Messenger = ({ discu }) => {
 
     const { isLoading: messagesLoading, error: messageError, data: messages, refetch: refetchMsg } = useQuery(['repoMessages', discuId], () =>
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions/${discuId}/messages`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
             method: 'get', withCredentials: true
         }).then((res) => res.data.reverse())
     )
@@ -71,7 +71,7 @@ const Messenger = ({ discu }) => {
     const sendMessage = () => {
         let formData = new FormData()
         formData.append('content', tmpMessage.content)
-        formData.append('discussion', `/api/discussions/${discuId}`)
+        formData.append('discussion', `/discussions/${discuId}`)
         if (tmpMessage.pictures.length > 0) {
             
             tmpMessage.pictures.forEach(pic => {

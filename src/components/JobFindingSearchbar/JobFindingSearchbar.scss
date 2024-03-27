@@ -3,13 +3,7 @@
 
 .job-finding-searchbar {
     @include themify($themes) {
-        padding: 25px 0 8px 0;
-        background-image: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
-        box-shadow: var(--nav-elevation);
-        position: sticky;
-        overflow: visible !important;
-        top: -48px;
-        z-index: 900;
+        
         
         .job-title {
             position: relative;
@@ -108,7 +102,6 @@
         @media (max-width:768px) {
             & {
                 position: static;
-                padding: 15px;
             }
         
             & .search-form {

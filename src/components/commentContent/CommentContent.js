@@ -45,7 +45,7 @@ const CommentContent = ({ children,sender,commentDate,parentId=null,onReplied=()
             {
                 cmtFormShown &&
                 <div className="cmtForm" style={{ marginBottom:10 }}>
-                    <CommentForm parent={parentId ? `/api/comments/${parentId}` : null} focusOnShown={true} onSended={
+                    <CommentForm parent={parentId ? `/comments/${parentId}` : null} focusOnShown={true} onSended={
                         (data)=>{
                             onReplied(data)
                         }

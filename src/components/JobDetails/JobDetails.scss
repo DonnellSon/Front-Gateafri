@@ -8,9 +8,6 @@
         padding: 15px;
         background: themed("background",3);
         margin: auto;
-        ul,ol{
-            list-style:inside;
-        }
         .avatar{
             img{
                 border: 1px solid themed("border",2);

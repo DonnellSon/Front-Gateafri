@@ -24,7 +24,7 @@ const ModalAccess = () => {
   const [access, setAccess] = useState(
     {
       user: null,
-      company: `/api/companies/${portalId}`,
+      company: `/companies/${portalId}`,
       type: "ADMIN"
     }
   )
@@ -62,7 +62,7 @@ const ModalAccess = () => {
                   </div> :
                   <Searchbar
                     placeholder="Rechercher un utilisateur"
-                    suggestUrl={`${process.env.REACT_APP_API_DOMAIN}/api/users`}
+                    suggestUrl={`${process.env.REACT_APP_API_DOMAIN}/users`}
                     queryKey={['searchUserSuggest']}
                     suggest={true}
                     mapSuggests={
@@ -143,7 +143,7 @@ const Access = () => {
     refetch,
     refetchPage
   } = useInfiniteScroll({
-    url: `${process.env.REACT_APP_API_DOMAIN}/api/companies/${portalId}/accesses`,
+    url: `${process.env.REACT_APP_API_DOMAIN}/companies/${portalId}/accesses`,
     ipp: 10,
     queryKey: ['portalAccess', portalId],
   })

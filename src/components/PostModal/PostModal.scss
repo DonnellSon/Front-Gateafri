@@ -2,8 +2,8 @@
 
 .post-modal{
     @include themify($themes){
-        .modalContent{
-            background: themed("background",3);
+        .modalContent > *{
+            background: themed('background',3) !important;
             border-radius: 5px;
             max-width: 680px;
             height: 100vh !important;
@@ -22,7 +22,7 @@
                     z-index: 100 !important;
                 }
             }
-            .heading{
+            .header{
                 min-height: 45px;
                 padding: 0 15px;
                 background: var(--main-gradient);

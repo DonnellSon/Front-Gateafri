@@ -50,11 +50,11 @@ const CreateJob = () => {
       ...jobOffer, 
       type: jobOffer.type.value, 
       grade: jobOffer.grade.value,
-      author:`/api/authors/${jobOffer.author.id}`,
+      author:`/authors/${jobOffer.author.id}`,
       salary: JSON.stringify({ 
         ...jobOffer.salary, 
         currency: jobOffer.salary ? 
-          `/api/currencies/${jobOffer.salary.currency.id}` : `/api/currencies/${currency.id}` 
+          `/currencies/${jobOffer.salary.currency.id}` : `/currencies/${currency.id}` 
       }) 
     }
     const data = new FormData()
@@ -69,7 +69,7 @@ const CreateJob = () => {
     }
     setAddJobLoading(true)
     axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/job_offers`,
       data,
       method: 'post', withCredentials: true
     })
@@ -126,7 +126,7 @@ const CreateJob = () => {
                               query={(filters) => getUserCompanies(user.id)}
                               repoName="userPortalsRepo"
                               toPlaceholder={(elem) => elem.name}
-                              objectMapping={(p) => ({ name: p.name, value: `/api/companies/${p.id}` })}
+                              objectMapping={(p) => ({ name: p.name, value: `/companies/${p.id}` })}
                               mapping={(p) => <Link>
                                 <span>{p.name}</span>
                               </Link>}
@@ -148,7 +148,7 @@ const CreateJob = () => {
                               query={(filters) => getJobGrades()}
                               repoName="jobGradesRepo"
                               toPlaceholder={(elem) => elem.title}
-                              objectMapping={(g) => ({ title: g.title, value: `/api/job_grades/${g.id}` })}
+                              objectMapping={(g) => ({ title: g.title, value: `/job_grades/${g.id}` })}
                               mapping={(g) => <Link>
                                 <span>{g.title}</span>
                               </Link>}
@@ -164,7 +164,7 @@ const CreateJob = () => {
                               query={(filters) => getJobTypes()}
                               repoName="jobTypesRepo"
                               toPlaceholder={(elem) => elem.title}
-                              objectMapping={(t) => ({ title: t.title, value: `/api/job_types/${t.id}` })}
+                              objectMapping={(t) => ({ title: t.title, value: `/job_types/${t.id}` })}
                               mapping={(t) => <Link>
                                 <span>{t.title}</span>
                               </Link>}

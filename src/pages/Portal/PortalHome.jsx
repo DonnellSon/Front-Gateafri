@@ -55,7 +55,7 @@ const PageHome = () => {
     refetch,
     refetchPage,
   } = useInfiniteScroll({
-    url: `${process.env.REACT_APP_API_DOMAIN}/api/authors/${portalId}/job_offers`,
+    url: `${process.env.REACT_APP_API_DOMAIN}/authors/${portalId}/job_offers`,
     ipp: 10,
     queryKey: ["jobOffers", portalId],
     queryString: "groups[]=job_offers_read",

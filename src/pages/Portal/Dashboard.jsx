@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   const fetchPosts = ({ pageParam = 1 }) => {
     return axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/authors/${portalId}/posts?ipp=5&page=${pageParam}${filters ? `& ${filtersToURL(filters)}` : ''}`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/authors/${portalId}/posts?ipp=5&page=${pageParam}${filters ? `& ${filtersToURL(filters)}` : ''}`,
       method: 'get',
       responseType: "json",
       headers: {

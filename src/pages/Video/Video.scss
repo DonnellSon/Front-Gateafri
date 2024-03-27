@@ -70,6 +70,9 @@
         color:  themed("text",3);
         video-js{
             max-width: 100% !important;
+            min-width: 100% !important;
+            min-height: 450px;
+            max-height: calc(100vh - 58px);
         }
         video {
             display: block;

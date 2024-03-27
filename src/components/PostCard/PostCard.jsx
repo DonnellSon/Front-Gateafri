@@ -27,7 +27,7 @@ const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
   const deletePost = (e) => {
     e.preventDefault()
     axios({
-      url:`${process.env.REACT_APP_API_DOMAIN}/api/posts/${data.id}`,
+      url:`${process.env.REACT_APP_API_DOMAIN}/posts/${data.id}`,
       method:'delete',
       withCredentials: true,
       headers:{
@@ -43,8 +43,8 @@ const PostCard = ({ noComment = false, data, onDelete = () => { } }) => {
 
 const addPostEvaluation = (postId, note) => {
   return axios({
-    url: `${process.env.REACT_APP_API_DOMAIN}/api/evaluations`,
-    data: { evaluable: `/api/posts/${postId}`, note },
+    url: `${process.env.REACT_APP_API_DOMAIN}/evaluations`,
+    data: { evaluable: `/posts/${postId}`, note },
     method: 'post', withCredentials: true,
   }).then((res) => {
     console.log(res.data)

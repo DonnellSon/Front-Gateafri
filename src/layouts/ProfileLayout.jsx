@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import "./ProfileLayout.scss";
 import {
-  Briefcase,
-  Building,
-  Calendar,
-  Diamond,
-  ExclamationCircle,
-  ExclamationDiamond,
-  FileEarmarkPerson,
-  Gem,
-  House,
-  LayoutWtf,
-  Pencil,
-  PencilSquare,
-  Person,
-  PlusLg,
-  ThreeDots,
+    Briefcase,
+    Building,
+    Calendar,
+    Diamond,
+    ExclamationCircle,
+    ExclamationDiamond,
+    FileEarmarkPerson,
+    Gem,
+    House,
+    LayoutWtf,
+    Pencil,
+    PencilSquare,
+    Person,
+    PlusLg,
+    ThreeDots,
 } from "react-bootstrap-icons";
 import Avatar from "../components/Avatar/Avatar";
 import {
-  FilePostFill,
-  HouseDoorFill,
-  ExclamationDiamondFill,
-  BriefcaseFill,
-  PeopleFill,
-  Check2,
-  ChevronLeft,
-  ChevronRight,
+    FilePostFill,
+    HouseDoorFill,
+    ExclamationDiamondFill,
+    BriefcaseFill,
+    PeopleFill,
+    Check2,
+    ChevronLeft,
+    ChevronRight,
 } from "react-bootstrap-icons";
 import DoNavLink from "../components/DoNavLink/DoNavLink";
 import { Link, useParams } from "react-router-dom";
@@ -34,7 +34,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import StickySideBar from '../components/StickySideBar/StickySideBar'
 import { getUser } from '../api/users'
-import { acceptContact, existContact } from '../api/contacts'
+import { acceptContact, existContact,requestContact } from '../api/contacts'
 import { useQuery, useQueryClient, useMutation } from 'react-query'
 import DonationCard from '../components/DonationCard/DonationCard'
 import ProfilePictureSelectorModal from '../components/ProfilePictureSelectorModal/ProfilePictureSelectorModal'
@@ -86,9 +86,23 @@ const ProfileLayout = () => {
             },
         })
 
+    const {
+        mutate: requestContactFn,
+        error: requestContactErr,
+        isLoading: requestContactLoading } = useMutation(()=>requestContact(`/users/${userId}`), {
+            onSuccess: (contactRequested) => {
+                queryClient.setQueryData(['repoExistContact', userId], (existContactData) => {
+                    return [{ ...contactRequested }]
+                })
+            },
+        })
+
     useEffect(() => {
         console.log(existContactData, 'EXISTCONTACT')
     }, [existContactData])
+
+
+
 
 
     return (
@@ -125,27 +139,38 @@ const ProfileLayout = () => {
                                                 </div>
                                                 <div className="btns flex gap-10">
                                                     {
-                                                        existContactData?.length > 0 ?
-                                                            existContactData[0].status === 'en attente' ?
-                                                            existContactData[0].receiver.id === currentUser.id ?
-                                                                <>
-                                                                    <button className="btn btn-purple" onClick={()=>{
-                                                                        contactAccept(existContactData[0].id)
-                                                                    }}>{
-                                                                        contactAcceptLoading ? <CircleLoader/> : 'Accepter le contact'
-                                                                    }</button>
-                                                                    <button className="btn btn-transparent">Refuser le contact</button>
-                                                                </>
-                                                                : existContactData[0].requester.id === currentUser.id &&
-                                                                    <button className="btn btn-transparent">Annuler le contact</button>
+                                                        currentUser.id === userId ?
+                                                            <button className="btn btn-gradient"><PlusLg /> Publier un post</button>
+                                                            :
+                                                            <>
+                                                                {
+                                                                    existContactData?.length > 0 ?
+                                                                        existContactData[0].status === 'en attente' ?
+                                                                            existContactData[0].receiver.id === currentUser.id ?
+                                                                                <>
+                                                                                    <button className="btn btn-purple" onClick={() => {
+                                                                                        contactAccept(existContactData[0].id)
+                                                                                    }}>{
+                                                                                            contactAcceptLoading ? <CircleLoader /> : 'Accepter le contact'
+                                                                                        }</button>
+                                                                                    <button className="btn btn-transparent">Refuser le contact</button>
+                                                                                </>
+                                                                                : existContactData[0].requester.id === currentUser.id &&
+                                                                                <button className="btn btn-transparent">Annuler le contact</button>
 
 
-                                                            : existContactData[0].status === 'accepté' && <button className="btn btn-transparent">Couper le contact</button>
-                                                        : <button className="btn btn-purple">Contacter</button>
+                                                                            : existContactData[0].status === 'accepté' && <button className="btn btn-transparent">Couper le contact</button>
+                                                                        : <button className="btn btn-purple" onClick={()=>{
+                                                                            requestContactFn()
+                                                                        }}>{requestContactLoading ? <CircleLoader/> : 'Contacter'}</button>
+                                                                }
+                                                                <button className="btn btn-outline-yellow">Recruter</button>
+                                                            </>
+
 
                                                     }
 
-                                                    <button className="btn btn-outline-yellow">Recruter</button>
+
                                                 </div>
                                             </div>
                                         </div>

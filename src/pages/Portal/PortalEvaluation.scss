@@ -43,6 +43,7 @@
           margin: auto;
         }
         .right {
+          
           top: 0 !important;
           .container {
             width: 100% !important;
@@ -235,11 +236,10 @@
       .right {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        width: 350px !important;
         // flex: 1;
         .container {
           margin-bottom: 5px;
-          width: 250px;
           padding: 15px;
           border-radius: 5px;
           h3 {

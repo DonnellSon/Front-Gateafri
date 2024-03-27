@@ -27,7 +27,7 @@ const ProfilePictureSelectorModal = ({ open = true, file, onChanged = () => { } 
             setIsUploading(true)
             axios({
                 method: 'post',
-                url: `${process.env.REACT_APP_API_DOMAIN}/api/profile_pictures`,
+                url: `${process.env.REACT_APP_API_DOMAIN}/profile_pictures`,
                 withCredentials: true,
                 data: postFormData
             }).then((res) => {

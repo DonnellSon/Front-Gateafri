@@ -14,7 +14,7 @@ const SortableList = ({ title, repoName = 'repo', query, mapping = (elem) => ele
     
     const [comp,setComp]=useState([])
     // axios({
-    //     url: `${process.env.REACT_APP_API_DOMAIN}/api/companies?ipp=2`,
+    //     url: `${process.env.REACT_APP_API_DOMAIN}/companies?ipp=2`,
     //     method: 'get',
     //     withCredentials: true,
     //     responseType:"json",

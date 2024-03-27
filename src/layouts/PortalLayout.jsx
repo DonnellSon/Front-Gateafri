@@ -124,7 +124,7 @@ const PortalLayout = () => {
                 </DoNavLink>
               </li>
               <li>
-                <DoNavLink to="emplois" activeClass="active">
+                <DoNavLink end={false} to="emplois" activeClass="active">
                   <span>Emplois</span>
                 </DoNavLink>
               </li>

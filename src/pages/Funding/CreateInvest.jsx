@@ -53,7 +53,7 @@ const CreateInvest = () => {
 
     const addInvest = () => {
         resetErrors()
-        const toSend = { ...invest,author:invest.author.name ? `/api/companies/${invest.author.id}` : `/api/users/${invest.author.id}`, currency: invest.currency?.value || null }
+        const toSend = { ...invest,author:invest.author.name ? `/companies/${invest.author.id}` : `/users/${invest.author.id}`, currency: invest.currency?.value || null }
         const data = new FormData()
         for (var key in toSend) {
             if (Array.isArray(toSend[key])) {
@@ -67,7 +67,7 @@ const CreateInvest = () => {
 
         setAddInvestLoading(true)
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/invests`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/invests`,
             data,
             method: 'post', withCredentials: true
         })
@@ -135,7 +135,7 @@ const CreateInvest = () => {
                                 searchPlaceholder='Rechercher un domaine'
                                 query={getDomains}
                                 repoName="domainsListRepo"
-                                objectMapping={(d) => ({ title: d.title, value: `/api/domains/${d.id}` })} />
+                                objectMapping={(d) => ({ title: d.title, value: `/domains/${d.id}` })} />
                             <ErrorLabel title={errors.domains} />
                         </div>
                     </div>

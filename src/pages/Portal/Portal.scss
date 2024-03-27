@@ -9,6 +9,8 @@
             background: linear-gradient(transparent -20%, themed("background", 3) 135%);
             background: themed("background", 3);
             padding: 15px 0;
+            z-index: 2;
+            position: relative;
 
             >.left {
                 max-width: 1030px;
@@ -69,7 +71,6 @@
         >.portal-nav {
             background: themed("background", 3);
             box-shadow: var(--elevation-1);
-            border-top: 1px solid themed("border", 2);
             border-bottom: 1px solid themed("border", 2);
             display: flex;
             justify-content: center;
@@ -77,6 +78,8 @@
             height: 58px;
             padding: 8px 0 8px 0;
             color: themed("text",2);
+            z-index: 1000;
+            position: relative;
             >ul {
                 width: 100%;
                 max-width: 1000px;

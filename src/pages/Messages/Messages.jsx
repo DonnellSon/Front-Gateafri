@@ -39,7 +39,7 @@ const Messages = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/discussions`,
         ipp: 10,
         queryKey: ['discuList'],
     })
