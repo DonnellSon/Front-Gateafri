@@ -1,0 +1,67 @@
+@import "../../style.scss";
+.pricing-plans {
+  @include themify($themes) {
+    max-width: 1200px;
+    margin: auto;
+    .head {
+      select {
+        width: 200px !important ;
+      }
+    }
+    .table {
+      th,
+      td {
+        font-size: 14px;
+        text-align: start;
+        padding: 15px;
+        vertical-align: top;
+        color: themed("text", 1);
+      }
+      span {
+        display: block;
+      }
+      > table {
+        border-collapse: collapse;
+        width: 100%;
+        .primary {
+          cursor: pointer;
+          &:hover {
+            background-color: themed("background", 5);
+          }
+          .icon {
+            vertical-align: middle;
+            padding-right: 0;
+            svg{
+                display: block;
+                margin: auto;
+            }
+          }
+        }
+        > tr {
+          border-bottom: 1px solid themed("border", 3);
+          align-items: flex-start;
+        }
+        .more {
+          background-color: themed("background", 5);
+          > td {
+            padding: 0;
+            table {
+              width: 100%;
+              th{
+                padding-bottom: 0;
+              }
+            }
+          }
+          .buttons {
+            padding-top: 0;
+            justify-content: flex-end;
+            .update {
+              border: 1px solid themed("mainColor", purple);
+              color: themed("mainColor", purple);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,19 +1,19 @@
 @import "../../style.scss";
 
-#accomodation {
+#accommodation {
   @include themify($themes) {
     width: 1000px;
     margin: auto;
-    .accomodation-head{
+    .accommodation-head{
         h2 {
           margin: 15px 0;
           margin-right: 180px;
         }
     }
-    .accomodation-list {
+    .accommodation-list {
       align-items: stretch;
       flex-wrap: wrap;
-      .accomodation-item {
+      .accommodation-item {
         width: 300px;
         padding: 15px;
         .image {

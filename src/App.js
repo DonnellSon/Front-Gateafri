@@ -103,8 +103,9 @@ import HotelAdminReservation from "./pages/HotelAdmin/HotelAdminReservation";
 import ReservationDetails from "./pages/HotelAdmin/ReservationDetails";
 import CreateRoom from "./pages/HotelAddRoom/CreateRoom";
 import Restrictions from "./pages/HotelAdmin/Restrictions";
-import Accomodations from "./pages/HotelAdmin/Accomodations";
-import AccomodationControls from "./pages/HotelAdmin/AccomodationControls";
+import Accommodations from "./pages/HotelAdmin/Accommodations";
+import AccommodationControls from "./pages/HotelAdmin/AccommodationControls";
+import PricingPlans from "./pages/HotelAdmin/PricingPlans";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -145,7 +146,7 @@ function App() {
     localStorage.setItem("appTheme", theme);
   };
   const activeTheme = useMemo(() => {
-    return {
+    return { 
       theme,
       setTheme: changeTheme,
     };
@@ -580,9 +581,10 @@ function App() {
                                     <Route index element={<HotelAdminReservation/>}/>
                                     <Route path=':reservationId' element={<ReservationDetails/>}/>
                                 </Route>
-                                <Route path="hebergements" element={<Accomodations/>}/>
+                                <Route path="hebergements" element={<Accommodations/>}/>
                                 <Route path = "restrictions" element={<Restrictions/>}/>
-                                <Route path="control-hebergements" element={<AccomodationControls/>}/>
+                                <Route path="control-hebergements" element={<AccommodationControls/>}/>
+                                <Route path="plans-tarifaires" element={<PricingPlans/>}/>
                             </Route>
                             <Route path="hebergements">
                                 <Route path="nouveau/*" element={<CreateRoom/>}/>

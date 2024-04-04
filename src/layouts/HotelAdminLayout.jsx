@@ -45,7 +45,7 @@ const HotelAdminLayout = () => {
                     <DoNavLink to="control-hebergements">Ouvrir/fermer des hébergements</DoNavLink>
                   </li>
                   <li>
-                    <a href="#">Plans tarifaires</a>
+                    <DoNavLink to="plans-tarifaires">Plans tarifaires</DoNavLink>
                   </li>
                   <li>
                     <a href="#">Avantages</a>

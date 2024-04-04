@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import { useEffect } from "react";
 import ErrorLabel from "../../components/ErrorLabel/ErrorLabel";
 
-const AccomodationName = ({
+const AccommodationName = ({
   formData,
   setFormData,
   setInitialFields = () => {},
@@ -14,7 +14,7 @@ const AccomodationName = ({
     setInitialFields(currentStepValues);
   }, [currentStepValues]);
   return (
-    <div className="accomodation-name">
+    <div className="accommodation-name">
       <span>
         C'est le nom que les clients verront sur la page de votre hébergement.
         Optez pour un nom qui correspond le mieux à cet hébergement.
@@ -34,4 +34,4 @@ const AccomodationName = ({
   );
 };
 
-export default AccomodationName;
+export default AccommodationName;

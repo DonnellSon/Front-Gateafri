@@ -3,9 +3,9 @@ import MultiStepForm from "../../components/MuliStepForm/MultiStepForm";
 import "./CreateRoom.scss";
 import * as Yup from 'yup';
 import BathroomInfoForm from './BathroomInfoForm';
-import AccomodationInformationForm from './AccomodationInformationForm';
-import AccomodationName from './AccomodationName';
-import AccomodationPrice from './AccomodationPrice';
+import AccommodationInformationForm from './AccommodationInformationForm';
+import AccommodationName from './AccommodationName';
+import AccommodationPrice from './AccommodationPrice';
 
 
 const CreateRoom = () => {
@@ -68,10 +68,10 @@ const CreateRoom = () => {
           }
         ]}
       >
-        <AccomodationInformationForm />
+        <AccommodationInformationForm />
         <BathroomInfoForm />
-        <AccomodationName />
-        <AccomodationPrice />
+        <AccommodationName />
+        <AccommodationPrice />
       </MultiStepForm>
     </div>
  );

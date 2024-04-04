@@ -2,7 +2,7 @@ import { Formik, Form, Field, FieldArray } from "formik";
 import ErrorLabel from "../../components/ErrorLabel/ErrorLabel";
 import { useState } from "react";
 
-const HebergementInformationForm = ({
+const AccommodationInformationForm = ({
   formData,
   setFormData,
   initialFields,
@@ -50,7 +50,7 @@ const HebergementInformationForm = ({
                           {index > 0 ?'Autre types de lits' :'Types de lits'}
                         </label>
                         {index > 0 && (
-                        <span className="supprime" type="button" onClick={() => remove(index)}>
+                        <span className="delete" type="button" onClick={() => remove(index)}>
                           Supprimer
                         </span>
                       )}
@@ -120,4 +120,4 @@ const HebergementInformationForm = ({
   );
 };
 
-export default HebergementInformationForm;
+export default AccommodationInformationForm;

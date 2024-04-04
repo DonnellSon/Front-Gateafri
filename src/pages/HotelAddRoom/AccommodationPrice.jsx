@@ -1,7 +1,7 @@
 import { Field, ErrorMessage } from "formik";
 import ErrorLabel from "../../components/ErrorLabel/ErrorLabel";
 import AmountInput from "../../components/AmountInput/AmountInput";
-const AccomodationPrice = ({
+const AccommodationPrice = ({
   formData,
   setFormData,
   setInitialFields = () => {},
@@ -10,7 +10,7 @@ const AccomodationPrice = ({
   currentStepErrors,
 }) => {
   return (
-    <div className="accomodation-price">
+    <div className="accommodation-price">
       <div className="form-group">
         <label htmlFor="">Tarif pour une nuit</label>
         <div className="flex align-items-center gap-10">
@@ -30,4 +30,4 @@ const AccomodationPrice = ({
   );
 };
 
-export default AccomodationPrice;
+export default AccommodationPrice;
