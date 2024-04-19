@@ -8,7 +8,7 @@ const Accommodations = () => {
     <div id="accommodation">
       <div className="accommodation-head flex align-items-center">
         <h2>Hébergements</h2>
-        <Link to="/hotels/jkdfkkdhk/hebergements/nouveau/informations">
+        <Link to="/hotels/:hotelId/hebergements/nouveau/informations">
           <button className="btn-purple">Crée un mouvel hébergement</button>
         </Link>
       </div>

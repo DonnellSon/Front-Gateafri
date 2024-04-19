@@ -2,6 +2,9 @@
 
 .hotel-admin-home {
   @include themify($themes) {
+    span{
+        color:themed('text',3)
+    }
     .btn-purple{
         margin-top: 15px;
         display: table;
@@ -16,6 +19,9 @@
         border-radius: 5px;
         margin-bottom: 5px;
         border-bottom: 1px solid themed("border", 1);
+        &:first-child{
+            margin-top: 5px;
+        }
         &:last-child {
           border: none;
         }
@@ -123,6 +129,7 @@
               left: 15px;
               top: 50%;
               transform: translateY(-50%);
+              color: themed('text',2);
             }
             input {
               padding: 10px;

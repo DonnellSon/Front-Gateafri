@@ -106,6 +106,11 @@ import Restrictions from "./pages/HotelAdmin/Restrictions";
 import Accommodations from "./pages/HotelAdmin/Accommodations";
 import AccommodationControls from "./pages/HotelAdmin/AccommodationControls";
 import PricingPlans from "./pages/HotelAdmin/PricingPlans";
+import AddPricingPlan from "./pages/HotelAdmin/AddPricingPlan";
+import Advantages from "./pages/HotelAdmin/Advantages";
+import CustomerSpecificPricing from "./pages/HotelAdmin/CustomerSpecificPricing";
+import HotelInfo from "./pages/HotelAdmin/HotelInfo";
+import Pictures from "./pages/HotelAdmin/Pictures";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -574,7 +579,7 @@ function App() {
                           <Route path='reservation' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
                           <Route path=":hotelId">
-                            <Route path='hoteladmin' element={<HotelAdminLayout/>}>
+                            <Route path='hotel-admin' element={<HotelAdminLayout/>}>
                                 <Route index element={<Navigate to='home' replace={true}/>}/>
                                 <Route path='home' element={<HotelAdminHome/>}/>
                                 <Route path='reservation'>
@@ -584,7 +589,14 @@ function App() {
                                 <Route path="hebergements" element={<Accommodations/>}/>
                                 <Route path = "restrictions" element={<Restrictions/>}/>
                                 <Route path="control-hebergements" element={<AccommodationControls/>}/>
-                                <Route path="plans-tarifaires" element={<PricingPlans/>}/>
+                                <Route path="plans-tarifaires">
+                                    <Route index element={<PricingPlans/>}/>
+                                    <Route path="ajout" element={<AddPricingPlan/>}/>
+                                </Route>
+                                <Route path="avantages" element={<Advantages/>}/>
+                                <Route path="tarification-par-client" element={<CustomerSpecificPricing/>}/>
+                                <Route path='hotel-info' element={<HotelInfo/>}/>
+                                <Route path="photos" element={<Pictures/>}/>
                             </Route>
                             <Route path="hebergements">
                                 <Route path="nouveau/*" element={<CreateRoom/>}/>

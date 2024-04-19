@@ -17,7 +17,7 @@ const AccommodationPrice = ({
           <AmountInput/>
           <span>/nuit</span>
         </div>
-        {/* <ErrorLabel error={currentStepErrors.hebergementTarif} /> */}
+        <ErrorLabel error={currentStepErrors.accommodationTarif} />
       </div>
       <hr />
       <span>

@@ -48,9 +48,9 @@ const HotelAdminHome = () => {
           <div className="box last elevated-card flex align-items-center justify-content-between">
             <div className="head flex align-items-center gap-5">
               <span>80%</span>
-              <h>
+              <h4>
                 Chambres <br /> occupées
-              </h>
+              </h4>
             </div>
             <span>50</span>
           </div>

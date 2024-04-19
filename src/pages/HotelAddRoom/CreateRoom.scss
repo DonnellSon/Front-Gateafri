@@ -7,7 +7,7 @@
       border-radius: 5px;
       height: 35px;
     }
-    .add-hebergement-info{
+    .add-accommodation-info{
         .delete{
             cursor:pointer;
             color: themed('mainColor',purple);
@@ -16,7 +16,7 @@
             text-decoration: underline;
         }
         input[type='number']{
-            width: 100%;
+            width: 210px;
         }
     }
     .bathroom-info {

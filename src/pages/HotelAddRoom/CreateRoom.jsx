@@ -3,7 +3,7 @@ import MultiStepForm from "../../components/MuliStepForm/MultiStepForm";
 import "./CreateRoom.scss";
 import * as Yup from 'yup';
 import BathroomInfoForm from './BathroomInfoForm';
-import AccommodationInformationForm from './AccommodationInformationForm';
+import AccommodationInfoForm from './AccommodationInfoForm';
 import AccommodationName from './AccommodationName';
 import AccommodationPrice from './AccommodationPrice';
 
@@ -16,25 +16,25 @@ const CreateRoom = () => {
           {
             title: 'Informations sur l\'hébergement',
             initialValues: {
-              hebergementType: '',
-              hebergementNumber: 1,
-              lits: [{ litType: '', litNumber: 1 }], // Initialiser avec un élément vide
-              occupation: 1,
+              accommodationType: '',
+              accommodationNumber: '',
+              beds: [{ bedType: '', bedNumber: '' }], // Initialiser avec un élément vide
+              occupation: '',
             },
             path: 'informations',
             validationSchema: Yup.object().shape({
-            //   hebergementType: Yup.string().required('Le type d\'hébergement est obligatoire'),
-            //   hebergementNumber: Yup.number().required('Le nombre d\'hébergement est obligatoire'),
-            //   lits: Yup.array()
-            //   .of(
-            //      Yup.object().shape({
-            //        litType: Yup.string().required('Le type de lit est obligatoire'),
-            //        litNumber: Yup.number().required('Le nombre de lits est obligatoire'),
-            //      })
-            //   ),
-            //   .required('Ajoutez au moins un type de lit'),
-            //   occupation: Yup.number().required('Le nombre maximum de personnes est obligatoire'),
-            }),
+                accommodationType: Yup.string().required('Le type d\'hébergement est obligatoire'),
+                accommodationNumber: Yup.number().required('Le nombre d\'hébergement est obligatoire'),
+                beds: Yup.array()
+                .of(
+                   Yup.object().shape({
+                     bedType: Yup.string().required('Le type de lit est obligatoire'),
+                     bedNumber: Yup.number().required('Le nombre de lits est obligatoire'),
+                   })
+                )
+                .required('Ajoutez au moins un type de lit'),
+                occupation: Yup.number().required('Le nombre maximum de personnes est obligatoire'),
+              }),
           },
           {
             title: 'Informations sur la salle de bains',
@@ -52,23 +52,23 @@ const CreateRoom = () => {
           },
           {
             title: 'Nom de l\'hébergement',
-            initialValues: { hebergementName: '' },
+            initialValues: { accommodationName: '' },
             path: 'nom',
             validationSchema: Yup.object().shape({
-              hebergementName: Yup.string().required('Le nom de l\'hébergement est requise'),
+              accommodationName: Yup.string().required('Le nom de l\'hébergement est requise'),
             }),
           },
           {
             title: 'Tarif de l\'hébergement',
-            initialValues: { hebergementTarif: "0" },
+            initialValues: { accommodationTarif: "0" },
             path: 'tarif',
             validationSchema: Yup.object().shape({
-              hebergementTarif: Yup.string().required('Veuillez indiquer votre prix.'),
+              accommodationTarif: Yup.string().required('Veuillez indiquer votre prix.'),
             }),
           }
         ]}
       >
-        <AccommodationInformationForm />
+        <AccommodationInfoForm />
         <BathroomInfoForm />
         <AccommodationName />
         <AccommodationPrice />

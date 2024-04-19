@@ -1,10 +1,22 @@
-import { ChevronDown, ChevronUp, CircleFill, Dot } from "react-bootstrap-icons";
+import {
+  ChevronDown,
+  ChevronUp,
+  CircleFill,
+  Dot,
+  PencilSquare,
+  Plus,
+  PlusCircle,
+  Trash,
+} from "react-bootstrap-icons";
 import "./PricingPlans.scss";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Modal from "../../components/Modal/Modal";
+import ModalPricingPlan from "./ModalPricingPlan";
 
 const PricingPlans = () => {
   const [openPlans, setOpenPlans] = useState({});
-
+  const [openModal, setOpenModal] = useState(false);
   const togglePlan = (planId) => {
     setOpenPlans((prevState) => ({
       ...prevState,
@@ -45,86 +57,124 @@ const PricingPlans = () => {
         Élaborez et ajustez divers plans tarifaires pour répondre aux besoins de
         vos clients.
       </p>
-      <div className="head elevated-card flex justify-content-between align-items-center mt-15 p-15">
-        <button className="btn-purple">Ajouter un plan tarifaire</button>
-        <select name="period" id="period">
-          <option value="30 derniers jours">30 derniers jours</option>
-          <option value="3 derniers mois">3 derniers mois</option>
-          <option value="6 derniers mois">6 derniers mois</option>
-          <option value="12 derniers mois">12 derniers mois</option>
-        </select>
-      </div>
-      <div className=" table elevated-card mt-5">
-        <table>
-          <tr>
-            <th></th>
-            <th>Nom du plan tarifaire</th>
-            <th>Conditions d'annulation</th>
-            <th>Tarif</th>
-            <th>Taux d'annulation</th>
-            <th>Revenus nets</th>
-          </tr>
-          {pricingPlans.map((plan) => (
-            <>
-              <tr
-                className="primary"
-                onClick={() => {
-                    togglePlan(plan.id);
-                }}
-              >
-                <td className="icon">
-                  {openPlans[plan.id] ? <ChevronUp /> : <ChevronDown />}
-                </td>
-                <td>
-                  <span>{plan.name}</span>
-                  <small>ID {plan.id}</small>
-                </td>
-                <td>{plan.conditions}</td>
-                <td>{plan.tarif}</td>
-                <td>{plan.tauxAnnulation}</td>
-                <td>{plan.revenusNets}</td>
+      <div className=" container elevated-card">
+        <div className="head flex justify-content-between align-items-center mt-15 p-15">
+          <Link to="ajout">
+            <button className="btn-purple">
+              <Plus size={25} /> Ajouter un plan tarifaire
+            </button>
+          </Link>
+          <select name="period" id="period">
+            <option value="30 derniers jours">30 derniers jours</option>
+            <option value="3 derniers mois">3 derniers mois</option>
+            <option value="6 derniers mois">6 derniers mois</option>
+            <option value="12 derniers mois">12 derniers mois</option>
+          </select>
+        </div>
+        <div className=" table">
+          <table>
+            <thead>
+              <tr className="title">
+                <th></th>
+                <th>Nom du plan tarifaire</th>
+                <th>Conditions d'annulation</th>
+                <th>Tarif</th>
+                <th>Taux d'annulation</th>
+                <th>Revenus nets</th>
               </tr>
-              {openPlans[plan.id] && (
-                <tr className="more">
-                  <td colSpan={6}>
-                    <table>
-                      <tr>
-                        <th>Types d'hébergement</th>
-                        <th>Repas</th>
-                        <th>Avantages</th>
-                        <th>Séjour minimum</th>
-                        <th>Réservable</th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <ul className="flex flex-column gap-5">
-                            <li className="flex align-items-center gap-5">
-                              <CircleFill size={5} /> Chambre Double
-                            </li>
-                            <li className="flex align-items-center gap-5">
-                              <CircleFill size={5} /> Chambre Simple
-                            </li>
-                          </ul>
-                        </td>
-                        <td>Aucun repas</td>
-                        <td>Pas d'avantages</td>
-                        <td>Aucune durée de séjour minimum</td>
-                        <td>A tout moment</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={4}></td>
-                        <td className=" buttons flex gap-10">
-                          <button className="btn- update">Modifier</button>
-                          <button className="btn-orange">Supprimer</button>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              )}
-            </>
-          ))}
-        </table>
+            </thead>
+            <tbody>
+              {pricingPlans.map((plan,index) => (
+                <React.Fragment key={index}>
+                  <tr
+                    className="primary"
+                    onClick={() => {
+                      togglePlan(plan.id);
+                    }}
+                  >
+                    <td
+                      className="icon"
+                      style={{
+                        borderRadius: openPlans[plan.id] && "5px 0 0 0",
+                      }}
+                    >
+                      {openPlans[plan.id] ? <ChevronUp /> : <ChevronDown />}
+                    </td>
+                    <td>
+                      <span>{plan.name}</span>
+                      <small>ID {plan.id}</small>
+                    </td>
+                    <td>{plan.conditions}</td>
+                    <td>{plan.tarif}</td>
+                    <td>{plan.tauxAnnulation}</td>
+                    <td
+                      style={{
+                        borderRadius: openPlans[plan.id] && "0 5px 0 0",
+                      }}
+                    >
+                      {plan.revenusNets}
+                    </td>
+                  </tr>
+                  {openPlans[plan.id] && (
+                    <tr className="more">
+                      <td colSpan={6}>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Types d'hébergement</th>
+                              <th>Repas</th>
+                              <th>Avantages</th>
+                              <th>Séjour minimum</th>
+                              <th>Réservable</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <ul className="flex flex-column gap-5">
+                                  <li className="flex align-items-center gap-5">
+                                    <CircleFill size={5} /> Chambre Double
+                                  </li>
+                                  <li className="flex align-items-center gap-5">
+                                    <CircleFill size={5} /> Chambre Simple
+                                  </li>
+                                </ul>
+                              </td>
+                              <td>Aucun repas</td>
+                              <td>Pas d'avantages</td>
+                              <td>Aucune durée de séjour minimum</td>
+                              <td>A tout moment</td>
+                              <td className=" buttons">
+                                <button className="edit" title="Modifier">
+                                  <PencilSquare
+                                    size={20}
+                                    onClick={() => setOpenModal(true)}
+                                  />{" "}
+                                  <span class="tooltiptext">Modifier</span>
+                                  <Modal open={openModal}>
+                                    <ModalPricingPlan
+                                      handleCloseModal={setOpenModal}
+                                      action="modify"
+                                    />
+                                  </Modal>
+                                </button>
+                                <button className="delete" title="Supprimer">
+                                  <Trash size={20} />{" "}
+                                  <span class="tooltiptext">Supprimer</span>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

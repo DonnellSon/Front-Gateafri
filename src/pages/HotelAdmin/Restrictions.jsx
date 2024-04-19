@@ -2,16 +2,18 @@ import {
   CalendarCheck,
   CalendarX,
   CheckCircleFill,
+  CircleFill,
   GraphUpArrow,
   Pencil,
   ThreeDots,
 } from "react-bootstrap-icons";
-import "./Restriction.scss";
+import "./Restrictions.scss";
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DropDown from "../../components/DropDown/DropDown";
 import { Link } from "react-router-dom";
+import ErrorLabel from "../../components/ErrorLabel/ErrorLabel";
 const Restrictions = () => {
   const [ruleActive, setRuleActive] = useState("unsold");
   return (
@@ -26,158 +28,184 @@ const Restrictions = () => {
         vos besoins, trouvant ainsi un juste équilibre entre votre taux
         d'occupation, vos revenus et vos dépenses.
       </p>
-      <div className="elevated-card heading2 px-15 mt-15">
-        <h3>Gérez vos règles</h3>
-      </div>
-      <div className="rule-list elevated-card mt-5">
-        <table className="px-15">
-          <tr>
-            <th>Type de règle</th>
-            <th>Période</th>
-            <th>Restrictions</th>
-            <th>Tarif</th>
-            <th>Types d'hébergements</th>
-            <th style={{ width: "180px" }}>Plans tarifaires</th>
-            <th>Statut de la règle</th>
-            <th></th>
-          </tr>
-          <tr>
-            <td>Pour les nuitées inaccessibles</td>
-            <td>7 prochains jours</td>
-            <td>Durée de séjour minimum : 14 nuits</td>
-            <td>Augmenter de 54 %</td>
-            <td>
-              <ul>
-                <li>- Double Room</li>
-                <li>- Single Room</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>- Standard Rate</li>
-                <li>- Non-refundable Rate</li>
-                <li>- Weekly Rate</li>
-              </ul>
-            </td>
-            <td>Activé</td>
-            <td>
-              <DropDown activeClassName="surligné">
-                <Link>
-                  <ThreeDots size={20} />
-                </Link>
+      <div className="rule-list-container elevated-card mt-15">
+        <div className="title p-15">
+          <h3>Gérez vos règles</h3>
+        </div>
+        <div className="rule-list mt-15">
+          <table className="px-15">
+            <tr>
+              <th>Type de règle</th>
+              <th>Période</th>
+              <th>Restrictions</th>
+              <th>Tarif</th>
+              <th>Types d'hébergements</th>
+              <th style={{ width: "180px" }}>Plans tarifaires</th>
+              <th>Statut de la règle</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>Pour les nuitées inaccessibles</td>
+              <td>7 prochains jours</td>
+              <td>Durée de séjour minimum : 14 nuits</td>
+              <td>Augmenter de 54 %</td>
+              <td>
                 <ul>
-                    <li>
-                        <a href="#">Modifier</a>
-                    </li>
-                    <li>
-                        <a href="#">Désactiver</a>
-                    </li>
-                    <li>
-                        <a href="#">Supprimer</a>
-                    </li>
+                  <li>- Double Room</li>
+                  <li>- Single Room</li>
                 </ul>
-              </DropDown>
-            </td>
-          </tr>
-          <tr>
-            <td>Pour les nuitées non vendues</td>
-            <td>7 prochains jours</td>
-            <td>
-              <ul>
-                <li>Durée de séjour minimum : 4 nuits</li>
-                <li>Délai min. de réservation avant arrivée : 6H</li>
-              </ul>
-            </td>
-            <td>Réduire de 5 %</td>
-            <td>
-              <ul>
-                <li>- Double Room</li>
-                <li>- Single Room</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>- Standard Rate</li>
-                <li>- Non-refundable Rate</li>
-                <li>- Weekly Rate</li>
-              </ul>
-            </td>
-            <td>Activé</td>
-            <td>
-              <ThreeDots size={20} />
-            </td>
-          </tr>
-        </table>
+              </td>
+              <td>
+                <ul>
+                  <li>- Standard Rate</li>
+                  <li>- Non-refundable Rate</li>
+                  <li>- Weekly Rate</li>
+                </ul>
+              </td>
+              <td>Activé</td>
+              <td>
+                <DropDown activeClassName="surligné">
+                  <Link>
+                    <ThreeDots size={20} />
+                  </Link>
+                  <ul>
+                    <li>
+                      <a href="#">Modifier</a>
+                    </li>
+                    <li>
+                      <a href="#">Désactiver</a>
+                    </li>
+                    <li>
+                      <a href="#">Supprimer</a>
+                    </li>
+                  </ul>
+                </DropDown>
+              </td>
+            </tr>
+            <tr>
+              <td>Pour les nuitées non vendues</td>
+              <td>7 prochains jours</td>
+              <td>
+                <ul>
+                  <li>Durée de séjour minimum : 4 nuits</li>
+                  <li>Délai min. de réservation avant arrivée : 6H</li>
+                </ul>
+              </td>
+              <td>Réduire de 5 %</td>
+              <td>
+                <ul>
+                  <li>- Double Room</li>
+                  <li>- Single Room</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>- Standard Rate</li>
+                  <li>- Non-refundable Rate</li>
+                  <li>- Weekly Rate</li>
+                </ul>
+              </td>
+              <td>Activé</td>
+              <td>
+                <DropDown activeClassName="surligné">
+                  <Link>
+                    <ThreeDots size={20} />
+                  </Link>
+                  <ul>
+                    <li>
+                      <a href="#">Modifier</a>
+                    </li>
+                    <li>
+                      <a href="#">Désactiver</a>
+                    </li>
+                    <li>
+                      <a href="#">Supprimer</a>
+                    </li>
+                  </ul>
+                </DropDown>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
-      <div className="elevated-card heading2 p-15 mt-15">
-        <h3>Création d'une règle</h3>
-      </div>
-      <div className="rule-creation elevated-card p-15 mt-5">
+      <div className="rule-creation-container elevated-card mt-15">
+        <div className=" title p-15">
+          <h3>Création d'une règle</h3>
+        </div>
+        <div className="rule-creation px-15 mt-15">
+          <h4>
+            {/* <CircleFill size={25} className="icon"/> */}
+            <span>1</span>
+            Première étape : Choisissez les nuitées pour lesquelles vous
+            souhaitez établir une règle.
+          </h4>
+          <div className="overnight-stay flex gap-15 mt-15">
+            <div
+              className={`item ${ruleActive === "unsold" ? "active" : ""}`}
+              onClick={() => setRuleActive("unsold")}
+            >
+              <div className="check">
+                <CheckCircleFill size={17} />
+              </div>
+              <div className="icon">
+                <GraphUpArrow size={30} />
+              </div>
+              <h3>Nuitées non vendues</h3>
+              <p>
+                Ces sont des nuitées avec des restrictions qui sont encore
+                disponibles à la vente.
+              </p>
+            </div>
+            <div
+              className={`item ${
+                ruleActive === "inaccessibles" ? "active" : ""
+              }`}
+              onClick={() => setRuleActive("inaccessibles")}
+            >
+              <div className="check">
+                <CheckCircleFill size={17} />
+              </div>
+              <div className="icon">
+                <CalendarX size={30} />
+              </div>
+              <h3>Nuitées inaccessibles</h3>
+              <p>
+                Ces nuitées ne peuvent pas être réservées en raison d'une
+                exigence de durée de séjour minimale.
+              </p>
+            </div>
+          </div>
+          <div className="note mt-15">
+            <h3>
+              Cette règle sera appliquée aux nuitées inaccessibles de la manière
+              suivante.
+            </h3>
+            <div>
+              <Pencil size={20} />
+              <p>
+                En configurant cette règle, vous définissez les ajustements à
+                apporter aux restrictions et aux tarifs pour les nuitées
+                {ruleActive === "unsold"
+                  ? " non vendues"
+                  : " inaccessibles"}{" "}
+                dans une période future que vous aurez déterminée.
+              </p>
+            </div>
+            <div className="mt-15">
+              <CalendarCheck size={20} />
+              <p>
+                {ruleActive === "unsold"
+                  ? " Durant cette période, incluant des nuitées non vendues, votre règle s'appliquera aux types d'hébergement et aux plans tarifaires choisis, augmentant ainsi la visibilité de votre établissement pour les clients."
+                  : " Durant cette période, incluant des nuitées inaccessibles, votre règle s'appliquera aux types d'hébergement et aux plans tarifaires choisis, permettant ainsi aux clients de réserver ces nuitées."}
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr />
+      <div className="configuration px-15">
         <h4>
-          Première étape : Choisissez les nuitées pour lesquelles vous souhaitez
-          établir une règle.
-        </h4>
-        <div className="overnight-stay flex gap-15 mt-15">
-          <div
-            className={`item ${ruleActive === "unsold" ? "active" : ""}`}
-            onClick={() => setRuleActive("unsold")}
-          >
-            <div className="check">
-              <CheckCircleFill size={17} />
-            </div>
-            <div className="icon">
-              <GraphUpArrow size={30} />
-            </div>
-            <h3>Nuitées non vendues</h3>
-            <p>
-              Ces sont des nuitées avec des restrictions qui sont encore
-              disponibles à la vente.
-            </p>
-          </div>
-          <div
-            className={`item ${ruleActive === "inaccessibles" ? "active" : ""}`}
-            onClick={() => setRuleActive("inaccessibles")}
-          >
-            <div className="check">
-              <CheckCircleFill size={17} />
-            </div>
-            <div className="icon">
-              <CalendarX size={30} />
-            </div>
-            <h3>Nuitées inaccessibles</h3>
-            <p>
-              Ces nuitées ne peuvent pas être réservées en raison d'une exigence
-              de durée de séjour minimale.
-            </p>
-          </div>
-        </div>
-        <div className="note mt-15">
-          <h3>
-            Cette règle sera appliquée aux nuitées inaccessibles de la manière
-            suivante.
-          </h3>
-          <div>
-            <Pencil size={20} />
-            <p>
-              En configurant cette règle, vous définissez les ajustements à
-              apporter aux restrictions et aux tarifs pour les nuitées
-              {ruleActive === "unsold" ? " non vendues" : " inaccessibles"} dans
-              une période future que vous aurez déterminée.
-            </p>
-          </div>
-          <div className="mt-15">
-            <CalendarCheck size={20} />
-            <p>
-              {ruleActive === "unsold"
-                ? " Durant cette période, incluant des nuitées non vendues, votre règle s'appliquera aux types d'hébergement et aux plans tarifaires choisis, augmentant ainsi la visibilité de votre établissement pour les clients."
-                : " Durant cette période, incluant des nuitées inaccessibles, votre règle s'appliquera aux types d'hébergement et aux plans tarifaires choisis, permettant ainsi aux clients de réserver ces nuitées."}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="configuration elevated-card p-15 mt-5">
-        <h4>Deuxième étape : Personnalisez votre règle.</h4>
+        <span>2</span>
+            Deuxième étape : Personnalisez votre règle.</h4>
         <Formik
           initialValues={{
             period: "",
@@ -190,7 +218,7 @@ const Restrictions = () => {
             ruleStatus: "",
           }}
           validationSchema={Yup.object({
-            periode: Yup.string().required("Required"),
+            period: Yup.string().required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -400,11 +428,13 @@ const Restrictions = () => {
                   </ul>
                 </div>
               </div>
-              <button className="btn-purple mt-20">Crée cette règle</button>
+              <button type="submit" className="btn-purple mt-20">Crée cette règle</button>
             </Form>
           )}
         </Formik>
       </div>
+      </div>
+
     </div>
   );
 };

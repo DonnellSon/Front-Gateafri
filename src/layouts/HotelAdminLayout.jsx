@@ -48,13 +48,10 @@ const HotelAdminLayout = () => {
                     <DoNavLink to="plans-tarifaires">Plans tarifaires</DoNavLink>
                   </li>
                   <li>
-                    <a href="#">Avantages</a>
+                    <DoNavLink to="avantages">Avantages</DoNavLink>
                   </li>
                   <li>
-                    <a href="#">Tarification par client</a>
-                  </li>
-                  <li>
-                    <a href="#">Géo-tarification</a>
+                    <DoNavLink to="tarification-par-client">Tarification par client</DoNavLink>
                   </li>
                 </ul>
               </DropDown>
@@ -78,13 +75,16 @@ const HotelAdminLayout = () => {
                     <DoNavLink to="hotel-info">Information sur l'hotel</DoNavLink>
                   </li>
                   <li>
+                    <DoNavLink to="photos">Galerie Photos</DoNavLink>
+                  </li>
+                  <li>
                     <DoNavLink to="hebergements">Hébergements</DoNavLink>
                   </li>
                   <li>
                     <DoNavLink to="hebergement-details">Details des hébergements</DoNavLink>
                   </li>
                   <li>
-                    <a href="#">Le client n'a pas encore payé</a>
+                    <DoNavLink to="equipments-services">Equipements et Services</DoNavLink>
                   </li>
                 </ul>
               </DropDown>

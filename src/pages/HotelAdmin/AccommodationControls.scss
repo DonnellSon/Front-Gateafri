@@ -4,6 +4,7 @@
   @include themify($themes) {
     display: table;
     margin-left: 200px;
+    margin: auto;
     h3 {
       font-size: 15px;
       color: themed("text", 2);
