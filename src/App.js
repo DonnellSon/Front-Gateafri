@@ -111,6 +111,8 @@ import Advantages from "./pages/HotelAdmin/Advantages";
 import CustomerSpecificPricing from "./pages/HotelAdmin/CustomerSpecificPricing";
 import HotelInfo from "./pages/HotelAdmin/HotelInfo";
 import Pictures from "./pages/HotelAdmin/Pictures";
+import JobDetailsPage from "./pages/JobFinding/JobDetails";
+
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
