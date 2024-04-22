@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PostCard from '../../components/PostCard/PostCard'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import PostCardSkeleton from '../../components/PostCard/PostCardSkeleton'
 import { filtersToURL } from '../../functions'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import PostModal from '../../components/PostModal/PostModal'
 
 const PageActu = () => {
@@ -35,58 +35,58 @@ const PageActu = () => {
     error,
     fetchNextPage,
     hasNextPage: postsListNextPage,
-    isFetching,
+    isFetching: postsListFetching,
     isFetchingNextPage: postsListFetchingNextPage,
     status: postsLoadingStatus,
     refetch,
     refetchPage
   } = useInfiniteQuery({
-    queryKey: ['posts',portalId],
+    queryKey: ['posts', portalId],
     queryFn: fetchPosts,
     getNextPageParam: (lastPage, pages) => lastPage.nextPage
   })
   return (
     <div className='actu-page flex flex-column align-items-center'>
-      <div className="post-list" style={{maxWidth:700,marginTop:15}}>
-        
-                {
-                  postsLoadingStatus === 'loading' ? (
-                    <>
-                      <PostCardSkeleton />
-                      <PostCardSkeleton />
-                    </>
-                  ) : postsLoadingStatus === 'error' ? (
-                    <p>Error: {error.message}</p>
-                  ) : postsList?.pages?.length > 0 ?
+      <div className="post-list" style={{ maxWidth: 700, marginTop: 15 }}>
 
-
-                    
-                        postsList?.pages?.map((group, i) => (
-
-                          group.data.map((p) => (
-                              <PostCard
-                                key={i}
-                                data={p}
-                                onDelete={(postId) => { }}
-                              />
-                          ))
-
-                        ))
+        {
+          (postsListFetching && !postsListFetchingNextPage) ? (
+            <>
+              <PostCardSkeleton />
+              <PostCardSkeleton />
+            </>
+          ) : error ? (
+            <p>Error: {error.message}</p>
+          ) : postsList?.pages?.length > 0 ?
 
 
 
-                    : <div className="empty-timeline" onClick={() => setOpenPostModal(true)}>
-                      <h1>Aucun post à afficher</h1>
-                      <p>Nous vous invitons à créer un premier post pour commencer vos activités et intéragir avec d'autres opérateurs économiques en Afrique</p>
-                      <button className="btn btn-gradient">Créer un post</button>
-                    </div>
-                }
-                {postsListFetchingNextPage
-                  ? <PostCardSkeleton />
-                  : postsListNextPage
-                    ? ''
-                    : ''}
-                <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal} />
+            postsList?.pages?.map((group, i) => (
+
+              group.data.map((p) => (
+                <PostCard
+                  key={i}
+                  data={p}
+                  onDelete={(postId) => { }}
+                />
+              ))
+
+            ))
+
+
+
+            : <div className="empty-timeline" onClick={() => setOpenPostModal(true)}>
+              <h1>Aucun post à afficher</h1>
+              <p>Nous vous invitons à créer un premier post pour commencer vos activités et intéragir avec d'autres opérateurs économiques en Afrique</p>
+              <button className="btn btn-gradient">Créer un post</button>
+            </div>
+        }
+        {postsListFetchingNextPage
+          ? <PostCardSkeleton />
+          : postsListNextPage
+            ? ''
+            : ''}
+        <PostModal isOpen={openPostModal} setIsOpen={setOpenPostModal} />
       </div>
     </div>
   )

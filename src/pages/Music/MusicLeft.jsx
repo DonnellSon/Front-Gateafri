@@ -6,32 +6,17 @@ import Avatar from "../../components/Avatar/Avatar";
 import StickySideBar from "../../components/StickySideBar/StickySideBar";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useMediaQuery } from "react-responsive";
 const MusicLeft = () => {
   const [open, setOpen] = useState(false);
-  const BigScreen = useMediaQuery({ query: "(min-width:1024px)" });
 
   return (
     <>
       <div
-        className={`music-left ${
-          BigScreen ? "opened" : open ? "opened" : "closed"
-        }`}
+        className={`music-left`}
       >
         <StickySideBar top={58}>
           <div className="inside-sticky">
             <nav className="music-menu search-nav">
-              <div className="menu-container">
-                <h2 className="hamburgerMenu" onClick={() => setOpen(true)}>
-                  <GiHamburgerMenu size={25} />
-                </h2>
-                {/* <h2 className="menu">Menu</h2> */}
-                {!BigScreen && (
-                  <div className="close" onClick={() => setOpen(false)}>
-                    <X size={25} />
-                  </div>
-                )}
-              </div>
               <ul>
                 <li>
                   <Link className="active">

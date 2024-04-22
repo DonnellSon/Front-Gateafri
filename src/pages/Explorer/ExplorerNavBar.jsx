@@ -34,7 +34,7 @@ const ExplorerNavBar = () => {
 
     return (
         <>
-            <div className={`navbar-explorer${top && !Boolean(match) ? ' top' : ''}`}  style={{ background: 'linear-gradient(rgba(14, 14, 14, 0.979) -40%, rgba(14, 14, 14, 0.014) 95%),url(/img/other/hotelbanner.jpg)' }}>
+            <div className={`navbar-explorer${top && !Boolean(match) ? ' top' : ''}`}  style={{ background: 'linear-gradient(rgb(0 0 0 / 54%) 0%, rgba(14, 14, 14, 0.016) 10%), url(/img/other/hotelbanner.jpg)' }}>
 
                 <div className='item'>
                     <Link to='/' className='item-left topbar-logo'><img src='/img/logo/GATEAFR.png' width='100px' alt='logo'/></Link>

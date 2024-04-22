@@ -3,8 +3,16 @@
 .comment-list{
      @include themify($themes){
           color: themed("text",1);
-          .order-comments,.more-comments{
+          .comment-list-top{
+               h4{
+                    margin-bottom: 15px;
+               }
+               
+          }
+          .order-comments,.more-comments,.more-comments-loading{
                color: themed("text",4);
+               margin-bottom: 15px;
+               cursor: pointer;
           }
      }
 }

@@ -18,7 +18,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 import DiscussionSkeleton from '../../components/Discussion/DiscussionSkeleton'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { deleteDiscussion, getDiscussions } from '../../api/discussion'
 import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
 const Messages = () => {
@@ -28,7 +28,10 @@ const Messages = () => {
 
     const { discuId } = useParams()
     const [activeDiscu, setActiveDiscu] = useState(null)
-    const { data: discussions, error, isLoading: discussionsLoading } = useQuery('repoDiscu', getDiscussions)
+    const { data: discussions, error, isLoading: discussionsLoading } = useQuery({
+        queryKey: 'repoDiscu',
+        queryFn: getDiscussions
+    })
     const { data: discuList,
         flatData: discuListFlat,
         error: discuListErr,
@@ -118,7 +121,7 @@ const Messages = () => {
                                 }
 
                                 {
-                                    discuListLoadingStatus === 'loading' ? (
+                                    (discuListFetching && !discuListFetchingNextPage) ? (
                                         <>
                                             <>
                                                 <DiscussionSkeleton />
@@ -127,7 +130,7 @@ const Messages = () => {
                                                 <DiscussionSkeleton />
                                                 <DiscussionSkeleton /></>
                                         </>
-                                    ) : discuListLoadingStatus === 'error' ? (
+                                    ) : error ? (
                                         <p>Error: {error.message}</p>
                                     ) : (discuList?.pages[0]?.data?.length > 0 ? discuList?.pages?.map((group, i) => (
                                         <React.Fragment key={i}>

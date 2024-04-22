@@ -34,21 +34,9 @@ const HotelLocationForm = ({formData,setFormData,setInitialFields=()=>{},initial
       <div className="location-pin form-group">
         <label htmlFor="">Selectionnez sur la carte</label>
         <small>Cette adresse s'affiche sur la carte interactive lorsque les utilisateurs recherchent des hotels sur GateAfri</small>
-        <LocationSelector onSelect={({Lat:lat,Lng:lng})=>{
+        <LocationSelector onSelect={({lat,lng})=>{
           setInitialFields(prev=>({...prev,hotelLocation:{lat,lng}}))
         }}/>
-        <div className="flex gap-5">
-          <div>
-            <label htmlFor="lat">Latitude :</label>
-            <Field readonly type="text" id="lat" name="hotelLocation.lat" />
-            <ErrorMessage name="hotelLocation.lat" component="div" />
-          </div>
-          <div>
-            <label htmlFor="lng">Longitude :</label>
-            <Field type="text" id="lng" name="hotelLocation.lng" />
-            <ErrorMessage name="hotelLocation.lng" component="div" />
-          </div>
-        </div>
       </div>
 
     </div>

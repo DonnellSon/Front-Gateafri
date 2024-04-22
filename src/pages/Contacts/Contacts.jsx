@@ -16,7 +16,7 @@ const Contacts = () => {
 
     const { data: contactsList,
         flatData: contactsListFlat,
-        error,
+        error: contactsListErr,
         hasNextPage: contactsListNextPage,
         isFetching: contactsListFetching,
         isFetchingNextPage: contactsListFetchingNextPage,
@@ -51,12 +51,12 @@ const Contacts = () => {
                         <Tab title={<span>Tous ({contactsList?.pages[0]?.totalItems})</span>}>
                             <ul className='contact-list'>
                                 {
-                                    contactsListLoadingStatus === 'loading' ? (
+                                    contactsListFetching ? (
                                         <>
                                             <h1>Loading</h1>
                                         </>
-                                    ) : contactsListLoadingStatus === 'error' ? (
-                                        <p>Error: {error.message}</p>
+                                    ) : contactsListErr ? (
+                                        <p>Error: {contactsListErr.message}</p>
                                     ) : (contactsList?.pages[0]?.data?.length > 0 ? contactsList?.pages?.map((group, i) => (
                                         <React.Fragment key={i}>
                                             {group.data.map((c, i) => (
@@ -64,7 +64,7 @@ const Contacts = () => {
                                                     <Avatar height={50} width={50} src={c.requester.activeLogo ? c.requester.activeLogo?.fileUrl : c.requester.activeProfilePicture?.fileUrl} />
                                                     <div className="center flex-grow-1">
                                                         <div className="flex justify-content-between">
-                                                            <Link className='contact-name text-ellipsis' to={`${c.requester.name ? `portail/${c.requester.id}` : `profil/${c.requester.id}`}`}>{c.requester.name ? c.requester.name : `${c.requester.firstName} ${c.requester.lastName}` }</Link>
+                                                            <Link className='contact-name text-ellipsis' to={`${c.requester.name ? `portail/${c.requester.id}` : `profil/${c.requester.id}`}`}>{c.requester.name ? c.requester.name : `${c.requester.firstName} ${c.requester.lastName}`}</Link>
                                                             <span className="contact-date">23j</span>
                                                         </div>
                                                         <span className='text-ellipsis'>2 contacts commun</span>

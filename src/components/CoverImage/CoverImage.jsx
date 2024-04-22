@@ -3,25 +3,26 @@ import './CoverImage.scss'
 
 import { addCoverPhoto } from '../../api/coverPhoto'
 import CircleLoader from '../CircleLoader/CircleLoader'
-import { useQuery, useQueryClient, useMutation } from 'react-query'
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { PencilSquare } from 'react-bootstrap-icons'
 import { useSelector } from 'react-redux'
 
 const CoverImage = ({ user }) => {
     const { userId } = useParams()
-    const { user:currentUser } = useSelector(store => store.user)
+    const { user: currentUser } = useSelector(store => store.user)
     const queryClient = useQueryClient()
     const tmpCoverPhotoInpt = useRef()
     const {
         mutate: coverPhotoMutate,
         error: coverPhotoMutateErr,
-        isLoading: coverPhotoMutateLoading } = useMutation(addCoverPhoto, {
+        isPending: coverPhotoMutateLoading } = useMutation({
+            mutationFn: addCoverPhoto,
             onSuccess: (activeCoverImage) => {
                 queryClient.setQueryData(['repoProfile', userId], (profile) => {
                     return { ...profile, activeCoverImage }
                 })
-            },
+            }
         })
     return (
         <div className='cover-image relative'>

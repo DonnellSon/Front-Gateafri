@@ -168,11 +168,11 @@ const Access = () => {
           </div>
 
           {
-            accessesLoadingStatus === 'loading' ? (
+            (accessesFetching && !accessesFetchingNextPage) ? (
               <>
                 <h1>Loading</h1>
               </>
-            ) : accessesLoadingStatus === 'error' ? (
+            ) : error ? (
               <p>Error: {error.message}</p>
             ) : (accesses?.pages[0]?.data?.length > 0 ? accesses?.pages?.map((group, i) => (
               <React.Fragment key={i}>

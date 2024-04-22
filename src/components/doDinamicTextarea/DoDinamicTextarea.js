@@ -90,9 +90,9 @@ const DoDinamicTextarea = ({ avatar = true, prevContent, next, medias = null, pl
             avatar && <Avatar height={24} width={24} src={user?.activeProfilePicture && user?.activeProfilePicture?.fileUrl} style={{ marginRight: '8px', alignSelf: 'flex-end' }} />
           }
 
-          {
+          {/* {
             (avatar && !empty) && <span className={`commenter-name name-medium light-txt-color-1`}>DonnellSon</span>
-          }
+          } */}
         </div>
       }
 

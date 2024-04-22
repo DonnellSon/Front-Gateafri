@@ -36,7 +36,7 @@ const PortalEmplois = () => {
     error,
     hasNextPage: jobListNextPage,
     isFetching: jobListFetching,
-    isFetchingNextPage: JobListFetchingNextPage,
+    isFetchingNextPage: jobListFetchingNextPage,
     status: jobsLoadingStatus,
     refetch,
     refetchPage
@@ -290,13 +290,13 @@ const PortalEmplois = () => {
       <div className="result">
         <div className="job-list">
           {
-            jobsLoadingStatus === 'loading' ? (
+            (jobListFetching && jobListFetchingNextPage) ? (
               <>
                 <JobCardSkeleton />
                 <JobCardSkeleton />
                 <JobCardSkeleton />
               </>
-            ) : jobsLoadingStatus === 'error' ? (
+            ) : error ? (
               <p>Error: {error.message}</p>
             ) : (jobOfferList?.pages[0]?.data?.length > 0 ? jobOfferList?.pages?.map((group, i) => (
               <React.Fragment key={i}>
@@ -311,7 +311,7 @@ const PortalEmplois = () => {
               <Link to='/emplois/nouveau' className="btn btn-gradient">Créer une offre d'emplois</Link>
             </div>)
           }
-          {JobListFetchingNextPage
+          {jobListFetchingNextPage
             ? <JobCardSkeleton />
             : jobListNextPage
               ? ''

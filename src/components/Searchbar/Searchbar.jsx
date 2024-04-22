@@ -37,7 +37,7 @@ const Searchbar = ({
 
   const { data: results,
     flatData: resultsFlat,
-    error,
+    error: resultsErr,
     hasNextPage: resultsNextPage,
     isFetching: resultsFetching,
     isFetchingNextPage: resultsFetchingNextPage,
@@ -81,7 +81,7 @@ const Searchbar = ({
           setKeyword(e.target.value)
         }} type="text" ref={inpt} placeholder={placeholder} onKeyUp={handleEnterKey} />
         {
-          (resultsLoadingStatus === 'loading' || isLoading) &&
+          (resultsFetching || isLoading) &&
           <div className="spiner">
             <CircleLoader />
           </div>
@@ -90,10 +90,10 @@ const Searchbar = ({
       </div>
       <div ref={suggestsList} className="suggests">
         {
-          resultsLoadingStatus === 'loading' ? (
+          resultsFetching ? (
             <></>
-          ) : resultsLoadingStatus === 'error' ? (
-            <p>Error: {error.message}</p>
+          ) : resultsErr ? (
+            <p>Error: {resultsErr.message}</p>
           ) : (results?.pages[0]?.data?.length > 0 ?
             <ul>
               {

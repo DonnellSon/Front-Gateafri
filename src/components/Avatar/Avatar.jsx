@@ -13,7 +13,7 @@ const Avatar = ({ user=null,online = true, height = 30, width = 30, radius = '50
 
   return (
     <div className={`avatar relative${className ? ' '+className : ''}`} style={{ borderRadius: radius, width, height, ...style }}>
-      <img src={src || defaultSrc} alt="" style={{ borderRadius: radius, width, height }} />
+      <img src={src || defaultSrc} alt="" style={{ borderRadius: radius }} />
       {
         online ? <div className="online"></div> : ''
       }

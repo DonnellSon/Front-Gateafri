@@ -16,7 +16,7 @@ const CurrencySelector = () => {
   const {
     data: currenciesList,
     flatData: currenciesListFlat,
-    error,
+    error: currenciesListErr,
     hasNextPage: currenciesNextPage,
     isFetching: currenciesFetching,
     isFetchingNextPage: currenciesFetchingNextPage,
@@ -61,13 +61,13 @@ const CurrencySelector = () => {
 
 
               {
-                currenciesLoadingStatus === 'loading' ? [...new Array(30)].map((_, i) =>
+                (currenciesFetching && !currenciesFetchingNextPage) ? [...new Array(30)].map((_, i) =>
                 (<li key={i} className='flex flex-column gap-10 p-5'>
                   <Skeleton radius={2} height={10} width='60%' />
                   <Skeleton radius={2} height={10} width='20%' />
                 </li>)
-                ) : currenciesLoadingStatus === 'error' ? (
-                  <p>Error: {error.message}</p>
+                ) : currenciesListErr ? (
+                  <p>Error: {currenciesListErr.message}</p>
                 ) : (currenciesList?.pages[0]?.data?.length > 0 ? currenciesList?.pages?.map((group, i) => (
                   <React.Fragment key={i}>
                     {group.data.map((c, i) => (

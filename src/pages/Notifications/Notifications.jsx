@@ -53,7 +53,7 @@ const Notifications = () => {
                             <span>Tous</span>
                         </>}>
                             {
-                                notificationsFetching ?
+                                (notificationsFetching && !notificationsFetchingNextPage) ?
                                     [...new Array(8)].map(_ => <NotificationSkeleton />) :
                                     notificationsFlat?.map((n, i) => {
 

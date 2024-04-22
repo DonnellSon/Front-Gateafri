@@ -4,18 +4,20 @@
     @include themify($themes){
         img {
             object-fit: cover;
+            width: inherit;
+            height: inherit;
+        }
+        .online {
+            width: 35%;
+            height: 35%;
+            border: 2px solid themed('background',3);
+            border-radius: 50%;
+            background: #0cdd6a;
+            position: absolute;
+            right: 0;
+            top: 0;
         }
     }
-}
-
-.avatar .online {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #0cdd6a;
-    position: absolute;
-    right: 0;
-    top: 0;
 }
 
 .avatar-edit-btn {

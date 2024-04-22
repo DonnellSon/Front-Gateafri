@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import Searchbar from '../Searchbar/Searchbar'
 import { Link } from 'react-router-dom'
 import './SortableList.scss'
@@ -10,7 +10,9 @@ import axios from 'axios'
 const SortableList = ({ title, repoName = 'repo', query, mapping = (elem) => elem,allowSearch=true,emptyPlaceholder='',className=null }) => {
 
     const [keyword,setKeyword]=useState(null)
-    const { data, error, isLoading,refetch,isRefetching } = useQuery([repoName,keyword], () => query(keyword))
+    const { data, error, isLoading,refetch,isRefetching } = useQuery({
+        queryKey:[repoName,keyword],
+        queryFn:() => query(keyword)})
     
     const [comp,setComp]=useState([])
     // axios({

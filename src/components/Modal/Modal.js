@@ -32,7 +32,7 @@ const ModalContentRef = ({ children, closeOnClickOutside = true, onClose = () =>
 }
 
 
-const Modal = ({ children, open = false,onClick=()=>{}, onClose = () => { }, closeOnClickOutside = true, className = null }) => {
+const Modal = ({ children, open = false,onClick=()=>{}, onClose = () => { }, closeOnClickOutside = true, className = null,animation='scaleModal' }) => {
     const modalContent = useRef()
     const adjustModalHeight = () => {
         alert(modalContent.current)
@@ -40,7 +40,7 @@ const Modal = ({ children, open = false,onClick=()=>{}, onClose = () => { }, clo
 
 
     return (
-        (open && document.querySelector('#App')) && createPortal(<div className={`modal${className ? ' ' + className : ''}`} onClick={(e)=>{
+        (open && document.querySelector('#App')) && createPortal(<div className={`modal${className ? ' ' + className : ''}${animation ? ' '+animation : ''}`} onClick={(e)=>{
             onClick(e)
             if (closeOnClickOutside) {
                 if (e.currentTarget === e.target) {

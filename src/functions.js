@@ -1,18 +1,32 @@
 const functions = {
-    filtersToURL : (obj) => {
-        const queryString = Object.keys(obj)
-          .filter(key => obj[key] !== null && obj[key] !== undefined && obj[key] !== '' && !(Array.isArray(obj[key]) && obj[key].length === 0))
-          .map(key => {
-            if (Array.isArray(obj[key]) && obj[key].length > 0) {
-              return obj[key].map(item => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`).join('&');
-            } else {
-              return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
+    flatInfiniteQuery: (infiniteQueryData) => {
+        return infiniteQueryData?.pages?.map((group) => group).map((g) => g.data).flat()
+    },
+    chunckArray: (arr, chunkSize) => {
+        return arr.reduce((acc, _, index) => {
+            if (index % chunkSize === 0) {
+                acc.push(arr.slice(index, index + chunkSize));
             }
-          })
-          .join('&');
-    
+            return acc;
+        }, []);
+    },
+    transFormJsonLd: (jsonLd) => {
+        return { data: jsonLd['hydra:member'], totalItems: jsonLd['hydra:totalItems'], nextPage: jsonLd['hydra:view']['hydra:next'] ? parseInt(jsonLd['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
+    },
+    filtersToURL: (obj) => {
+        const queryString = Object.keys(obj)
+            .filter(key => obj[key] !== null && obj[key] !== undefined && obj[key] !== '' && !(Array.isArray(obj[key]) && obj[key].length === 0))
+            .map(key => {
+                if (Array.isArray(obj[key]) && obj[key].length > 0) {
+                    return obj[key].map(item => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`).join('&');
+                } else {
+                    return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
+                }
+            })
+            .join('&');
+
         return queryString;
-      },
+    },
     getRandomNumber: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
@@ -101,11 +115,20 @@ const functions = {
             if (x.matches) {
                 cb(k);
             }
-            x.addEventListener("change", (x) => {
-                if (x.matches) {
-                    cb(k);
-                }
-            })
+            if (x.addEventListener) {
+                x.addEventListener("change", (x) => {
+                    if (x.matches) {
+                        cb(k);
+                    }
+                })
+            } else {
+                x.addListener((x) => {
+                    if (x.matches) {
+                        cb(k);
+                    }
+                })
+            }
+
         })
 
 

@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import Accordion from '../../components/Accordion/Accordion'
 import Slider from 'react-slick'
 import axios from 'axios'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { filtersToURL } from '../../functions'
 import PostCardSkeleton from '../../components/PostCard/PostCardSkeleton'
 import PostCard from '../../components/PostCard/PostCard'
@@ -40,7 +40,7 @@ const Dashboard = () => {
     error,
     fetchNextPage,
     hasNextPage: postsListNextPage,
-    isFetching,
+    isFetching:postsListFetching,
     isFetchingNextPage: postsListFetchingNextPage,
     status: postsLoadingStatus,
     refetch,
@@ -125,12 +125,12 @@ const Dashboard = () => {
               </div>
               <div className="posts-slider">
                 {
-                  postsLoadingStatus === 'loading' ? (
+                  (postsListFetching && postsListFetchingNextPage) ? (
                     <>
                       <PostCardSkeleton />
                       <PostCardSkeleton />
                     </>
-                  ) : postsLoadingStatus === 'error' ? (
+                  ) : error ? (
                     <p>Error: {error.message}</p>
                   ) : postsList?.pages?.length > 0 ?
 

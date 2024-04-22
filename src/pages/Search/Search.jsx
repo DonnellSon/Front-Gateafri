@@ -94,26 +94,32 @@ const Search = () => {
     isLoading: portalsLoading,
     error: portalsError,
     data: portals,
-  } = useQuery(["repoCompanies", filters.companies], () =>
-    getCompanies({ filters: objToQueryString(filters.companies) })
-  );
+  } = useQuery({
+    queryKey: ["repoCompanies", filters.companies],
+    queryFn: () =>
+      getCompanies({ filters: objToQueryString(filters.companies) })
+  });
 
   //searchInvests
   const {
     isLoading: investsLoading,
     error: getInvestError,
     data: invests,
-  } = useQuery(["repoInvests", filters.invests], () =>
-    getInvests({ filters: objToQueryString(filters.invests) })
-  );
+  } = useQuery({
+    queryKey: ["repoInvests", filters.invests],
+    queryFn: () =>
+      getInvests({ filters: objToQueryString(filters.invests) })
+  });
 
   const {
     isLoading: postsLoading,
     error: postsError,
     data: posts,
-  } = useQuery(["repoPosts", filters.posts], () =>
-    getPosts({ filters: decodeURI(objToQueryString(filters.posts)) })
-  );
+  } = useQuery({
+    queryKey: ["repoPosts", filters.posts],
+    queryFn: () =>
+      getPosts({ filters: decodeURI(objToQueryString(filters.posts)) })
+  });
 
   useEffect(() => {
     console.log(posts, "POSTSsearch");
@@ -403,7 +409,7 @@ const Search = () => {
               </div>
               <div className="posts-results-list flex flex-column gap-10">
                 {postsData.map((p, i) => (
-                  <PostCard key={i} data={p} onDelete={() => {}} />
+                  <PostCard key={i} data={p} onDelete={() => { }} />
                 ))}
               </div>
               <div className="footer">

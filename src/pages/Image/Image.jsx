@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ChevronBarLeft, ChevronLeft, ChevronRight, Download, Fullscreen, PencilSquare, Plus, PlusLg, ZoomIn, ZoomOut } from 'react-bootstrap-icons'
+import { ChevronBarLeft, ChevronLeft, ChevronRight, Download, Fullscreen, PencilSquare, Plus, PlusLg, X, XLg, ZoomIn, ZoomOut } from 'react-bootstrap-icons'
 import Avatar from '../../components/Avatar/Avatar'
 import CommentForm from '../../components/commentForm/CommentForm'
 import CommentList from '../../components/commentList/CommentList'
@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthOnClick'
 import millify from 'millify'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getComments } from '../../api/comment'
 import { getPost } from '../../api/post'
 import moment from '../../moment'
@@ -20,12 +20,14 @@ import { Link } from 'react-router-dom'
 import { useParams, useSearchParams } from "react-router-dom";
 import CircleLoader from '../../components/CircleLoader/CircleLoader'
 import { useSelector } from 'react-redux'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import EvaluationItem from '../../components/Evaluation/EvaluationItem'
+import { useNavigate } from 'react-router-dom'
 
-const Image = () => {
+const Image = ({ closeFn = () => { } }) => {
     const { image_id } = useParams()
     const { user } = useSelector(store => store.user)
+    const navigate = useNavigate()
     const img = useRef()
     let [searchParams, setSearchParams] = useSearchParams();
 
@@ -38,10 +40,16 @@ const Image = () => {
 
     const [tmpComment, setTmpComment] = useState('')
 
-    const { data: post, error: postError, isLoading: postLoading } = useQuery(['imagePostRepo', searchParams.get('p')], () => getPost(searchParams.get('p')))
+    const { data: post, error: postError, isLoading: postLoading } = useQuery({
+        queryKey: ['imagePostRepo', searchParams.get('p')],
+        queryFn: () => getPost(searchParams.get('p'))
+    })
 
 
-    const { data: comments, error: commentsError, isLoading: commentsLoading, refetch: refetchComments } = useQuery(['imageComsRepo', image_id], () => getComments(image_id))
+    const { data: comments, error: commentsError, isLoading: commentsLoading, refetch: refetchComments } = useQuery({
+        queryKey: ['imageComsRepo', image_id],
+        queryFn: () => getComments(image_id)
+    })
 
     /**
      * Fetching image Evaluations
@@ -129,6 +137,9 @@ const Image = () => {
                     <img src={image?.imageEntity.fileUrl} alt="" className="background-post-img absolute" />
                     <div className="background-post-img-glass absolute flex align-items-center justify-content-center">
                         <img ref={img} src={image?.imageEntity.fileUrl} alt="" className="single-post-img absolute" style={{ maxWidth: "100% !important", height: "100% !important" }} />
+                    </div>
+                    <div className="close-btn" onClick={(e) => { navigate('../') }}>
+                        <XLg size={16} />
                     </div>
                     <div className="post-imgs-slide-actions absolute flex gap-10">
                         <div className="zoom-in-btn">
@@ -251,26 +262,41 @@ const Image = () => {
 
                 </div>
                 <div className="footer">
-                    <div className="top">
-                        <CommentForm commentable={`/images/${image_id}`} onSended={(data) => {
-                            setImage(prev => ({ ...prev, comments: [...prev.comments, data] }))
-                            refetchComments()
-                        }} />
-                    </div>
+                    {
+                        user &&
+                        <div className="top">
+                            <CommentForm commentable={`/images/${image_id}`} onSended={(data) => {
+                                setImage(prev => ({ ...prev, comments: [...prev.comments, data] }))
+                                refetchComments()
+                            }} />
+                        </div>
+                    }
                     <div className="bottom flex gap-10">
                         <RequireAuthOnClick>
                             <span className='flex align-items-center gap-10 no-wrap-text'>
-                                <Gem size={19} /><span>Evaluer</span><div className="badge purple">50</div>
+                                <div className="ico">
+                                    <Gem size={21} />
+                                    <div className="badge purple">50</div>
+                                </div>
+                                <span>Evaluer</span>
                             </span>
                         </RequireAuthOnClick>
                         <RequireAuthOnClick>
                             <span className='flex align-items-center gap-10 no-wrap-text'>
-                                <ChatLeft size={19} /><span>Commenter</span><div className="badge">50</div>
+                                <div className="ico">
+                                    <ChatLeft size={21} />
+                                    <div className="badge">50</div>
+                                </div>
+                                <span>Commenter</span>
                             </span>
                         </RequireAuthOnClick>
                         <RequireAuthOnClick>
                             <span className='flex align-items-center gap-10 no-wrap-text'>
-                                <Share size={19} /><span>Partager</span><div className="badge">50</div>
+                                <div className="ico">
+                                    <Share size={21} />
+                                    <div className="badge">50</div>
+                                </div>
+                                <span>Partager</span>
                             </span>
                         </RequireAuthOnClick>
                     </div>
