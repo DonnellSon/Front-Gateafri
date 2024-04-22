@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const getDomains = () => {
     return axios({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/domains`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/domains`,
         method: 'get', withCredentials: true,
         header: {
             'Content-Type': 'application/ld+json',
@@ -12,7 +12,7 @@ export const getDomains = () => {
 }
 export const searchDomains = (keyword=null) => {
     return axios({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/domains?ipp=5${(keyword && keyword.length >0) ? `&title=${keyword}` : ''}`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/domains?ipp=5${(keyword && keyword.length >0) ? `&title=${keyword}` : ''}`,
         method: 'get', withCredentials: true,
         header: {
             'Content-Type': 'application/ld+json',
@@ -23,7 +23,7 @@ export const searchDomains = (keyword=null) => {
 
 export const getUserDomains=(userId)=>{
     return axios({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/users/${userId}/domains`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/users/${userId}/domains`,
         method: 'get', withCredentials: true,
     }).then((res) => res.data)
 }

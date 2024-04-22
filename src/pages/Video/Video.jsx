@@ -14,7 +14,7 @@ const Video = () => {
     const { deviceType } = useContext(MediaContext)
     return (
         <div id='video-page' className='flex'>
-            <div className="center flex-grow-1 px-15">
+            <div className="center flex-grow-1">
                 <div className="video">
                     <div className="video-player">
                         <VideoPlayer options={
@@ -23,7 +23,7 @@ const Video = () => {
                                 controls: true,
                                 sources:[
                                     {
-                                        src: 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
+                                        src: 'https://gateafri.com:8888/hls/boy.m3u8',
                                         type: 'application/x-mpegURL'
                                     }
                                 ]

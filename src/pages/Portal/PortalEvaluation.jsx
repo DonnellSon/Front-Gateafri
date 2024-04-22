@@ -6,6 +6,7 @@ import Rating from "react-rating";
 import Avatar from "../../components/Avatar/Avatar";
 import Modal from "../../components/Modal/Modal";
 import PortalAvis from './PortalAvis'
+import StickySideBar from '../../components/StickySideBar/StickySideBar'
 
 const PortalEvaluation = () => {
   const [isCroissant, setIsCroissant] = useState(true);
@@ -21,9 +22,9 @@ const PortalEvaluation = () => {
       <div className="head elevated-card px-15 mt-15 pb-15">
         <div className="heading2 justify-content-between">
           <h3>Avis des Employés</h3>
-          <button className="btn-evaluer-nous" onClick={()=>setOpen(true)}>Evaluer Nous</button>
+          <button className="btn-evaluer-nous" onClick={() => setOpen(true)}>Evaluer Nous</button>
           <Modal open={open} className='modal-evaluation'>
-            <PortalAvis handleClose={setOpen}/>
+            <PortalAvis handleClose={setOpen} />
           </Modal>
         </div>
         <div className="triage">
@@ -337,115 +338,117 @@ const PortalEvaluation = () => {
           </div>
         </div>
         <div className="right">
-          <div className="note-global container elevated-card">
-            <h3>Note globale</h3>
-            <div className="content">
-              <div className="rating">
-                <div className="progress-bar">
-                  <span>4.5</span>
-                </div>
-                <Rating
-                  readonly
-                  initialRating={3.5}
-                  className="portal-evaluation-note"
-                  fractions={2}
-                  emptySymbol={
-                    <img
-                      src="/img/icons/diamond_grey.png"
-                      className="icon rating-diamond-img"
-                    />
-                  }
-                  fullSymbol={
-                    <img
-                      src="/img/icons/diamond.png"
-                      className="icon rating-diamond-img"
-                    />
-                  }
-                />
-                {/* <span className="note">3.5</span> */}
-              </div>
-              <div className="rating-breakdown">
-                <p>D'après 3200 avis</p>
-                <div className="item">
-                  <span className="numero">5</span>
-                  <img src="/img/icons/diamond.png" alt="" />{" "}
-                  <div className="bar-container">
-                    <div
-                      className="bar-progress"
-                      style={{ width: "70%" }}
-                    ></div>
+          <StickySideBar bottom={5}>
+            <div className="note-global container elevated-card">
+              <h3>Note globale</h3>
+              <div className="content">
+                <div className="rating">
+                  <div className="progress-bar">
+                    <span>4.5</span>
                   </div>
-                  <span class="compte">3,5k</span>
+                  <Rating
+                    readonly
+                    initialRating={3.5}
+                    className="portal-evaluation-note"
+                    fractions={2}
+                    emptySymbol={
+                      <img
+                        src="/img/icons/diamond_grey.png"
+                        className="icon rating-diamond-img"
+                      />
+                    }
+                    fullSymbol={
+                      <img
+                        src="/img/icons/diamond.png"
+                        className="icon rating-diamond-img"
+                      />
+                    }
+                  />
+                  {/* <span className="note">3.5</span> */}
                 </div>
-                <div className="item">
-                  <span className="numero">4 </span>
-                  <img src="/img/icons/diamond.png" alt="" />
-                  <div className="bar-container">
-                    <div
-                      className="bar-progress"
-                      style={{ width: "50%" }}
-                    ></div>
+                <div className="rating-breakdown">
+                  <p>D'après 3200 avis</p>
+                  <div className="item">
+                    <span className="numero">5</span>
+                    <img src="/img/icons/diamond.png" alt="" />{" "}
+                    <div className="bar-container">
+                      <div
+                        className="bar-progress"
+                        style={{ width: "70%" }}
+                      ></div>
+                    </div>
+                    <span class="compte">3,5k</span>
                   </div>
-                  <span class="compte">2,5k</span>
-                </div>
-                <div className="item">
-                  <span className="numero">3 </span>
-                  <img src="/img/icons/diamond.png" alt="" />
-                  <div className="bar-container">
-                    <div
-                      className="bar-progress"
-                      style={{ width: "30%" }}
-                    ></div>
+                  <div className="item">
+                    <span className="numero">4 </span>
+                    <img src="/img/icons/diamond.png" alt="" />
+                    <div className="bar-container">
+                      <div
+                        className="bar-progress"
+                        style={{ width: "50%" }}
+                      ></div>
+                    </div>
+                    <span class="compte">2,5k</span>
                   </div>
-                  <span class="compte">1,3k</span>
-                </div>
-                <div className="item">
-                  <span className="numero">2 </span>
-                  <img src="/img/icons/diamond.png" alt="" />
-                  <div className="bar-container">
-                    <div
-                      className="bar-progress"
-                      style={{ width: "40%" }}
-                    ></div>
+                  <div className="item">
+                    <span className="numero">3 </span>
+                    <img src="/img/icons/diamond.png" alt="" />
+                    <div className="bar-container">
+                      <div
+                        className="bar-progress"
+                        style={{ width: "30%" }}
+                      ></div>
+                    </div>
+                    <span class="compte">1,3k</span>
                   </div>
-                  <span class="compte">2k</span>
-                </div>
-                <div className="item">
-                  <span className="numero">1 </span>
-                  <img src="/img/icons/diamond.png" alt="" />
-                  <div className="bar-container">
-                    <div
-                      className="bar-progress"
-                      style={{ width: "20%" }}
-                    ></div>
+                  <div className="item">
+                    <span className="numero">2 </span>
+                    <img src="/img/icons/diamond.png" alt="" />
+                    <div className="bar-container">
+                      <div
+                        className="bar-progress"
+                        style={{ width: "40%" }}
+                      ></div>
+                    </div>
+                    <span class="compte">2k</span>
                   </div>
-                  <span class="compte">1,1k</span>
+                  <div className="item">
+                    <span className="numero">1 </span>
+                    <img src="/img/icons/diamond.png" alt="" />
+                    <div className="bar-container">
+                      <div
+                        className="bar-progress"
+                        style={{ width: "20%" }}
+                      ></div>
+                    </div>
+                    <span class="compte">1,1k</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="question container elevated-card">
-            <h3>Voulez-vous poser une question ?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-              tenetur ducimus architecto, consectetur debitis aspernatur. Vero
-              asperiores, repellendus provident culpa eligendi fuga eius? Porro
-              nesciunt labore deleniti ipsam quam ipsa!
-            </p>
-            <div className="btn">Poser une question</div>
-          </div>
-          <div className="job-populaire container elevated-card">
-            <h3>Travails populaire:</h3>
-            <ul>
-              <li>-Super administrateur</li>
-              <li>-Administrateur de contenu</li>
-              <li>-Analyste</li>
-              <li>-Super administrateur</li>
-              <li>-Administrateur de contenu</li>
-              <li>-Analyste</li>
-            </ul>
-            <Link>Voir tout les travails</Link>
-          </div>
+            <div className="question container elevated-card">
+              <h3>Voulez-vous poser une question ?</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
+                tenetur ducimus architecto, consectetur debitis aspernatur. Vero
+                asperiores, repellendus provident culpa eligendi fuga eius? Porro
+                nesciunt labore deleniti ipsam quam ipsa!
+              </p>
+              <div className="btn">Poser une question</div>
+            </div>
+            <div className="job-populaire container elevated-card">
+              <h3>Travails populaire:</h3>
+              <ul>
+                <li>-Super administrateur</li>
+                <li>-Administrateur de contenu</li>
+                <li>-Analyste</li>
+                <li>-Super administrateur</li>
+                <li>-Administrateur de contenu</li>
+                <li>-Analyste</li>
+              </ul>
+              <Link>Voir tout les travails</Link>
+            </div>
+          </StickySideBar>
         </div>
       </div>
     </div>

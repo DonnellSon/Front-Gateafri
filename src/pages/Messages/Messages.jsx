@@ -39,7 +39,7 @@ const Messages = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/discussions`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/discussions`,
         ipp: 10,
         queryKey: ['discuList'],
     })
@@ -81,7 +81,7 @@ const Messages = () => {
                     </div>
 
                     <div className="messages-favorite-contacts">
-                        <h5>Favoris</h5>
+                        <h5>Disponible</h5>
                         <div className="flex gap-5">
                             <div className="flex flex-column align-items-center gap-5">
                                 <Avatar height={45} width={45} />

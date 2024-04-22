@@ -261,7 +261,7 @@ const Search = () => {
   return (
     <div id="search-page">
       <div className="left">
-        <StickySideBar top={73}>
+        <StickySideBar top={63}>
           <div className="search-nav">
             <h2>100 Resultats pour "{searchParams.get("k")}"</h2>
             <ul>
@@ -337,7 +337,7 @@ const Search = () => {
 
         <div className="persons-results ">
           <div className="top">
-            <h2>Persons</h2>
+            <h2>Personnes</h2>
           </div>
           <div className="persons-results-list flex flex-column">
             <div className="person flex justify-content-between align-items-center ">
@@ -350,7 +350,7 @@ const Search = () => {
               </div>
               <div className="right flex gap-10">
                 <buttton className="btn-purple">Contacter</buttton>
-                <buttton className="btn- recruter">Recruter</buttton>
+                <buttton className="btn-outline-yellow">Recruter</buttton>
               </div>
             </div>
             <div className="person flex justify-content-between align-items-center ">
@@ -363,7 +363,7 @@ const Search = () => {
               </div>
               <div className="right flex gap-10">
                 <buttton className="btn-purple">Contacter</buttton>
-                <buttton className="btn- recruter">Recruter</buttton>
+                <buttton className="btn-outline-yellow">Recruter</buttton>
               </div>
             </div>
           </div>
@@ -672,7 +672,7 @@ const Search = () => {
       </div>
 
       <div className="right">
-        <StickySideBar top={73}>
+        <StickySideBar top={63}>
           <div className="suggest-search-invest">
             <h2>
               Où investir en <br />

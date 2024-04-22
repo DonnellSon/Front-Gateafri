@@ -27,7 +27,7 @@ const Countries = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/pays`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/pays`,
         ipp: 10,
         queryKey: ['countries_read'],
         queryString: '',

@@ -1,4 +1,5 @@
 import {
+  ArrowReturnRight,
   Check2Circle,
   Question,
   QuestionCircle,
@@ -9,6 +10,7 @@ import "./PortalFaq.scss";
 import SliderNav from "../../components/SliderNav/SliderNav";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import StickySideBar from "../../components/StickySideBar/StickySideBar";
 
 const PortalFaq = () => {
   const questionsReponses = [
@@ -91,7 +93,7 @@ const PortalFaq = () => {
       datePublication: "2024 fevrier 2014",
     },
   ];
-  const Formulaire = ({ titre, sousTitre,setOpen }) => {
+  const Formulaire = ({ titre, sousTitre, setOpen }) => {
     return (
       <form>
         <div className="head flex justify-content-between">
@@ -104,15 +106,17 @@ const PortalFaq = () => {
             </div>
           </div>
         </div>
-        <p>{sousTitre}</p>
-        <textarea
-          name="question"
-          id="question"
-          placeholder="Saisissez votre question ici..."
-        ></textarea>
+        <div className="body">
+          <p>{sousTitre}</p>
+          <textarea
+            name="question"
+            id="question"
+            placeholder="Saisissez votre question ici..."
+          ></textarea>
+        </div>
         <div className="foot flex justify-content-end">
           <button className="btn-" onClick={(e) => e.preventDefault()}>
-            Envoyer
+            Poser ma question
           </button>
         </div>
       </form>
@@ -122,7 +126,7 @@ const PortalFaq = () => {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <button className="btn-" onClick={() => setOpen(true)}>
+        <button className="btn-gradient" onClick={() => setOpen(true)}>
           Poser une question
         </button>
         <Modal open={open} className="modal-question">
@@ -141,7 +145,7 @@ const PortalFaq = () => {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <div className="btn-" onClick={()=>setOpen(true)}>Repondre</div>
+        <div className="btn-" onClick={() => setOpen(true)}><ArrowReturnRight />  Repondre</div>
         <Modal open={open} className="modal-reponse">
           <Formulaire
             titre={"Publier une reponse"}
@@ -156,13 +160,16 @@ const PortalFaq = () => {
   };
   return (
     <div className="portal-faq ">
-      <div className="head elevated-card px-15 pb-15 mb-15">
+      
+      <div className="bottom flex gap-5">
+
+        <div className="questions-list">
+        <div className="head elevated-card px-15 pb-15 mb-15">
         <div className="heading2  ">
           <h3>Questions et Reponses</h3>
-          <ModalQuestion />
         </div>
         <div className="category-question">
-          <p>voir les questions sur les category suivants:</p>
+          <p>Voir les questions sur les categories suivants :</p>
           <ul className="list-category">
             <li className="active">Tous</li>
             <li>Salaire</li>
@@ -177,27 +184,36 @@ const PortalFaq = () => {
           </ul>
         </div>
       </div>
-      {questionsReponses.map((item, i) => (
-        <div className="item elevated-card mb-5 p-15" key={i}>
-          <Accordion>
-            <div className="question">
-              <h3>{item.question}</h3>
-              <small>posée le {item.datePublication}</small>
+          {questionsReponses.map((item, i) => (
+            <div className="item elevated-card mb-5" key={i}>
+              <Accordion>
+                <div className="question">
+                  <h3>{item.question}</h3>
+                  <small>posée le {item.datePublication}</small>
+                </div>
+                <div className="reponse">
+                  {item.reponses.map((res, index) => (
+                    <p key={index} className="flex">
+                      {res}
+                    </p>
+                  ))}
+                </div>
+              </Accordion>
+              <div className="footer">
+                <ModalReponse />
+              </div>
             </div>
-            <div className="reponse">
-              {item.reponses.map((res, index) => (
-                <p key={index} className="flex">
-                  <span className="icon">
-                    <Check2Circle size={20} />
-                  </span>
-                  {res}
-                </p>
-              ))}
-            </div>
-          </Accordion>
-          <ModalReponse />
+          ))}
         </div>
-      ))}
+        <div className="left">
+          <StickySideBar top={63}>
+            <aside className="question-btn p-15">
+              <h5>Voulez vous poser une question concernant Donnell ?</h5>
+              <ModalQuestion />
+            </aside>
+          </StickySideBar>
+        </div>
+      </div>
     </div>
   );
 };

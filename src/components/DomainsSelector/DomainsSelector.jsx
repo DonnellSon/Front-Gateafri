@@ -24,9 +24,9 @@ const DomainsSelector = ({ open, onClose }) => {
         if (selected.length > 0) {
             setOnSave(true)
             axios({
-                url: `${process.env.REACT_APP_API_DOMAIN}/api/users/${user.id}`,
+                url: `${process.env.REACT_APP_API_DOMAIN}/users/${user.id}`,
                 method: 'patch',
-                data: { domains: selected.map((s) => `/api/domains/${s.id}`) },
+                data: { domains: selected.map((s) => `/domains/${s.id}`) },
                 headers: {
                     'Content-Type': 'application/merge-patch+json'
                 },

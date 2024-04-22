@@ -2,14 +2,15 @@
 
 .searchbar {
     @include themify($themes) {
-        padding: 2px;
+        padding: 5px;
+        margin-left: 0 -5px;
         border-radius: 5px;
         
         position: relative;
         
         z-index: 1000 !important;
         &.expandable{
-            width: 45px;
+            width: 40px;
             overflow: hidden;
             transition: .5s;
             &:not(.expanded){
@@ -20,17 +21,35 @@
                 flex-grow: 1;
             }
         }
-        &:active{
+        &.has-suggests{
             background: themed("background", 3);
             box-shadow:  -1px -1px 5px #0000005d, 1px -1px 6px #00000028;
             .suggests{
                 position: absolute;
                 height: 300px;
                 width: 100%;
-                top: calc(100% - 5px);
+                top: calc(100% - 4px);
                 background: inherit;
                 box-shadow:  -1px 5px 5px #00000054, 1px 5px 6px #0000001e;
                 border-radius: 0 0 5px 5px;
+                padding: 8px 5px 5px 5px;
+                ul{
+                    li{
+                        >*{
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            height: 45px;
+                            padding: 0 15px;
+                            border-radius: 5px;
+                            color: themed('text',3);
+                            cursor: pointer;
+                            &:not(:first-child){
+                                margin-top: 10px;
+                            }
+                        }
+                    }
+                }
             }
         }
         .input {
@@ -46,7 +65,7 @@
             margin-top: 3px;
             color: themed("text", 3);
             margin-right: 10px;
-            margin-left: 5px;
+            margin-left: 3px;
         }
 
 

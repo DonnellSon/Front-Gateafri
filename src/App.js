@@ -165,7 +165,7 @@ function App() {
   );
   if (!localStorage.getItem("currency")) {
     axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/currencies/1`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/currencies/1`,
       method: "get",
     }).then((res) => {
       console.log(res.data, "DOLLARCURRENCY");
@@ -227,7 +227,7 @@ function App() {
 
   useEffect(() => {
     axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/users`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/users`,
       method: "get",
       withCredentials: true,
     })
@@ -246,14 +246,14 @@ function App() {
       const user = jwt_decode(token);
       if (user.exp * 1000 > new Date().getTime()) {
         axios({
-          url: `${process.env.REACT_APP_API_DOMAIN}/api/users/${user.id}`,
+          url: `${process.env.REACT_APP_API_DOMAIN}/users/${user.id}`,
           method: "get",
           withCredentials: true,
         })
           .then((res) => {
             dispatch(setConnectedUser(res.data));
             setPageLoading(false);
-            setSocket(io("http://localhost:5000"));
+            setSocket(io(process.env.REACT_APP_REAL_DOMAIN));
           })
           .catch((err) => {
             setPageLoading(false);
@@ -518,10 +518,12 @@ function App() {
                                   path="actualite"
                                   element={<PortalActu />}
                                 />
-                                <Route
-                                  path="emplois"
-                                  element={<PortalEmplois />}
-                                />
+                                <Route path="emplois/:jobOfferId?">
+                                  <Route index element={<PortalEmplois />}/>
+                                  <Route path="details" element={<JobDetailsPage/>}/>
+
+                                </Route>
+                                
                                 <Route path="faq" element={<PortalFaq />} />
                                 <Route
                                   path="evaluation"

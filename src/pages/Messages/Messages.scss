@@ -134,7 +134,9 @@
     height: calc(100vh - var(--topbar-height));
 }
 
-.messages-page .center {}
+.messages-page .center {
+    min-width: 0 !important;
+}
 
 .messenger {
     @include themify($themes) {
@@ -204,6 +206,10 @@
 .messenger>.content>.footer {
     position: sticky;
     bottom: 0;
+    min-width: 0;
+    >div{
+        max-width: 100%;
+    }
 }
 
 .messenger>.content>.footer>div {

@@ -32,7 +32,7 @@ const Register = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const setGenderUri = (genderId) => {
-        setGender(`/api/genders/${genderId}`)
+        setGender(`/genders/${genderId}`)
     }
 
     const [isLoading, setIsLoading] = useState(false)
@@ -47,7 +47,7 @@ const Register = () => {
         setIsLoading(true)
 
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/users`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/users`,
             method: 'post',
             data: {
                 firstName,
@@ -93,7 +93,7 @@ const Register = () => {
 
     useEffect(() => {
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/genders`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/genders`,
             method: 'get',
         }).then((res) => {
             setGenders(res?.data);

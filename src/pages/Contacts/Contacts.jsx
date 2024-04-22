@@ -24,7 +24,7 @@ const Contacts = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/contacts`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/contacts`,
         ipp: 10,
         queryKey: ['Contacts'],
         queryString: `status=en attente&&receiver.id=${user.id}`,

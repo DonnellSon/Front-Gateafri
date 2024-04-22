@@ -47,9 +47,9 @@ const Accordion = ({ children,isOpen=false,closeOnClickOutside=false }) => {
             }}>
                 {children[0]}
                 <div className="flex gap-10">
-                {
+                {/* {
                     open && <button className="more-opts-btn" onClick={(e)=>{e.stopPropagation()}}><Plus size={25}/></button>
-                }
+                } */}
                 <button className="toggle-btn">
                     {
                         open ? <ChevronUp size={18}/> : <ChevronDown size={18}/>

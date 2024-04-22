@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './CreateJob.scss'
 import JobDetails from '../../components/JobDetails/JobDetails'
 import Accordion from '../../components/Accordion/Accordion'
@@ -17,11 +17,14 @@ import CircleLoader from '../../components/CircleLoader/CircleLoader'
 import { getJobGrades, getJobTypes } from '../../api/job'
 import CreateJobSkeleton from './CreateJobSkeleton'
 import Skeleton from '../../components/Skeleton/Skeleton'
+import AuthorSelector from '../../components/AuthorSelector/AuthorSelector'
+import CurrencyContext from '../../context/CurrencyContext'
 
 const CreateJob = () => {
   const [initialData, setInitialData] = useState(null)
 
   const { user } = useSelector((store) => store.user)
+  const {currency} = useContext(CurrencyContext)
   const [activePortal, setActivePortal] = useState(null)
   const [addJobLoading, setAddJobLoading] = useState(false)
   const navigate = useNavigate()
@@ -43,7 +46,17 @@ const CreateJob = () => {
   }
 
   const addJobOffer = () => {
-    const toSend = { ...jobOffer, type: jobOffer.type.value, grade: jobOffer.grade.value, salary: JSON.stringify({ ...jobOffer.salary, currency: '/api/currencies/1' }) }
+    const toSend = { 
+      ...jobOffer, 
+      type: jobOffer.type.value, 
+      grade: jobOffer.grade.value,
+      author:`/authors/${jobOffer.author.id}`,
+      salary: JSON.stringify({ 
+        ...jobOffer.salary, 
+        currency: jobOffer.salary ? 
+          `/currencies/${jobOffer.salary.currency.id}` : `/currencies/${currency.id}` 
+      }) 
+    }
     const data = new FormData()
     for (var key in toSend) {
       if (Array.isArray(toSend[key])) {
@@ -56,7 +69,7 @@ const CreateJob = () => {
     }
     setAddJobLoading(true)
     axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/job_offers`,
       data,
       method: 'post', withCredentials: true
     })
@@ -101,7 +114,10 @@ const CreateJob = () => {
                         </div>
                         <div className="form-group">
                           <label htmlFor="">Nom de l'entreprise</label>
-                          {
+                          <AuthorSelector withUser={false} onSelect={(p)=>{
+                            setJobOffer(prev => ({ ...prev, author: p }))
+                          }}/>
+                          {/* {
                             userCompanies && <SelectSearch
                               searchFields={['name']}
                               onChange={(p) => { setJobOffer(prev => ({ ...prev, author: p.value })) }}
@@ -110,12 +126,12 @@ const CreateJob = () => {
                               query={(filters) => getUserCompanies(user.id)}
                               repoName="userPortalsRepo"
                               toPlaceholder={(elem) => elem.name}
-                              objectMapping={(p) => ({ name: p.name, value: `/api/companies/${p.id}` })}
+                              objectMapping={(p) => ({ name: p.name, value: `/companies/${p.id}` })}
                               mapping={(p) => <Link>
                                 <span>{p.name}</span>
                               </Link>}
                             />
-                          }
+                          } */}
                         </div>
                         <div className="form-group">
                           <label htmlFor="">Experience</label>
@@ -132,7 +148,7 @@ const CreateJob = () => {
                               query={(filters) => getJobGrades()}
                               repoName="jobGradesRepo"
                               toPlaceholder={(elem) => elem.title}
-                              objectMapping={(g) => ({ title: g.title, value: `/api/job_grades/${g.id}` })}
+                              objectMapping={(g) => ({ title: g.title, value: `/job_grades/${g.id}` })}
                               mapping={(g) => <Link>
                                 <span>{g.title}</span>
                               </Link>}
@@ -148,7 +164,7 @@ const CreateJob = () => {
                               query={(filters) => getJobTypes()}
                               repoName="jobTypesRepo"
                               toPlaceholder={(elem) => elem.title}
-                              objectMapping={(t) => ({ title: t.title, value: `/api/job_types/${t.id}` })}
+                              objectMapping={(t) => ({ title: t.title, value: `/job_types/${t.id}` })}
                               mapping={(t) => <Link>
                                 <span>{t.title}</span>
                               </Link>}
@@ -261,7 +277,7 @@ const CreateJob = () => {
 
       </div>
       <div className="content">
-        <JobDetails data={{ ...jobOffer, author: activePortal && activePortal }} />
+        <JobDetails data={jobOffer} />
       </div>
     </div>
   )

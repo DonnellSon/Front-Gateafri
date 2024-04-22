@@ -23,6 +23,7 @@ import { showToast } from '../../utils/toastUtils'
 import SocketIOContext from '../../context/SocketIOContext'
 import { addPostNotification } from '../../api/notification'
 
+
 const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
 
   const { user } = useSelector(store => store.user)
@@ -36,15 +37,15 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
   const isEmptySurvey = () => {
     if (survey) {
       const { title, options } = survey
-      if (title !== '' || (options.some(o=>(o.title && o.title !== '')))) {
+      if (title !== '' || (options.some(o => (o.title && o.title !== '')))) {
         return false
       }
       return true
     }
     return true
   }
-  const isEmptyPostMedias=()=>{
-    return postMedias.length>0 ? false : true
+  const isEmptyPostMedias = () => {
+    return postMedias.length > 0 ? false : true
   }
 
   const publishPost = () => {
@@ -63,23 +64,23 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
     }
     if (survey?.title !== '' && survey?.options?.length > 0) {
       postFormData.append('survey', JSON.stringify({
-        title:survey.title,
-        choices:survey.options,
-        startDate:survey.startDate,
-        limitDate:survey.limitDate,
+        title: survey.title,
+        choices: survey.options,
+        startDate: survey.startDate,
+        limitDate: survey.limitDate,
       }))
     }
     setIsloading(true)
     axios({
       method: 'post',
-      url: `${process.env.REACT_APP_API_DOMAIN}/api/posts`,
+      url: `${process.env.REACT_APP_API_DOMAIN}/posts`,
       withCredentials: true,
       data: postFormData
     }).then((res) => {
       setIsloading(false)
       setIsOpen(false)
       console.log(res.data, 'PublishedPost')
-      addPostNotification(`/api/posts/${res.data.id}`).then((res) => {
+      addPostNotification(`/posts/${res.data.id}`).then((res) => {
         socket?.emit('sendNotification', {
           notification: res.data,
           currentUser: user.id
@@ -103,20 +104,21 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
   }
   return (
     <Modal open={isOpen} onClose={(open) => setIsOpen(open)} className='post-modal'>
-      <div className="heading flex align-items-center justify-content-between">
-        <h3>Publication</h3>
-        <XLg onClick={() => {
-          setIsOpen(false)
-        }} />
-      </div>
-      <div className="body flex flex-column flex-grow-1">
+      <div>
+        <div className="header flex align-items-center justify-content-between">
+          <h3>Publication</h3>
+          <XLg onClick={() => {
+            setIsOpen(false)
+          }} />
+        </div>
+        <div className="body flex flex-column flex-grow-1">
 
-        <Tabs className='post-modal-tabs' navRight={
-          <>
-            {/* <SelectSearch
+          <Tabs className='post-modal-tabs' navRight={
+            <>
+              {/* <SelectSearch
               className='author-select'
               searchFields={['name']}
-              onChange={(p) => { setAuthor(`/api/companies/${p.id}`) }}
+              onChange={(p) => { setAuthor(`/companies/${p.id}`) }}
               placeholder={<span>Selectionner un portail</span>}
               searchPlaceholder='Rechercher dans vos portails'
               query={(filters) => getUserCompanies(user.id)}
@@ -129,7 +131,7 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
               objectMapping={(p) => ({
                 name: p.name,
                 id:p.id,
-                value: `/api/companies/${p.id}`,
+                value: `/companies/${p.id}`,
                 picture: p.activeLogo.fileUrl
               })}
               mapping={(p) => <Link>
@@ -137,44 +139,44 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
                 <span>{p.name}</span>
               </Link>}
             /> */}
-            <AuthorSelector onSelect={(author) => setAuthor(`${author.name ? `/api/companies/${author.id}` : `/api/users/${author.id}`}`)} />
-          </>
-        }>
-          <Tab title={<>
-            <BodyText size={18} />
-            <span>Text</span>
-          </>}>
-            <div contentEditable={true} onKeyUp={(e) => { setPostContent(e.target.innerText) }}>Votre texte Ici</div>
-          </Tab>
-          <Tab enabled={isEmptySurvey()} title={<div className='li flex flex-column align-items-center'>
-            <FileEarmarkImage size={18} />
-
-            <span className='text-ellipsis' style={{ width: '100%' }}>Images/Videos</span>
-          </div>
+              <AuthorSelector onSelect={(author) => setAuthor(`${author.name ? `/companies/${author.id}` : `/users/${author.id}`}`)} />
+            </>
           }>
+            <Tab title={<>
+              <BodyText size={18} />
+              <span>Text</span>
+            </>}>
+              <div contentEditable={true} onKeyUp={(e) => { setPostContent(e.target.innerText) }}>Votre texte Ici</div>
+            </Tab>
+            <Tab enabled={isEmptySurvey()} title={<div className='li flex flex-column align-items-center'>
+              <FileEarmarkImage size={18} />
 
-            <MediasSelector setMediasState={setPostMedias} />
+              <span className='text-ellipsis' style={{ width: '100%' }}>Images/Videos</span>
+            </div>
+            }>
 
-          </Tab>
-          <Tab enabled={isEmptyPostMedias()} title={<>
-            <BarChart size={18} />
-            <span>Sondage</span>
-          </>}>
-            <Survey onChange={(survey) => setSurvey(survey)} />
-          </Tab>
-          <Tab title={<>
-            <Hash size={18} />
-            <span>Tags</span>
-          </>}>
-            <ContactTag />
-          </Tab>
-          <Tab title={<>
-            <CupHot size={18} />
-            <span>domaines</span>
-          </>}>
-            activity
-          </Tab>
-          {/* <Tab title={
+              <MediasSelector setMediasState={setPostMedias} />
+
+            </Tab>
+            <Tab enabled={isEmptyPostMedias()} title={<>
+              <BarChart size={18} />
+              <span>Sondage</span>
+            </>}>
+              <Survey onChange={(survey) => setSurvey(survey)} />
+            </Tab>
+            <Tab title={<>
+              <Hash size={18} />
+              <span>Tags</span>
+            </>}>
+              <ContactTag />
+            </Tab>
+            <Tab title={<>
+              <CupHot size={18} />
+              <span>domaines</span>
+            </>}>
+              activity
+            </Tab>
+            {/* <Tab title={
             <>
               <GeoAlt size={18} />
               <span>Lieu</span>
@@ -182,22 +184,23 @@ const PostModal = ({ isOpen = false, setIsOpen = () => { } }) => {
           }>
             Location
           </Tab> */}
-        </Tabs>
+          </Tabs>
 
-      </div>
-      <div className="footer flex align-items-center justify-content-end gap-10">
-        <button className="btn-transparent" style={{ width: 120 }}>Annuler</button>
-        <button className="btn-purple" disabled={isLoading} style={{ width: 120 }} onClick={publishPost}>{
-          !isLoading ? "Publier" : <ColorRing
-            visible={true}
-            height="25"
-            width="25"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#ffffff', '#ffffffcf', '#ffffffab', '#ffffff78', '#ffffff4d']}
-          />
-        }</button>
+        </div>
+        <div className="footer flex align-items-center justify-content-end gap-10">
+          <button className="btn-transparent" style={{ width: 120 }}>Annuler</button>
+          <button className="btn-purple" disabled={isLoading} style={{ width: 120 }} onClick={publishPost}>{
+            !isLoading ? "Publier" : <ColorRing
+              visible={true}
+              height="25"
+              width="25"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={['#ffffff', '#ffffffcf', '#ffffffab', '#ffffff78', '#ffffff4d']}
+            />
+          }</button>
+        </div>
       </div>
     </Modal>
   )

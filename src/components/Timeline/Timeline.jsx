@@ -50,7 +50,7 @@ const Timeline = () => {
 
     const fetchPosts = ({ pageParam = 1 }) => {
         return axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/posts?ipp=5&page=${pageParam}${filters ? `& ${filtersToURL(filters)}` : ''}`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/posts?ipp=5&page=${pageParam}${filters ? `& ${filtersToURL(filters)}` : ''}`,
             method: 'get',
             responseType: "json",
             headers: {

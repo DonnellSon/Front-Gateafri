@@ -12,6 +12,7 @@ import { useContext } from 'react'
 import CurrencyContext from '../../context/CurrencyContext'
 import { convertCurrency } from '../../utils/currencyUtils'
 import { Link } from 'react-router-dom'
+import Logo from '../Logo/Logo'
 
 
 const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, salary, grade, type } }) => {
@@ -23,7 +24,7 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
       <div className="cover relative">
         <img src="/img/entreprises/vy.jpg" className='absolute' alt="" />
       </div>
-      <Avatar src={(author && author?.activeLogo) ? author?.activeLogo.fileUrl : null} height={50} width={50} radius='5px' />
+      <Logo src={(author && author?.activeLogo) ? author?.activeLogo.fileUrl : null} height={50} width={50}/>
       <div className="job-detail-sticky-top flex justify-content-between align-items-end gap-10">
         <div>
           {
@@ -70,9 +71,9 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
               <span>SALAIRE</span>
               {
                 (from && to) ?
-                <b>{(salary?.min && salary?.max) ? millify(convertCurrency(salary?.min, from, to)) + "-" + millify(convertCurrency(salary?.max, from, to)) : millify(convertCurrency(salary[0], from, to))} {currency?.code}</b>
+                <b>{(salary?.min && salary?.max) ? millify(convertCurrency(salary?.min, from, to)) + "-" + millify(convertCurrency(salary?.max, from, to)) : millify(convertCurrency(salary.amount, from, to))} {currency?.code}</b>
                 :
-                <b>{(salary?.min && salary?.max) ? millify(salary?.min) + "-" + millify(salary?.max) : millify(salary[0])} {salary?.currency?.code}</b>
+                <b>{(salary?.min && salary?.max) ? millify(salary?.min) + "-" + millify(salary?.max) : millify(salary.amount)} {salary?.currency?.code}</b>
               }
 
             </>
@@ -96,7 +97,7 @@ const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, 
         description &&
         <div className="role">
           <h4>Description détaillé du poste</h4>
-          <p>{htmlToJsx.parse(description)}</p>
+          <p className='inset-list'>{htmlToJsx.parse(description)}</p>
         </div>
       }
 

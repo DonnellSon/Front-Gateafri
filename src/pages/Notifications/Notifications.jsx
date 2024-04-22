@@ -26,7 +26,7 @@ const Notifications = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/notifications`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/notifications`,
         ipp: 10,
         queryKey: ['notifications', user?.id],
         transformResult: (result) => {

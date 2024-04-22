@@ -39,7 +39,7 @@ const JobFindingHome = () => {
         refetch,
         refetchPage
     } = useInfiniteScroll({
-        url: `${process.env.REACT_APP_API_DOMAIN}/api/job_offers`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/job_offers`,
         ipp: 10,
         queryKey: ['jobOffers'],
         queryString: 'groups[]=job_offers_read',
@@ -62,7 +62,15 @@ const JobFindingHome = () => {
 
     return (
         <>
-            <JobFindingSearchBar onChange={search => console.log(search, 'SEARCH')} />
+
+
+            <div className="job-finding-top flex flex-column">
+                <div>
+                    <h2>Trouvez votre job de rêve</h2>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus beatae voluptas sed nulla eveniet voluptatibus reiciendis, officia deserunt error molestiae</p>
+                    <JobFindingSearchBar onChange={search => console.log(search, 'SEARCH')} />
+                </div>
+            </div>
             <main className='job-finding-home flex justify-content-between gap-5'>
                 {
                     deviceType === DESKTOP ?

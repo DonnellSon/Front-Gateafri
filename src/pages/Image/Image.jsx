@@ -48,7 +48,7 @@ const Image = () => {
      */
     const fetchEvaluations = ({ pageParam = 1 }) => {
         return axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/images/${image_id}/evaluations?ipp=10&page=${pageParam}`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/images/${image_id}/evaluations?ipp=10&page=${pageParam}`,
             method: 'get',
             responseType: "json",
             headers: {
@@ -80,7 +80,7 @@ const Image = () => {
     //Get image Info
     useEffect(() => {
         axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/api/images/${image_id}`,
+            url: `${process.env.REACT_APP_API_DOMAIN}/images/${image_id}`,
             method: 'get',
         }).then((res) => {
             console.log(res.data.comments, 'resdata')
@@ -101,7 +101,7 @@ const Image = () => {
         if (tmpDescription && tmpDescription.length > 0) {
             setLoadingSendDescription(true)
             axios({
-                url: `${process.env.REACT_APP_API_DOMAIN}/api/images/${image_id}`,
+                url: `${process.env.REACT_APP_API_DOMAIN}/images/${image_id}`,
                 data: { description: tmpDescription },
                 headers: {
                     'Content-Type': 'application/merge-patch+json',
@@ -252,7 +252,7 @@ const Image = () => {
                 </div>
                 <div className="footer">
                     <div className="top">
-                        <CommentForm commentable={`/api/images/${image_id}`} onSended={(data) => {
+                        <CommentForm commentable={`/images/${image_id}`} onSended={(data) => {
                             setImage(prev => ({ ...prev, comments: [...prev.comments, data] }))
                             refetchComments()
                         }} />
