@@ -27,17 +27,17 @@
               padding: 5px 15px;
               font-weight: themed("weight", 700);
               color: themed("text", 4);
-              &.active {
-                background: themed("background", 5);
-              }
-              &:hover {
-                background: themed("background", 5);
-              }
               small {
                 display: flex;
                 align-items: center;
               }
             }
+          }
+        }
+        .dropdownMenu {
+            z-index: 1234;
+          a {
+            align-items: start;
           }
         }
         .hotel-name {
@@ -51,9 +51,24 @@
           }
         }
       }
-      >.bottom{
+      > .bottom {
         max-width: 1300px;
         margin: 0 auto;
+        h2 {
+          font-size: 20px;
+        }
+        h3 {
+          color: themed("text", 2);
+        }
+        h4 {
+          color: themed("text", 3);
+        }
+        p {
+          color: themed("text", 2);
+        }
+        span {
+          color: themed("text", 3);
+        }
       }
     }
   }

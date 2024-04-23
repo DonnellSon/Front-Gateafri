@@ -99,6 +99,16 @@ import HotelAdminLayout from "./layouts/HotelAdminLayout";
 import HotelAdminHome from "./pages/HotelAdmin/HotelAdminHome";
 import HotelAdminReservation from "./pages/HotelAdmin/HotelAdminReservation";
 import ReservationDetails from "./pages/HotelAdmin/ReservationDetails";
+import CreateRoom from "./pages/HotelAddRoom/CreateRoom";
+import Restrictions from "./pages/HotelAdmin/Restrictions";
+import Accommodations from "./pages/HotelAdmin/Accommodations";
+import AccommodationControls from "./pages/HotelAdmin/AccommodationControls";
+import PricingPlans from "./pages/HotelAdmin/PricingPlans";
+import AddPricingPlan from "./pages/HotelAdmin/AddPricingPlan";
+import Advantages from "./pages/HotelAdmin/Advantages";
+import CustomerSpecificPricing from "./pages/HotelAdmin/CustomerSpecificPricing";
+import HotelInfo from "./pages/HotelAdmin/HotelInfo";
+import Pictures from "./pages/HotelAdmin/Pictures";
 import JobDetailsPage from "./pages/JobFinding/JobDetails";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -142,7 +152,7 @@ function App() {
     localStorage.setItem("appTheme", theme);
   };
   const activeTheme = useMemo(() => {
-    return {
+    return { 
       theme,
       setTheme: changeTheme,
     };
@@ -579,12 +589,28 @@ function App() {
                           <Route path="nouveau/*" element={<AddHotel />} />
                           <Route path=':hotelId' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
-                          <Route path='hoteladmin' element={<HotelAdminLayout />}>
-                            <Route index element={<Navigate to='home' replace={true} />} />
-                            <Route path='home' element={<HotelAdminHome />} />
-                            <Route path='reservation'>
-                              <Route index element={<HotelAdminReservation />} />
-                              <Route path=':reservationId' element={<ReservationDetails />} />
+                          <Route path=":hotelId">
+                            <Route path='hotel-admin' element={<HotelAdminLayout/>}>
+                                <Route index element={<Navigate to='home' replace={true}/>}/>
+                                <Route path='home' element={<HotelAdminHome/>}/>
+                                <Route path='reservation'>
+                                    <Route index element={<HotelAdminReservation/>}/>
+                                    <Route path=':reservationId' element={<ReservationDetails/>}/>
+                                </Route>
+                                <Route path="hebergements" element={<Accommodations/>}/>
+                                <Route path = "restrictions" element={<Restrictions/>}/>
+                                <Route path="control-hebergements" element={<AccommodationControls/>}/>
+                                <Route path="plans-tarifaires">
+                                    <Route index element={<PricingPlans/>}/>
+                                    <Route path="ajout" element={<AddPricingPlan/>}/>
+                                </Route>
+                                <Route path="avantages" element={<Advantages/>}/>
+                                <Route path="tarification-par-client" element={<CustomerSpecificPricing/>}/>
+                                <Route path='hotel-info' element={<HotelInfo/>}/>
+                                <Route path="photos" element={<Pictures/>}/>
+                            </Route>
+                            <Route path="hebergements">
+                                <Route path="nouveau/*" element={<CreateRoom/>}/>
                             </Route>
                           </Route>
                         </Route>

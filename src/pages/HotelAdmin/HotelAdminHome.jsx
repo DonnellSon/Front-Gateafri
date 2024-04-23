@@ -48,9 +48,9 @@ const HotelAdminHome = () => {
           <div className="box last elevated-card flex align-items-center justify-content-between">
             <div className="head flex align-items-center gap-5">
               <span>80%</span>
-              <h>
+              <h4>
                 Chambres <br /> occupées
-              </h>
+              </h4>
             </div>
             <span>50</span>
           </div>
@@ -64,7 +64,7 @@ const HotelAdminHome = () => {
               </div>
               <input type="text" placeholder="Recherche chambre ou nom" />
             </div>
-            <div className="periode flex align-items-center gap-10">
+            <div className="period flex align-items-center gap-10">
               <span>Aujourd'hui</span>
               <ChevronDown />
             </div>
@@ -93,7 +93,7 @@ const HotelAdminHome = () => {
                       <span>4 nuits - 2 clients</span>
                     </div>
                     <div className="right">
-                      <span className="argent">$ 150</span>
+                      <span className="coins">$ 150</span>
                       <span>19 mars 2024</span>
                     </div>
                   </div>
@@ -143,7 +143,7 @@ const HotelAdminHome = () => {
           </div>
         </div>
 
-        <div className="reservation-recent elevated-card mt-10">
+        <div className="reservation-current elevated-card mt-10">
           <h3>Reservations les plus récentes</h3>
           <div className="reservation-container ">
             <div className="item flex justify-content-between">
@@ -200,9 +200,9 @@ const HotelAdminHome = () => {
           <button className="btn-purple">Voir tout les messages</button>
         </div>
 
-        <div className="commentaires elevated-card p-15 mt-15">
+        <div className="comment elevated-card p-15 mt-15">
             <h3>Commentaires récents</h3>
-            <div className="commentaires-container flex justify-content-between">
+            <div className="comment-container flex justify-content-between">
             <div className="name flex align-items-center gap-5">
               <img src="/img/flags/Flag_of_Madagascar.svg" alt="" />
               <h4>John Doe</h4>
@@ -228,7 +228,7 @@ const HotelAdminHome = () => {
               <span>22</span>
               <p>Client qui séjourne</p>
             </div>
-            <div className="revenue">
+            <div className="income">
               <span>165 €</span>
               <p>Revenue</p>
             </div>

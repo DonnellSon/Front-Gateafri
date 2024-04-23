@@ -51,13 +51,13 @@ import RequireAuthOnClick from "../components/RequireAuthOnclick/RequireAuthOnCl
 
 
 const ProfileLayout = () => {
-    const currentUser = useSelector((store) => store.user.user)
-    const { userId } = useParams()
-    const { deviceType } = useContext(MediaContext)
-    const [posts, setPosts] = useState([])
-    const [postsLoading, setPostsLoading] = useState(false)
-    const [tmpProfilePicture, setTmpProfilePicture] = useState(null)
-    const queryClient = useQueryClient()
+  const currentUser = useSelector((store) => store.user.user);
+  const { userId } = useParams();
+  const { deviceType } = useContext(MediaContext);
+  const [posts, setPosts] = useState([]);
+  const [postsLoading, setPostsLoading] = useState(false);
+  const [tmpProfilePicture, setTmpProfilePicture] = useState(null);
+  const queryClient = useQueryClient();
 
     /**
      * Recuperation de l'user
@@ -244,13 +244,13 @@ const ProfileLayout = () => {
                                     </StickySideBar>
                                 </div>
                             } */}
-                        </>
-
-                    }
-                    <ProfilePictureSelectorModal file={tmpProfilePicture} />
-                </div> :
-                <NotFound />
-    )
-}
+        </>
+      }
+      <ProfilePictureSelectorModal file={tmpProfilePicture} />
+    </div>
+   : (
+    <NotFound />
+  ));
+};
 
 export default ProfileLayout;

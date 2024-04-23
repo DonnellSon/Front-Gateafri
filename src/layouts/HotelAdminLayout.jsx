@@ -11,13 +11,14 @@ import {
 import DoNavLink from "../components/DoNavLink/DoNavLink";
 import "./HotelAdminLayout.scss";
 import { Link, Outlet } from "react-router-dom/dist";
+import DropDown from "../components/DropDown/DropDown";
 
 const HotelAdminLayout = () => {
   return (
     <div id="hotel-admin">
       <div className="nav"></div>
       <div className="hotel-admin-container">
-        <div className="hotel-admin-nav elevated-card flex align-items-center justify-content-between">
+        <div className="hotel-admin-nav elevated-card flex justify-content-center">
           <ul>
             <li>
               <DoNavLink activeClass="active" to={`home`}>
@@ -26,12 +27,34 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to={`sdfsd`}>
-                <Calendar2Week size={16} />
-                <small>
+            <DropDown activeClassName="surligné">
+                <Link>
+                  <Pencil size={16} />
+                  <small className="flex gap-5">
                   Tarif et disponibilités <ChevronDown />
-                </small>
-              </DoNavLink>
+                  </small>
+                </Link>
+                <ul>
+                  <li>
+                    <a href="#">Calendrier</a>
+                  </li>
+                  <li>
+                    <DoNavLink to="restrictions">Restrictions</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="control-hebergements">Ouvrir/fermer des hébergements</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="plans-tarifaires">Plans tarifaires</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="avantages">Avantages</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="tarification-par-client">Tarification par client</DoNavLink>
+                  </li>
+                </ul>
+              </DropDown>
             </li>
             <li>
               <DoNavLink to={`reservation`}>
@@ -40,10 +63,31 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
             <li>
-              <Link>
-                <Pencil size={16} />
-                <small>Etablissement</small>
-              </Link>
+              <DropDown activeClassName="surligné">
+                <Link>
+                  <Pencil size={16} />
+                  <small className="flex gap-5">
+                    Etablissement <ChevronDown />
+                  </small>
+                </Link>
+                <ul>
+                  <li>
+                    <DoNavLink to="hotel-info">Information sur l'hotel</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="photos">Galerie Photos</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="hebergements">Hébergements</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="hebergement-details">Details des hébergements</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="equipments-services">Equipements et Services</DoNavLink>
+                  </li>
+                </ul>
+              </DropDown>
             </li>
             <li>
               <DoNavLink to={"sdfsdf"}>
@@ -58,13 +102,13 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
           </ul>
-          <div className="hotel-name">
+          {/* <div className="hotel-name">
             <h1>Gate Hotel </h1>
             <ChevronExpand/>
-          </div>
+          </div> */}
         </div>
         <div className="bottom">
-            <Outlet/>
+          <Outlet />
         </div>
       </div>
     </div>
