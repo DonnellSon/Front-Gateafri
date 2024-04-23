@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CardImage, Eye, ThreeDots } from "react-bootstrap-icons";
 import "./Pictures.scss";
 import CheckBox from "../../components/CheckBox/CheckBox";
@@ -7,9 +7,9 @@ import DropDown from "../../components/DropDown/DropDown";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import PictureShowModal from "./PictureShowModal";
-const PictureCard = ({ path, checked, onChange }) => {
+const PictureCard = ({ path, checked, onChange, onClick }) => {
   return (
-    <div className="picture-card">
+    <div className="picture-card" onClick={onClick}>
       <div className="banner"></div>
       <div className="img">
         <img src={path} alt="chambre" />
@@ -76,9 +76,19 @@ const Pictures = () => {
       newState[type][index].checked = !newState[type][index].checked;
       return newState;
     });
-  };
+};
+const [openModal, setOpenModal] = useState({open:false, src:""})
+const handleClickShow = (path)=>{
+    setOpenModal({open:true , src:path})
+}
+useEffect(()=>{
+    console.log(openModal, "open MOdal content");
+},[openModal])
   return (
     <div id="galery-pictures">
+        <Modal open={openModal.open}>
+            <PictureShowModal srcImg={openModal.src} handleCloseModal={setOpenModal}/>
+        </Modal>
       <h2 className="py-15">Photos de l'établissement</h2>
       <div className="elevated-card p-15">
         <div className="head">
@@ -100,15 +110,13 @@ const Pictures = () => {
                   path={image.path}
                   checked={image.checked}
                   onChange={() => handleCheckChange(key, index)}
+                  onClick={()=>handleClickShow(image.path)}
                 />
               ))}
             </React.Fragment>
           ))}
           <AddPictureCard />
         </div>
-        <Modal open={true}>
-            <PictureShowModal/>
-        </Modal>
       </div>
       <div className="elevated-card mt-15 p-15">
         <div className="head">
@@ -127,6 +135,8 @@ const Pictures = () => {
               key={index}
               path={picture.path}
               checked={picture.checked}
+              onClick={()=>handleClickShow(picture.path)}
+
             />
           ))}
           {states.doubleRoom.length < 4 ? (
@@ -160,6 +170,7 @@ const Pictures = () => {
               key={index}
               path={picture.path}
               checked={picture.checked}
+              onClick={()=>handleClickShow(picture.path)}
             />
           ))}
           {states.singleRoom.length < 4 ? (
