@@ -86,7 +86,10 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                                 <span className='com-more-btn pointer'><ThreeDots size={18} /></span>
                                 <ul>
                                     <li>
-                                        <Link onClick={deleteCommentFn}>Supprimer</Link>
+                                        <Link onClick={(e)=>{
+                                            e.preventDefault()
+                                            deleteCommentFn()
+                                        }}>Supprimer</Link>
                                     </li>
                                     <li>
                                         <Link>Signaler</Link>

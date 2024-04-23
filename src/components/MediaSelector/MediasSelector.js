@@ -12,7 +12,7 @@ const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, default
 
     useEffect(() => {
         setTmpMediasList(defaultState.map((s, i) => ({ type: s.type, url: URL.createObjectURL(s), file: s, delay: i, index: i })));
-    }, [])
+    }, [defaultState])
 
 
     const mediasInput = useRef()

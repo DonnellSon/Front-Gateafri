@@ -171,7 +171,7 @@ const Messenger = ({ discu }) => {
                 <div className="footer flex justify-content-center">
                     <div>
                         <DoDinamicTextarea
-                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} setMediasState={setMessagePictures} />}
+                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} defaultState={tmpMessage.pictures} setMediasState={setMessagePictures} />}
                             avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
                                 setTmpMessage(prev => ({ ...prev, content: e.target.innerText }))
                             }}
@@ -187,6 +187,7 @@ const Messenger = ({ discu }) => {
                                         <button className="comment-send-btn" onClick={() => {
                                             sendMessage()
                                             setEmptyMessageForm(true)
+                                            setMessagePictures([])
                                         }}>
                                             <SendFill />
                                         </button>

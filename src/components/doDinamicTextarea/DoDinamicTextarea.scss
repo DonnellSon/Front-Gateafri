@@ -36,7 +36,7 @@
 			word-break: break-word;
 			overflow: hidden;
 			min-width: 1px !important;
-			color: theme('text',1) !important;
+			color: themed('text',3) !important;
 		}
 		.text:empty::before {
 			color: themed("text",4);;

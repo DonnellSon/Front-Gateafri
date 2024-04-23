@@ -9,7 +9,7 @@ import millify from 'millify';
 import { ArrowUpShort, CaretDownFill, ChevronDown } from 'react-bootstrap-icons';
 import { CircleMarker } from 'react-leaflet';
 import CircleLoader from '../CircleLoader/CircleLoader';
-import { usePaginated } from '../../Hooks/queryHools';
+import { usePaginated } from '../../Hooks/queryHooks';
 
 const Comment = ({ data, queryKey = null }) => {
 

@@ -1,16 +1,19 @@
 @import "../../style.scss";
 
 .avatar {
-    @include themify($themes){
+    @include themify($themes) {
         img {
             object-fit: cover;
             width: inherit;
             height: inherit;
         }
+
         .online {
-            width: 35%;
-            height: 35%;
-            border: 2px solid themed('background',3);
+            min-width: 50%;
+            min-height: 50%;
+            transform: scale(0.6);
+            transform-origin: top right;
+            border: 3px solid themed('background', 3);
             border-radius: 50%;
             background: #0cdd6a;
             position: absolute;
@@ -26,7 +29,7 @@
         height: 35px;
         background: var(--main-gradient);
         border-radius: 50%;
-        border: 2px solid themed("background",3);
+        border: 2px solid themed("background", 3);
         color: #333;
         display: flex;
         align-items: center;
