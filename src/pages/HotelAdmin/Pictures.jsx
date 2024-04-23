@@ -5,16 +5,18 @@ import CheckBox from "../../components/CheckBox/CheckBox";
 import { Link } from "react-router-dom";
 import DropDown from "../../components/DropDown/DropDown";
 import { useState } from "react";
-const PictureCard = ({ path, checked,onChange }) => {
+import Modal from "../../components/Modal/Modal";
+import PictureShowModal from "./PictureShowModal";
+const PictureCard = ({ path, checked, onChange }) => {
   return (
-    <div className="picture">
+    <div className="picture-card">
       <div className="banner"></div>
       <div className="img">
         <img src={path} alt="chambre" />
       </div>
       <div className="actions">
         <div className="top">
-          <CheckBox checked={checked} onChange={onChange}/>
+          <CheckBox checked={checked} onChange={onChange} />
           <DropDown>
             <Link>
               <div className="options">
@@ -43,7 +45,7 @@ const PictureCard = ({ path, checked,onChange }) => {
 };
 const AddPictureCard = () => {
   return (
-    <div className="add flex align-items-center justify-content-center flex-column gap-15">
+    <div className="add-picture-card flex align-items-center justify-content-center flex-column gap-15">
       <div className="banner"></div>
       <div className="icon">
         <CardImage size={30} />
@@ -69,17 +71,26 @@ const Pictures = () => {
     ],
   });
   const handleCheckChange = (type, index) => {
-    setStates(prevState => {
+    setStates((prevState) => {
       const newState = { ...prevState };
       newState[type][index].checked = !newState[type][index].checked;
       return newState;
     });
- };
+  };
   return (
     <div id="galery-pictures">
       <h2 className="py-15">Photos de l'établissement</h2>
       <div className="elevated-card p-15">
-        <h3>Galerie principale</h3>
+        <div className="head">
+          <h3>Galerie principale</h3>
+          <div className="menu">
+            <ul>
+              <li>Sélectionner tout</li>
+              <li>Désélectionner tout</li>
+              <li>Supprimer</li>
+            </ul>
+          </div>
+        </div>
         <div className="Gallery-container flex flex-wrap gap-15 mt-15">
           {Object.entries(states).map(([key, value]) => (
             <React.Fragment key={key}>
@@ -88,16 +99,28 @@ const Pictures = () => {
                   key={index}
                   path={image.path}
                   checked={image.checked}
-                  onChange={()=>handleCheckChange(key, index)}
+                  onChange={() => handleCheckChange(key, index)}
                 />
               ))}
             </React.Fragment>
           ))}
           <AddPictureCard />
         </div>
+        <Modal open={true}>
+            <PictureShowModal/>
+        </Modal>
       </div>
       <div className="elevated-card mt-15 p-15">
-        <h3>Chambre Double</h3>
+        <div className="head">
+          <h3>Chambre Double</h3>
+          <div className="menu">
+            <ul>
+              <li>Sélectionner tout</li>
+              <li>Désélectionner tout</li>
+              <li>Supprimer</li>
+            </ul>
+          </div>
+        </div>
         <div className="accommodation-gallery flex flex-wrap gap-15 mt-15">
           {states.doubleRoom.map((picture, index) => (
             <PictureCard
@@ -107,20 +130,30 @@ const Pictures = () => {
             />
           ))}
           {states.doubleRoom.length < 4 ? (
-            Array.from({ length:  4- states.doubleRoom.length}, (_, index) => index).map(
-              (number) => (
-                <React.Fragment key={number}>
-                  <AddPictureCard />
-                </React.Fragment>
-              )
-            )
+            Array.from(
+              { length: 4 - states.doubleRoom.length },
+              (_, index) => index
+            ).map((number) => (
+              <React.Fragment key={number}>
+                <AddPictureCard />
+              </React.Fragment>
+            ))
           ) : (
             <AddPictureCard />
           )}
         </div>
       </div>
       <div className="elevated-card mt-15 p-15">
-        <h3>Chambre Simple</h3>
+        <div className="head">
+          <h3>Chambre Simple</h3>
+          <div className="menu">
+            <ul>
+              <li>Sélectionner tout</li>
+              <li>Désélectionner tout</li>
+              <li>Supprimer</li>
+            </ul>
+          </div>
+        </div>
         <div className="accommodation-gallery flex flex-wrap gap-15 mt-15">
           {states.singleRoom.map((picture, index) => (
             <PictureCard
@@ -128,14 +161,16 @@ const Pictures = () => {
               path={picture.path}
               checked={picture.checked}
             />
-          ))}{states.singleRoom.length < 4 ? (
-            Array.from({ length:  4- states.singleRoom.length}, (_, index) => index).map(
-              (number) => (
-                <React.Fragment key={number}>
-                  <AddPictureCard />
-                </React.Fragment>
-              )
-            )
+          ))}
+          {states.singleRoom.length < 4 ? (
+            Array.from(
+              { length: 4 - states.singleRoom.length },
+              (_, index) => index
+            ).map((number) => (
+              <React.Fragment key={number}>
+                <AddPictureCard />
+              </React.Fragment>
+            ))
           ) : (
             <AddPictureCard />
           )}

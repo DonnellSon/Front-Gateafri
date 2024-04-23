@@ -27,7 +27,7 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
             <li>
-            <DropDown activeClassName="surligné">
+            <DropDown activeClassName="surligné" className="dropdown-tarif-disponibility">
                 <Link>
                   <Pencil size={16} />
                   <small className="flex gap-5">
