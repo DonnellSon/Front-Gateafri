@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import "./MultiSelectSearch.scss";
-import { useQuery } from "react-query";
-import { getDomains } from "../../api/domain";
-import SelectSearch from "./SelectSearch";
-import { PlusLg, Trash } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import './MultiSelectSearch.scss'
+import { useQuery } from '@tanstack/react-query'
+import { getDomains } from '../../api/domain'
+import SelectSearch from './SelectSearch'
+import { PlusLg, Trash } from 'react-bootstrap-icons'
+import { Link } from 'react-router-dom'
 
 const MultiSelectSearch = ({
   query,

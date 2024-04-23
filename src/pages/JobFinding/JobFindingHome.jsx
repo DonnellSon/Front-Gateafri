@@ -10,7 +10,7 @@ import JobDetails from '../../components/JobDetails/JobDetails'
 import MediaContext from '../../context/MediaContext'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
 import CheckBox from '../../components/CheckBox/CheckBox'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getJobGrades, getJobOffers, getJobTypes } from '../../api/job'
 import millify from 'millify'
 import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthOnClick'
@@ -100,13 +100,13 @@ const JobFindingHome = () => {
                     <div className="job-list">
 
                         {
-                            jobsLoadingStatus === 'loading' ? (
+                            (jobListFetching && !jobListNextPage) ? (
                                 <>
                                     <JobCardSkeleton />
                                     <JobCardSkeleton />
                                     <JobCardSkeleton />
                                 </>
-                            ) : jobsLoadingStatus === 'error' ? (
+                            ) : error ? (
                                 <p>Error: {error.message}</p>
                             ) : (jobOfferList?.pages[0]?.data?.length > 0 ? jobOfferList?.pages?.map((group, i) => (
                                 <React.Fragment key={i}>
@@ -133,7 +133,7 @@ const JobFindingHome = () => {
                     deviceType === DESKTOP ?
                         <div className="right">
                             {
-                                jobListFetching ?
+                                (jobListFetching && !JobListFetchingNextPage) ?
                                     <JobDetailsSkeleton /> :
                                     activeJob && <JobDetails data={activeJob} />
                             }

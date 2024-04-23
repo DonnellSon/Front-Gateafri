@@ -5,7 +5,7 @@ import Avatar from '../Avatar/Avatar'
 import DoDinamicTextarea from '../doDinamicTextarea/DoDinamicTextarea'
 import { useReq } from '../../Hooks/RequestHooks'
 import { useSelector } from 'react-redux'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import SocketIOContext from '../../context/SocketIOContext'
@@ -46,14 +46,16 @@ const Messenger = ({ discu }) => {
         }).then((res) => res.data)
     )
 
-    const { isLoading: messagesLoading, error: messageError, data: messages, refetch: refetchMsg } = useQuery(['repoMessages', discuId], () =>
-        axios({
-            url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
-            method: 'get', withCredentials: true
-        }).then((res) => res.data.reverse())
-    )
+    const { isLoading: messagesLoading, error: messageError, data: messages, refetch: refetchMsg } = useQuery({
+        queryKey: ['repoMessages', discuId], queryFn: () =>
+            axios({
+                url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
+                method: 'get', withCredentials: true
+            }).then((res) => res.data.reverse())
+    })
 
-    const { mutate: mutateMessages } = useMutation(addMessage, {
+    const { mutate: mutateMessages } = useMutation({
+        mutationFn: addMessage,
         onSuccess: (data) => {
             queryClient.setQueryData(['repoMessages', discuId], (messages) => {
                 socket?.emit('sendMessage', {
@@ -73,7 +75,7 @@ const Messenger = ({ discu }) => {
         formData.append('content', tmpMessage.content)
         formData.append('discussion', `/discussions/${discuId}`)
         if (tmpMessage.pictures.length > 0) {
-            
+
             tmpMessage.pictures.forEach(pic => {
                 formData.append('pictures[]', pic)
             });
@@ -169,7 +171,7 @@ const Messenger = ({ discu }) => {
                 <div className="footer flex justify-content-center">
                     <div>
                         <DoDinamicTextarea
-                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} setMediasState={setMessagePictures} />}
+                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} defaultState={tmpMessage.pictures} setMediasState={setMessagePictures} />}
                             avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
                                 setTmpMessage(prev => ({ ...prev, content: e.target.innerText }))
                             }}
@@ -185,6 +187,7 @@ const Messenger = ({ discu }) => {
                                         <button className="comment-send-btn" onClick={() => {
                                             sendMessage()
                                             setEmptyMessageForm(true)
+                                            setMessagePictures([])
                                         }}>
                                             <SendFill />
                                         </button>

@@ -3,7 +3,7 @@ import './HomeBannerSlider.scss'
 import Slider from 'react-slick';
 import GoodDealCard from '../GoodDealCard/GoodDealCard';
 import { ChevronLeft, ChevronRight, PlusLg } from 'react-bootstrap-icons';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getInvests } from '../../api/invest';
 import GoodDealCardSkeleton from '../GoodDealCard/GoodDealCardSkeleton';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,10 @@ const HomeBannerSlider = () => {
         isLoading: investsLoading,
         error: getInvestError,
         data: invests
-    } = useQuery(['repoInvests'], () => getInvests({ ipp: 10 }))
+    } = useQuery({
+        queryKey:['repoInvests'],
+        queryFn:() => getInvests({ ipp: 10 })
+    })
 
     console.log(invests, 'invests')
 

@@ -1,15 +1,15 @@
 @import '../../style.scss';
 
-.music-home {
-    @media (max-width:600px){
-        margin-left: 70px;
-}
-    @include themify($themes) {
-        .top {
-            border-radius: 5px !important;
-        }
-    }
-}
+// .music-home {
+//     @media (max-width:600px){
+//         margin-left: 70px;
+// }
+//     @include themify($themes) {
+//         .top {
+//             border-radius: 5px !important;
+//         }
+//     }
+// }
 
 .music-top-nav {
     @include themify($themes) {

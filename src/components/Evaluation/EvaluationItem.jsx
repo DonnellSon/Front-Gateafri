@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const EvaluationItem = ({data}) => {
   return (
-    <div className='eval-item flex align-items-center gap-10'>
+    <div className='eval-item flex align-items-center gap-10 mb-5'>
       <div className="left relative">
         <Avatar src={data.author.activeProfilePicture?.fileUrl} height={40} width={40}/>
         <div className="badge">

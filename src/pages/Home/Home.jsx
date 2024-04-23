@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import PlanSlider from '../../components/PlanSlider/PlanSlider';
 import Timeline from '../../components/Timeline/Timeline';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getCompanies } from '../../api/company';
 
 import PortalList from '../../components/PortalList/PortalList';
@@ -28,7 +28,10 @@ const Home = () => {
   const { user } = useSelector(store => store.user)
   const { deviceType } = useContext(MediaContext)
 
-  const { data: companies, error: companiesGetError } = useQuery(['repoCompanies'], getCompanies)
+  const { data: companies, error: companiesGetError } = useQuery({
+    queryKey: ['repoCompanies'],
+    queryFn: getCompanies
+  })
 
   useEffect(() => {
     console.log(companies, 'COMP')

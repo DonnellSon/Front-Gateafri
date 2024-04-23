@@ -12,7 +12,8 @@ const SelectorMedia = ({ media, removeSelf }) => {
 
 
 
-    const createThumbnail = (file) => {
+    const createThumbnail = async (file) => {
+        console.log(file,'fileddd')
         const reader = new FileReader();
         reader.addEventListener('progress', (e) => {
 
@@ -23,7 +24,7 @@ const SelectorMedia = ({ media, removeSelf }) => {
             setSource(e.currentTarget.result);
             setLoad(true);
         });
-        reader.readAsDataURL(file);
+        await reader.readAsDataURL(file);
     }
     useEffect(() => {
         createThumbnail(media.file);

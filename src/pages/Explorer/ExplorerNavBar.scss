@@ -13,7 +13,7 @@
         transition: .3s;
         background-repeat: no-repeat !important;
         background-size: cover !important;
-
+        background-attachment: fixed !important;
         // box-shadow: var(--elevation-1);
         // border-bottom: 1px solid themed("border", 2);
         position: sticky !important;

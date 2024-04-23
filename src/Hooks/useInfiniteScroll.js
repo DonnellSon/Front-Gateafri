@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 const useInfiniteScroll = ({
     url,
@@ -44,24 +44,31 @@ const useInfiniteScroll = ({
         getNextPageParam: (lastPage, pages) => lastPage.nextPage,
         enabled,
     })
-
+    // useEffect(()=>{
+    //     scrollingElement?.addEventListener('scroll', ()=>console.log('SCROLLLLL'))
+    // },[scrollingElement])
     useEffect(() => {
+        
         if (scrollingElement) {
             if (!isFetchingNextPage && !isFetching) {
                 const { scrollHeight, scrollTop, clientHeight } = scrollingElement
+                console.log('externScroll1')
                 if (scrollHeight - scrollTop <= clientHeight + 50) {
+                    console.log('goscroll')
                     fetchNextPage()
                 }
             }
             const onScroll = (e) => {
-                console.log('scrollong')
                 if (!isFetchingNextPage && !isFetching) {
                     const { scrollHeight, scrollTop, clientHeight } = e.target
+                //     console.log('externScroll2')
                     if (scrollHeight - scrollTop <= clientHeight + 50) {
+                        console.log('goscroll')
                         fetchNextPage()
                     }
                 }
             }
+            scrollingElement?.removeEventListener('scroll', onScroll)
             scrollingElement?.addEventListener('scroll', onScroll)
 
             return () => {
@@ -69,7 +76,7 @@ const useInfiniteScroll = ({
             }
         }
 
-    }, [])
+    }, [scrollingElement,isFetchingNextPage,isFetching])
 
     return {
         data,

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react'
 import TextEditor from '../../components/TextEditor/TextEditor'
 import './CreatePortal.scss'
 import { ChevronLeft, Trash, PlusLg, Key } from 'react-bootstrap-icons'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getCompanySizes, getCompanyTypes } from '../../api/company'
 import Avatar from '../../components/Avatar/Avatar'
 import { GeoAlt, ChevronDown } from 'react-bootstrap-icons'
@@ -42,7 +42,7 @@ const CreatePortal = () => {
 
     })
 
-    
+
 
     const handleChangeInput = (e) => {
         setCompany(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -53,9 +53,11 @@ const CreatePortal = () => {
 
     const createPortal = () => {
         setCreatePortalLoading(true)
-        const toSend={...company,
+        const toSend = {
+            ...company,
             country: company.country?.value,
-            domains: company.domains.map(d => d?.value)}
+            domains: company.domains.map(d => d?.value)
+        }
         const data = new FormData()
         for (var key in toSend) {
             if (Array.isArray(toSend[key])) {
@@ -84,8 +86,14 @@ const CreatePortal = () => {
 
     }
 
-    const { data: companySizes, error: companySizesError } = useQuery(['repoCompanySizes'], getCompanySizes)
-    const { data: companyTypes, error: companyTypesError } = useQuery(['repoCompanyTypes'], getCompanyTypes)
+    const { data: companySizes, error: companySizesError } = useQuery({
+        queryKey: ['repoCompanySizes'],
+        queryFn: getCompanySizes
+    })
+    const { data: companyTypes, error: companyTypesError } = useQuery({
+        queryKey: ['repoCompanyTypes'],
+        queryFn: getCompanyTypes
+    })
 
     useEffect(() => {
         (companySizes && companyTypes) && setCompany(prev => ({ ...prev, companySize: `/company_sizes/${companySizes[0]?.id}`, companyType: `/company_types/${companyTypes[0]?.id}` }))

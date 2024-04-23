@@ -291,11 +291,10 @@
         }
 
         .connexion {
-          background: themed('background', 3);
+          background: var(--main-gradient);
           margin: 15px 15px 0 15px;
           border-radius: 5px;
-          box-shadow: var(--elevation-1);
-
+          color: #222;
           .connection-boutom {
             display: flex;
             justify-content: flex-end;

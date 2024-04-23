@@ -41,7 +41,10 @@ const PortalLayout = () => {
     data: company,
     error: companyErr,
     isLoading: companyLoading,
-  } = useQuery(["repoCompany", portalId], () => getCompany(portalId));
+  } = useQuery({
+    queryKey: ["repoCompany", portalId],
+    queryFn: () => getCompany(portalId)
+  });
   useEffect(() => {
     console.log(company, "DOM");
   }, [company]);

@@ -134,7 +134,7 @@ const PageHome = () => {
             infinite: false,
           }}
         >
-          {jobListFetching
+          {(jobListFetching && !jobListFetchingNextPage)
             ? [...new Array(8)].map((_) => (
                 <div
                   className="offer flex flex-column align-items-center gap-5"

@@ -34,8 +34,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import StickySideBar from '../components/StickySideBar/StickySideBar'
 import { getUser } from '../api/users'
-import { acceptContact, existContact,requestContact } from '../api/contacts'
-import { useQuery, useQueryClient, useMutation } from 'react-query'
+import { acceptContact, existContact, requestContact } from '../api/contacts'
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import DonationCard from '../components/DonationCard/DonationCard'
 import ProfilePictureSelectorModal from '../components/ProfilePictureSelectorModal/ProfilePictureSelectorModal'
 import MediaContext from '../context/MediaContext'
@@ -43,9 +43,12 @@ import { DESKTOP } from '../constants/MediaTypeConstants'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 
-import CoverImage from "../components/CoverImage/CoverImage";
-import NotFound from "../pages/Eroors/NotFound";
-import CircleLoader from "../components/CircleLoader/CircleLoader";
+
+import CoverImage from '../components/CoverImage/CoverImage'
+import NotFound from '../pages/Eroors/NotFound'
+import CircleLoader from '../components/CircleLoader/CircleLoader'
+import RequireAuthOnClick from "../components/RequireAuthOnclick/RequireAuthOnClick";
+
 
 const ProfileLayout = () => {
   const currentUser = useSelector((store) => store.user.user);
@@ -56,42 +59,45 @@ const ProfileLayout = () => {
   const [tmpProfilePicture, setTmpProfilePicture] = useState(null);
   const queryClient = useQueryClient();
 
-  /**
-   * Recuperation de l'user
-   */
-  const {
-    isLoading: userLoading,
-    error: userError,
-    data: user,
-  } = useQuery(["repoProfile", userId], () => getUser(userId));
+    /**
+     * Recuperation de l'user
+     */
+    const {
+        isLoading: userLoading,
+        error: userError,
+        data: user
+    } = useQuery({
+        queryKey: ['repoProfile', userId],
+        queryFn: () => getUser(userId)
+    })
 
-  const {
-    isLoading: existContactLoading,
-    error: existContactError,
-    data: existContactData,
-  } = useQuery(["repoExistContact", userId], () => existContact(userId), {
-    enabled: currentUser && currentUser.id !== userId ? true : false,
-  });
+    const {
+        isLoading: existContactLoading,
+        error: existContactError,
+        data: existContactData
+    } = useQuery({
+        queryKey: ['repoExistContact', userId],
+        queryFn: () => existContact(userId),
+        enabled: (currentUser && currentUser?.id !== userId) ? true : false
+    })
 
-  const {
-    mutate: contactAccept,
-    error: contactAcceptErr,
-    isLoading: contactAcceptLoading,
-  } = useMutation(acceptContact, {
-    onSuccess: (contactAccepted) => {
-      queryClient.setQueryData(
-        ["repoExistContact", userId],
-        (existContactData) => {
-          return [{ ...contactAccepted }];
-        }
-      );
-    },
-  });
+    const {
+        mutate: contactAccept,
+        error: contactAcceptErr,
+        isLoading: contactAcceptLoading } = useMutation({
+            mutationFn: acceptContact,
+            onSuccess: (contactAccepted) => {
+                queryClient.setQueryData(['repoExistContact', userId], (existContactData) => {
+                    return [{ ...contactAccepted }]
+                })
+            },
+        })
 
     const {
         mutate: requestContactFn,
         error: requestContactErr,
-        isLoading: requestContactLoading } = useMutation(()=>requestContact(`/users/${userId}`), {
+        isLoading: requestContactLoading } = useMutation({
+            mutationFn:() => requestContact(`/users/${userId}`),
             onSuccess: (contactRequested) => {
                 queryClient.setQueryData(['repoExistContact', userId], (existContactData) => {
                     return [{ ...contactRequested }]
@@ -141,7 +147,7 @@ const ProfileLayout = () => {
                                                 </div>
                                                 <div className="btns flex gap-10">
                                                     {
-                                                        currentUser.id === userId ?
+                                                        currentUser?.id === userId ?
                                                             <button className="btn btn-gradient"><PlusLg /> Publier un post</button>
                                                             :
                                                             <>
@@ -162,11 +168,16 @@ const ProfileLayout = () => {
 
 
                                                                             : existContactData[0].status === 'accepté' && <button className="btn btn-transparent">Couper le contact</button>
-                                                                        : <button className="btn btn-purple" onClick={()=>{
-                                                                            requestContactFn()
-                                                                        }}>{requestContactLoading ? <CircleLoader/> : 'Contacter'}</button>
+                                                                        : <RequireAuthOnClick>
+                                                                            <button className="btn btn-purple" onClick={() => {
+                                                                                requestContactFn()
+                                                                            }}>{requestContactLoading ? <CircleLoader /> : 'Contacter'}</button>
+                                                                        </RequireAuthOnClick>
                                                                 }
-                                                                <button className="btn btn-outline-yellow">Recruter</button>
+                                                                <RequireAuthOnClick>
+                                                                    <button className="btn btn-outline-yellow">Recruter</button>
+                                                                </RequireAuthOnClick>
+
                                                             </>
 
 

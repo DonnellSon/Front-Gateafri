@@ -35,14 +35,13 @@ import MusicLayout from "./layouts/MusicLayout";
 import Music from "./pages/Music/Music";
 import Minimal from "./layouts/Minimal";
 import { DESKTOP, SMARTPHONE, TABLET } from "./constants/MediaTypeConstants";
-import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import axios from "axios";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
+import Popup from "./components/Popup/Popup"
 
 import Image from "./pages/Image/Image";
-import { ToastContainer } from "react-toastify";
 import "./toast.scss";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +53,7 @@ import PageLoader from "./components/PageLoader/PageLoader";
 import { io } from "socket.io-client";
 import SocketIOContext from "./context/SocketIOContext";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PortalLayout from "./layouts/PortalLayout";
 import ThemeContext from "./context/ThemeContext";
 import Landing from "./pages/Landing/Landing";
@@ -64,7 +63,6 @@ import CreateInvest from "./pages/Funding/CreateInvest";
 import Search from "./pages/Search/Search";
 import PortalAdminLayout from "./layouts/PortalAdminLayout";
 import Dashboard from "./pages/Portal/Dashboard";
-import DashboardAbout from "./pages/Portal/DashboardAbout";
 import ProfileLayout from "./layouts/ProfileLayout";
 import ProfileActu from "./pages/Profile/ProfileActu";
 import ProfileAbout from "./pages/Profile/ProfileAbout";
@@ -112,6 +110,7 @@ import CustomerSpecificPricing from "./pages/HotelAdmin/CustomerSpecificPricing"
 import HotelInfo from "./pages/HotelAdmin/HotelInfo";
 import Pictures from "./pages/HotelAdmin/Pictures";
 import JobDetailsPage from "./pages/JobFinding/JobDetails";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 function App() {
   const { user } = useSelector((store) => store.user);
@@ -274,6 +273,9 @@ function App() {
         refetchOnReconnect: false,
         refetchIntervalInBackground: false,
         refetchInterval: false,
+        fetchOptions: {
+          mode: 'cors',
+        },
       },
     },
   });
@@ -290,7 +292,7 @@ function App() {
                   style={{
                     paddingBottom:
                       (deviceType === SMARTPHONE || deviceType === TABLET) &&
-                      !window.location.pathname.startsWith("/messages")
+                        !window.location.pathname.startsWith("/messages")
                         ? "var(--bottom-nav-height)"
                         : 0,
                   }}
@@ -311,10 +313,10 @@ function App() {
                             </Route>
 
 
-                            <Route
+                            {/* <Route
                               path="/image/:image_id"
                               element={<Image />}
-                            />
+                            /> */}
                             <Route element={<AuthRedirect />}>
                               <Route
                                 path="/inscription"
@@ -435,13 +437,13 @@ function App() {
                                     path="residences"
                                     element={<Residences />}
                                   />
-                                  <Route path="details-sur-moi" element={<ProfileDetails/>}/>
+                                  <Route path="details-sur-moi" element={<ProfileDetails />} />
                                 </Route>
                                 <Route
                                   path="recommandations"
                                   element={<ProfileRecommendation />}
                                 />
-                                <Route path="entreprises" element={<ProfileEntreprises/>}/>
+                                <Route path="entreprises" element={<ProfileEntreprises />} />
                               </Route>
                             </Route>
 
@@ -521,11 +523,11 @@ function App() {
                                   element={<PortalActu />}
                                 />
                                 <Route path="emplois/:jobOfferId?">
-                                  <Route index element={<PortalEmplois />}/>
-                                  <Route path="details" element={<JobDetailsPage/>}/>
+                                  <Route index element={<PortalEmplois />} />
+                                  <Route path="details" element={<JobDetailsPage />} />
 
                                 </Route>
-                                
+
                                 <Route path="faq" element={<PortalFaq />} />
                                 <Route
                                   path="evaluation"
@@ -560,6 +562,11 @@ function App() {
             </Route> */}
 
                         <Route path="/explorer" element={<Countries />} />
+
+                        <Route path='/image/:image_id' element={<Popup>
+                          <Image />
+                        </Popup>} />
+
                         {!pageLoading && (
                           <Route path="*" element={<NotFound />} />
                         )}
@@ -580,7 +587,7 @@ function App() {
                         <Route path="hotels">
                           <Route index element={<HotelsHome />} />
                           <Route path="nouveau/*" element={<AddHotel />} />
-                          <Route path='reservation' element={<HotelsReservation />} />
+                          <Route path=':hotelId' element={<HotelsReservation />} />
                           <Route path='recherche' element={<HotelsSearch />} />
                           <Route path=":hotelId">
                             <Route path='hotel-admin' element={<HotelAdminLayout/>}>
@@ -613,6 +620,7 @@ function App() {
 
 
                     </Routes>
+
                   </BrowserRouter>
                 </div>
                 <PageLoader open={pageLoading} />
@@ -620,6 +628,7 @@ function App() {
             </ThemeContext.Provider>
           </CurrencyContext.Provider>
         </MediaContext.Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </SocketIOContext.Provider>
   );

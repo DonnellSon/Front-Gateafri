@@ -30,7 +30,7 @@ const Login = () => {
         setIsLoading(true)
         const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/login_check`, { email, password }, { withCredentials: true }).then(function (res) {
             dispatch(setConnectedUser(res?.data.user))
-            dispatch(setSocket(io('http://localhost:5000')))
+            dispatch(setSocket(io(process.env.REACT_APP_REAL_DOMAIN)))
             showToast({content:<span>Vous êtes maintenant connecté</span>})
             navigate('/', { replace: true })
             setIsLoading(false)

@@ -422,7 +422,7 @@ const ProfilMusic = () => {
                     </div>
 
                     <Slider {...{
-                        slidesToShow: 5,
+                        slidesToShow: 5.,
                         slidesToScroll: 1,
                         infinite: false,
                         arrows: false,

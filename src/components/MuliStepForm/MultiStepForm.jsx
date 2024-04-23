@@ -6,7 +6,7 @@ import Step from './Step';
 import { Link } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-const MultiStepForm = ({ steps, children,submitButton=null }) => {
+const MultiStepForm = ({ steps, children,submitButton=null,onSubmitData=()=>{} }) => {
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [validSteps, setValidSteps] = useState(new Array(steps.length).fill(false));
@@ -37,7 +37,7 @@ const MultiStepForm = ({ steps, children,submitButton=null }) => {
         setValidSteps(updatedValidSteps);
         const nextStep = stepIndex + 2
         if (nextStep > steps.length) {
-            alert('sendToDatabase')
+            onSubmitData(formData)
         } else {
             setAnimationAction('NEXT')
             setActiveStep(a => a + 1)

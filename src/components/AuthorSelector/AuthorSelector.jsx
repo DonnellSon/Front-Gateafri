@@ -3,7 +3,7 @@ import './AuthorSelector.scss'
 import Modal from '../Modal/Modal'
 import Avatar from '../Avatar/Avatar'
 import { CaretDownFill, XLg } from 'react-bootstrap-icons'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { getUserCompanies } from '../../api/company'
 
@@ -12,7 +12,10 @@ const AuthorSelector = ({ withUser = true, onSelect = () => { }, onStart = () =>
     const { user } = useSelector(store => store.user)
     const [selected, setSelected] = useState(withUser ? user : null)
 
-    const { data: portals, error: PortalsError, isLoading: loadingPortals } = useQuery(['authorSelector', user?.id], () => getUserCompanies(user?.id))
+    const { data: portals, error: PortalsError, isLoading: loadingPortals } = useQuery({
+        queryKey:['authorSelector', user?.id],
+        queryFn:() => getUserCompanies(user?.id)
+    })
 
     useEffect(() => {
         onStart(user)

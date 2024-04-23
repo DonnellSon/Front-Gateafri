@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './SuggestInput.scss'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import useClickOutside from '../../Hooks/useClickOutside'
 import NavigableList from '../NavigableList/NavigableList'
 
@@ -12,7 +12,9 @@ const SuggestInput = ({ placeholder = null, repoName = 'repoSuggest', query = ()
     value: null
   })
 
-  const { data, error, isLoadnig, refetch } = useQuery([repoName, keyword], () => query(keyword), {
+  const { data, error, isLoadnig, refetch } = useQuery({
+    queryKey: [repoName, keyword],
+    queryFn: () => query(keyword),
     enabled: false
   })
   const renderBoldText = (name, startIndex, length) => {
@@ -35,15 +37,15 @@ const SuggestInput = ({ placeholder = null, repoName = 'repoSuggest', query = ()
       refetch()
       setCollapsed(true)
     }
-    
+
   }, [keyword])
-  useEffect(()=>{
-    if(activeIndex.key>-1){
+  useEffect(() => {
+    if (activeIndex.key > -1) {
       onChange(activeIndex.value)
-    }else{
+    } else {
       onChange(keyword)
     }
-  },[keyword,activeIndex])
+  }, [keyword, activeIndex])
 
   return (
     <div className='suggest-inpt' ref={self}>
@@ -53,7 +55,7 @@ const SuggestInput = ({ placeholder = null, repoName = 'repoSuggest', query = ()
       }} value={activeIndex.key > -1 ? activeIndex.value : keyword} placeholder={placeholder || ''} className='inpt' />
       {
         (collapsed && keyword && keyword.length > 0 && data && data.length > 0) ?
-          <NavigableList onChange={(index) => setActiveIndex(prev => ({ ...prev, key: index }))} onclickItem={()=>{setCollapsed(false)}}>
+          <NavigableList onChange={(index) => setActiveIndex(prev => ({ ...prev, key: index }))} onclickItem={() => { setCollapsed(false) }}>
             <ul className='suggest-list'>
 
               {data.map((d, i) => {

@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import StickySideBar from '../../components/StickySideBar/StickySideBar'
 import { getUser } from '../../api/users'
-import { useQuery,useMutation } from 'react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import Timeline from '../../components/Timeline/Timeline'
 import PlanSlider from '../../components/PlanSlider/PlanSlider'
 import DonationCard from '../../components/DonationCard/DonationCard'
@@ -36,7 +36,10 @@ const Profile = () => {
         isLoading: userLoading,
         error: userError,
         data: user
-    } = useQuery(['repoProfile', userId], () => getUser(userId))
+    } = useQuery({
+        queryKey: ['repoProfile', userId],
+        queryFn: () => getUser(userId)
+    })
 
 
     return (

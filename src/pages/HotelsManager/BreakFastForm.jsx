@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const BreakFastForm = ({ formData: { includeBreakFast, breakFastWithSupplement },initialFields, setFormData, currentStepErrors, currentStepValues, setInitialFields }) => {
     useEffect(()=>{
-        setInitialFields(prev=>({...prev,includeBreakFast:"0"}))
+        setInitialFields(prev=>({...prev,includeBreakFast:"0",breakFastWithSupplement:'0'}))
       },[currentStepValues])
     useEffect(() => {
         setInitialFields(prev=>({...prev,...currentStepValues}))

@@ -3,12 +3,16 @@ import './MediasSelector.scss';
 import SelectorMedia from '../selectorMedia/SelectorMedia';
 import { FileEarmarkImage } from 'react-bootstrap-icons';
 
-const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, selectorBtn = null, hiddenIfEmpty = false }) => {
+const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, defaultState = [], animate = true, selectorBtn = null, hiddenIfEmpty = false }) => {
     const [tmpMediasList, setTmpMediasList] = useState([]);
 
     useEffect(() => {
         setMediasState(tmpMediasList.map(tmp => tmp.file))
     }, [tmpMediasList])
+
+    useEffect(() => {
+        setTmpMediasList(defaultState.map((s, i) => ({ type: s.type, url: URL.createObjectURL(s), file: s, delay: i, index: i })));
+    }, [defaultState])
 
 
     const mediasInput = useRef()
@@ -17,6 +21,7 @@ const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, selecto
         const med = medias.filter((m, i) => i !== index);
         setTmpMediasList(med);
     }
+
     const addMedias = (fileArray) => {
         const files = [...tmpMediasList];
         for (let i = 0; i < fileArray.length; i++) {
@@ -48,12 +53,12 @@ const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, selecto
             {
                 (!hiddenIfEmpty || tmpMediasList.length > 0) &&
                 <div className={"medias-selector square-grid"} style={{ gridTemplateColumns: `repeat(${col},1fr)`, gridGap: gap + "px" }}>
-                    
+
                     {
                         tmpMediasList.length > 0 ? tmpMediasList.map((m, i) => {
 
                             return (
-                                <div key={i} style={{ animation: `scaleIn .1s ${m.delay / 10}s forwards` }} className="m-parent scaleIn">
+                                <div key={i} style={animate ? { animation: `scaleIn .1s ${m.delay / 10}s forwards` } : { transform: 'scale(1)', opacity: 1 }} className="m-parent scaleIn">
                                     <SelectorMedia media={m} removeSelf={() => { removeTmpMedia(i) }} />
                                 </div>
                             )
@@ -66,7 +71,7 @@ const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, selecto
                         </div>
 
                     </div>
-                    
+
 
                 </div>
             }

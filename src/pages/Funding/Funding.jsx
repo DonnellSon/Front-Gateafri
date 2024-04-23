@@ -7,7 +7,7 @@ import StickySideBar from '../../components/StickySideBar/StickySideBar'
 import { DESKTOP } from '../../constants/MediaTypeConstants'
 import MediaContext from '../../context/MediaContext'
 import CheckBox from "../../components/CheckBox/CheckBox"
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getInvests } from '../../api/invest'
 import FundingCard from '../../components/FundingCard/FundingCard'
 import { getCompanySizes, getCompanyTypes } from '../../api/company'
@@ -28,7 +28,7 @@ const Funding = () => {
     currency: null
   })
 
-  
+
 
   useEffect(() => {
     console.log(filtersToURL(filters), 'FILTER');
@@ -58,12 +58,15 @@ const Funding = () => {
     isLoading: investsLoading,
     error: getInvestError,
     data: invests,
-    refetch:refetchInvests
-  } = useQuery(['repoInvests'], ()=>getInvests({filters:filtersToURL(filters),ipp:10}))
+    refetch: refetchInvests
+  } = useQuery({
+    queryKey: ['repoInvests'],
+    queryFn: () => getInvests({ filters: filtersToURL(filters), ipp: 10 })
+  })
 
-  useEffect(()=>{
+  useEffect(() => {
     refetchInvests()
-  },[filters])
+  }, [filters])
 
   return (
     <div id='funding-page' className='flex' style={{ flexDirection: deviceType === DESKTOP ? 'row' : "column" }}>
@@ -76,7 +79,7 @@ const Funding = () => {
               <div className="form-group">
                 <SortableList allowSearch={true} query={(keyword) => searchDomains(keyword)} mapping={(d) => <><CheckBox id={d.title} value={d.title} name='companyDomains' onChange={(e) => { handleChange(e) }} /> <label htmlFor={d.title}>{d.title}</label></>} repoName='repoDomains' title={<label htmlFor="">Domaines</label>} />
               </div>
-              
+
               <div className="form-group">
 
 
@@ -122,7 +125,7 @@ const Funding = () => {
         </div>
       </div>
       <div id="funding-map">
-          <AfricaMap/>
+        <AfricaMap />
         {/* <MapContainer center={position} zoom={4} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MapContainer, TileLayer, Marker,useMapEvents } from 'react-leaflet';
 
 function ClickableMap({onClick=()=>{}}) {
@@ -10,24 +10,27 @@ function ClickableMap({onClick=()=>{}}) {
     return null
   }
 
-const LocationSelector = ({onSelect=()=>{}}) => {
+const LocationSelector = ({defaultLocation={lat:-18.777192,lng:46.854328},onSelect=()=>{}}) => {
+    const [location,setLocation]=useState(defaultLocation)
     return (
         <div className='location-selector'>
             <MapContainer
-                center={[51.505, -0.09]}
-                zoom={13}
+                center={[location.lat, location.lng]}
+                zoom={7}
                 scrollWheelZoom={false}
                 className='map'
 
             >
                 <ClickableMap onClick={(e)=>{
                     onSelect(e.latlng)
+                    setLocation(e.latlng)
+                    console.log(e.latlng)
                 }}/>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}></Marker>
+                <Marker position={[location.lat, location.lng]}></Marker>
             </MapContainer>
         </div>
     )

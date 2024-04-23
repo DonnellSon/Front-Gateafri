@@ -173,7 +173,15 @@
         }
 
         .Featuring {
-            @extend .playlist
+            @extend .playlist;
+
+            .slick-track{
+                .slick-slide{
+                    
+                }
+                
+                
+            }
         }
 
         .album {

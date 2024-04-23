@@ -3,7 +3,7 @@ import { ChevronRight, PlusLg } from 'react-bootstrap-icons'
 import { Outlet } from 'react-router-dom'
 import "./PortalDashboardLayout.scss"
 import { ChevronLeft } from 'react-bootstrap-icons'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getUserCompanies } from '../api/company'
 import { Link } from 'react-router-dom'
 import Avatar from '../components/Avatar/Avatar'
@@ -18,7 +18,10 @@ import DoNavLink from '../components/DoNavLink/DoNavLink'
 const PortalDashboardLayout = () => {
     const { deviceType } = useContext(MediaContext)
     const { user } = useSelector(store => store.user)
-    const { data: userCompanies, error: userCompaniesError, isLoading: userCompaniesLoading } = useQuery(['repoUserCompanies'], () => getUserCompanies(user.id))
+    const { data: userCompanies, error: userCompaniesError, isLoading: userCompaniesLoading } = useQuery({
+        queryKey: ['repoUserCompanies'],
+        queryFn: () => getUserCompanies(user.id)
+    })
     useEffect(() => {
         console.log(userCompanies, 'UC')
     }, [userCompanies])
@@ -44,7 +47,7 @@ const PortalDashboardLayout = () => {
                         (c) => (
 
                             <DoNavLink to={`/portail/${c.id}/dashboard`} end={false} activeClass='active' className='flex gap-10 align-items-center'>
-                                <Avatar src={c.activeLogo ? c.activeLogo.fileUrl : null} /> <span>{c.name}</span><ChevronRight/>
+                                <Avatar src={c.activeLogo ? c.activeLogo.fileUrl : null} /> <span>{c.name}</span><ChevronRight />
                             </DoNavLink>
 
                         )} title={user ? 'Mes portails' : 'Populaires'} repoName='myPortalsRepo' />

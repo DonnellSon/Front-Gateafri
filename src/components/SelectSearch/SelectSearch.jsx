@@ -5,7 +5,7 @@ import DropDown from '../DropDown/DropDown'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { CaretDown, CaretDownFill } from 'react-bootstrap-icons'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { filtersToURL } from '../../functions'
 
@@ -26,7 +26,9 @@ const SelectSearch = ({
     const [defaultValue, setDefaultValue] = useState(placeholder)
     const [filters, setFilters] = useState({})
     const [keyword, setKeyword] = useState('')
-    const { data: optionsList, error: optionsListErr, isLoading: getOptionsListLoading, refetch, isRefetching } = useQuery([repoName], () => query(filtersToURL(filters)))
+    const { data: optionsList, error: optionsListErr, isLoading: getOptionsListLoading, refetch, isRefetching } = useQuery({
+        queryKey:[repoName], 
+        queryFn:() => query(filtersToURL(filters))})
 
 
     useEffect(() => {

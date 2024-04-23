@@ -1,61 +1,102 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Field, ErrorMessage } from 'formik';
 import AmountInput from '../../components/AmountInput/AmountInput';
+import ErrorLabel from '../../components/ErrorLabel/ErrorLabel';
 
-const ParkingOptions = () => {
+const ParkingOptions = ({ formData: { includeParking, parkingWithSupplement, numberOfPlaces }, initialFields, setFormData, currentStepErrors, currentStepValues, setInitialFields }) => {
+  useEffect(() => {
+    setInitialFields(prev => ({ ...prev, includeParking: "0", parkingWithSupplement: "0", parkingLocation: "sur place", parkingType: 'privée' }))
+  }, [currentStepValues])
+  useEffect(() => {
+    setInitialFields(prev => ({ ...prev, ...currentStepValues }))
+  }, [currentStepValues])
   return (
     <div className='parking-options'>
       <div className="form-group">
         <label htmlFor="">Le clients a-t-il accès à un parking/guarage ?</label>
         <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>Gratuit</span>
+          <Field type="radio" value={1} checked={initialFields.includeParking == "1"} name='includeParking' />
+          <span>Oui</span>
         </label>
         <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>Avec supplément</span>
-        </label>
-        <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={false} />
+          <Field type="radio" value={0} checked={initialFields.includeParking == "0"} name='includeParking' />
           <span>Non</span>
         </label>
       </div>
+      {
+        currentStepValues.includeParking == 1 &&
+        <div className="form-group">
+          <label htmlFor="">Le parking est il inclus dans le tarif ?</label>
+          <label className='flex align-items-center gap-5'>
+            <Field type="radio" value={0} checked={initialFields.parkingWithSupplement == "0"} name='parkingWithSupplement' />
+            <span>Oui</span>
+          </label>
+          <label className='flex align-items-center gap-5'>
+            <Field type="radio" value={1} checked={initialFields.parkingWithSupplement == "1"} name='parkingWithSupplement' />
+            <span>Non</span>
+          </label>
+        </div>
+      }
+
       <hr />
-      <div className="form-group">
-        <label htmlFor="">Tarif pour le parking</label>
-        <div className="flex align-items-center gap-10">
-          <AmountInput/>
-          <span>/voiture/jour</span>
+      {
+        currentStepValues.parkingWithSupplement == 1 &&
+        <div className="form-group">
+          <label htmlFor="">Tarif pour le parking</label>
+          <div className="flex align-items-center gap-10">
+            <Field name="parkingSupplement">
+              {({ field, form, meta }) => (
+                <AmountInput field={field} />
+              )}
+            </Field>
+            <span>/voiture/jour</span>
+          </div>
+          <ErrorLabel error={currentStepErrors.parkingSupplement} />
         </div>
-      </div>
-      <div className="form-group">
-        <label htmlFor="">Nombre de parking disponible</label>
-        <div className="flex gap-5">
-          <Field className="inpt" type="number" name='hotelParkingNumber' />
-        </div>
-      </div>
-      <div className="form-group">
-        <label htmlFor="">Emplacement du parking</label>
-        <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>Sur place</span>
-        </label>
-        <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>A proximité</span>
-        </label>
-      </div>
-      <div className="form-group">
-        <label htmlFor="">Type de parking</label>
-        <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>Public</span>
-        </label>
-        <label className='flex align-items-center gap-5'>
-          <Field type="radio" name="includeBreakFast" value={true} />
-          <span>Privé</span>
-        </label>
-      </div>
+      }
+      {
+        currentStepValues.includeParking == 1 &&
+        <>
+          <div className="form-group">
+            <label htmlFor="">Nombre de parking disponible</label>
+            <div className="gap-5">
+              <div>
+                <Field name="numberOfPlaces">
+                  {({ field, form, meta }) => (
+                    <AmountInput field={field} />
+                  )}
+                </Field>
+              </div>
+              <ErrorLabel error={currentStepErrors.numberOfPlaces} />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="">Emplacement du parking</label>
+            <label className='flex align-items-center gap-5'>
+              <Field type="radio" name="parkingLocation" value="sur place" checked={initialFields.parkingLocation == "sur place"} />
+              <span>Sur place</span>
+            </label>
+            <label className='flex align-items-center gap-5'>
+              <Field type="radio" name="parkingLocation" value="à proximité" checked={initialFields.parkingLocation == "à proximité"} />
+              <span>A proximité</span>
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="">Type de parking</label>
+            <label className='flex align-items-center gap-5'>
+              <Field type="radio" name="parkingType" value="publique" checked={initialFields.parkingType == "publique"} />
+              <span>Publique</span>
+            </label>
+            <label className='flex align-items-center gap-5'>
+
+              <Field type="radio" name="parkingType" value="privée" checked={initialFields.parkingType == "privée"} />
+              <span>Privé</span>
+            </label>
+          </div>
+        </>
+      }
+
+
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BusFront, Calendar, Camera, Camera2, CaretRight, CarFront, ChevronLeft, CupStraw, DoorOpen, Gem, House, ImageFill, Info, InfoCircle, InfoSquareFill, PciCard, People, PostageFill, PostcardFill, Star, ThermometerSnow, Tv, VolumeMuteFill, Wifi, Wifi1 } from 'react-bootstrap-icons'
 import './HotelsReservation.scss'
 import Rating from 'react-rating'
@@ -9,9 +9,18 @@ import Slider from 'react-slick'
 import { Image } from 'react-bootstrap'
 import { ChevronDown } from 'react-bootstrap-icons'
 import { MapContainer, TileLayer, UseMap, Marker, Popup } from 'react-leaflet';
-
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { getHotelDetails } from '../../api/hotel'
+import { Link } from 'react-router-dom'
 
 const AttractionReservation = ({ data }) => {
+
+
+
+
+
+
   return (
 
     <div className='caroseul-item'>
@@ -106,6 +115,25 @@ const AvisCard = ({ data }) => {
 }
 
 const HotelsReservation = () => {
+
+  //get hotel details
+  const { hotelId } = useParams()
+
+  const {
+    data: hotelDetails,
+    error: hotelDetailsErr,
+    isLoading: hotelDetailsLoading
+  } = useQuery({
+    queryKey: ['hotelDetails', hotelId],
+    queryFn: () => getHotelDetails(hotelId)
+  })
+
+
+
+  useEffect(() => {
+    console.log(hotelDetails, 'HOTELDETAILS')
+  }, [hotelDetails])
+
   const dataReservation = [
     {
       img: '/img/other/portlouis.jpg',
@@ -249,7 +277,7 @@ const HotelsReservation = () => {
 
           <div className="description-hotel">
             <div className='description-title'>
-              <h2>Information Hotel</h2>
+              <h2>{hotelDetails?.name}</h2>
             </div>
             <div className="description-body">
               <div className="description-left">
@@ -345,11 +373,9 @@ const HotelsReservation = () => {
                           </li>
 
                           <li className='flex gap-10'>
-                            <Star />
-                            <Star />
-                            <Star />
-                            <Star />
-
+                            {
+                              [...new Array(hotelDetails?.rating)].map((r, i) => <Star key={i} />)
+                            }
                           </li>
 
                           <li>
@@ -362,8 +388,12 @@ const HotelsReservation = () => {
                       </div>
 
                       <div className="description-categorie-item">
-                        <p>LANGUES PARLEES</p>
-                        <p>Francais,Anglais</p>
+                        <h6>LANGUES PARLEES</h6>
+                        <p>
+                          {
+                            hotelDetails?.languages.map((l, i) => l.language).join(',')
+                          }
+                        </p>
                       </div>
 
                     </div>
@@ -375,17 +405,24 @@ const HotelsReservation = () => {
               </div>
               <div className="description-right">
                 <div className="description-right-title">
-                  <span>Equipement de l'établissement</span>
+                  <span>Equipements de l'établissement</span>
                 </div>
 
                 <div className="description-gride">
 
-                  <div className="description-item">
-                    <LuParkingSquare />
-                    <span>Parking gratuis</span>
-                  </div>
+                  {
+                    (hotelDetails?.equipments.length > 0) &&
+                    hotelDetails?.equipments.map((e, i) => (
+                      <div key={i} className="description-item">
+                        <LuParkingSquare />
+                        <span>{e.equipmentTitle}</span>
+                      </div>
+                    ))
+                  }
 
-                  <div className="description-item">
+
+
+                  {/* <div className="description-item">
                     <BusFront />
                     <span>Transfert aéroport</span>
                   </div>
@@ -410,7 +447,7 @@ const HotelsReservation = () => {
                   <div className="description-item">
                     <GiSuitcase />
                     <span>Centre d'affaires avec accès Internet</span>
-                  </div>
+                  </div> */}
 
 
 
@@ -456,16 +493,12 @@ const HotelsReservation = () => {
             </div>
           </div>
 
-          <div className='connexion flex align-items-center p-15 gap-15'>
+          <div className='connexion flex align-items-center justify-content-between p-15 gap-15'>
             <div className="connexion-svg flex-2 flex gap-10">
               <MdEditNotifications size={20} />
-              <p>Inscrivez vous dès maintenant pour reserver un chambre d'hotels.</p>
+              <p>Inscrivez vous dès maintenant pour reserver un hébergement.</p>
             </div>
-            <div className="connection-boutom flex-1">
-              <button>
-                S'inscrire
-              </button>
-            </div>
+            <Link className='btn btn-purple' to='/inscription'>S'inscrire</Link>
           </div>
 
           <div className="description-search">

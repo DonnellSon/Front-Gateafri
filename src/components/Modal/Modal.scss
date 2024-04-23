@@ -18,16 +18,20 @@
         justify-content: center;
         align-items: center;
         
-
+        
         .modalContent {
-            transform: scale(0.6);
-            animation: scaleModal 0.25s ease-out forwards;
             height: auto;
             
             >*{
                 box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
             }
+            
         }
+        &.scaleModal .modalContent {
+            transform: scale(0.6);
+            animation: scaleModal 0.25s ease-out forwards;
+        }
+        
     }
 
 }

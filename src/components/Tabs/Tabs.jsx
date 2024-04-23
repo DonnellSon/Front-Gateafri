@@ -14,6 +14,7 @@ const Tabs = ({ children, navRight = "", className = "" }) => {
   }, [children])
   useEffect(() => {
     setBodyWidth(body.current.offsetWidth)
+    console.log(children,'Tab.child')
   }, [])
   
 

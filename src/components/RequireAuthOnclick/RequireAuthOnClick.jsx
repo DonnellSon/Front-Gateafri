@@ -1,4 +1,4 @@
-import React, { useState,cloneElement } from 'react'
+import React, { useState, cloneElement } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Modal from '../Modal/Modal'
@@ -11,18 +11,12 @@ const RequireAuthOnClick = ({ children }) => {
 
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const handleClick = (e) => {
-        if (!user) {
-            e.preventDefault()
-            e.stopPropagation()
-            setModalOpen(true);
-            return
-        }
+    const blockClick = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setModalOpen(true);
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
-    };
 
     // const child = React.cloneElement(children, { onClick: (e)=>{
     //     handleClick(e)
@@ -33,13 +27,17 @@ const RequireAuthOnClick = ({ children }) => {
         <>
 
             {
-                cloneElement(children,{onClick:(e)=>{
-                    children.onClick && children.onClick(e)
-                    handleClick(e)
-                },onTouchStart:(e)=>{
-                    children.onTouchStart && children.onTouchStart(e)
-                    handleClick(e)
-                }})
+                cloneElement(children, {
+                    onClick: (e) => {
+                        if (!user) return blockClick(e);
+                        children.props.onClick && children.props.onClick(e);
+
+                    }, onTouchStart: (e) => {
+                        if (!user) return blockClick(e);
+                        children.props.onTouchStart && children.props.onTouchStart(e);
+
+                    }
+                })
             }
 
             {isModalOpen &&
@@ -49,16 +47,16 @@ const RequireAuthOnClick = ({ children }) => {
                     <div className="disconnectedModal">
                         <div className="top p-15">
                             <h2>Connectez vous !</h2>
-                            <div className="close-modal" onClick={()=>{setModalOpen(false)}}>
-                                <XLg/>
+                            <div className="close-modal" onClick={() => { setModalOpen(false) }}>
+                                <XLg />
                             </div>
                         </div>
                         <div className="body p-15">
                             <p>
                                 <strong>Note:</strong><span> vous devez vous authentifier pour acceder à cette fonctionnalité.</span>
                             </p>
-                            <Link to="/connexion" className="auth-with-gate-btn" onClick={()=>{setModalOpen(false)}}>
-                            <img src="/img/logo/GATEAFR.png" height={25} alt="" /> Utiliser un compte GateAfri
+                            <Link to="/connexion" className="auth-with-gate-btn" onClick={() => { setModalOpen(false) }}>
+                                <img src="/img/logo/GATEAFR.png" height={25} alt="" /> Utiliser un compte GateAfri
                             </Link>
                             <div className="conn-method flex justify-content-center gap-10">
                                 <Link className='fb' to={`${process.env.REACT_APP_API_DOMAIN}/connect/facebook`}><Facebook size={22} /></Link>
@@ -67,7 +65,7 @@ const RequireAuthOnClick = ({ children }) => {
                             </div>
                         </div>
                         <div className="bottom p-15">
-                            <p>Si vous n'avez pas de compte <b><Link to="inscription" onClick={()=>{setModalOpen(false)}}>S'inscrire</Link></b></p>
+                            <p>Si vous n'avez pas de compte <b><Link to="inscription" onClick={() => { setModalOpen(false) }}>S'inscrire</Link></b></p>
                         </div>
 
                     </div>

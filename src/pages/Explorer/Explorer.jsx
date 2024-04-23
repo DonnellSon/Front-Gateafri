@@ -55,7 +55,7 @@ const Explorer = () => {
   const videoSlide = useRef()
   const reservationSlide = useRef()
   const carouseulItem = useRef()
-  const navbar=useRef()
+  const navbar = useRef()
   const settingsItemCarouseul = {
     arrows: false,
     dots: false,
@@ -173,11 +173,14 @@ const Explorer = () => {
 
   const { countryId } = useParams()
 
-  const { data: country, error: countryErr, isLoading: countryLoading } = useQuery(['country', countryId], () => {
-    return axios({
-      url: `${process.env.REACT_APP_API_DOMAIN}/pays/${countryId}`,
-      method: 'get', withCredentials: true
-    }).then((res) => res.data)
+  const { data: country, error: countryErr, isLoading: countryLoading } = useQuery({
+    queryKey: ['country', countryId],
+    queryFn: () => {
+      return axios({
+        url: `${process.env.REACT_APP_API_DOMAIN}/pays/${countryId}`,
+        method: 'get', withCredentials: true
+      }).then((res) => res.data)
+    }
   })
 
   useEffect(() => {
@@ -781,8 +784,8 @@ const Explorer = () => {
       </div>
 
       <div className="nav-bar-country relative">
-      <CustomNextArrow children={<ArrowRight size={10} />} onClick={()=>{navbar.current?.slickNext()}} />
-      <CustomPrevArrow children={<ArrowLeft size={10} />} onClick={()=>{navbar.current?.slickPrev()}} />
+        <CustomNextArrow children={<ArrowRight size={10} />} onClick={() => { navbar.current?.slickNext() }} />
+        <CustomPrevArrow children={<ArrowLeft size={10} />} onClick={() => { navbar.current?.slickPrev() }} />
         <Slider
           {...{
             slidesToShow: 4,
@@ -790,11 +793,11 @@ const Explorer = () => {
             arrows: false,
             dots: false,
             speed: 500,
-            infinite:false
+            infinite: false
           }}
           ref={navbar}
-          >
-       
+        >
+
           <div className="nav-bar-item flex justify-content-center align-items-center active">
             <p>A propos</p>
           </div>
@@ -855,17 +858,13 @@ const Explorer = () => {
 
         </div>
         <div className="country-details-section-center">
-          <div className="country-details-navbar">
-            <div className="country-details-navbar-item"><h1>À propos</h1> </div>
-            <div className="country-details-navbar-item-left">
-              <div className="country-detail-navbar-item-svg">
-                <Translate />
-              </div>
-              <div className="country-detail-navbar-item-content">
-                Traduction
-              </div>
-            </div>
-          </div>
+          {
+            country?.description &&
+            <section className="country-details-navbar-item">
+              <h1>À propos</h1>
+              <p>{country?.description}</p>
+            </section>
+          }
 
           <div className="country-details-content">
             <div className="country-detail-content-item-right">

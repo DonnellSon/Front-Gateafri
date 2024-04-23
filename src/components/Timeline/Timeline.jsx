@@ -3,7 +3,7 @@ import "./Timeline.scss"
 import axios from 'axios'
 import PostCardSkeleton from '../../components/PostCard/PostCardSkeleton';
 import PostCard from '../PostCard/PostCard';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import SliderNav from '../SliderNav/SliderNav';
 import { getDomains, getUserDomains } from '../../api/domain';
 
@@ -65,10 +65,10 @@ const Timeline = () => {
 
     const {
         data: postsList,
-        error,
+        error: postsListErr,
         fetchNextPage,
         hasNextPage: postsListNextPage,
-        isFetching,
+        isFetching: postsListIsFetching,
         isFetchingNextPage: postsListFetchingNextPage,
         status: postsLoadingStatus,
         refetch,
@@ -85,7 +85,7 @@ const Timeline = () => {
     }, [filters])
 
     useEffect(() => {
-        if (!postsListFetchingNextPage && !isFetching) {
+        if (!postsListFetchingNextPage && !postsListIsFetching) {
             const { scrollHeight, scrollTop, clientHeight } = document.getElementById('App')
             if (scrollHeight - scrollTop <= clientHeight + 50) {
                 fetchNextPage()
@@ -93,7 +93,7 @@ const Timeline = () => {
         }
         const onScroll = (e) => {
 
-            if (!postsListFetchingNextPage && !isFetching) {
+            if (!postsListFetchingNextPage && !postsListIsFetching) {
                 const { scrollHeight, scrollTop, clientHeight } = e.target
                 if (scrollHeight - scrollTop <= clientHeight + 50) {
                     fetchNextPage()
@@ -106,7 +106,7 @@ const Timeline = () => {
             document.getElementById('App').removeEventListener('scroll', onScroll)
         }
 
-    }, [postsListFetchingNextPage, isFetching])
+    }, [postsListFetchingNextPage, postsListIsFetching])
 
     const [chooseDomains, setChooseDomains] = useState(false)
 
@@ -137,13 +137,13 @@ const Timeline = () => {
 
             <div className="post-list">
                 {
-                    postsLoadingStatus === 'loading' ? (
+                    (postsListIsFetching && !postsListFetchingNextPage) ? (
                         <>
                             <PostCardSkeleton />
                             <PostCardSkeleton />
                         </>
-                    ) : postsLoadingStatus === 'error' ? (
-                        <p>Error: {error.message}</p>
+                    ) : postsListErr ? (
+                        <p>Error: {postsListErr.message}</p>
                     ) : (postsList?.pages[0]?.data?.length > 0 ? postsList?.pages?.map((group, i) => (
                         <React.Fragment key={i}>
                             {group.data.map((p, i) => (
