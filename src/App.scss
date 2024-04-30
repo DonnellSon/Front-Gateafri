@@ -65,6 +65,7 @@ li,
 a {
   font-size: 14px;
   line-height: 20px;
+  word-break: break-all;
 }
 
 
@@ -181,7 +182,9 @@ img.emoji {
       font-weight: 600;
     }
 
-
+    .link-txt{
+      color: #9a49d5;
+    }
     .purple-txt {
       color: themed("mainColor", purple) !important;
     }

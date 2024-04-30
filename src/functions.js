@@ -1,4 +1,13 @@
 const functions = {
+    getTextUrls: (text) => {
+        const regexURL = /(https?:\/\/[^'"\s]+)/g;
+        const urls = [];
+        let match;
+        while ((match = regexURL.exec(text)) !== null) {
+            urls.push(match[0]);
+        }
+        return urls;
+    },
     flatInfiniteQuery: (infiniteQueryData) => {
         return infiniteQueryData?.pages?.map((group) => group).map((g) => g.data).flat()
     },

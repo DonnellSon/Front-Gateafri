@@ -78,7 +78,7 @@ const HotelEquipmentsForm = ({ currentStepValues, setInitialFields, currentStepE
                         hotelServices?.map((e, i) => (
                             <div>
                                 <label className="flex align-items-center gap-5">
-                                    <Field type="checkbox" name="hotelEquipments" value={`/equipments/${e.id}`} />
+                                    <Field type="checkbox" name="hotelServices" value={`/service_hotels/${e.id}`} />
                                     <span>{e.serviceTitle}</span>
                                 </label>
                             </div>

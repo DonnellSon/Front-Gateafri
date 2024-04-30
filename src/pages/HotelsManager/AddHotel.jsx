@@ -14,7 +14,23 @@ const AddHotel = () => {
     return (
         <div id='add-hotel-page'>
             <MultiStepForm
-                onSubmitData={({ hotelName, hotelStars, streetName, hotelEquipments }) => {
+                onSubmitData={(data) => {
+                    console.log(data,'HOTEL DATA')
+                    const formData=new FormData()
+                    formData.append('name',data.hotelName)
+                    formData.append('rating',data.hotelStars)
+                    formData.append('adress',data.streetName)
+                    
+                    for(var equipement in data.hotelEquipments){
+                        formData.append('equipments[]',equipement)
+                    }
+                    for(var service in data.hotelServices){
+                        formData.append('equipments[]',service)
+                    }
+                    for(var img in data.hotelImages){
+                        formData.append('hotelImages[]',data.hotelImages)
+                    }
+
                     // setHotel({
                     //     name: hotelName,
                     //     rating: hotelStars,
@@ -53,7 +69,7 @@ const AddHotel = () => {
                     {
                         title: 'Équipements et services proposés par votre hotel',
                         initialValues: { hotelEquipments: [],hotelServices:[] },
-                        path: 'equipements',
+                        path: 'equipements-et-services',
                         validationSchema: Yup.object().shape({
                             hotelEquipments: Yup.array()
                                 .min(1, 'Veuillez sélectionner au moins 1 équipement')

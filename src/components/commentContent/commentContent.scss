@@ -46,6 +46,10 @@
 
 .comment-content {
   @include themify($themes){
+    >.right{
+      min-width: 0;
+      flex-grow: 1;
+    }
     .comment-content-avatar-parent:not(.comment-content:last-child .comment-content-avatar-parent):before {
       border-left: 2px dashed themed('background',5);
       background: themed('background',3);
@@ -202,6 +206,7 @@
       background: themed("background",5);
       p{
         color: themed("text",0);
+        word-break: break-all;
       }
     }
     .commenter-name{
@@ -234,6 +239,48 @@
         transition: .5s;
         &:hover{
           color: themed('text',0);
+        }
+      }
+    }
+    .comment-link-previews{
+      margin-top: 2px;
+      padding: 0;
+    }
+    .comment-link-preview{
+      display: flex;
+      height: 80px;
+      border-radius: 8px;
+      background: themed('background',3);
+      border: 1px solid themed('border',2);
+      width: 300px;
+      padding: 0;
+      .left{
+        height: 100%;
+        aspect-ratio: 1;
+        position: relative;
+        
+        img{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 8px 0 0 8px;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+        }
+      }
+      .right{
+        height: 100%;
+        padding: 5px 10px 5px 10px;
+        flex-grow: 1;
+        small{
+          color: themed('text',4);
+        }
+        h1{
+          font-size: 14px;
+          font-weight: themed('weight',600);
+          margin: 0;
+          color: themed('text',2);
         }
       }
     }

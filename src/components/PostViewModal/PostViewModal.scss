@@ -39,6 +39,7 @@
             >.body{
                 flex-grow: 1;
                 overflow-y: auto;
+                overflow-x: hidden;
                 .post-card{
                     margin-bottom: 0;
                     .footer{
