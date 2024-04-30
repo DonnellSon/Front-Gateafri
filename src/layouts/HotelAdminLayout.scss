@@ -40,6 +40,12 @@
             align-items: start;
           }
         }
+        .dropdown-tarif-disponibility{
+            .dropdownMenu{
+                max-width: none;
+                width: 280px;
+            }
+        }
         .hotel-name {
           display: flex;
           align-items: center;
