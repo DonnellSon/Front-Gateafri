@@ -111,7 +111,9 @@ import HotelInfo from "./pages/HotelAdmin/HotelInfo";
 import Pictures from "./pages/HotelAdmin/Pictures";
 import JobDetailsPage from "./pages/JobFinding/JobDetails";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
+import AccommodationsDetails from "./pages/HotelAdmin/AccommodationsDetails";
+import EquipmentsAndServices from "./pages/HotelAdmin/EquipmentsAndServices";
+import InBox from "./pages/HotelAdmin/InBox";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -608,6 +610,9 @@ function App() {
                                 <Route path="tarification-par-client" element={<CustomerSpecificPricing/>}/>
                                 <Route path='hotel-info' element={<HotelInfo/>}/>
                                 <Route path="photos" element={<Pictures/>}/>
+                                <Route path="hebergement-details" element={<AccommodationsDetails/>}/>
+                                <Route path="equipments-services" element={<EquipmentsAndServices/>}/>
+                                <Route path="messages" element={<InBox/>}/>
                             </Route>
                             <Route path="hebergements">
                                 <Route path="nouveau/*" element={<CreateRoom/>}/>

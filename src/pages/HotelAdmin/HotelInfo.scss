@@ -29,7 +29,7 @@
                     background-color: #008000;
                 }
                 &.close{
-                    background-color: #FF0000;
+                    background-color: map-get($red, primary);
                 }
             }
         }
