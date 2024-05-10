@@ -23,7 +23,7 @@ const MultiInputs = ({ onChange = () => { },placeholder="",inputType="text"}) =>
             {
                 options.map((o, i) => <MultiInputOption inputType={inputType} placeholder={placeholder} key={i} options={options} value={o} setOptions={setOptions} removeOption={removeOption} index={i} />)
             }
-            <button className="btn btn-orange mt-10" onClick={addOption}><PlusLg /></button>
+            <button type='button' className="add-input-option btn btn-orange mt-10" onClick={addOption}><PlusLg /> <span>Ajouter</span></button>
         </>
 
     )

@@ -19,3 +19,9 @@ export const getCitiesList=(keyword)=>{
         method: 'get', withCredentials: true
     }).then((res) => res.data)
 }
+export const getCountryCodes=()=>{
+    return axios({
+        url: `${process.env.REACT_APP_API_DOMAIN}/pays?groups[]=country_codes`,
+        method: 'get', withCredentials: true
+    }).then((res) => res.data)
+}

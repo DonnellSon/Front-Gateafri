@@ -83,7 +83,7 @@ const Searchbar = ({
         {
           (resultsFetching || isLoading) &&
           <div className="spiner">
-            <CircleLoader />
+            <CircleLoader colors={null}/>
           </div>
         }
 

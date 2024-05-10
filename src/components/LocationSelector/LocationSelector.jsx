@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { MapContainer, TileLayer, Marker,useMapEvents } from 'react-leaflet';
 
 function ClickableMap({onClick=()=>{}}) {
@@ -10,8 +10,13 @@ function ClickableMap({onClick=()=>{}}) {
     return null
   }
 
-const LocationSelector = ({defaultLocation={lat:-18.777192,lng:46.854328},onSelect=()=>{}}) => {
+const LocationSelector = ({defaultLocation={lat:-18.777192,lng:46.854328},onInit=()=>{},onSelect=()=>{}}) => {
     const [location,setLocation]=useState(defaultLocation)
+
+    useEffect(()=>{
+        onInit(defaultLocation)
+    },[])
+
     return (
         <div className='location-selector'>
             <MapContainer

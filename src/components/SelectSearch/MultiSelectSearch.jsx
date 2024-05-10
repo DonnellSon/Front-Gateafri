@@ -5,6 +5,7 @@ import { getDomains } from '../../api/domain'
 import SelectSearch from './SelectSearch'
 import { PlusLg, Trash } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
+import ErrorLabel from '../ErrorLabel/ErrorLabel'
 
 const MultiSelectSearch = ({
   query,
@@ -13,10 +14,19 @@ const MultiSelectSearch = ({
   objectMapping = (elem) => elem,
   placeholder = "Choisir une option",
   searchPlaceholder = "Rechercher",
+  toPlaceholder = (elem) => elem.title,
   repoName = "optionsRepo",
-  onChange = () => {},
+  validationErrors = [],
+  onChange = () => { },
+  defaultValues = [],
+  onInit=()=>{}
 }) => {
-  const [selected, setSelected] = useState([{}]);
+  const [selected, setSelected] = useState(defaultValues.length > 0 ? defaultValues : [{}]);
+
+  useEffect(()=>{
+    onInit(selected)
+  },[])
+
 
   const addOption = () => {
     setSelected([...selected, {}]);
@@ -28,7 +38,7 @@ const MultiSelectSearch = ({
     }
   };
   const editOption = (index, newValue) => {
-    const newOptions = selected.slice();
+    const newOptions = [...selected];
     newOptions[index] = newValue;
     setSelected(newOptions);
   };
@@ -40,36 +50,43 @@ const MultiSelectSearch = ({
   return (
     <>
       {selected?.map((s, i) => (
-        <div
-          key={i}
-          className="flex align-items-center gap-10 multi-select-search-item"
-        >
-          <SelectSearch
+        <div className='form-group'>
+          <div
+            key={i}
+            className="flex align-items-center gap-10 multi-select-search-item"
+          >
+            <SelectSearch
+              value={defaultValues[i] ? defaultValues[i] : null}
             searchFields={searchFields}
             repoName={repoName}
             exclude={selected}
             mapping={mapping}
             objectMapping={objectMapping}
             query={query}
+            toPlaceholder={toPlaceholder}
             placeholder={placeholder}
             searchPlaceholder={searchPlaceholder}
             onChange={(option) => {
               editOption(i, option);
             }}
-          />
-          <button
-            className="btn-outline-light"
-            onClick={() => {
-              removeOption(i);
-            }}
-          >
-            <Trash size={16} />
-          </button>
+            />
+            <button
+              className="btn-outline-light remove-select-search"
+              onClick={() => {
+                removeOption(i);
+              }}
+            >
+              <Trash size={16} />
+            </button>
+          </div>
+          <ErrorLabel error={validationErrors[i]} />
         </div>
       ))}
-      <button className="btn btn-orange mt-10" onClick={addOption}>
-        <PlusLg />
-      </button>
+      <div className='flex'>
+        <button className="btn btn-orange add-select-search" onClick={addOption}>
+          <PlusLg /> Ajouter
+        </button>
+      </div>
     </>
   );
 };

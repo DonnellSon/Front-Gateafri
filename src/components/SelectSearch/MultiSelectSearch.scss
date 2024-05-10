@@ -1,3 +1,9 @@
-.multi-select-search-item {
-    margin-bottom: 15px;
+button.add-select-search {
+    flex-grow: 1;
+    height: 40px;
+}
+button.remove-select-search{
+    padding: 0;
+    width: 40px;
+    height: 38px;
 }

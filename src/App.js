@@ -53,7 +53,7 @@ import PageLoader from "./components/PageLoader/PageLoader";
 import { io } from "socket.io-client";
 import SocketIOContext from "./context/SocketIOContext";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import PortalLayout from "./layouts/PortalLayout";
 import ThemeContext from "./context/ThemeContext";
 import Landing from "./pages/Landing/Landing";
@@ -110,6 +110,10 @@ import CustomerSpecificPricing from "./pages/HotelAdmin/CustomerSpecificPricing"
 import HotelInfo from "./pages/HotelAdmin/HotelInfo";
 import Pictures from "./pages/HotelAdmin/Pictures";
 import JobDetailsPage from "./pages/JobFinding/JobDetails";
+import { useQuery } from "@tanstack/react-query";
+import CvList from "./pages/JobFinding/CvList";
+
+
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AccommodationsDetails from "./pages/HotelAdmin/AccommodationsDetails";
 import EquipmentsAndServices from "./pages/HotelAdmin/EquipmentsAndServices";
@@ -154,7 +158,7 @@ function App() {
     localStorage.setItem("appTheme", theme);
   };
   const activeTheme = useMemo(() => {
-    return { 
+    return {
       theme,
       setTheme: changeTheme,
     };
@@ -267,374 +271,365 @@ function App() {
     }
   }, []);
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        refetchIntervalInBackground: false,
-        refetchInterval: false,
-        fetchOptions: {
-          mode: 'cors',
-        },
-      },
-    },
-  });
-
   return (
     <SocketIOContext.Provider value={socketValue}>
-      <QueryClientProvider client={queryClient}>
-        <MediaContext.Provider value={deviceTypeValue}>
-          <CurrencyContext.Provider value={defaultCurrency}>
-            <ThemeContext.Provider value={activeTheme}>
-              <div id="AppTheme" className={`theme-${theme}`}>
-                <div
-                  id="App"
-                  style={{
-                    paddingBottom:
-                      (deviceType === SMARTPHONE || deviceType === TABLET) &&
-                        !window.location.pathname.startsWith("/messages")
-                        ? "var(--bottom-nav-height)"
-                        : 0,
-                  }}
-                >
-                  <BrowserRouter>
-                    <Routes>
-                      <Route element={<Default />}>
-                        {!pageLoading && (
-                          <>
-                            <Route path="/landing" element={<Landing />} />
-                            <Route path="/" element={<Home />} />
-                            <Route
-                              path="/notifications"
-                              element={<Notifications />}
-                            />
-                            <Route path="/recherche">
-                              <Route index element={<Search />} />
-                            </Route>
+
+      <MediaContext.Provider value={deviceTypeValue}>
+        <CurrencyContext.Provider value={defaultCurrency}>
+          <ThemeContext.Provider value={activeTheme}>
+            <div id="AppTheme" className={`theme-${theme}`}>
+              <div
+                id="App"
+                style={{
+                  paddingBottom:
+                    (deviceType === SMARTPHONE || deviceType === TABLET) &&
+                      !window.location.pathname.startsWith("/messages")
+                      ? "var(--bottom-nav-height)"
+                      : 0,
+                }}
+              >
+                <BrowserRouter>
+                  <Routes>
+                    <Route element={<Default />}>
+                      {!pageLoading && (
+                        <>
+                          <Route path="/landing" element={<Landing />} />
+                          <Route path="/" element={<Home />} />
+                          <Route
+                            path="/notifications"
+                            element={<Notifications />}
+                          />
+                          <Route path="/recherche">
+                            <Route index element={<Search />} />
+                          </Route>
 
 
-                            {/* <Route
+                          {/* <Route
                               path="/image/:image_id"
                               element={<Image />}
                             /> */}
-                            <Route element={<AuthRedirect />}>
-                              <Route
-                                path="/inscription"
-                                element={<Register />}
-                              />
-                            </Route>
+                          <Route element={<AuthRedirect />}>
                             <Route
-                              path="/emplois/:jobOfferId?"
-                              element={<JobFindingLayout />}
-                            >
-                              <Route index element={<JobFindingHome />} />
-                              <Route
-                                element={<AuthRedirect requireAuth={true} />}
-                              >
-                                <Route path="nouveau" element={<CreateJob />} />
-                                <Route path="cv" element={<CreateCv />} />
+                              path="/inscription"
+                              element={<Register />}
+                            />
+                          </Route>
+                          <Route
+                            path="/emplois/:jobOfferId?"
+                            element={<JobFindingLayout />}
+                          >
+                            <Route index element={<JobFindingHome />} />
+                            <Route element={<AuthRedirect isLoding={pageLoading} requireAuth={true} />}>
+                              <Route path="nouveau" element={<CreateJob />} />
+                              <Route path="cv">
+                                <Route index element={<CvList />} />
+                                <Route path="nouveau" element={<CreateCv />} />
                               </Route>
-                              <Route path="details" element={<JobDetails />} />
                             </Route>
-                            <Route
-                              element={<AuthRedirect requireAuth={true} />}
-                            >
-                              <Route path="/contacts" element={<Contacts />}>
-                                <Route index element={<h1>Hello World</h1>} />
-                                <Route path="profil">
+                            <Route path="details" element={<JobDetails />} />
+                          </Route>
+                          <Route
+                            element={<AuthRedirect isLoding={pageLoading} requireAuth={true} />}
+                          >
+                            <Route path="/contacts" element={<Contacts />}>
+                              <Route index element={<h1>Hello World</h1>} />
+                              <Route path="profil">
+                                <Route
+                                  index
+                                  element={
+                                    connectedUser ? (
+                                      <Navigate
+                                        to={`${connectedUser.id}`}
+                                        replace={true}
+                                      />
+                                    ) : (
+                                      <AuthRedirect requireAuth={true} />
+                                    )
+                                  }
+                                />
+                                <Route path=":userId" element={<ProfileLayout />}>
                                   <Route
                                     index
                                     element={
-                                      connectedUser ? (
-                                        <Navigate
-                                          to={`${connectedUser.id}`}
-                                          replace={true}
-                                        />
-                                      ) : (
-                                        <AuthRedirect requireAuth={true} />
-                                      )
+                                      <Navigate to="actu" replace={true} />
                                     }
                                   />
-                                  <Route path=":userId" element={<ProfileLayout />}>
+                                  <Route path="actu" element={<ProfileActu />} />
+                                  <Route
+                                    path="a-propos-de-moi"
+                                    element={<ProfileAbout />}
+                                  >
                                     <Route
                                       index
                                       element={
-                                        <Navigate to="actu" replace={true} />
+                                        <Navigate
+                                          to="etudes-et-emplois"
+                                          replace={true}
+                                        />
                                       }
                                     />
-                                    <Route path="actu" element={<ProfileActu />} />
                                     <Route
-                                      path="a-propos-de-moi"
-                                      element={<ProfileAbout />}
-                                    >
-                                      <Route
-                                        index
-                                        element={
-                                          <Navigate
-                                            to="etudes-et-emplois"
-                                            replace={true}
-                                          />
-                                        }
-                                      />
-                                      <Route
-                                        path="etudes-et-emplois"
-                                        element={<Studies />}
-                                      />
-                                      <Route
-                                        path="mes-coordonnees"
-                                        element={<Contact />}
-                                      />
-                                    </Route>
+                                      path="etudes-et-emplois"
+                                      element={<Studies />}
+                                    />
+                                    <Route
+                                      path="mes-coordonnees"
+                                      element={<Contact />}
+                                    />
                                   </Route>
                                 </Route>
                               </Route>
                             </Route>
+                          </Route>
 
-                            <Route path="/profil">
+                          <Route path="/profil">
+                            <Route
+                              index
+                              element={
+                                connectedUser ? (
+                                  <Navigate
+                                    to={`${connectedUser.id}`}
+                                    replace={true}
+                                  />
+                                ) : (
+                                  <AuthRedirect requireAuth={true} />
+                                )
+                              }
+                            />
+                            <Route path=":userId" element={<ProfileLayout />}>
                               <Route
                                 index
                                 element={
-                                  connectedUser ? (
-                                    <Navigate
-                                      to={`${connectedUser.id}`}
-                                      replace={true}
-                                    />
-                                  ) : (
-                                    <AuthRedirect requireAuth={true} />
-                                  )
+                                  <Navigate to="actu" replace={true} />
                                 }
                               />
-                              <Route path=":userId" element={<ProfileLayout />}>
+                              <Route path="actu" element={<ProfileActu />} />
+                              <Route
+                                path="a-propos-de-moi"
+                                element={<ProfileAbout />}
+                              >
                                 <Route
                                   index
                                   element={
-                                    <Navigate to="actu" replace={true} />
+                                    <Navigate
+                                      to="etudes-et-emplois"
+                                      replace={true}
+                                    />
                                   }
                                 />
-                                <Route path="actu" element={<ProfileActu />} />
                                 <Route
-                                  path="a-propos-de-moi"
-                                  element={<ProfileAbout />}
-                                >
-                                  <Route
-                                    index
-                                    element={
-                                      <Navigate
-                                        to="etudes-et-emplois"
-                                        replace={true}
-                                      />
-                                    }
-                                  />
-                                  <Route
-                                    path="etudes-et-emplois"
-                                    element={<Studies />}
-                                  />
-                                  <Route
-                                    path="mes-coordonnees"
-                                    element={<Contact />}
-                                  />
-                                  <Route
-                                    path="residences"
-                                    element={<Residences />}
-                                  />
-                                  <Route path="details-sur-moi" element={<ProfileDetails />} />
-                                </Route>
-                                <Route
-                                  path="recommandations"
-                                  element={<ProfileRecommendation />}
+                                  path="etudes-et-emplois"
+                                  element={<Studies />}
                                 />
-                                <Route path="entreprises" element={<ProfileEntreprises />} />
+                                <Route
+                                  path="mes-coordonnees"
+                                  element={<Contact />}
+                                />
+                                <Route
+                                  path="residences"
+                                  element={<Residences />}
+                                />
+                                <Route path="details-sur-moi" element={<ProfileDetails />} />
                               </Route>
-                            </Route>
-
-                            <Route path="/investissements">
-                              <Route index element={<Funding />} />
                               <Route
-                                element={<AuthRedirect requireAuth={true} />}
-                              >
-                                <Route
-                                  path="nouveau"
-                                  element={<CreateInvest />}
-                                />
-                              </Route>
+                                path="recommandations"
+                                element={<ProfileRecommendation />}
+                              />
+                              <Route path="entreprises" element={<ProfileEntreprises />} />
                             </Route>
+                          </Route>
 
-                            {/* <Route path='/page' element={<PageLayout />}>
+                          <Route path="/investissements">
+                            <Route index element={<Funding />} />
+                            <Route
+                              element={<AuthRedirect requireAuth={true} />}
+                            >
+                              <Route
+                                path="nouveau"
+                                element={<CreateInvest />}
+                              />
+                            </Route>
+                          </Route>
+
+                          {/* <Route path='/page' element={<PageLayout />}>
                           <Route index element={<PageHome />} />
                           <Route path='accueil' element={<PageHome />} />
                           <Route path='a-propos' element={<PageAbout />} />
                           <Route path='actualite' element={<PageActu />} />
                         </Route> */}
 
-                            <Route path="/portail">
-                              <Route
-                                element={<AuthRedirect requireAuth={true} />}
-                              >
-                                <Route
-                                  path=""
-                                  element={<PortalDashboardLayout />}
-                                >
-                                  <Route
-                                    path=":portalId"
-                                    element={<PortalAdminLayout />}
-                                  >
-                                    <Route path="dashboard">
-                                      <Route index element={<Dashboard />} />
-                                      <Route
-                                        path="statistiques"
-                                        element={<Statistics />}
-                                      />
-                                      <Route
-                                        path="messagerie"
-                                        element={<PortalMessenger />}
-                                      />
-                                      <Route
-                                        path="acces"
-                                        element={<Access />}
-                                      />
-                                      <Route
-                                        path="modifier"
-                                        element={<Edit />}
-                                      />
-                                    </Route>
-                                  </Route>
-                                  <Route
-                                    path="nouveau"
-                                    element={<CreatePortal />}
-                                  />
-                                </Route>
-                              </Route>
-
-                              <Route
-                                path=":portalId"
-                                element={<PortalLayout />}
-                              >
-                                <Route index element={<PortalHome />} />
-                                <Route
-                                  path="accueil"
-                                  element={<PortalHome />}
-                                />
-                                <Route
-                                  path="a-propos"
-                                  element={<PortalAbout />}
-                                />
-                                <Route
-                                  path="actualite"
-                                  element={<PortalActu />}
-                                />
-                                <Route path="emplois/:jobOfferId?">
-                                  <Route index element={<PortalEmplois />} />
-                                  <Route path="details" element={<JobDetailsPage />} />
-
-                                </Route>
-
-                                <Route path="faq" element={<PortalFaq />} />
-                                <Route
-                                  path="evaluation"
-                                  element={<PortalEvaluation />}
-                                />
-                              </Route>
-                            </Route>
-                            <Route path="/video" element={<Minimal />}>
-                              <Route index element={<VideoHome />} />
-                              <Route path="play" element={<Video />} />
-                            </Route>
+                          <Route path="/portail">
                             <Route
                               element={<AuthRedirect requireAuth={true} />}
                             >
                               <Route
-                                path="/messages/:discuId?"
-                                element={<Messages />}
+                                path=""
+                                element={<PortalDashboardLayout />}
+                              >
+                                <Route
+                                  path=":portalId"
+                                  element={<PortalAdminLayout />}
+                                >
+                                  <Route path="dashboard">
+                                    <Route index element={<Dashboard />} />
+                                    <Route
+                                      path="statistiques"
+                                      element={<Statistics />}
+                                    />
+                                    <Route
+                                      path="messagerie"
+                                      element={<PortalMessenger />}
+                                    />
+                                    <Route
+                                      path="acces"
+                                      element={<Access />}
+                                    />
+                                    <Route
+                                      path="modifier"
+                                      element={<Edit />}
+                                    />
+                                  </Route>
+                                </Route>
+                                <Route
+                                  path="nouveau"
+                                  element={<CreatePortal />}
+                                />
+                              </Route>
+                            </Route>
+
+                            <Route
+                              path=":portalId"
+                              element={<PortalLayout />}
+                            >
+                              <Route index element={<PortalHome />} />
+                              <Route
+                                path="accueil"
+                                element={<PortalHome />}
+                              />
+                              <Route
+                                path="a-propos"
+                                element={<PortalAbout />}
+                              />
+                              <Route
+                                path="actualite"
+                                element={<PortalActu />}
+                              />
+                              <Route path="emplois/:jobOfferId?">
+                                <Route index element={<PortalEmplois />} />
+                                <Route path="details" element={<JobDetailsPage />} />
+
+                              </Route>
+
+                              <Route path="faq" element={<PortalFaq />} />
+                              <Route
+                                path="evaluation"
+                                element={<PortalEvaluation />}
                               />
                             </Route>
+                          </Route>
+                          <Route path="/video" element={<Minimal />}>
+                            <Route index element={<VideoHome />} />
+                            <Route path="play" element={<Video />} />
+                          </Route>
+                          <Route
+                            element={<AuthRedirect requireAuth={true} />}
+                          >
+                            <Route
+                              path="/messages/:discuId?"
+                              element={<Messages />}
+                            />
+                          </Route>
 
-                            <Route element={<AuthRedirect />}>
-                              <Route path="/connexion" element={<Login />} />
-                            </Route>
-                          </>
-                        )}
+                          <Route element={<AuthRedirect />}>
+                            <Route path="/connexion" element={<Login />} />
+                          </Route>
+                        </>
+                      )}
 
-                        {/* <Route path="teams" element={<Teams />}>
+                      {/* <Route path="teams" element={<Teams />}>
               <Route path=":teamId" element={<Team />} />
               <Route path=":teamId/edit" element={<EditTeam />} />
               <Route path="new" element={<NewTeamForm />} />
               <Route index element={<LeagueStandings />} />
             </Route> */}
 
-                        <Route path="/explorer" element={<Countries />} />
+                      <Route path="/explorer" element={<Countries />} />
 
-                        <Route path='/image/:image_id' element={<Popup>
-                          <Image />
-                        </Popup>} />
+                      <Route path='/image/:image_id' element={<Popup>
+                        <Image />
+                      </Popup>} />
 
-                        {!pageLoading && (
-                          <Route path="*" element={<NotFound />} />
-                        )}
-                      </Route>
+                      {!pageLoading && (
+                        <Route path="*" element={<NotFound />} />
+                      )}
+                    </Route>
 
-                      <Route path="/musique" element={<MusicLayout />}>
-                        <Route index element={<Music />} />
-                        <Route path="profil" element={<ProfilMusic />} />
-                      </Route>
+                    <Route path="/musique" element={<MusicLayout />}>
+                      <Route index element={<Music />} />
+                      <Route path="profil" element={<ProfilMusic />} />
+                    </Route>
 
-                      <Route element={<ExplorerLayout />}>
-                        <Route path="/explorer">
-                          <Route path="pays/:countryId">
-                            <Route index element={<Explorer />} />
-                            <Route path="ville/:cityId" element={<City />} />
-                          </Route>
+                    <Route element={<ExplorerLayout />}>
+                      <Route path="/explorer">
+                        <Route path="pays/:countryId">
+                          <Route index element={<Explorer />} />
+                          <Route path="ville/:cityId" element={<City />} />
                         </Route>
-                        <Route path="hotels">
-                          <Route index element={<HotelsHome />} />
+                      </Route>
+
+                      <Route path="hotels">
+                        <Route element={<AuthRedirect requireAuth={true} isLoading={pageLoading} />}>
                           <Route path="nouveau/*" element={<AddHotel />} />
-                          <Route path=':hotelId' element={<HotelsReservation />} />
-                          <Route path='recherche' element={<HotelsSearch />} />
-                          <Route path=":hotelId">
-                            <Route path='hotel-admin' element={<HotelAdminLayout/>}>
-                                <Route index element={<Navigate to='home' replace={true}/>}/>
-                                <Route path='home' element={<HotelAdminHome/>}/>
-                                <Route path='reservation'>
-                                    <Route index element={<HotelAdminReservation/>}/>
-                                    <Route path=':reservationId' element={<ReservationDetails/>}/>
-                                </Route>
-                                <Route path="hebergements" element={<Accommodations/>}/>
-                                <Route path = "restrictions" element={<Restrictions/>}/>
-                                <Route path="control-hebergements" element={<AccommodationControls/>}/>
-                                <Route path="plans-tarifaires">
-                                    <Route index element={<PricingPlans/>}/>
-                                    <Route path="ajout" element={<AddPricingPlan/>}/>
-                                </Route>
-                                <Route path="avantages" element={<Advantages/>}/>
-                                <Route path="tarification-par-client" element={<CustomerSpecificPricing/>}/>
-                                <Route path='hotel-info' element={<HotelInfo/>}/>
-                                <Route path="photos" element={<Pictures/>}/>
+                        </Route>
+                        <Route index element={<HotelsHome />} />
+                        <Route path=':hotelId' element={<HotelsReservation />} />
+                        <Route path='recherche' element={<HotelsSearch />} />
+                        <Route path=":hotelId">
+                          <Route element={<AuthRedirect />}>
+                            <Route path='hotel-admin' element={<HotelAdminLayout />}>
+                              <Route index element={<Navigate to='home' replace={true} />} />
+                              <Route path='home' element={<HotelAdminHome />} />
+                              <Route path='reservation'>
+                                <Route index element={<HotelAdminReservation />} />
+                                <Route path=':reservationId' element={<ReservationDetails />} />
+                              </Route>
+                              <Route path="hebergements" element={<Accommodations />} />
+                              <Route path="restrictions" element={<Restrictions />} />
+                              <Route path="control-hebergements" element={<AccommodationControls />} />
+                              <Route path="plans-tarifaires">
+                                <Route index element={<PricingPlans />} />
+                                <Route path="ajout" element={<AddPricingPlan />} />
+                              </Route>
+                              <Route path="avantages" element={<Advantages />} />
+                              <Route path="tarification-par-client" element={<CustomerSpecificPricing />} />
+                              <Route path='hotel-info' element={<HotelInfo />} />
+                              <Route path="photos" element={<Pictures />} />
                                 <Route path="hebergement-details" element={<AccommodationsDetails/>}/>
                                 <Route path="equipments-services" element={<EquipmentsAndServices/>}/>
                                 <Route path="messages" element={<InBox/>}/>
                             </Route>
                             <Route path="hebergements">
-                                <Route path="nouveau/*" element={<CreateRoom/>}/>
+                              <Route path="nouveau/*" element={<CreateRoom />} />
                             </Route>
                           </Route>
                         </Route>
                       </Route>
 
+                    </Route>
 
 
 
-                    </Routes>
 
-                  </BrowserRouter>
-                </div>
-                <PageLoader open={pageLoading} />
+                  </Routes>
+
+                </BrowserRouter>
               </div>
-            </ThemeContext.Provider>
-          </CurrencyContext.Provider>
-        </MediaContext.Provider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+              <PageLoader open={pageLoading} />
+            </div>
+          </ThemeContext.Provider>
+        </CurrencyContext.Provider>
+      </MediaContext.Provider>
+
     </SocketIOContext.Provider>
   );
 }

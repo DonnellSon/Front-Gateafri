@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import './JobDetails.scss'
 import { Save, Folder } from 'react-bootstrap-icons'
 import Logo from "../../components/Logo/Logo"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { getJobOffer } from "../../api/job"
 import { useParams } from "react-router-dom"
 import NotFound from "../Eroors/NotFound"

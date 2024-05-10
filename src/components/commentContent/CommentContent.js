@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import './commentContent.scss';
 import CommentForm from '../commentForm/CommentForm';
 import Avatar from '../Avatar/Avatar';
@@ -10,8 +10,15 @@ import DropDown from '../DropDown/DropDown';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { deleteComment } from '../../api/comment';
-import { flatInfiniteQuery, chunckArray } from '../../functions';
+import { flatInfiniteQuery, chunckArray, getTextUrls } from '../../functions';
 import { useQueryClient } from '@tanstack/react-query';
+import Slider from 'react-slick';
+import CommentLinkPreview from '../LinkPreview/CommentLinkPreview';
+import EmblaCarouselReact from 'embla-carousel-react';
+import useEmblaCarousel from 'embla-carousel-react'
+import { EmblaCarousel } from '../Slider/EmblaCarousel';
+import TextWithLinks from '../TextWithLinks/TextWithLinks';
+
 
 const CommentContent = ({ id, children, queryKey = [], sender, commentDate, parentId = null, onReplied = () => { } }) => {
 
@@ -20,6 +27,9 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
     const queryClient = useQueryClient()
 
     const cmtContent = useRef();
+
+   
+
     const toggleCmtForm = (e) => {
         e.preventDefault()
         setCmtFormShown(!cmtFormShown)
@@ -39,26 +49,30 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                         ...old,
                         pages: chunckArray([...newArray], 5).map((data, i) => ({
                             data,
-                            nextPage: i + 2,
-                            totalItems: old.pages[0].data.totalItems - 1
+                            totalItems: old.pages[0]?.totalItems ? old.pages[0].totalItems - 1 : 0
                         }))
                     }
                 })
             },
         })
 
-        const {
-            mutate: addReplyFn,
-            error: addReplyErr,
-            isPending: addReplyLoading } = useMutation({
-                mutationFn: () => deleteComment(id),
-                onSuccess: (newReply) => {
-                    const newData = flatInfiniteQuery()
-                    queryClient.setQueryData(['commentReplies',parentId ?? id], (old) => {
-                        
-                    })
-                },
-            })
+    const {
+        mutate: addReplyFn,
+        error: addReplyErr,
+        isPending: addReplyLoading } = useMutation({
+            mutationFn: () => deleteComment(id),
+            onSuccess: (newReply) => {
+                const newData = flatInfiniteQuery()
+                queryClient.setQueryData(['commentReplies', parentId ?? id], (old) => {
+
+                })
+            },
+        })
+
+
+
+
+
 
     return (
         <>
@@ -67,7 +81,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                     <Avatar h={32} w={32} src={sender?.activeProfilePicture?.fileUrl} />
                 </div>
 
-                <div className="relative" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="right relative" style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex' }}>
                         <div className="comment-body relative">
                             <div className="triangle"></div>
@@ -76,7 +90,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                                 <small className="comment-date">{moment(commentDate).fromNow()}</small>
                             </div>
                             <p className={`comment-txt m-0 light-txt-color-2 txt-medium`}>
-                                {children}
+                                <TextWithLinks>{children}</TextWithLinks>
                             </p>
 
                         </div>
@@ -86,7 +100,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                                 <span className='com-more-btn pointer'><ThreeDots size={18} /></span>
                                 <ul>
                                     <li>
-                                        <Link onClick={(e)=>{
+                                        <Link onClick={(e) => {
                                             e.preventDefault()
                                             deleteCommentFn()
                                         }}>Supprimer</Link>
@@ -99,6 +113,42 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                         </div>
 
                     </div>
+                    {
+                        getTextUrls(children).length > 0 &&
+                        <div className="comment-link-previews">
+                            <EmblaCarousel slides={getTextUrls(children).map((url, i) => <div><CommentLinkPreview url={url} /></div>)}/>
+                            {/* <div className="embla" ref={emblaRef}>
+                                <div className="embla__container">
+                                    <div className="embla__slide">Slide 1</div>
+                                    <div className="embla__slide">Slide 2</div>
+                                    <div className="embla__slide">Slide 3</div>
+                                    <div className="embla__slide">Slide 1</div>
+                                    <div className="embla__slide">Slide 2</div>
+                                    <div className="embla__slide">Slide 3</div>
+                                    <div className="embla__slide">Slide 1</div>
+                                    <div className="embla__slide">Slide 2</div>
+                                    <div className="embla__slide">Slide 3</div>
+                                    
+                                </div>
+                                
+                            </div> */}
+                            {/* <Slider {...{
+                                dots: false,
+                                arrows: false,
+                                speed: 500,
+                                centerMode: true,
+                                variableWidth: true,
+                                infinite: false,
+                            }}>
+                                {
+                                    getTextUrls(children).map((url, i) => <div><CommentLinkPreview url={url} /></div>
+                                    )
+                                }
+                            </Slider> */}
+
+                        </div>
+                    }
+
                     <div className="com-footer flex gap-10">
                         <RequireAuthOnClick><a href="#" onClick={toggleCmtForm} className={`light-txt-color-1`}>Repondre</a></RequireAuthOnClick>
                     </div>

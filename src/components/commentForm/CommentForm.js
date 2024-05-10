@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import DoDinamicTextarea from '../doDinamicTextarea/DoDinamicTextarea';
 import './commentForm.scss';
-import { EmojiSmile, Image, Sticky, GeoAlt, Mic, SendFill } from 'react-bootstrap-icons'
+import { EmojiSmile, Image, Sticky, GeoAlt, Mic, SendFill, FiletypeGif } from 'react-bootstrap-icons'
 import EmojiPicker from '../EmojiPicker/EmojiPicker'
 import DropDown from '../DropDown/DropDown'
 import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import CircleLoader from '../CircleLoader/CircleLoader';
 import { useMutation } from '@tanstack/react-query';
 import { sendComment } from '../../api/comment';
+import Gifs from '../Gifs/Gifs';
 
 const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup = () => { }, value = '', onSended = () => { } }) => {
     const cmtForm = useRef();
@@ -69,7 +70,11 @@ const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup
                                 {/* <EmojiPicker />
                             </DropDown> */}
                             <button><Image size={18} /></button>
-                            <button><Sticky size={18} /></button>
+
+                            <DropDown placement='top' className="gif-dropdown">
+                                <button><Sticky size={18} /></button>
+                                <Gifs />
+                            </DropDown>
                             <button><GeoAlt size={18} /></button>
                             <button><Mic size={18} /></button>
                             <button className="comment-send-btn" onClick={(e) => {
@@ -77,7 +82,7 @@ const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup
                                 setEmptyMessageForm(true)
                             }} disabled={tmpComment.length <= 0}>
                                 {
-                                    addCommentLoading ? <CircleLoader /> : <SendFill />
+                                    addCommentLoading ? <CircleLoader colors={null} /> : <SendFill />
                                 }
                             </button>
                         </>

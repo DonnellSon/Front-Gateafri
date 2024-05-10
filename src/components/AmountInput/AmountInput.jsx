@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { getCurrenciesList } from '../../api/coutry'
 import CurrencyContext from '../../context/CurrencyContext'
 
-const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => { },field }) => {
+const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => { }}) => {
     
     const { currency } = useContext(CurrencyContext)
 
@@ -18,14 +18,13 @@ const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => {
     }, [amount])
     return (
         <div className='amount-input flex align-items-center relative'>
-            <input type="number" name="" id="" className="inpt" {...{...field,onChange:
+            <input type="number" name="" id="" className="inpt" {...{onChange:
                 (e) => {
-                    field?.onChange(e)
                     setAmount(prev => ({ ...prev, value: e.target.value }))
                 }
             }} placeholder={placeholder} />
             <div className="currency">
-                <span>{currency.code}</span>
+                <span className='whitespace-pre'>{currency.code}</span>
             </div>
         </div>
     )

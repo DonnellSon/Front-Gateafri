@@ -29,7 +29,7 @@ import DoNavLink from "../components/DoNavLink/DoNavLink";
 import MediaContext from "../context/MediaContext";
 import { DESKTOP } from "../constants/MediaTypeConstants";
 import Rating from "react-rating";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCompany } from "../api/company";
 import Logo from "../components/Logo/Logo";
 import PortalSkeleton from "../pages/Portal/PortalSkeleton";

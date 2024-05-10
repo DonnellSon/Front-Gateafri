@@ -65,6 +65,7 @@ li,
 a {
   font-size: 14px;
   line-height: 20px;
+  word-break: break-all;
 }
 
 
@@ -79,21 +80,35 @@ img.emoji {
 
   // overflow-y: scroll;
   @include themify($themes) {
+
     /*themed text*/
-    .txt-0{
-      color: themed('text',0);
+    .txt-0 {
+      color: themed('text', 0);
     }
-    .txt-1{
-      color: themed('text',1);
+
+    .txt-1 {
+      color: themed('text', 1);
     }
-    .txt-2{
-      color: themed('text',2);
+
+    .txt-2 {
+      color: themed('text', 2);
     }
-    .txt-3{
-      color: themed('text',3);
+
+    .txt-3 {
+      color: themed('text', 3);
     }
-    .txt-4{
-      color: themed('text',4);
+
+    .txt-4 {
+      color: themed('text', 4);
+    }
+
+    .rating-1 {
+      display: flex !important;
+
+      span {
+        display: flex !important;
+        height: max-content !important;
+      }
     }
 
 
@@ -122,6 +137,7 @@ img.emoji {
     .errorLabel>* {
       color: var(--red) !important;
       font-size: 13px;
+      font-weight: themed('weight', 500);
     }
 
     background: themed("background", 0);
@@ -168,6 +184,10 @@ img.emoji {
       color: themed("text", 2);
     }
 
+    .whitespace-pre {
+      white-space: pre;
+    }
+
     .btn-outline-light {
       border: 1px solid themed("border", 2);
       color: themed("text", 2);
@@ -181,6 +201,9 @@ img.emoji {
       font-weight: 600;
     }
 
+    .link-txt {
+      color: #9a49d5;
+    }
 
     .purple-txt {
       color: themed("mainColor", purple) !important;
@@ -395,6 +418,9 @@ a {
 /*flexbox*/
 .flex {
   display: flex !important;
+}
+.inline-flex{
+  display: inline-flex;
 }
 
 .flex-1 {

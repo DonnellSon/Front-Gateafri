@@ -14,10 +14,9 @@
                margin-bottom: 15px;
                cursor: pointer;
           }
+          .empty-comments{
+               margin: 30px auto;
+               max-width: 400px;
+          }
      }
-}
-.comment-list-light{
-}
-.comment-list-dark{
-     border-top:1px solid var(--dark-border-color-1);
 }

@@ -3,16 +3,17 @@ import './MediasSelector.scss';
 import SelectorMedia from '../selectorMedia/SelectorMedia';
 import { FileEarmarkImage } from 'react-bootstrap-icons';
 
-const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { }, defaultState = [], animate = true, selectorBtn = null, hiddenIfEmpty = false }) => {
-    const [tmpMediasList, setTmpMediasList] = useState([]);
+const MediasSelector = ({ gap = 10, col = 5, setMediasState = () => { },onChange=()=>{}, defaultState = [], animate = true, selectorBtn = null, hiddenIfEmpty = false }) => {
+    const [tmpMediasList, setTmpMediasList] = useState(defaultState.map((s, i) => ({ type: s.type, url: URL.createObjectURL(s), file: s, delay: i, index: i })));
 
     useEffect(() => {
         setMediasState(tmpMediasList.map(tmp => tmp.file))
+        onChange(tmpMediasList)
     }, [tmpMediasList])
 
-    useEffect(() => {
-        setTmpMediasList(defaultState.map((s, i) => ({ type: s.type, url: URL.createObjectURL(s), file: s, delay: i, index: i })));
-    }, [defaultState])
+    // useEffect(() => {
+    //     setTmpMediasList();
+    // }, [defaultState])
 
 
     const mediasInput = useRef()
