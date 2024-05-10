@@ -15,7 +15,7 @@
       color: themed("text", 3);
     }
     span {
-      color: themed('text',2);
+      color: themed("text", 2);
     }
     .rdrCalendarWrapper {
       min-width: 750px;
@@ -65,6 +65,18 @@
           span {
             color: themed("text", 5);
           }
+        }
+      }
+      .rdrDayPassive{
+        span{
+          color: themed('text',5) !important;
+        }
+      }
+      .rdrStartEdge ~ .rdrDayNumber,
+      .rdrInRange ~ .rdrDayNumber,
+      .rdrEndEdge ~ .rdrDayNumber {
+        span {
+          color: white !important;
         }
       }
     }

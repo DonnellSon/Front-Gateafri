@@ -1,7 +1,5 @@
 import {
-  Calendar2Week,
   ChevronDown,
-  ChevronExpand,
   Envelope,
   FileEarmarkText,
   House,
@@ -78,19 +76,19 @@ const HotelAdminLayout = () => {
                     <DoNavLink to="photos">Galerie Photos</DoNavLink>
                   </li>
                   <li>
+                    <DoNavLink to="equipments-services">Equipements et Services</DoNavLink>
+                  </li>
+                  <li>
                     <DoNavLink to="hebergements">Hébergements</DoNavLink>
                   </li>
                   <li>
                     <DoNavLink to="hebergement-details">Details des hébergements</DoNavLink>
                   </li>
-                  <li>
-                    <DoNavLink to="equipments-services">Equipements et Services</DoNavLink>
-                  </li>
                 </ul>
               </DropDown>
             </li>
             <li>
-              <DoNavLink to={"sdfsdf"}>
+              <DoNavLink to={"messages"}>
                 <Envelope size={16} />
                 <small>Boite de reception</small>
               </DoNavLink>

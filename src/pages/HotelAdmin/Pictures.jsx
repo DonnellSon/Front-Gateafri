@@ -1,60 +1,9 @@
 import React, { useEffect } from "react";
-import { CardImage, Eye, ThreeDots } from "react-bootstrap-icons";
 import "./Pictures.scss";
-import CheckBox from "../../components/CheckBox/CheckBox";
-import { Link } from "react-router-dom";
-import DropDown from "../../components/DropDown/DropDown";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import PictureShowModal from "./PictureShowModal";
-const PictureCard = ({ path, checked, onChange, onClick }) => {
-  return (
-    <div className="picture-card" onClick={onClick}>
-      <div className="banner"></div>
-      <div className="img">
-        <img src={path} alt="chambre" />
-      </div>
-      <div className="actions">
-        <div className="top">
-          <CheckBox checked={checked} onChange={onChange} />
-          <DropDown>
-            <Link>
-              <div className="options">
-                <ThreeDots size={20} />
-              </div>
-            </Link>
-            <ul>
-              <li>
-                <Link>Modifier</Link>
-              </li>
-              <li>
-                <Link>Definir comme photo d'accroche préférée</Link>
-              </li>
-              <li>
-                <Link>Supprimer</Link>
-              </li>
-            </ul>
-          </DropDown>
-        </div>
-        <div className="center">
-          <Eye size={30} />
-        </div>
-      </div>
-    </div>
-  );
-};
-const AddPictureCard = () => {
-  return (
-    <div className="add-picture-card flex align-items-center justify-content-center flex-column gap-15">
-      <div className="banner"></div>
-      <div className="icon">
-        <CardImage size={30} />
-      </div>
-      <span>Ajouter</span>
-    </div>
-  );
-};
-
+import { AddPictureCard, PictureCard } from "../../components/PictureCard/PictureCard";
 const Pictures = () => {
   const [states, setStates] = useState({
     doubleRoom: [
@@ -76,19 +25,22 @@ const Pictures = () => {
       newState[type][index].checked = !newState[type][index].checked;
       return newState;
     });
-};
-const [openModal, setOpenModal] = useState({open:false, src:""})
-const handleClickShow = (path)=>{
-    setOpenModal({open:true , src:path})
-}
-useEffect(()=>{
+  };
+  const [openModal, setOpenModal] = useState({ open: false, src: "" });
+  const handleClickShow = (path) => {
+    setOpenModal({ open: true, src: path });
+  };
+  useEffect(() => {
     console.log(openModal, "open MOdal content");
-},[openModal])
+  }, [openModal]);
   return (
     <div id="galery-pictures">
-        <Modal open={openModal.open}>
-            <PictureShowModal srcImg={openModal.src} handleCloseModal={setOpenModal}/>
-        </Modal>
+      <Modal open={openModal.open}>
+        <PictureShowModal
+          srcImg={openModal.src}
+          handleCloseModal={setOpenModal}
+        />
+      </Modal>
       <h2 className="py-15">Photos de l'établissement</h2>
       <div className="elevated-card p-15">
         <div className="head">
@@ -110,7 +62,7 @@ useEffect(()=>{
                   path={image.path}
                   checked={image.checked}
                   onChange={() => handleCheckChange(key, index)}
-                  onClick={()=>handleClickShow(image.path)}
+                  onClick={() => handleClickShow(image.path)}
                 />
               ))}
             </React.Fragment>
@@ -135,8 +87,7 @@ useEffect(()=>{
               key={index}
               path={picture.path}
               checked={picture.checked}
-              onClick={()=>handleClickShow(picture.path)}
-
+              onClick={() => handleClickShow(picture.path)}
             />
           ))}
           {states.doubleRoom.length < 4 ? (
@@ -170,7 +121,7 @@ useEffect(()=>{
               key={index}
               path={picture.path}
               checked={picture.checked}
-              onClick={()=>handleClickShow(picture.path)}
+              onClick={() => handleClickShow(picture.path)}
             />
           ))}
           {states.singleRoom.length < 4 ? (

@@ -11,6 +11,8 @@
         border-radius: 6px;
         padding: 8px;
         margin-top: 15px;
+        position: relative;
+        z-index: 2;
 
         > ul {
           display: flex;
