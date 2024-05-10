@@ -35,11 +35,12 @@ const AccommodationInformationForm = ({
           <div className="select-container">
             <label htmlFor="">Type d'hébergement</label>
             <Field className="select" as="select" name="accommodationType">
-              <option value="">Sélectionner votre type d'hébergement</option>
-              <option value="double">Double</option>
-              <option value="simple">Simple</option>
-              <option value="familiale">Familiale</option>
+              <option value="room">Double</option>
+              <option value="room">Simple</option>
+              <option value="room">Familiale</option>
               <option value="triple">Triple</option>
+              <option value="bungalows">Bungalow</option>
+              <option value="chalet">Chalet</option>
             </Field>
             <ErrorLabel error={currentStepErrors.accommodationType} />
           </div>

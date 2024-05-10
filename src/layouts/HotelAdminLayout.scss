@@ -16,7 +16,7 @@
           display: flex;
           margin-top: 3px;
           > li {
-            a {
+            a:not(.dropdownMenu a) {
               display: flex;
               flex-direction: column;
               justify-content: center;

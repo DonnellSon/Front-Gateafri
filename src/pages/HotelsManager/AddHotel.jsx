@@ -12,8 +12,10 @@ import HotelImagesForm from './HotelImagesForm';
 import HotelPolicies from './HotelPolicies';
 import HotelLanguages from './HotelLanguages';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const AddHotel = () => {
+    const navigate=useNavigate()
     return (
         <div id='add-hotel-page'>
             <MultiStepForm
@@ -71,8 +73,8 @@ const AddHotel = () => {
                         data: formData,
                         withCredentials: true
                     }).then((res) => {
-                        console.log(res, 'HOTEL SUCCESS')
                         setIsLoading(false)
+                        navigate(`/hotels/${res.data.id}/hotel-admin/`)
                     }).catch((err) => {
                         console.log(err, 'HOTEL ERR')
                         setIsLoading(false)
