@@ -49,8 +49,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                         ...old,
                         pages: chunckArray([...newArray], 5).map((data, i) => ({
                             data,
-                            nextPage: i + 2,
-                            totalItems: old.pages[0].data.totalItems - 1
+                            totalItems: old.pages[0]?.totalItems ? old.pages[0].totalItems - 1 : 0
                         }))
                     }
                 })

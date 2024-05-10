@@ -8,7 +8,7 @@ import Avatar from './../../components/Avatar/Avatar';
 import { CustomNextArrow, CustomPrevArrow } from "../../components/Arrows/Arrows";
 import { CarreSlider, CountrySlider } from "../../components/Slider/Slider";
 import StickySideBar from "../../components/StickySideBar/StickySideBar";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 

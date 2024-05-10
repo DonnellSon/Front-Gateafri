@@ -293,7 +293,7 @@ const CreatePortal = () => {
                                                 <div className="banner"></div>
                                                 <div className="portal-info">
                                                     <div className="top flex align-items-end gap-10">
-                                                        <Logo src={company?.companyLogo ? URL.createObjectURL(company?.companyLogo) : null} height={60} width={60} />
+                                                        <Logo online={false} src={company?.companyLogo ? URL.createObjectURL(company?.companyLogo) : null} height={60} width={60} />
                                                         <img src={company?.country?.flag?.fileUrl} width={35} alt="" />
                                                     </div>
                                                     <div className="bottom flex justify-content-between">

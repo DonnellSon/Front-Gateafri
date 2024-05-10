@@ -96,23 +96,25 @@ const PostCard = ({ noComment = false, data, onDelete = () => { }, showInteracti
           <DropDown>
             <div className="plus-btn"><Plus size={28} style={{ display: 'block' }} /></div>
             <ul>
-              {
-                (data.author.id === user?.id || data.author.author?.id === user?.id) &&
-                <>
-                  <li>
-                    <Link to='/'>Modifier la publication</Link>
-                  </li>
-                  <li>
-                    <Link to='/' onClick={deletePost}>Suprimer</Link>
-                  </li>
-                </>
-              }
+              
               <li>
                 <Link to='/emplois/cv'>Enregistrer</Link>
               </li>
               <li>
                 <Link to='/emplois/nouveau'>Alerter les activités</Link>
               </li>
+              {
+                (user && (data.author.id === user?.id || data.author.author?.id === user?.id)) &&
+                <>
+                  <li>
+                    <Link to='/'>Modifier la publication</Link>
+                  </li>
+                  <li>
+                    <hr style={{margin:"10px 0"}}/>
+                    <Link to='/' onClick={deletePost}>Suprimer</Link>
+                  </li>
+                </>
+              }
             </ul>
           </DropDown>
         </div>

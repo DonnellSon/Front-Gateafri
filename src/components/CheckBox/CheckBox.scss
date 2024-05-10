@@ -3,8 +3,8 @@
 
 .checkBox {
     @include themify($themes) {
-        border: 1px solid themed("border", 4);
-        background: themed("background", 5);
+        border: 1px solid #a9a9a9;
+        // background: themed("background", 5);
         width: 16px;
         height: 16px;
         border-radius: 4px;

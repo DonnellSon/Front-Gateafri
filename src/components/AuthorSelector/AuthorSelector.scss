@@ -24,7 +24,7 @@
 
 .author-selector-modal {
     @include themify($themes) {
-        .modalContent {
+        .modalContent > div {
             background: themed("background", 3);
             border-radius: 5px;
             width: 680px;
@@ -88,6 +88,9 @@
                     }
                 }
             }
+        }
+        .empty-portal-list{
+            
         }
     }
 }

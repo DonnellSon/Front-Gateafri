@@ -6,21 +6,22 @@ import Step from './Step';
 import { Link } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-const MultiStepForm = ({ steps, children,submitButton=null,onSubmitData=()=>{} }) => {
+const MultiStepForm = ({ steps, children, submitButton = null, onSubmitData = () => { } }) => {
     const [formData, setFormData] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [validSteps, setValidSteps] = useState(new Array(steps.length).fill(false));
     const [activeStep, setActiveStep] = useState(0)
+    const [lastActiveStep,setLastActiveStep]=useState(0)
     const [animationAction, setAnimationAction] = useState('NEXT')
+    const [isLoading,setIsLoading]=useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
         setActiveStep(0)
+
     }, [])
 
-    useEffect(()=>{
-        console.log(formData,'alldata')
-    },[formData])
+    
 
     useEffect(() => {
         const valid = validSteps.every(step => step === true);
@@ -36,20 +37,20 @@ const MultiStepForm = ({ steps, children,submitButton=null,onSubmitData=()=>{} }
         updatedValidSteps[stepIndex] = true;
         setValidSteps(updatedValidSteps);
         const nextStep = stepIndex + 2
+        
         if (nextStep > steps.length) {
-            onSubmitData(formData)
+            onSubmitData(formData,setIsLoading)
         } else {
             setAnimationAction('NEXT')
-            setActiveStep(a => a + 1)
             navigate(`${steps[stepIndex + 1].path}`)
         }
+        
+
     };
 
     const handleChange = (data) => {
         setFormData({ ...formData, ...data });
     }
-
-
 
     return (
         <div className='multi-step-form'>
@@ -64,7 +65,7 @@ const MultiStepForm = ({ steps, children,submitButton=null,onSubmitData=()=>{} }
                 <AnimatePresence>
                     <Routes>
                         {
-                            <Route index element={<Navigate to='informations' replace={true}/>}/>
+                            <Route index element={<Navigate to='informations' replace={true} />} />
                         }
                         {steps.map((step, index) => (
                             <Route key={index} path={step.path} element={index === 0 || validSteps[index - 1] ? <Step
@@ -81,9 +82,16 @@ const MultiStepForm = ({ steps, children,submitButton=null,onSubmitData=()=>{} }
                                 lastPath={steps[index - 1]?.path}
                                 animationAction={animationAction}
                                 setAnimationAction={setAnimationAction}
-                            >{children[index]}</Step> : <Navigate to={`../${steps[index - 1]?.path}`}/>
+                                index={index}
+                                lastActiveStep={lastActiveStep}
+                                setLastActiveStep={setLastActiveStep}
+                                isLoading={isLoading}
+                            >{children[index]}</Step> : <Navigate to={`../${steps[index - 1]?.path}`} />
                             } />
                         ))}
+                        {
+                            <Route path='*' element={<Navigate to='informations' replace={true} />} />
+                        }
                     </Routes>
                 </AnimatePresence>
             </div>

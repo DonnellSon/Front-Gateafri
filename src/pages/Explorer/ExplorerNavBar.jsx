@@ -46,7 +46,7 @@ const ExplorerNavBar = () => {
                         <div className='svg-container'>
                             <DoNavLink className='svg' activeClass='active' to='/'>
                             <HouseDoor size={22}/>
-                            <span>Accueil</span>
+                            <span className='whitespace-pre'>Accueil</span>
                             </DoNavLink>
                         </div>
                     </div>
@@ -55,7 +55,7 @@ const ExplorerNavBar = () => {
                         <div className='svg-container'>
                             <DoNavLink className='svg' activeClass='active' end={false} to='/explorer'>
                             <GlobeEuropeAfrica size={22}/>
-                            <span>Explorer</span>
+                            <span className='whitespace-pre'>Explorer</span>
                             </DoNavLink>
                         </div>
                     </div>
@@ -64,13 +64,11 @@ const ExplorerNavBar = () => {
                         <div className='svg-container'>
                             <DoNavLink className='svg' activeClass='active' end={false} to='/hotels'>
                             <GiCableStayedBridge size={22}/>
-                            <span>Hotels</span>
+                            <span className='whitespace-pre'>Hotels</span>
                             </DoNavLink>
                         </div>
                     </div>
-
                 </div>
-
                 <div className='item-right'>
                     <div className='container-right' style={{ fontSize: '12px' }}>
                         Connection

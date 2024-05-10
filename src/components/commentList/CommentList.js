@@ -44,8 +44,10 @@ const CommentList = ({ url, enabled = true, queryKey = ['comments'] }) => {
     } = useInfiniteQuery({
         queryKey,
         queryFn: fetchData,
-        getNextPageParam: (lastPage, pages) => lastPage.nextPage,
+        getNextPageParam: (lastPage, pages) => lastPage?.nextPage,
         enabled,
+        
+        
     })
 
     return (
@@ -73,11 +75,11 @@ const CommentList = ({ url, enabled = true, queryKey = ['comments'] }) => {
                             [...new Array(10)].map((_,i)=><CommentSkeleton key={i}/>)
                     : commentsErr ? (
                         <p>Error: {commentsErr.message}</p>
-                    ) : (comments?.pages[0]?.data?.length > 0 ?
+                    ) : (comments?.pages[0]?.totalItems > 0 ?
                         comments?.pages?.map((group) => group).map((g) => g.data).flat().reverse().map((c, i) => <Comment queryKey={queryKey} key={i} data={c} />)
                         : <div className="empty-comments flex flex-column justify-content-center align-items-center gap-5">
                             <h4>Aucun Commentaire à afficher</h4>
-                            <p>Nous vous invitons à ajouter votre commentaire pour intéragir avec l'auteur et toute la communauté. </p>
+                            <p className='text-center txt-4'>Nous vous invitons à ajouter votre commentaire pour intéragir avec l'auteur et toute la communauté. </p>
                         </div>)
                 }
 

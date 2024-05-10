@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BusFront, Calendar, Camera, Camera2, CaretRight, CarFront, ChevronLeft, CupStraw, DoorOpen, Gem, House, ImageFill, Info, InfoCircle, InfoSquareFill, PciCard, People, PostageFill, PostcardFill, Star, ThermometerSnow, Tv, VolumeMuteFill, Wifi, Wifi1 } from 'react-bootstrap-icons'
+import { BusFront, Calendar, Camera, Camera2, CaretRight, CarFront, ChevronLeft, ChevronRight, CupStraw, DoorOpen, Gem, House, ImageFill, Info, InfoCircle, InfoSquareFill, PciCard, People, PostageFill, PostcardFill, Star, StarFill, ThermometerSnow, Tv, VolumeMuteFill, Wifi, Wifi1 } from 'react-bootstrap-icons'
 import './HotelsReservation.scss'
 import Rating from 'react-rating'
 import { LuParkingSquare } from 'react-icons/lu'
@@ -13,6 +13,8 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetails } from '../../api/hotel'
 import { Link } from 'react-router-dom'
+import TextViewMore from '../../components/TextViewMore/TextViewMore'
+import StickySideBar from '../../components/StickySideBar/StickySideBar'
 
 const AttractionReservation = ({ data }) => {
 
@@ -222,178 +224,294 @@ const HotelsReservation = () => {
       <div className='hotels-container'>
         <div>
           <div className="hotels-header">
-            <div className="hotels-nav">
+            {/* <div className="hotels-nav">
               <ChevronLeft />
               <span>Retour</span>
-            </div>
-            <div className="body-hotels">
-              <div className='item-a'>
-                <img className="image-hover-scale" src='/img/other/chambre_1.jpg' />
-              </div>
-              <div className='item-b relative'>
-                <img className="image-hover-scale" src='/img/other/chambre_2.jpg' />
-                <div className='text'>
-                  <Camera />
-                  <span>Voir les (400)</span>
+            </div> */}
+            {
+              hotelDetails?.pictures?.length > 0 &&
+              <>
+                <div className="body-hotels">
+                  <div className='item-a'>
+                    <img className="image-hover-scale" src={hotelDetails?.pictures[0].fileUrl} />
+                  </div>
+                  <div className='item-b relative'>
+                    <img className="image-hover-scale" src={hotelDetails?.pictures[1].fileUrl} />
+                    <div className='text'>
+                      <Camera />
+                      <span>Voir les (400)</span>
+                    </div>
+                  </div>
+                  <div className='item-c'>
+                    <img className="image-hover-scale" src={hotelDetails?.pictures[2].fileUrl} />
+                  </div>
+                  <div className='item-d'>
+                    <img className="image-hover-scale" src={hotelDetails?.pictures[3].fileUrl} />
+                  </div>
+                  <div className='item-e'>
+                    <img className="image-hover-scale" src={hotelDetails?.pictures[4].fileUrl} />
+                  </div>
                 </div>
-              </div>
-              <div className='item-c'>
-                <img className="image-hover-scale" src='/img/other/chambre_3.jpg' />
-              </div>
-              <div className='item-d'>
-                <img className="image-hover-scale" src='/img/other/chambre_4.jpg' />
-              </div>
-              <div className='item-e'>
-                <img className="image-hover-scale" src='/img/other/chambre_5.jpg' />
-              </div>
-            </div>
+                <div className='body-hotels-slider'>
+                  <div className='text-body'>
+                    <ImageFill color='white' />
+                    <span>4</span>
+                  </div>
+                  <Slider {...{
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: false,
+                    infinite: true,
+                    autoplay: true,
+                    speed: 500,
+                    arrows: false
+                  }}>
+                    <div className="body-item-hotels">
+                      <img src='/img/other/chambre_5.jpg' alt='' />
+                    </div>
+                    <div className="body-item-hotels">
+                      <img src='/img/other/chambre_3.jpg' alt='' />
+                    </div>
+                    <div className="body-item-hotels">
+                      <img src='/img/other/chambre_4.jpg' alt='' />
+                    </div>
+                  </Slider>
+                </div>
+              </>
 
-            <div className='body-hotels-slider'>
-              <div className='text-body'>
-                <ImageFill color='white' />
-                <span>4</span>
-              </div>
-              <Slider {...{
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                dots: false,
-                infinite: true,
-                autoplay: true,
-                speed: 500,
-                arrows: false
-              }}>
-                <div className="body-item-hotels">
-                  <img src='/img/other/chambre_5.jpg' alt='' />
-                </div>
-                <div className="body-item-hotels">
-                  <img src='/img/other/chambre_3.jpg' alt='' />
-                </div>
-                <div className="body-item-hotels">
-                  <img src='/img/other/chambre_4.jpg' alt='' />
-                </div>
-              </Slider>
-            </div>
+            }
+
+
+
           </div>
 
-          <div className="description-hotel">
-            <div className='description-title'>
-              <h2>{hotelDetails?.name}</h2>
-            </div>
-            <div className="description-body">
-              <div className="description-left">
-                <div className="description-left-title">
-                  <ul className='title'>
-                    <li>
-                      <span>4.5</span>
-                    </li>
-                    <li>
-                      <span><b>Excellent</b></span>
-                      <div className='gems'>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <p>160 avis</p>
+          <div className="hotel-content">
+            <div className="description-hotel">
+              <div className='hotel-name mt-10'>
+                <div className="hotel-stars flex orange-txt">
+                  {
+                    [...new Array(hotelDetails?.rating)].map((r, i) => <StarFill size={13} />)
+                  }
+                </div>
+                <h1>{hotelDetails?.name}</h1>
+                <span className='txt-2'>{hotelDetails?.address}</span>
+              </div>
+
+              <div className="description-body">
+                <div className="description-left">
+                  <div className="description-left-title">
+                    <div className="hotel-evaluations">
+                      <div className='top flex gap-10 mb-15 align-items-center'>
+                        <div className='hotel-global-note'>
+                          <span className='block'>4.5</span>
+                        </div>
+                        <div>
+                          <span><b>Excellent</b></span>
+                          <div className='gems flex gap-10 align-items-center'>
+                            <Rating
+                              readonly
+                              initialRating={3.5}
+                              onChange={(value) => { }}
+                              fractions={2}
+                              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                            />
+                            <span className='txt-2'>160 avis</span>
+                          </div>
+                        </div>
                       </div>
-                    </li>
-                  </ul>
-                  <div className='title-text'><p>Hôtel chic à Antananarivo avec un restaurant et un bar/salon</p></div>
-                  <div className='item-gems'>
-                    <ul>
-                      <li>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <span>
-                          Emplacement
-                        </span>
-                      </li>
-                      <li>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />                        <span>
-                          Propreté
-                        </span>
-                      </li>
-                      <li>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />                        <span>
-                          Service
-                        </span>
-                      </li>
-                      <li>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />                        <span>
-                          Rapport qualité / prix
-                        </span>
-                      </li>
-
-                    </ul>
-                  </div>
-                  <div className='description-categorie'>
-                    <div className="description-categorie-title" style={{
-                      padding: '10px 0'
-                    }}>
-                      <p>Bon à savoir</p>
-                    </div>
-
-                    <div className="descirption-categorie-container">
-
-                      <div className="description-categorie-item">
-                        <ul>
+                      <div className='item-gems'>
+                        {/* <ul>
                           <li>
-                            <span>Categorie</span>
-                            <InfoCircle />
+                            <Rating
+                              className='rating-1'
+                              readonly
+                              initialRating={3.5}
+                              onChange={(value) => { }}
+                              fractions={2}
+                              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                            />
+                            <span className='txt-2'>Emplacement</span>
+                          </li>
+                          <li>
+                            <Rating
+                              className='rating-1'
+                              readonly
+                              initialRating={3.5}
+                              onChange={(value) => { }}
+                              fractions={2}
+                              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                            />
+                            <span className='txt-2'>Propreté</span>
+                          </li>
+                          <li>
+                            <Rating
+                              className='rating-1'
+                              readonly
+                              initialRating={3.5}
+                              onChange={(value) => { }}
+                              fractions={2}
+                              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                            />
+                            <span className='txt-2'>Service</span>
+                          </li>
+                          <li>
+                            <Rating
+                              className='rating-1'
+                              readonly
+                              initialRating={3.5}
+                              onChange={(value) => { }}
+                              fractions={2}
+                              emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                              fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                            />
+                            <span className='txt-2'>Rapport qualité / prix</span>
                           </li>
 
-                          <li className='flex gap-10'>
+                </ul>*/}
+                      </div>
+                    </div>
+                    <section className='mb-15'>
+                      <h2 className='mb-10' style={{ fontSize: '16px' }}>À propos de {hotelDetails?.name}</h2>
+                      <TextViewMore limiteMot={20}>{hotelDetails?.description}</TextViewMore>
+                    </section>
+                    <hr />
+                    <section>
+                      <h2 className='mb-10' style={{ fontSize: '16px' }}>Equipements de l'établissement</h2>
+
+                      <div className="equipments-grid">
+                        {
+                          (hotelDetails?.equipments.length > 0) &&
+                          hotelDetails?.equipments.slice(0, 6).map((e, i) => (
+                            <div key={i} className="flex align-items-center">
+                              <div className="ico">
+                                <LuParkingSquare />
+                              </div>
+                              <span className='txt-2'>{e.equipmentTitle}</span>
+                            </div>
+                          ))
+                        }
+
+
+
+                        {/* <div className="description-item">
+  <BusFront />
+  <span>Transfert aéroport</span>
+</div>
+
+<div className="description-item">
+  <Wifi />
+  <span>Wi-Fi haut débit gratuit</span>
+</div>
+
+<div className="description-item">
+  <CupStraw />
+  <span>Bar/lounge</span>
+</div>
+
+
+<div className="description-item">
+  <GiDogHouse />
+  <span>Animaux domestiques autorisés</span>
+</div>
+
+
+<div className="description-item">
+  <GiSuitcase />
+  <span>Centre d'affaires avec accès Internet</span>
+</div> */}
+                      </div>
+
+
+                      <div className='flex align-items-center orange-txt py-10'><span>Voir tous les équipements</span><ChevronRight /></div>
+                    </section>
+
+
+
+                    <section>
+                      <h2 className='mb-10' style={{ fontSize: '16px' }}>Services dans l'établissement</h2>
+
+                      <div className="equipments-grid">
+                        {
+                          (hotelDetails?.serviceHotels.length > 0) &&
+                          hotelDetails?.serviceHotels?.slice(0, 6).map((s, i) => (
+                            <div key={i} className="flex align-items-center">
+                              <div className="ico">
+                                <LuParkingSquare />
+                              </div>
+                              <span className='txt-2'>{s.serviceTitle}</span>
+                            </div>
+                          ))
+                        }
+
+                        {/* <div className='flex align-items-center'>
+                        <DoorOpen />
+                        <span>Rideaux occulantes</span>
+                      </div>
+
+                      <div className='flex align-items-center'>
+                        <VolumeMuteFill />
+                        <span>Chambres insonorisées</span>
+                      </div>
+
+                      <div className='flex align-items-center'>
+                        <ThermometerSnow />
+                        <span>Climatisation</span>
+                      </div>
+
+                      <div className='flex align-items-center'>
+                        <Tv />
+                        <span>TV par câble/satellite</span>
+                      </div> */}
+
+                      </div>
+                      <div className='flex align-items-center orange-txt py-10'><span>Voir tous les services</span><ChevronRight /></div>
+                    </section>
+                    <hr />
+                    <div className='description-categorie'>
+
+                      <div className="description-categorie-title">
+                        <h2 className='mb-10' style={{ fontSize: '16px' }}>Bon à savoir</h2>
+                      </div>
+
+                      <div className="descirption-categorie-container">
+                        <ul className='hotel-other-infos'>
+                          <li className='hotel-category'>
+                            <h3>Categorie</h3>
                             {
                               [...new Array(hotelDetails?.rating)].map((r, i) => <Star key={i} />)
                             }
                           </li>
 
-                          <li>
-                            <p>STYLE D'HOTEL</p>
+                          <li className='hotel-style'>
+                            <h4>Style d'hotel</h4>
                             <p>Vue sur la ville</p>
                             <p>Affaires</p>
                           </li>
+                          <li className='hotel-langs'>
+                            <h4>Langues parlées</h4>
+                            <p>
+                              {
+                                hotelDetails?.languages.map((l, i) => l.language).join(',')
+                              }
+                            </p>
+                          </li>
+                          {
+                            hotelDetails?.parking &&
+                            <li className='hotel-parking'>
+                              <h4>Parking</h4>
+                              <ul>
+                                <li><b>Emplacement:</b> {hotelDetails?.parking?.locationParking}</li>
+                                <li><b>Type:</b> {hotelDetails?.parking?.parkingType}</li>
+                              </ul>
+                            </li>
+                          }
 
                         </ul>
-                      </div>
 
-                      <div className="description-categorie-item">
-                        <h6>LANGUES PARLEES</h6>
-                        <p>
-                          {
-                            hotelDetails?.languages.map((l, i) => l.language).join(',')
-                          }
-                        </p>
                       </div>
 
                     </div>
@@ -401,884 +519,607 @@ const HotelsReservation = () => {
                   </div>
 
                 </div>
-
-              </div>
-              <div className="description-right">
-                <div className="description-right-title">
-                  <span>Equipements de l'établissement</span>
-                </div>
-
-                <div className="description-gride">
-
-                  {
-                    (hotelDetails?.equipments.length > 0) &&
-                    hotelDetails?.equipments.map((e, i) => (
-                      <div key={i} className="description-item">
-                        <LuParkingSquare />
-                        <span>{e.equipmentTitle}</span>
-                      </div>
-                    ))
-                  }
-
-
-
-                  {/* <div className="description-item">
-                    <BusFront />
-                    <span>Transfert aéroport</span>
-                  </div>
-
-                  <div className="description-item">
-                    <Wifi />
-                    <span>Wi-Fi haut débit gratuit</span>
-                  </div>
-
-                  <div className="description-item">
-                    <CupStraw />
-                    <span>Bar/lounge</span>
-                  </div>
-
-
-                  <div className="description-item">
-                    <GiDogHouse />
-                    <span>Animaux domestiques autorisés</span>
-                  </div>
-
-
-                  <div className="description-item">
-                    <GiSuitcase />
-                    <span>Centre d'affaires avec accès Internet</span>
-                  </div> */}
-
-
-
-
-
-
-                </div>
-
-                <div className='encore py-10'>
-                  <span>plus</span>
-                </div>
-
-                <div className="description-right-title-2" style={{
-                  fontWeight: 'bold', paddingTop: '5px'
-                }}>
-                  <span style={{ fontSize: '16px' }}>Équipements de la chambre</span>
-                </div>
-
-                <div className="description-gride">
-
-                  <div className='description-item'>
-                    <DoorOpen />
-                    <span>Rideaux occulantes</span>
-                  </div>
-
-                  <div className='description-item'>
-                    <VolumeMuteFill />
-                    <span>Chambres insonorisées</span>
-                  </div>
-
-                  <div className='description-item'>
-                    <ThermometerSnow />
-                    <span>Climatisation</span>
-                  </div>
-
-                  <div className='description-item'>
-                    <Tv />
-                    <span>TV par câble/satellite</span>
-                  </div>
+                <div className="description-right">
+                  <StickySideBar top={100}>
+                    <aside className='hotel-aside'>
+                      <h3 className='mb-10'>Réservez dès maintenant</h3>
+                      <span className='txt-3'>À partir de</span>
+                      <strong className='price'>100 000 MGA</strong>
+                      <span className='txt-3'>par adulte</span>
+                      <Link className='btn btn-purple block mt-10'>Réserver</Link>
+                    </aside>
+                  </StickySideBar>
 
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className='connexion flex align-items-center justify-content-between p-15 gap-15'>
-            <div className="connexion-svg flex-2 flex gap-10">
-              <MdEditNotifications size={20} />
-              <p>Inscrivez vous dès maintenant pour reserver un hébergement.</p>
-            </div>
-            <Link className='btn btn-purple' to='/inscription'>S'inscrire</Link>
-          </div>
-
-          <div className="description-search">
-
-            <div className='description-search-title p-15'>
-              <h4>Choisissez votre unité d'hebergement</h4>
+            <div className='connexion flex align-items-center justify-content-between p-15 gap-15'>
+              <div className="connexion-svg flex-2 flex gap-10">
+                <MdEditNotifications size={20} />
+                <p>Inscrivez vous dès maintenant pour reserver un hébergement ou gérer votre hotel.</p>
+              </div>
+              <Link className='btn btn-purple' to='/inscription'>S'inscrire</Link>
             </div>
 
-            <div className="search-container">
+            <div className="description-search">
 
-              <div className='search-container-item'>
-                <div className='search-left'>
-                  <p><Calendar /></p>
+              <div className='description-search-title p-15'>
+                <h4>Choisissez votre unité d'hebergement</h4>
+              </div>
+
+              <div className="search-container">
+
+                <div className='search-container-item'>
+                  <div className='search-left'>
+                    <p><Calendar /></p>
+                  </div>
+                  <div className='search-right'>
+                    <p>Arrive</p>
+                    <p>22 Févr...</p>
+                  </div>
                 </div>
-                <div className='search-right'>
-                  <p>Arrive</p>
-                  <p>22 Févr...</p>
+
+                <div className='search-container-item'>
+                  <div className='search-left'>
+                    <p><Calendar /></p>
+                  </div>
+                  <div className='search-right'>
+                    <p>Départ</p>
+                    <p>23 Févr...</p>
+                  </div>
+                </div>
+
+                <div className='search-container-item-right'>
+                  <div className='search-left'>
+                    <p><Calendar /></p>
+
+                  </div>
+                  <div className='search-right'>
+                    <p>Voyageurs</p>
+                    <p>1 chambre, 2 pers</p>
+                  </div>
                 </div>
               </div>
 
-              <div className='search-container-item'>
-                <div className='search-left'>
-                  <p><Calendar /></p>
-                </div>
-                <div className='search-right'>
-                  <p>Départ</p>
-                  <p>23 Févr...</p>
-                </div>
-              </div>
-
-              <div className='search-container-item-right'>
-                <div className='search-left'>
-                  <p><Calendar /></p>
-
-                </div>
-                <div className='search-right'>
-                  <p>Voyageurs</p>
-                  <p>1 chambre, 2 pers</p>
-                </div>
-              </div>
             </div>
 
-          </div>
-
-          <div className="gride-card">
-            <div className="gride-card-item ">
-              <div className='caroseul relative'>
-                <div className='slider'>
-                  <Slider {...{
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                  }}
-                  >
-                    <div>
-                      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/de/2c/6e/tamboho-suites.jpg?w=300&h=-1&s=1" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                  </Slider>
-                </div>
-
-                <div className="caroseul-titre flex">
-                  <Camera2 /><span>4</span>
-                </div>
-
-              </div>
-
-              <div className='caroseul-content'>
-
-                <div className='caroseul-header'>
-
-                  <div className="caroseul-title">
-                    <h4>Nest Rom</h4>
-                    <p>9,2/10 Superbe</p>
-                  </div>
-
-                  <div className="caroseul-body">
-
-                    <ul>
-                      <li>
-                        <House />
-                        <span> Vue sur la ville</span>
-                      </li>
-
-                      <li>
-                        <People />
-                        <span> 2 personne</span>
-                      </li>
-
-                      <li>
-                        <GiBed />
-                        <span>1 lit double</span>
-                      </li>
-
-                      <li>
-                        <Wifi1 />
-                        <span>Accèes Wi-Fi gratuis</span>
-                      </li>
-
-                      <li>
-                        <CaretRight />
-                        <span>14 m</span>
-                      </li>
-                    </ul>
-
-                    <p>Plus de détails</p>
-                  </div>
-
-                </div>
-
-                <div className="caroseul-body-2">
-
-                  <div className='caroseul-body-title'>
-                    <h4>Polique d'annulation</h4>
-                    <p>Plus de détail sur toutles les options</p>
-                  </div>
-
-                  <div className='caroseul-content-2'>
-
-                    <ul>
-                      <li>
-                        <input type="radio" />
-                        <p>Non remboursable</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>Entièrement remboursable avant le 16 févr.</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>
-                          Entièrement remboursable avant le 22 févr.</p>
-                        <p>+18 $</p>
-                      </li>
-                    </ul>
-                    <div className='button m-5'>
-                      <button className='btn-outline-light'>Reserver</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div className="gride-card-item ">
-
-              <div className='caroseul relative'>
-                <div className='slider'>
-                  <Slider {...{
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                  }}
-                  >
-                    <div>
-                      <img src="/img/other/chambre_6.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                  </Slider>
-                </div>
-
-                <div className="caroseul-titre flex">
-                  <Camera2 /><span>4</span>
-                </div>
-
-              </div>
-
-              <div className='caroseul-content'>
-
-                <div className='caroseul-header'>
-
-                  <div className="caroseul-title">
-                    <h4>Nest Rom</h4>
-                    <p>9,2/10 Superbe</p>
-                  </div>
-
-                  <div className="caroseul-body">
-
-                    <ul>
-                      <li>
-                        <House />
-                        <span> Vue sur la ville</span>
-                      </li>
-
-                      <li>
-                        <People />
-                        <span> 2 personne</span>
-                      </li>
-
-                      <li>
-                        <GiBed />
-                        <span>1 lit double</span>
-                      </li>
-
-                      <li>
-                        <Wifi1 />
-                        <span>Accèes Wi-Fi gratuis</span>
-                      </li>
-
-                      <li>
-                        <CaretRight />
-                        <span>14 m</span>
-                      </li>
-                    </ul>
-
-                    <p>Plus de détails</p>
-                  </div>
-
-                </div>
-
-                <div className="caroseul-body-2">
-
-                  <div className='caroseul-body-title'>
-                    <h4>Polique d'annulation</h4>
-                    <p>Plus de détail sur toutles les options</p>
-                  </div>
-
-                  <div className='caroseul-content-2'>
-
-                    <ul>
-                      <li>
-                        <input type="radio" />
-                        <p>Non remboursable</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>Entièrement remboursable avant le 16 févr.</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>
-                          Entièrement remboursable avant le 22 févr.</p>
-                        <p>+18 $</p>
-                      </li>
-                    </ul>
-                    <div className='button m-5'>
-                      <button className='btn-outline-light'>Reserver</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>              <div className="gride-card-item ">
-
-              <div className='caroseul relative'>
-                <div className='slider'>
-                  <Slider {...{
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                  }}
-                  >
-                    <div>
-                      <img src="/img/other/chambre_1.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                  </Slider>
-                </div>
-
-                <div className="caroseul-titre flex">
-                  <Camera2 /><span>4</span>
-                </div>
-
-              </div>
-
-              <div className='caroseul-content'>
-
-                <div className='caroseul-header'>
-
-                  <div className="caroseul-title">
-                    <h4>Nest Rom</h4>
-                    <p>9,2/10 Superbe</p>
-                  </div>
-
-                  <div className="caroseul-body">
-
-                    <ul>
-                      <li>
-                        <House />
-                        <span> Vue sur la ville</span>
-                      </li>
-
-                      <li>
-                        <People />
-                        <span> 2 personne</span>
-                      </li>
-
-                      <li>
-                        <GiBed />
-                        <span>1 lit double</span>
-                      </li>
-
-                      <li>
-                        <Wifi1 />
-                        <span>Accèes Wi-Fi gratuis</span>
-                      </li>
-
-                      <li>
-                        <CaretRight />
-                        <span>14 m</span>
-                      </li>
-                    </ul>
-
-                    <p>Plus de détails</p>
-                  </div>
-
-                </div>
-
-                <div className="caroseul-body-2">
-
-                  <div className='caroseul-body-title'>
-                    <h4>Polique d'annulation</h4>
-                    <p>Plus de détail sur toutles les options</p>
-                  </div>
-
-                  <div className='caroseul-content-2'>
-
-                    <ul>
-                      <li>
-                        <input type="radio" />
-                        <p>Non remboursable</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>Entièrement remboursable avant le 16 févr.</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>
-                          Entièrement remboursable avant le 22 févr.</p>
-                        <p>+18 $</p>
-                      </li>
-                    </ul>
-                    <div className='button m-5'>
-                      <button className='btn-outline-light'>Reserver</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="gride-card-item ">
-              <div className='caroseul relative'>
-                <div className='slider'>
-                  <Slider {...{
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                  }}
-                  >
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                  </Slider>
-                </div>
-                <div className="caroseul-titre flex">
-                  <Camera2 /><span>4</span>
-                </div>
-              </div>
-              <div className='caroseul-content'>
-                <div className='caroseul-header'>
-                  <div className="caroseul-title">
-                    <h4>Nest Rom</h4>
-                    <p>9,2/10 Superbe</p>
-                  </div>
-                  <div className="caroseul-body">
-                    <ul>
-                      <li>
-                        <House />
-                        <span> Vue sur la ville</span>
-                      </li>
-                      <li>
-                        <People />
-                        <span> 2 personne</span>
-                      </li>
-                      <li>
-                        <GiBed />
-                        <span>1 lit double</span>
-                      </li>
-                      <li>
-                        <Wifi1 />
-                        <span>Accèes Wi-Fi gratuis</span>
-                      </li>
-                      <li>
-                        <CaretRight />
-                        <span>14 m</span>
-                      </li>
-                    </ul>
-                    <p>Plus de détails</p>
-                  </div>
-                </div>
-                <div className="caroseul-body-2">
-                  <div className='caroseul-body-title'>
-                    <h4>Polique d'annulation</h4>
-                    <p>Plus de détail sur toutles les options</p>
-                  </div>
-                  <div className='caroseul-content-2'>
-                    <ul>
-                      <li>
-                        <input type="radio" />
-                        <p>Non remboursable</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>Entièrement remboursable avant le 16 févr.</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>
-                          Entièrement remboursable avant le 22 févr.</p>
-                        <p>+18 $</p>
-                      </li>
-                    </ul>
-                    <div className='button m-5'>
-                      <button className='btn-outline-light'>Reserver</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="gride-card-item ">
-              <div className='caroseul relative'>
-                <div className='slider'>
-                  <Slider {...{
-                    arrows: false,
-                    dots: false,
-                    infinite: false,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                  }}
-                  >
-                    <div>
-                      <img src="/img/other/chambre_2.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img src="/img/other/chambre_7.jpg" alt="" />
-                    </div>
-                  </Slider>
-                </div>
-
-                <div className="caroseul-titre flex">
-                  <Camera2 /><span>4</span>
-                </div>
-              </div>
-              <div className='caroseul-content'>
-                <div className='caroseul-header'>
-                  <div className="caroseul-title">
-                    <h4>Nest Rom</h4>
-                    <p>9,2/10 Superbe</p>
-                  </div>
-                  <div className="caroseul-body">
-                    <ul>
-                      <li>
-                        <House />
-                        <span> Vue sur la ville</span>
-                      </li>
-                      <li>
-                        <People />
-                        <span> 2 personne</span>
-                      </li>
-
-                      <li>
-                        <GiBed />
-                        <span>1 lit double</span>
-                      </li>
-
-                      <li>
-                        <Wifi1 />
-                        <span>Accèes Wi-Fi gratuis</span>
-                      </li>
-
-                      <li>
-                        <CaretRight />
-                        <span>14 m</span>
-                      </li>
-                    </ul>
-
-                    <p>Plus de détails</p>
-                  </div>
-
-                </div>
-
-                <div className="caroseul-body-2">
-
-                  <div className='caroseul-body-title'>
-                    <h4>Polique d'annulation</h4>
-                    <p>Plus de détail sur toutles les options</p>
-                  </div>
-
-                  <div className='caroseul-content-2'>
-
-                    <ul>
-                      <li>
-                        <input type="radio" />
-                        <p>Non remboursable</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>Entièrement remboursable avant le 16 févr.</p>
-                        <p>+0 $</p>
-                      </li>
-                      <li>
-                        <input type="radio" />
-                        <p>
-                          Entièrement remboursable avant le 22 févr.</p>
-                        <p>+18 $</p>
-                      </li>
-                    </ul>
-                    <div className='button m-5'>
-                      <button className='btn-outline-light'>Reserver</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="other-card">
-            <div className="title-other">
-              <h4>Vous pourriez aussi aimer…</h4>
-            </div>
-            <div className="caroseul-slider">
-              <Slider {...{
-                arrows: false,
-                dots: false,
-                infinite: false,
-                speed: 500,
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                responsive: [
-                  {
-                    breakpoint: 1024,
-                    settings: {
-                      slidesToShow: 3,
-                      slidesToScroll: 1,
+            <div className="gride-card">
+              <div className="gride-card-item ">
+                <div className='caroseul relative'>
+                  <div className='slider'>
+                    <Slider {...{
+                      arrows: false,
+                      dots: false,
                       infinite: false,
-                      dots: false
-                    }
-                  },
-                  {
-                    breakpoint: 600,
-                    settings: {
-                      slidesToShow: 2,
+                      speed: 500,
+                      slidesToShow: 1,
                       slidesToScroll: 1,
-                    }
-                  },
-                  {
-                    breakpoint: 480,
-                    settings: {
+                    }}
+                    >
+                      <div>
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/de/2c/6e/tamboho-suites.jpg?w=300&h=-1&s=1" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                    </Slider>
+                  </div>
+
+                  <div className="caroseul-titre flex">
+                    <Camera2 /><span>4</span>
+                  </div>
+
+                </div>
+
+                <div className='caroseul-content'>
+
+                  <div className='caroseul-header'>
+
+                    <div className="caroseul-title">
+                      <h4>Nest Rom</h4>
+                      <p>9,2/10 Superbe</p>
+                    </div>
+
+                    <div className="caroseul-body">
+
+                      <ul>
+                        <li>
+                          <House />
+                          <span> Vue sur la ville</span>
+                        </li>
+
+                        <li>
+                          <People />
+                          <span> 2 personne</span>
+                        </li>
+
+                        <li>
+                          <GiBed />
+                          <span>1 lit double</span>
+                        </li>
+
+                        <li>
+                          <Wifi1 />
+                          <span>Accèes Wi-Fi gratuis</span>
+                        </li>
+
+                        <li>
+                          <CaretRight />
+                          <span>14 m</span>
+                        </li>
+                      </ul>
+
+                      <p>Plus de détails</p>
+                    </div>
+
+                  </div>
+
+                  <div className="caroseul-body-2">
+
+                    <div className='caroseul-body-title'>
+                      <h4>Polique d'annulation</h4>
+                      <p>Plus de détail sur toutles les options</p>
+                    </div>
+
+                    <div className='caroseul-content-2'>
+
+                      <ul>
+                        <li>
+                          <input type="radio" />
+                          <p>Non remboursable</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>Entièrement remboursable avant le 16 févr.</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>
+                            Entièrement remboursable avant le 22 févr.</p>
+                          <p>+18 $</p>
+                        </li>
+                      </ul>
+                      <div className='button m-5'>
+                        <button className='btn-outline-light'>Reserver</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="gride-card-item ">
+
+                <div className='caroseul relative'>
+                  <div className='slider'>
+                    <Slider {...{
+                      arrows: false,
+                      dots: false,
+                      infinite: false,
+                      speed: 500,
                       slidesToShow: 1,
                       slidesToScroll: 1
-                    }
-                  }
-                ]
-              }}>
-                {dataReservation.map((a, i) => (
-                  <AttractionReservation data={a} key={i} />
-                ))}
-              </Slider>
-            </div>
-          </div>
+                    }}
+                    >
+                      <div>
+                        <img src="/img/other/chambre_6.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                    </Slider>
+                  </div>
 
-          <div className='postion-hotels'>
+                  <div className="caroseul-titre flex">
+                    <Camera2 /><span>4</span>
+                  </div>
 
-            <div className="position-title py-10">
-              <h4>Emplacement</h4>
-            </div>
-
-            <div className="map-hotels">
-              <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}   >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[51.505, -0.09]}>
-                </Marker>
-              </MapContainer>
-            </div>
-
-            <div className='hotels-description flex   p-10 gap-10'>
-              <div className='hotels-item flex align-items-center gap-10  flex-1'>
-                <div className="hotels-note">
-                  <span style={{ fontSize: '30px', fontWeight: 'bold' }}>42</span>
                 </div>
-                <div className='hotels-item-content'>
-                  <p style={{ fontWeight: 'bold' }}>Voiture recommander</p>
-                  <p>Note : 42 sur 100</p>
-                </div>
-              </div>
 
-              <div className='hotels-item flex align-items-center gap-10 flex-1'>
-                <div className="hotels-note">
-                  <span style={{ fontSize: '30px', fontWeight: 'bold' }}>12</span>
-                </div>
-                <div className='hotels-item-content'>
-                  <p style={{ fontWeight: 'bold' }}>restaurants</p>
-                  <p>à 1 km</p>
-                </div>
-              </div>
+                <div className='caroseul-content'>
 
-              <div className='hotels-item flex align-items-center gap-10 flex-1'>
-                <div className="hotels-note">
-                  <span style={{ fontSize: '30px', fontWeight: 'bold' }}>0</span>
-                </div>
-                <div className='hotels-item-content'>
-                  <p style={{ fontWeight: 'bold' }}>Attraction</p>
-                  <p>à 1 KM </p>
-                </div>
-              </div>
-            </div>
+                  <div className='caroseul-header'>
 
-            <div className='hotels-content flex  gap-10 p-10'>
-              <div className='hotels-content-item flex-1'>
-                <div className='position-hotels flex align-items-center gap-10 py-5'>
-                  <div className='svg-hotels'><PostcardFill /></div>
-                  <div className='hotels-title'>
-                    <p>Zone Tana waterFront Ambodivona Antananarivo 101 Madagascar
-                    </p>
+                    <div className="caroseul-title">
+                      <h4>Nest Rom</h4>
+                      <p>9,2/10 Superbe</p>
+                    </div>
+
+                    <div className="caroseul-body">
+
+                      <ul>
+                        <li>
+                          <House />
+                          <span> Vue sur la ville</span>
+                        </li>
+
+                        <li>
+                          <People />
+                          <span> 2 personne</span>
+                        </li>
+
+                        <li>
+                          <GiBed />
+                          <span>1 lit double</span>
+                        </li>
+
+                        <li>
+                          <Wifi1 />
+                          <span>Accèes Wi-Fi gratuis</span>
+                        </li>
+
+                        <li>
+                          <CaretRight />
+                          <span>14 m</span>
+                        </li>
+                      </ul>
+
+                      <p>Plus de détails</p>
+                    </div>
+
+                  </div>
+
+                  <div className="caroseul-body-2">
+
+                    <div className='caroseul-body-title'>
+                      <h4>Polique d'annulation</h4>
+                      <p>Plus de détail sur toutles les options</p>
+                    </div>
+
+                    <div className='caroseul-content-2'>
+
+                      <ul>
+                        <li>
+                          <input type="radio" />
+                          <p>Non remboursable</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>Entièrement remboursable avant le 16 févr.</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>
+                            Entièrement remboursable avant le 22 févr.</p>
+                          <p>+18 $</p>
+                        </li>
+                      </ul>
+                      <div className='button m-5'>
+                        <button className='btn-outline-light'>Reserver</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className='acces py-5'>
-                  <h4>Accès</h4>
-                </div>
-                <ul>
-                  <li className='flex gap-10 align-items-center py-5'>
-                    <div className='svg-item'><CarFront /></div>
-                    <div className='text-item'><p>Antanananrivo Airport</p></div>
-                  </li>
-                  <li className='flex gap-10 align-items-center py-5'>
-                    <div className='svg-item'><CarFront /></div>
-                    <div className='text-item'><p>Voiture de location</p></div>
-                  </li>
+              </div>              <div className="gride-card-item ">
 
-                </ul>
-                <div className='footer'>
-                  <p>Voir tous les hotels a proximité</p>
-                </div>
-              </div>
-              <div className='hotels-content-item flex-2'>
-                <div className='hotels-title'>
-                  <h4>Restaurant proches</h4>
-                </div>
-                <div className='hotels-restaurant'>
-                  <ul>
-                    <li>
-                      <p>Marais Resautaurant</p>
-                      <div className='gems-restaurant flex align-items-center py-5 gap-5'>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <p>57 avis</p>
+                <div className='caroseul relative'>
+                  <div className='slider'>
+                    <Slider {...{
+                      arrows: false,
+                      dots: false,
+                      infinite: false,
+                      speed: 500,
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }}
+                    >
+                      <div>
+                        <img src="/img/other/chambre_1.jpg" alt="" />
                       </div>
-                    </li>
-                    <li>
-                      <p>Resto Gasy</p>
-                      <div className='gems-restaurant flex align-items-center py-5 gap-5'>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <p>57 avis</p>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
                       </div>
-                    </li>
-                    <li>
-                      <p>Restaurant Le Complexe</p>
-                      <div className='gems-restaurant flex align-items-center py-5 gap-5'>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <p>57 avis</p>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
                       </div>
-                    </li>
-                    <li>
-                      <p>Hotel Restaurant Tamboho</p>
-                      <div className='gems-restaurant flex align-items-center py-5 gap-5'>
-                        <Rating
-                          readonly
-                          initialRating={3.5}
-                          onChange={(value) => { }}
-                          fractions={2}
-                          emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
-                          fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
-                        />
-                        <p>57 avis</p>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
                       </div>
+                    </Slider>
+                  </div>
 
-                    </li>
+                  <div className="caroseul-titre flex">
+                    <Camera2 /><span>4</span>
+                  </div>
 
-                  </ul>
-                  <div className='footer'>
-                    <p>Voir tous les restaurants à proximité</p>
+                </div>
+
+                <div className='caroseul-content'>
+
+                  <div className='caroseul-header'>
+
+                    <div className="caroseul-title">
+                      <h4>Nest Rom</h4>
+                      <p>9,2/10 Superbe</p>
+                    </div>
+
+                    <div className="caroseul-body">
+
+                      <ul>
+                        <li>
+                          <House />
+                          <span> Vue sur la ville</span>
+                        </li>
+
+                        <li>
+                          <People />
+                          <span> 2 personne</span>
+                        </li>
+
+                        <li>
+                          <GiBed />
+                          <span>1 lit double</span>
+                        </li>
+
+                        <li>
+                          <Wifi1 />
+                          <span>Accèes Wi-Fi gratuis</span>
+                        </li>
+
+                        <li>
+                          <CaretRight />
+                          <span>14 m</span>
+                        </li>
+                      </ul>
+
+                      <p>Plus de détails</p>
+                    </div>
+
+                  </div>
+
+                  <div className="caroseul-body-2">
+
+                    <div className='caroseul-body-title'>
+                      <h4>Polique d'annulation</h4>
+                      <p>Plus de détail sur toutles les options</p>
+                    </div>
+
+                    <div className='caroseul-content-2'>
+
+                      <ul>
+                        <li>
+                          <input type="radio" />
+                          <p>Non remboursable</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>Entièrement remboursable avant le 16 févr.</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>
+                            Entièrement remboursable avant le 22 févr.</p>
+                          <p>+18 $</p>
+                        </li>
+                      </ul>
+                      <div className='button m-5'>
+                        <button className='btn-outline-light'>Reserver</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
+              <div className="gride-card-item ">
+                <div className='caroseul relative'>
+                  <div className='slider'>
+                    <Slider {...{
+                      arrows: false,
+                      dots: false,
+                      infinite: false,
+                      speed: 500,
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }}
+                    >
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                    </Slider>
+                  </div>
+                  <div className="caroseul-titre flex">
+                    <Camera2 /><span>4</span>
+                  </div>
+                </div>
+                <div className='caroseul-content'>
+                  <div className='caroseul-header'>
+                    <div className="caroseul-title">
+                      <h4>Nest Rom</h4>
+                      <p>9,2/10 Superbe</p>
+                    </div>
+                    <div className="caroseul-body">
+                      <ul>
+                        <li>
+                          <House />
+                          <span> Vue sur la ville</span>
+                        </li>
+                        <li>
+                          <People />
+                          <span> 2 personne</span>
+                        </li>
+                        <li>
+                          <GiBed />
+                          <span>1 lit double</span>
+                        </li>
+                        <li>
+                          <Wifi1 />
+                          <span>Accèes Wi-Fi gratuis</span>
+                        </li>
+                        <li>
+                          <CaretRight />
+                          <span>14 m</span>
+                        </li>
+                      </ul>
+                      <p>Plus de détails</p>
+                    </div>
+                  </div>
+                  <div className="caroseul-body-2">
+                    <div className='caroseul-body-title'>
+                      <h4>Polique d'annulation</h4>
+                      <p>Plus de détail sur toutles les options</p>
+                    </div>
+                    <div className='caroseul-content-2'>
+                      <ul>
+                        <li>
+                          <input type="radio" />
+                          <p>Non remboursable</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>Entièrement remboursable avant le 16 févr.</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>
+                            Entièrement remboursable avant le 22 févr.</p>
+                          <p>+18 $</p>
+                        </li>
+                      </ul>
+                      <div className='button m-5'>
+                        <button className='btn-outline-light'>Reserver</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="gride-card-item ">
+                <div className='caroseul relative'>
+                  <div className='slider'>
+                    <Slider {...{
+                      arrows: false,
+                      dots: false,
+                      infinite: false,
+                      speed: 500,
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }}
+                    >
+                      <div>
+                        <img src="/img/other/chambre_2.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                      <div>
+                        <img src="/img/other/chambre_7.jpg" alt="" />
+                      </div>
+                    </Slider>
+                  </div>
+
+                  <div className="caroseul-titre flex">
+                    <Camera2 /><span>4</span>
+                  </div>
+                </div>
+                <div className='caroseul-content'>
+                  <div className='caroseul-header'>
+                    <div className="caroseul-title">
+                      <h4>Nest Rom</h4>
+                      <p>9,2/10 Superbe</p>
+                    </div>
+                    <div className="caroseul-body">
+                      <ul>
+                        <li>
+                          <House />
+                          <span> Vue sur la ville</span>
+                        </li>
+                        <li>
+                          <People />
+                          <span> 2 personne</span>
+                        </li>
+
+                        <li>
+                          <GiBed />
+                          <span>1 lit double</span>
+                        </li>
+
+                        <li>
+                          <Wifi1 />
+                          <span>Accèes Wi-Fi gratuis</span>
+                        </li>
+
+                        <li>
+                          <CaretRight />
+                          <span>14 m</span>
+                        </li>
+                      </ul>
+
+                      <p>Plus de détails</p>
+                    </div>
+
+                  </div>
+
+                  <div className="caroseul-body-2">
+
+                    <div className='caroseul-body-title'>
+                      <h4>Polique d'annulation</h4>
+                      <p>Plus de détail sur toutles les options</p>
+                    </div>
+
+                    <div className='caroseul-content-2'>
+
+                      <ul>
+                        <li>
+                          <input type="radio" />
+                          <p>Non remboursable</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>Entièrement remboursable avant le 16 févr.</p>
+                          <p>+0 $</p>
+                        </li>
+                        <li>
+                          <input type="radio" />
+                          <p>
+                            Entièrement remboursable avant le 22 févr.</p>
+                          <p>+18 $</p>
+                        </li>
+                      </ul>
+                      <div className='button m-5'>
+                        <button className='btn-outline-light'>Reserver</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-          </div>
-
-          <div className="proche-card">
             <div className="other-card">
-              <div className="title-other flex justify-content-between aligin-items-center">
-                <h4>Établissements les plus réservés à Antananarivo</h4>
-                <p style={{
-                  cursor: 'pointer'
-                }}>Tout Afficher</p>
+              <div className="title-other">
+                <h4>Vous pourriez aussi aimer…</h4>
               </div>
               <div className="caroseul-slider">
                 <Slider {...{
@@ -1314,21 +1155,225 @@ const HotelsReservation = () => {
                     }
                   ]
                 }}>
-                  {procheData.map((a, i) => (
+                  {dataReservation.map((a, i) => (
                     <AttractionReservation data={a} key={i} />
                   ))}
                 </Slider>
               </div>
             </div>
-          </div>
+
+            <div className='postion-hotels'>
+
+              <div className="position-title py-10">
+                <h4>Emplacement</h4>
+              </div>
+
+              {
+                hotelDetails?.position &&
+                <div className="map-hotels">
+                  <MapContainer center={[hotelDetails?.position.lat, hotelDetails?.position.lng]} zoom={7}>
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={[hotelDetails?.position.lat, hotelDetails?.position.lng]}>
+                    </Marker>
+                  </MapContainer>
+                </div>
+              }
+
+              <div className='hotels-description flex   p-10 gap-10'>
+                <div className='hotels-item flex align-items-center gap-10  flex-1'>
+                  <div className="hotels-note">
+                    <span style={{ fontSize: '30px', fontWeight: 'bold' }}>42</span>
+                  </div>
+                  <div className='hotels-item-content'>
+                    <p style={{ fontWeight: 'bold' }}>Voiture recommander</p>
+                    <p>Note : 42 sur 100</p>
+                  </div>
+                </div>
+
+                <div className='hotels-item flex align-items-center gap-10 flex-1'>
+                  <div className="hotels-note">
+                    <span style={{ fontSize: '30px', fontWeight: 'bold' }}>12</span>
+                  </div>
+                  <div className='hotels-item-content'>
+                    <p style={{ fontWeight: 'bold' }}>restaurants</p>
+                    <p>à 1 km</p>
+                  </div>
+                </div>
+
+                <div className='hotels-item flex align-items-center gap-10 flex-1'>
+                  <div className="hotels-note">
+                    <span style={{ fontSize: '30px', fontWeight: 'bold' }}>0</span>
+                  </div>
+                  <div className='hotels-item-content'>
+                    <p style={{ fontWeight: 'bold' }}>Attraction</p>
+                    <p>à 1 KM </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className='hotels-content flex  gap-10 p-10'>
+                <div className='hotels-content-item flex-1'>
+                  <div className='position-hotels flex align-items-center gap-10 py-5'>
+                    <div className='svg-hotels'><PostcardFill /></div>
+                    <div className='hotels-title'>
+                      <p>Zone Tana waterFront Ambodivona Antananarivo 101 Madagascar
+                      </p>
+                    </div>
+                  </div>
+                  <div className='acces py-5'>
+                    <h4>Accès</h4>
+                  </div>
+                  <ul>
+                    <li className='flex gap-10 align-items-center py-5'>
+                      <div className='svg-item'><CarFront /></div>
+                      <div className='text-item'><p>Antanananrivo Airport</p></div>
+                    </li>
+                    <li className='flex gap-10 align-items-center py-5'>
+                      <div className='svg-item'><CarFront /></div>
+                      <div className='text-item'><p>Voiture de location</p></div>
+                    </li>
+
+                  </ul>
+                  <div className='footer'>
+                    <p>Voir tous les hotels a proximité</p>
+                  </div>
+                </div>
+                <div className='hotels-content-item flex-2'>
+                  <div className='hotels-title'>
+                    <h4>Restaurant proches</h4>
+                  </div>
+                  <div className='hotels-restaurant'>
+                    <ul>
+                      <li>
+                        <p>Marais Resautaurant</p>
+                        <div className='gems-restaurant flex align-items-center py-5 gap-5'>
+                          <Rating
+                            readonly
+                            initialRating={3.5}
+                            onChange={(value) => { }}
+                            fractions={2}
+                            emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                            fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                          />
+                          <p>57 avis</p>
+                        </div>
+                      </li>
+                      <li>
+                        <p>Resto Gasy</p>
+                        <div className='gems-restaurant flex align-items-center py-5 gap-5'>
+                          <Rating
+                            readonly
+                            initialRating={3.5}
+                            onChange={(value) => { }}
+                            fractions={2}
+                            emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                            fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                          />
+                          <p>57 avis</p>
+                        </div>
+                      </li>
+                      <li>
+                        <p>Restaurant Le Complexe</p>
+                        <div className='gems-restaurant flex align-items-center py-5 gap-5'>
+                          <Rating
+                            readonly
+                            initialRating={3.5}
+                            onChange={(value) => { }}
+                            fractions={2}
+                            emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                            fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                          />
+                          <p>57 avis</p>
+                        </div>
+                      </li>
+                      <li>
+                        <p>Hotel Restaurant Tamboho</p>
+                        <div className='gems-restaurant flex align-items-center py-5 gap-5'>
+                          <Rating
+                            readonly
+                            initialRating={3.5}
+                            onChange={(value) => { }}
+                            fractions={2}
+                            emptySymbol={<img src="/img/icons/diamond_grey.png" className="icon rating-diamond-img" />}
+                            fullSymbol={<img src="/img/icons/diamond.png" className="icon rating-diamond-img" />}
+                          />
+                          <p>57 avis</p>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                    <div className='footer'>
+                      <p>Voir tous les restaurants à proximité</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="proche-card">
+              <div className="other-card">
+                <div className="title-other flex justify-content-between aligin-items-center">
+                  <h4>Établissements les plus réservés à Antananarivo</h4>
+                  <p style={{
+                    cursor: 'pointer'
+                  }}>Tout Afficher</p>
+                </div>
+                <div className="caroseul-slider">
+                  <Slider {...{
+                    arrows: false,
+                    dots: false,
+                    infinite: false,
+                    speed: 500,
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    responsive: [
+                      {
+                        breakpoint: 1024,
+                        settings: {
+                          slidesToShow: 3,
+                          slidesToScroll: 1,
+                          infinite: false,
+                          dots: false
+                        }
+                      },
+                      {
+                        breakpoint: 600,
+                        settings: {
+                          slidesToShow: 2,
+                          slidesToScroll: 1,
+                        }
+                      },
+                      {
+                        breakpoint: 480,
+                        settings: {
+                          slidesToShow: 1,
+                          slidesToScroll: 1
+                        }
+                      }
+                    ]
+                  }}>
+                    {procheData.map((a, i) => (
+                      <AttractionReservation data={a} key={i} />
+                    ))}
+                  </Slider>
+                </div>
+              </div>
+            </div>
 
 
-          <div className="grid-avis-content">
-            <h4 className='px-15 pb-5'>Avis utilisateur</h4>
-            <div className='grid-avis'>
-              {avisData.map((a, i) => (
-                <AvisCard data={a} key={i} />
-              ))}
+            <div className="grid-avis-content">
+              <h4 className='px-15 pb-5'>Avis utilisateur</h4>
+              <div className='grid-avis'>
+                {avisData.map((a, i) => (
+                  <AvisCard data={a} key={i} />
+                ))}
+              </div>
             </div>
           </div>
 

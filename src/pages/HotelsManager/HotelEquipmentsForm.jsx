@@ -5,8 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getHotelEquipments, getHotelServices } from '../../api/hotel';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import { getRandomNumber } from '../../functions'
+import CheckBox from '../../components/CheckBox/CheckBox';
 
-const HotelEquipmentsForm = ({ currentStepValues, setInitialFields, currentStepErrors }) => {
+const HotelEquipmentsForm = ({ formData, initialFields, setFormData, currentStepErrors, currentStepValues, setInitialFields }) => {
 
 
     //get equipments list
@@ -54,14 +55,31 @@ const HotelEquipmentsForm = ({ currentStepValues, setInitialFields, currentStepE
                         hotelEquipments?.map((e, i) => (
                             <div>
                                 <label className="flex align-items-center gap-5">
-                                    <Field type="checkbox" name="hotelEquipments" value={`/equipments/${e.id}`} />
+                                    <Field name="hotelEquipments" value={`/equipments/${e.id}`} >
+                                        {({ field, form }) => {
+                                            const isChecked = form.values.hotelEquipments?.includes(`/equipments/${e.id}`);
+                                            return (
+                                                <CheckBox
+                                                    checked={isChecked}
+                                                    value={`/equipments/${e.id}`}
+                                                    onChange={(e) => {
+                                                        const currentValues = form.values.hotelEquipments;
+                                                        const newValue = e.target.checked ? (currentValues ? [...currentValues, e.target.value] : [e.target.value]) : currentValues.filter(value => value !== e.target.value);
+                                                        form.setFieldValue(field.name, newValue);
+                                                    }} />
+                                            )
+                                        }
+
+                                        }
+                                    </Field>
+                                    {/* <Field type="checkbox" name="hotelEquipments" value={`/equipments/${e.id}`} /> */}
                                     <span>{e.equipmentTitle}</span>
                                 </label>
                             </div>
                         ))
                 }
             </div>
-            <div className="form-group">
+            <div>
                 <ErrorLabel error={currentStepErrors.hotelEquipments} />
             </div>
             <hr />
@@ -75,17 +93,34 @@ const HotelEquipmentsForm = ({ currentStepValues, setInitialFields, currentStepE
                         [...new Array(20)].map(_ => <Skeleton radius={2} height={10} width={`${getRandomNumber(30, 80)}%`} />)
                         :
 
-                        hotelServices?.map((e, i) => (
+                        hotelServices?.map((s, i) => (
                             <div>
                                 <label className="flex align-items-center gap-5">
-                                    <Field type="checkbox" name="hotelServices" value={`/service_hotels/${e.id}`} />
-                                    <span>{e.serviceTitle}</span>
+
+
+                                    <Field type="checkbox" name="hotelServices" value={`/service_hotels/${s.id}`} >
+                                        {({ field, form }) => {
+                                            const isChecked = form.values.hotelServices?.includes(`/service_hotels/${s.id}`);
+                                            return (
+                                                <CheckBox
+                                                    checked={isChecked}
+                                                    value={`/service_hotels/${s.id}`} onChange={(e) => {
+                                                        const currentValues = form.values.hotelServices;
+                                                        const newValue = e.target.checked ? (currentValues ? [...currentValues, e.target.value] : [e.target.value]) : currentValues.filter(value => value !== e.target.value);
+                                                        form.setFieldValue(field.name, newValue);
+                                                    }} />
+                                            )
+                                        }
+
+                                        }
+                                    </Field>
+                                    <span>{s.serviceTitle}</span>
                                 </label>
                             </div>
                         ))
                 }
             </div>
-            <div className="form-group">
+            <div className="mb-15">
                 <ErrorLabel error={currentStepErrors.hotelServices} />
             </div>
 

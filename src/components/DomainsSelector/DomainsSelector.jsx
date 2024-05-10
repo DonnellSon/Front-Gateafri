@@ -58,47 +58,49 @@ const DomainsSelector = ({ open, onClose }) => {
 
     return (
         <Modal open={isOpen} className="domains-selector-modal">
-            <div className="top">
-                <h1>Domaines</h1>
-                <div className="close" onClick={() => {
-                    onClose()
-                    setIsOpen(false)
-                }}><XLg /></div>
-            </div>
-            <div className="body">
-                <p className='text-center'><span>Ajoutez vos domaines préférés pour être au courant des dernières actualités concernant ces domaines </span>
-                    <small>&bull; Par défaut <strong>GateAfri</strong> vous suggère les domaines les plus populaires</small></p>
-                <div className='searchbar-sticky'>
-                    <Searchbar placeholder='Rechercher un domaine' />
+            <div>
+                <div className="top">
+                    <h1>Domaines</h1>
+                    <div className="close" onClick={() => {
+                        onClose()
+                        setIsOpen(false)
+                    }}><XLg /></div>
                 </div>
-                {
-                    domains &&
-                    <ul className='domains-list'>
-                        {
-                            domains.filter((d) => !selected.find((s) => s.id === d.id)).map((d, i) => <li key={i} onClick={() => setSelected(prev => [...prev, d])}><PlusLg /> {d.title}</li>)
-                        }
-                    </ul>
-                }
-            </div>
-            <div className="footer">
-
-                {
-                    selected.length > 0 &&
-                    <>
-                        <h5>Sélectionnés</h5>
-                        <SliderNav activatable={false}>
+                <div className="body">
+                    <p className='text-center'><span>Ajoutez vos domaines préférés pour être au courant des dernières actualités concernant ces domaines </span>
+                        <small>&bull; Par défaut <strong>GateAfri</strong> vous suggère les domaines les plus populaires</small></p>
+                    <div className='searchbar-sticky'>
+                        <Searchbar placeholder='Rechercher un domaine' />
+                    </div>
+                    {
+                        domains &&
+                        <ul className='domains-list'>
                             {
-                                selected.map((s, i) => <div key={i} onClick={() => removeSelected(s.id)}><span>{s.title}</span><div className='ico'><X size={20} /></div></div>)
+                                domains.filter((d) => !selected.find((s) => s.id === d.id)).map((d, i) => <li key={i} onClick={() => setSelected(prev => [...prev, d])}><PlusLg /> {d.title}</li>)
                             }
-                        </SliderNav>
-                    </>
-                }
+                        </ul>
+                    }
+                </div>
+                <div className="footer">
 
-                <div className='bottom flex justify-content-end gap-10'>
-                    <button className="btn btn-transparent">Annuler</button>
-                    <button className="btn btn-purple" onClick={saveDomains}>{
-                        !onSave ? 'Enregistrer' : <CircleLoader />
-                    }</button>
+                    {
+                        selected.length > 0 &&
+                        <>
+                            <h5>Sélectionnés</h5>
+                            <SliderNav activatable={false}>
+                                {
+                                    selected.map((s, i) => <div key={i} onClick={() => removeSelected(s.id)}><span>{s.title}</span><div className='ico'><X size={20} /></div></div>)
+                                }
+                            </SliderNav>
+                        </>
+                    }
+
+                    <div className='bottom flex justify-content-end gap-10'>
+                        <button className="btn btn-transparent">Annuler</button>
+                        <button className="btn btn-purple" onClick={saveDomains}>{
+                            !onSave ? 'Enregistrer' : <CircleLoader />
+                        }</button>
+                    </div>
                 </div>
             </div>
         </Modal>

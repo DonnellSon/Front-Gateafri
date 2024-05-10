@@ -1,62 +1,51 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Field } from 'formik'
+import { StarFill } from 'react-bootstrap-icons'
+import TextEditor from '../../components/TextEditor/TextEditor'
 
 const HotelPolicies = ({ formData, setFormData, initialFields, setInitialFields = () => { }, handleChange = () => { }, currentStepValues, currentStepErrors, touched }) => {
     useEffect(() => {
         setInitialFields(currentStepValues)
     }, [currentStepValues])
-   
+
     return (
         <div className='add-hotel-identity'>
 
             <div className="form-group">
-                <label htmlFor="">Politique d</label>
-                <Field className="inpt" type="text" as="textarea" name='hotelName' placeholder='Quel est le nom de votre hotel ?' />
-                <small>Les utilisateurs verront ce nom lors de leur recherche</small>
-                <ErrorLabel error={currentStepErrors.hotelName} />
+                <label htmlFor="">Politique d'annulation</label>
+                <Field name="cancellationPolicy">
+                    {
+                        ({ field, form }) => (
+                            <TextEditor value={formData.cancellationPolicy ? formData.cancellationPolicy : ""} onChange={(val) => { form.setFieldValue(field.name, { name: "Politique d'annulation", value: val.html }) }} />
+
+                        )
+                    }
+                </Field>
+                <small>Specifiez votre politique concernant les annulation de réservations dans votre Hotel</small>
+            </div>
+            <div className="form-group">
+                <label htmlFor="">Règles pour les animaux domestiques</label>
+                <Field name='petPolicy'>
+                    {
+                        ({ field, form }) => (
+                            <TextEditor value={formData.petPolicy ? formData.petPolicy : ""} onChange={(val) => { form.setFieldValue(field.name, { name: "Règles pour les animaux domestiques", value: val.html }) }} />
+                        )
+                    }
+                </Field>
             </div>
             <hr />
-
             <div className="form-group">
-                <label htmlFor="">Nombre d'étoiles</label>
-                <ul className='stars-number'>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="null" />
-                            <span>Non Applicable</span>
-                        </label>
-                    </li>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="1" checked={initialFields.hotelStars == "1"} />
-                            <span>1 étoile</span><span><StarFill /></span>
-                        </label>
-                    </li>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="2" checked={initialFields.hotelStars == "2"} />
-                            <span>2 étoiles</span><span><StarFill /><StarFill /></span>
-                        </label>
-                    </li>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="3" checked={initialFields.hotelStars == "3"} />
-                            <span>3 étoiles</span><span><StarFill /><StarFill /><StarFill /></span>
-                        </label>
-                    </li>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="4" checked={initialFields.hotelStars == "4"} />
-                            <span>4 étoiles</span><span><StarFill /><StarFill /><StarFill /><StarFill /></span>
-                        </label>
-                    </li>
-                    <li className='flex align-items-center gap-5'>
-                        <label className='flex align-items-center gap-5'>
-                            <Field type="radio" name="hotelStars" value="5" checked={initialFields.hotelStars == "5"} />
-                            <span>5 étoiles</span><span><StarFill /><StarFill /><StarFill /><StarFill /><StarFill /></span>
-                        </label>
-                    </li>
-                </ul>
-                <ErrorLabel error={currentStepErrors.hotelStars} />
+                <div className="form-group">
+                    <label htmlFor="">Règles de séjour</label>
+                    <Field name='stayRules'>
+                        {
+                            ({ field, form }) => (
+                                <TextEditor value={formData.stayRules ? formData.stayRules : ""}  onChange={(val) => { form.setFieldValue(field.name, { name: "Règles de séjour", value: val.html }) }} />
+                            )
+                        }
+                    </Field>
+                    <small>Quels sont les règles mises en vigueur dans votre hotel</small>
+                </div>
             </div>
         </div>
     )

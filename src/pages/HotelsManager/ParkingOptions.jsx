@@ -42,16 +42,15 @@ const ParkingOptions = ({ formData: { includeParking, parkingWithSupplement, num
       {
         currentStepValues.parkingWithSupplement == 1 &&
         <div className="form-group">
-          <label htmlFor="">Tarif pour le parking</label>
+          <label htmlFor="">Tarif pour le parking par voiture par jour</label>
           <div className="flex align-items-center gap-10">
             <Field name="parkingSupplement">
               {({ field, form, meta }) => (
-                <AmountInput field={field} />
+                <AmountInput onChange={(amount) => form.setFieldValue(field.name, amount)} />
               )}
             </Field>
-            <span>/voiture/jour</span>
           </div>
-          <ErrorLabel error={currentStepErrors.parkingSupplement} />
+          <ErrorLabel error={currentStepErrors.parkingSupplement?.value || currentStepErrors.parkingSupplement} />
         </div>
       }
       {
@@ -61,11 +60,7 @@ const ParkingOptions = ({ formData: { includeParking, parkingWithSupplement, num
             <label htmlFor="">Nombre de parking disponible</label>
             <div className="gap-5">
               <div>
-                <Field name="numberOfPlaces">
-                  {({ field, form, meta }) => (
-                    <AmountInput field={field} />
-                  )}
-                </Field>
+                <Field name="numberOfPlaces" className="inpt" placeholder="Combien de parking disponible ?" />
               </div>
               <ErrorLabel error={currentStepErrors.numberOfPlaces} />
             </div>

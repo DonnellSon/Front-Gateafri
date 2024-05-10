@@ -13,6 +13,7 @@ import PostCardSkeleton from '../PostCard/PostCardSkeleton'
 import { getComments } from '../../api/comment'
 import { useSelector } from 'react-redux'
 import { useQueryClient } from '@tanstack/react-query'
+import { usePaginated } from '../../Hooks/queryHooks'
 
 
 const PostViewModal = ({ post, open = false, setOpen = () => { } }) => {
@@ -31,6 +32,8 @@ const PostViewModal = ({ post, open = false, setOpen = () => { } }) => {
             return acc;
         }, []);
     }
+
+    const { addItem } = usePaginated({ queryKey: ['postComments', post.id] })
 
     return (
         <Modal open={open} closeOnClickOutside={true} animation={null} className='post-view-modal'>
@@ -52,18 +55,18 @@ const PostViewModal = ({ post, open = false, setOpen = () => { } }) => {
                             user &&
                             <div className="top">
                                 <CommentForm commentable={`/posts/${post.id}`} onSended={(newComment) => {
-                                    const newData = flatInfiniteQuery()
-                                    queryClient.setQueryData(['postComments', post.id], (old) => {
-                                        const oldArray = flatInfiniteQuery(old)
-                                        return {
-                                            ...old,
-                                            pages: chunckArray([newComment, ...oldArray], 5).map((data, i) => ({
-                                                data,
-                                                nextPage: i + 2,
-                                                totalItems: old.pages[0].data.totalItems + 1
-                                            }))
-                                        }
-                                    });
+                                    addItem(newComment)
+                                    // queryClient.setQueryData(['postComments', post.id], (old) => {
+                                    //     const oldArray = flatInfiniteQuery(old)
+                                    //     return {
+                                    //         ...old,
+                                    //         pages: chunckArray([newComment, ...oldArray], 5).map((data, i) => ({
+                                    //             data,
+                                    //             nextPage: i + 2,
+                                    //             totalItems: old.pages[0].data.totalItems + 1
+                                    //         }))
+                                    //     }
+                                    // });
                                 }} />
                             </div>
                         }

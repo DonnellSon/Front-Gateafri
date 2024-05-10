@@ -10,7 +10,7 @@ import {
   Water,
   Wifi,
 } from "react-bootstrap-icons";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getInvests } from "../../api/invest";
 import Slider from "react-slick";
 import GoodDealCard from "../../components/GoodDealCard/GoodDealCard";

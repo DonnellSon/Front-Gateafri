@@ -11,7 +11,10 @@ const MultiInputOption = ({ value = "", options = [], setOptions = () => { }, re
             <input type={inputType} className="inpt" onChange={
                 (e) => editOption(index, e.target.value)
             } placeholder={placeholder} />
-            <button className='btn-outline-light' onClick={() => { removeOption(index) }}><Trash size={18} /></button>
+            <button className='btn-outline-light' onClick={(e) => { 
+                e.preventDefault()
+                removeOption(index)
+             }}><Trash size={18} /></button>
         </div>
     )
 }
