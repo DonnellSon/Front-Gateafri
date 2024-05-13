@@ -1,0 +1,95 @@
+@import "../../style.scss";
+
+.invoices {
+  @include themify($themes) {
+    h2 {
+      padding: 15px 0;
+    }
+    h3 {
+      padding: 15px;
+      font-weight: 600;
+    }
+    .periode {
+      align-items: center;
+      gap: 5px;
+      padding: 15px 15px 0;
+      margin-bottom: 15px;
+      span {
+        font-weight: 700;
+      }
+      select {
+        width: 200px;
+      }
+    }
+    .container-table {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        th,
+        td {
+          font-size: 14px;
+          text-align: start;
+          padding: 15px;
+          color: themed("text", 1);
+        }
+        tr {
+            &:hover{
+                background-color: themed('background',5);
+            }
+          th:first-child, td:first-child {
+            border-radius: 5px 0 0 5px;
+          }
+          th:last-child ,td:last-child{
+            border-radius: 0 5px 5px 0;
+          }
+        }
+        .title {
+          border-radius: 5px;
+          background-color: themed("background", 2);
+          &:hover{
+            background-color: themed("background", 2);
+
+          }
+        }
+        th,
+        td {
+          color: themed("text", 1);
+          text-align: start;
+          margin: 15px;
+        }
+
+        td {
+          font-size: 14px;
+          margin: 0;
+        }
+
+        span {
+          display: block;
+        }
+        .actions {
+          display: flex;
+          gap: 5px;
+          a {
+            font-size: 12px;
+          }
+          svg {
+            display: inline;
+          }
+        }
+        .danger {
+          color: map-get($red, primary);
+        }
+        .bold {
+          font-weight: 600;
+        }
+      }
+    }
+    > .bottom {
+      text-align: end;
+      margin-top: 5px;
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+}

@@ -1,0 +1,190 @@
+@import "../../style.scss";
+
+#MessageInbox {
+  @include themify($themes) {
+    height: calc(100vh - 130px);
+    overflow-y: hidden;
+    display: flex;
+    gap: 5px;
+    small {
+      display: block;
+      font-size: 11px;
+    }
+    .left {
+      background-color: themed("background", 3);
+      width: 25%;
+      height: 100%;
+      padding: 15px;
+      .search {
+        width: 100%;
+        position: relative;
+        display: table;
+        input {
+          height: 40px;
+          width: 100%;
+          border-radius: 5px;
+          padding: 15px 40px 15px 15px;
+        }
+        .iconSearch {
+          position: absolute;
+          top: 50%;
+          right: 15px;
+          transform: translateY(-50%);
+          color: themed("text", 2);
+        }
+      }
+      .list-discussion {
+        background-color: themed("background", 5);
+        padding: 10px 10px 1px;
+        border-radius: 5px;
+        overflow-y: auto;
+        height: calc(100% - 90px);
+        .discussion {
+          display: flex;
+          gap: 10px;
+          &.read {
+            background-color: themed("background", 5);
+          }
+          .descri {
+            .head {
+              display: flex;
+              justify-content: space-between;
+              .name {
+                font-weight: 600;
+              }
+            }
+            .msg {
+              p {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: themed("text", 4);
+              }
+            }
+          }
+        }
+      }
+    }
+    .center {
+      width: 50%;
+      height: 100%;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      .head {
+        border-bottom: 1px solid themed("border", 1);
+        padding-bottom: 15px;
+        .name {
+          font-weight: 600;
+        }
+      }
+      .message {
+        flex: 1;
+        overflow-y: auto;
+        border-bottom: 1px solid themed("border", 1);
+        padding: 0 0 15px;
+        .incoming,
+        .outgoing {
+          margin-top: 15px;
+          align-items: flex-end;
+          .text {
+            padding: 15px;
+            width: 60%;
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+        .incoming {
+          .text {
+            background-color: var(--orange-transparent);
+            border-radius: 15px 15px 15px 0;
+          }
+        }
+        .outgoing {
+          flex-direction: row-reverse;
+          margin-right: 15px;
+          .text {
+            background-color: themed("background", 5);
+            border-radius: 15px;
+          }
+        }
+      }
+      .bottom {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 15px;
+        height: 40px;
+        min-height: 40px !important;
+        gap: 10px;
+        border-radius: 5px;
+        // background-color: themed('background',5);
+        textarea {
+          border-radius: 5px;
+          min-height: auto !important;
+          flex: 1;
+          margin: 0;
+          height: 100%;
+          min-height: 40px !important;
+          padding: 10px;
+          resize: none;
+          overflow-wrap: break-word !important;
+          position: relative;
+        }
+        .action {
+          color: themed("text", 3);
+          height: 40px;
+          align-items: center;
+          gap: 8px;
+          > div {
+            cursor: pointer;
+          }
+          .send {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            background-color: themed("mainColor", purple);
+            border-radius: 5px;
+            padding: 10px;
+            height: 35px;
+            span {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+    .right {
+      width: 25%;
+      padding: 0 15px 15px;
+      >div>div{
+        margin-top: 15px;
+        >div{
+          width: 50%;
+        }
+      }
+      .name{
+        margin-top: 5px;
+        span{
+          margin-top: 0;
+        }
+      }
+      p{
+        font-size: 13px;
+      }
+      span {
+        font-weight: 600;
+        font-size: 13px;
+        margin-top: 7px;
+      }
+      img {
+        width: 23px;
+        box-shadow: var(--elevation-1);
+        align-self: flex-start;
+      }
+    }
+  }
+}

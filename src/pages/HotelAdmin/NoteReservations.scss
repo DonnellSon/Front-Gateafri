@@ -1,0 +1,98 @@
+@import "../../style.scss";
+
+.note-reservations {
+  @include themify($themes) {
+    h2{
+        margin-bottom: 15px;
+    }
+    .periode{
+        align-items: center;
+        gap: 5px;
+        padding: 15px 15px 0 ;
+        span{
+            font-weight: 700;
+        }
+        select{
+            width: 250px;
+        }
+    }
+    .button{
+        span{
+            color: #fff !important;
+            margin-right: 5px;
+        }
+    }
+    .reservation-lists {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        th{
+          vertical-align: top;
+        }
+        th,
+        td {
+          font-size: 14px;
+          text-align: start;
+          padding: 15px;
+          color: themed("text", 1);
+        }
+        tr {
+          &:hover{
+            background-color: themed('background',5);
+        }
+          th:first-child, td:first-child {
+            border-radius: 5px 0 0 5px;
+          }
+          th:last-child ,td:last-child{
+            border-radius: 0 5px 5px 0;
+          }
+          .name{
+            width: 120px;
+          }
+        }
+        .title {
+          border-radius: 5px;
+          background-color: themed("background", 2);
+          &:hover{
+            background-color: themed("background", 2);
+
+          }
+        }
+        th,
+        td {
+          color: themed("text", 1);
+          text-align: start;
+          margin: 15px;
+        }
+
+        td {
+          font-size: 14px;
+        }
+
+        span {
+          display: block;
+        }
+        .numeral {
+          text-align: center;
+        }
+        .contestation {
+            .checkBox{
+                margin: auto;
+            }
+        }
+      }
+    }
+    > .bottom {
+        display: flex;
+        justify-content: space-between;
+      margin-top: 5px !important;
+      >span{
+        font-weight: 700;
+      }
+      .total {
+        margin-left: 15px;
+        font-weight: 700;
+      }
+    }
+  }
+}

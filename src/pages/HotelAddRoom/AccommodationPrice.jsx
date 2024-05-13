@@ -15,9 +15,10 @@ const AccommodationPrice = ({
         <label htmlFor="">Tarif pour une nuit</label>
         <div className="flex align-items-center gap-10">
           <Field name="accommodationTarif">
-            {({ field, form, meta }) => <AmountInput field={field} />}
+            {({ field, form, meta }) => 
+              <AmountInput onChange={(amount) => form.setFieldValue(field.name, amount)} />
+            }
           </Field>
-          {/* <AmountInput /> */}
           <span>/nuit</span>
         </div>
         <ErrorLabel error={currentStepErrors.accommodationTarif} />

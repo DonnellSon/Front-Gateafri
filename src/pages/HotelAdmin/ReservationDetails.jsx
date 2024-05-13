@@ -1,9 +1,55 @@
 import { Link } from "react-router-dom";
 import "./ReservationDetails.scss";
-import { ChevronDown } from "react-bootstrap-icons";
+import { ChevronDown, Image, Paperclip, Send } from "react-bootstrap-icons";
 import DropDown from "../../components/DropDown/DropDown";
+import Avatar from "../../components/Avatar/Avatar";
+import { useEffect, useRef } from "react";
 
 const ReservationDetails = () => {
+  const styleAvatarMsg = {width:"35px", height:"35px"};
+  const messageContainerRef = useRef(null);
+
+  const divRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    const ta = textareaRef.current;
+    const div = divRef.current;
+
+    const autosize = () => {
+      setTimeout(() => {
+        ta.style.cssText = "height:0px"; // Necessary to shrink scrollHeight when deleting text
+        const height = Math.min(20 * 5, ta.scrollHeight);
+        div.style.cssText = `height:${height}px`;
+        ta.style.cssText = `height:${height}px`;
+      }, 0);
+    };
+
+    ta.addEventListener("keydown", autosize);
+
+    // Cleanup function to remove event listener when component unmounts
+    return () => {
+      ta.removeEventListener("keydown", autosize);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
+
+  useEffect(() => {
+    // Ajoutez une fonction pour ajuster le défilement
+    const adjustScroll = () => {
+      if (messageContainerRef.current) {
+        messageContainerRef.current.scrollTop =
+          messageContainerRef.current.scrollHeight;
+      }
+    };
+
+    // Appeler adjustScroll après chaque mise à jour des messages
+    adjustScroll();
+
+    // Pour s'assurer que le défilement est ajusté même après des mises à jour futures
+    return () => {
+      adjustScroll();
+    };
+  }, []);
   return (
     <div className="reservation-details">
       <h2>Details de la réservation</h2>
@@ -136,6 +182,88 @@ const ReservationDetails = () => {
           </div>
           <div className="conversation elevated-card p-15 mt-15">
             <h4>Conversation avec le client</h4>
+            <div className="message " ref={messageContainerRef} >
+              <div className="incoming flex gap-15">
+                <div className="avatar">
+                  <Avatar  style={styleAvatarMsg}/>
+                </div>
+                <div className="text">
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Voluptatem officiis, quisquam, iusto accusamus nisi itaque
+                    quam, obcaecati facilis dicta qui corrupti atque similique.
+                    Et, iusto dolorum rerum temporibus soluta inventore.
+                  </p>
+                </div>
+                <div className="hours">
+                  <small>15:03</small>
+                </div>
+              </div>
+              <div className="outgoing flex gap-15">
+                <div className="text">
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Voluptatem officiis, quisquam, iusto accusamus nisi itaque
+                    quam, obcaecati facilis dicta qui corrupti atque similique.
+                    Et, iusto dolorum rerum temporibus soluta inventore.
+                  </p>
+                </div>
+                <div className="hours">
+                  <small>15:03</small>
+                </div>
+              </div>
+              <div className="outgoing flex gap-15">
+                <div className="text">
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Voluptatem officiis, quisquam, iusto accusamus nisi itaque
+                    quam, obcaecati facilis dicta qui corrupti atque similique.
+                    Et, iusto dolorum rerum temporibus soluta inventore.
+                  </p>
+                </div>
+                <div className="hours">
+                  <small>15:03</small>
+                </div>
+              </div>
+              <div className="incoming flex gap-15">
+                <div className="avatar">
+                  <Avatar  style={styleAvatarMsg}/>
+                </div>
+                <div className="text">
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Voluptatem officiis, quisquam, iusto accusamus nisi itaque
+                    quam, obcaecati facilis dicta qui corrupti atque similique.
+                    Et, iusto dolorum rerum temporibus soluta inventore.
+                  </p>
+                </div>
+                <div className="hours">
+                  <small>15:03</small>
+                </div>
+              </div>
+            </div>
+            <div className="bottom" ref={divRef}>
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Ecrire votre message ..."
+            ref={textareaRef}
+          ></textarea>
+          <div className="action flex ">
+            <div className="picture">
+              <Image size={20} />
+            </div>
+            <div className="file">
+              <Paperclip size={20} />
+            </div>
+            <div className="send">
+              <span>Envoie</span>
+              <div className="icon">
+                <Send size={15} />
+              </div>
+            </div>
+          </div>
+        </div>
           </div>
         </div>
         <div className="reservation-right">

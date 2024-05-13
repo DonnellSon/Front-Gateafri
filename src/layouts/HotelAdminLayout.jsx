@@ -94,10 +94,22 @@ const HotelAdminLayout = () => {
               </DoNavLink>
             </li>
             <li>
-              <DoNavLink to={"fdsfsdf"}>
+            <DropDown activeClassName="surligné">
+                <Link>
                 <FileEarmarkText size={16} />
-                <small>Comptabilité</small>
-              </DoNavLink>
+                  <small className="flex gap-5">
+                  Comptabilité <ChevronDown />
+                  </small>
+                </Link>
+                <ul>
+                  <li>
+                    <DoNavLink to="factures">Factures</DoNavLink>
+                  </li>
+                  <li>
+                    <DoNavLink to="relever-reservations">Relevés de réservation</DoNavLink>
+                  </li>
+                </ul>
+              </DropDown>
             </li>
           </ul>
           {/* <div className="hotel-name">

@@ -139,5 +139,87 @@
         }
 
     }
+    .conversation{
+      h4{
+        border-bottom: 1px solid themed('border',1);
+        padding-bottom: 15px;
+      }
+      .message {
+        height: 400px;
+        overflow-y: auto;
+        border-bottom: 1px solid themed("border", 1);
+        padding: 0 0 15px;
+        .incoming,
+        .outgoing {
+          margin-top: 15px;
+          align-items: flex-end;
+          .text {
+            padding: 15px;
+            width: 60%;
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+        .incoming {
+          .text {
+            background-color: var(--orange-transparent);
+            border-radius: 15px 15px 15px 0;
+          }
+        }
+        .outgoing {
+          flex-direction: row-reverse;
+          margin-right: 15px;
+          .text {
+            background-color: themed("background", 5);
+            border-radius: 15px;
+          }
+        }
+      }
+      .bottom {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 15px;
+        height: 40px;
+        min-height: 40px !important;
+        gap: 10px;
+        border-radius: 5px;
+        // background-color: themed('background',5);
+        textarea {
+          border-radius: 5px;
+          min-height: auto !important;
+          flex: 1;
+          margin: 0;
+          height: 100%;
+          min-height: 40px !important;
+          padding: 10px;
+          resize: none;
+          overflow-wrap: break-word !important;
+          position: relative;
+        }
+        .action {
+          color: themed("text", 3);
+          height: 40px;
+          align-items: center;
+          gap: 8px;
+          > div {
+            cursor: pointer;
+          }
+          .send {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            background-color: themed("mainColor", purple);
+            border-radius: 5px;
+            padding: 10px;
+            height: 35px;
+            span {
+              color: white !important;
+            }
+          }
+        }
+      }
+    }
   }
 }

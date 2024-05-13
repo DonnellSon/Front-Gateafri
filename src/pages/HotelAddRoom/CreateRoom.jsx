@@ -9,9 +9,15 @@ import AccommodationPrice from './AccommodationPrice';
 
 
 const CreateRoom = () => {
+  const handleSubmit = (data) => {
+    // Convertir les données du formulaire en chaîne JSON pour l'affichage dans l'alerte
+    const formDataString = JSON.stringify(data, null, 2);
+    alert(`Données du formulaire:\n${formDataString}`);
+  };
  return (
     <div id="create-room">
       <MultiStepForm
+        onSubmitData={handleSubmit}
         steps={[
           {
             title: 'Informations sur l\'hébergement',
@@ -60,10 +66,18 @@ const CreateRoom = () => {
           },
           {
             title: 'Tarif de l\'hébergement',
-            initialValues: { accommodationTarif: "0" },
+            initialValues: { accommodationTarif: [{value:"0", currency:{}}] },
             path: 'tarif',
             validationSchema: Yup.object().shape({
-              accommodationTarif: Yup.string().required('Veuillez indiquer votre prix.'),
+              accommodationTarif: Yup.object().shape({
+                value: Yup.string().required('Veuillez indiquer votre prix.'),
+                currency: Yup.object().shape({
+                  id: Yup.string(),
+                  code: Yup.string(),
+                  name: Yup.string(),
+                  symbol: Yup.string(),
+                }).notRequired(),
+              }),
             }),
           }
         ]}

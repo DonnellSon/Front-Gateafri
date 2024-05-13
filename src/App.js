@@ -117,7 +117,10 @@ import CvList from "./pages/JobFinding/CvList";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AccommodationsDetails from "./pages/HotelAdmin/AccommodationsDetails";
 import EquipmentsAndServices from "./pages/HotelAdmin/EquipmentsAndServices";
-import InBox from "./pages/HotelAdmin/InBox";
+import MessageInbox from "./pages/HotelAdmin/MessageInbox";
+import NoteReservation from "./pages/HotelAdmin/NoteReservations";
+import NoteReservations from "./pages/HotelAdmin/NoteReservations";
+import Invoices from "./pages/HotelAdmin/Invoices";
 function App() {
   const { user } = useSelector((store) => store.user);
   const [socket, setSocket] = useState(null);
@@ -585,7 +588,7 @@ function App() {
                         <Route path=':hotelId' element={<HotelsReservation />} />
                         <Route path='recherche' element={<HotelsSearch />} />
                         <Route path=":hotelId">
-                          <Route element={<AuthRedirect />}>
+                          <Route element={<AuthRedirect/>}>
                             <Route path='hotel-admin' element={<HotelAdminLayout />}>
                               <Route index element={<Navigate to='home' replace={true} />} />
                               <Route path='home' element={<HotelAdminHome />} />
@@ -606,7 +609,9 @@ function App() {
                               <Route path="photos" element={<Pictures />} />
                                 <Route path="hebergement-details" element={<AccommodationsDetails/>}/>
                                 <Route path="equipments-services" element={<EquipmentsAndServices/>}/>
-                                <Route path="messages" element={<InBox/>}/>
+                                <Route path="messages" element={<MessageInbox/>}/>
+                                <Route path="factures" element={<Invoices/>}/>
+                                <Route path="relever-reservations" element={<NoteReservations/>}/>
                             </Route>
                             <Route path="hebergements">
                               <Route path="nouveau/*" element={<CreateRoom />} />

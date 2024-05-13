@@ -239,13 +239,17 @@
               font-size: 15px;
               font-weight: 800;
               background: rgba(128, 0, 128, 0.808);
-              color: white;
             }
             p {
               margin-top: 10px;
               text-align: center;
               font-weight: 700;
               color: themed("text", 3);
+            }
+            &.reservation, &.guest{
+              span{
+                color: #fff !important;
+              }
             }
           }
           .income {
