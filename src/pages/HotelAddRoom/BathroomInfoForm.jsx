@@ -1,42 +1,44 @@
 import { Field, ErrorMessage } from "formik";
 import ErrorLabel from "../../components/ErrorLabel/ErrorLabel";
 import { useEffect } from "react";
+import SquareRadio from "../../components/Input/SquareRadio";
 const BathroomInfoForm = ({
+  formData,
   currentStepValues,
   initialFields,
   setInitialFields,
   currentStepErrors
-}) => {      
-    useEffect(() => {
-        setInitialFields(prev=>({...prev,...currentStepValues}))
-    }, [currentStepValues])
+}) => {
   useEffect(() => {
-    setInitialFields(currentStepValues);
-  }, [currentStepValues]);
+    setInitialFields(prev => ({ ...prev, ...currentStepValues }))
+  }, [currentStepValues])
+  useEffect(() => {
+    setInitialFields(prev => ({ ...prev, ...currentStepValues,bathroomType:formData.bathroomType ?? 0 }));
+  }, []);
   return (
     <div className="bathroom-info">
       <div className="form-group">
         <label htmlFor="">Type de salle de bains.</label>
-        <ul>
-          <li className="flex gap-5">
-            <Field
-              type="radio"
-              name="bathroomType"
-              value={1}
-              checked={(initialFields.bathroomType == "1")}
-            />
-            <span> Privée</span>
-          </li>
-          <li className="flex gap-5">
-            <Field
-              type="radio"
-              name="bathroomType"
-              value={0}
-              checked={(initialFields.bathroomType == "0")}
-            />
-            <span> Partagée</span>
-          </li>
-        </ul>
+        <div className="form-group">
+          <div className="flex gap-10">
+            <Field name="bathroomType">
+              {
+                ({ form, field }) => (
+                  <>
+                    <SquareRadio className="flex-1" checked={parseInt(initialFields.bathroomType) === 0} value={0} onChange={(e) => form.setFieldValue(field.name, e.target.value)} name="bathroomType">
+                      <span>Privée</span>
+                    </SquareRadio>
+                    <SquareRadio className="flex-1" checked={parseInt(initialFields.bathroomType) === 1} value={1} onChange={(e) => form.setFieldValue(field.name, e.target.value)} name="bathroomType">
+                      <span>Partagé</span>
+                    </SquareRadio>
+                  </>
+                )
+              }
+            </Field>
+
+          </div>
+
+        </div>
         <ErrorLabel error={currentStepErrors.bathroomType} />
 
       </div>

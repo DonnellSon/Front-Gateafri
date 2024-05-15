@@ -4,7 +4,7 @@ import AmountInput from "../../components/AmountInput/AmountInput";
 const AccommodationPrice = ({
   formData,
   setFormData,
-  setInitialFields = () => {},
+  setInitialFields = () => { },
   initialFields,
   currentStepValues,
   currentStepErrors,
@@ -23,12 +23,9 @@ const AccommodationPrice = ({
         <ErrorLabel error={currentStepErrors.accommodationTarif} />
       </div>
       <hr />
-      <span>
-        N'ayez aucune crainte, vous aurez la possibilité de le modifier à tout
-        moment. Vous pourrez également ajuster les tarifs en fonction des jours
-        de la semaine, des week-ends ou des saisons, vous permettant ainsi de
-        maintenir une maîtrise totale sur vos revenus
-      </span>
+      <p className="txt-3">
+        Pas de souci ! Vous aurez toute la liberté de le changer à votre gré. Vous pourrez même ajuster les prix en fonction des jours de la semaine, des fins de semaine ou des périodes de l'année, ce qui vous donnera un contrôle total sur vos gains.
+      </p>
     </div>
   );
 };

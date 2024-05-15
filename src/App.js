@@ -585,7 +585,7 @@ function App() {
                         <Route path=':hotelId' element={<HotelsReservation />} />
                         <Route path='recherche' element={<HotelsSearch />} />
                         <Route path=":hotelId">
-                          <Route element={<AuthRedirect />}>
+                          <Route element={<AuthRedirect requireAuth={true} isLoading={pageLoading}/>}>
                             <Route path='hotel-admin' element={<HotelAdminLayout />}>
                               <Route index element={<Navigate to='home' replace={true} />} />
                               <Route path='home' element={<HotelAdminHome />} />
