@@ -93,7 +93,7 @@ const Image = ({ closeFn = () => { } }) => {
                     <div className="background-post-img-glass absolute flex align-items-center justify-content-center">
                         <img ref={img} src={image?.imageEntity.fileUrl} alt="" className="single-post-img absolute" style={{ maxWidth: "100% !important", height: "100% !important" }} />
                     </div>
-                    <div className="close-btn" onClick={(e) => { navigate('../') }}>
+                    <div className="close-btn" onClick={(e) => { navigate(-1) }}>
                         <XLg size={16} />
                     </div>
                     <div className="post-imgs-slide-actions absolute flex gap-10">

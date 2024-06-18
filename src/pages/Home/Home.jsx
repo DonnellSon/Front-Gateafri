@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
 import './Home.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,6 +12,7 @@ import StickySideBar from '../../components/StickySideBar/StickySideBar';
 import MediaContext from '../../context/MediaContext';
 import { DESKTOP, SMARTPHONE, TABLET } from '../../constants/MediaTypeConstants';
 import axios from 'axios';
+import { Parser } from "html-to-react";
 
 import PlanSlider from '../../components/PlanSlider/PlanSlider';
 import Timeline from '../../components/Timeline/Timeline';
@@ -27,15 +28,27 @@ import RequireAuthOnClick from '../../components/RequireAuthOnclick/RequireAuthO
 const Home = () => {
   const { user } = useSelector(store => store.user)
   const { deviceType } = useContext(MediaContext)
-
+  const htmlToJsx = new Parser();
   const { data: companies, error: companiesGetError } = useQuery({
     queryKey: ['repoCompanies'],
     queryFn: getCompanies
   })
+  const { data: latestNews, error: latestNewsError } = useQuery({
+    queryKey: ['repoGateNews'],
+    queryFn: () => {
+      return axios({
+        url: `${process.env.REACT_APP_GATENEWS_LAST_POSTS_URL}`,
+        method: 'get'
+      }).then((res) => res.data)
+    }
+  })
 
   useEffect(() => {
-    console.log(companies, 'COMP')
-  }, [companies])
+    console.log(latestNews, 'NEWS')
+  }, [latestNews])
+  const news=useMemo(()=>{
+    return latestNews?.splice(0, 3)
+  },[latestNews])
 
 
   return (
@@ -78,28 +91,29 @@ const Home = () => {
         {
           ((deviceType === DESKTOP) || (deviceType === TABLET)) ? <div className="right">
             <StickySideBar top={73} className='flex flex-column gap-15'>
-              <div className="top-news">
-                <h4>GateNews</h4>
-                <h5>Route de la Mèque : La Côte d'Ivoire en première pour le plus grand...</h5>
-                <div className="news-slider flex gap-5">
-                  <div className="slide">
-                    <img src="/img/other/1.jpg" alt="" />
+              {
+                latestNews &&
+                <div className="top-news">
+                  <h4>GateNews</h4>
+                  <h5 className='line-clamp-2'>{news[0]?.title}</h5>
+                  <div className="news-slider flex gap-5">
+                  {
+                    news.map((n, i) => (
+                      <Link to={n.url} target='_blank' key={i} className="slide light-on-hover pointer">
+                        <img src={n.photoUrl} alt="" />
+                      </Link>
+                    ))
+                  }
                   </div>
-                  <div className="slide">
-                    <img src="/img/other/2.jpg" alt="" />
-                  </div>
-                  <div className="slide">
-                    <img src="/img/other/3.jpeg" alt="" />
+                  <div className="flex align-items-center justify-content-between py-5">
+                    <div className='flex align-items-center gap-5'>
+                      <Avatar height={25} width={25} />
+                      <span>MarieClaire</span>
+                    </div>
+                    <Link to='https://gatenews.africa' className='flex align-items-center'>Voir plus<ChevronRight /></Link>
                   </div>
                 </div>
-                <div className="flex align-items-center justify-content-between py-5">
-                  <div className='flex align-items-center gap-5'>
-                    <Avatar height={25} width={25} />
-                    <span>MarieClaire</span>
-                  </div>
-                  <Link to='/' className='flex align-items-center'>Voir plus<ChevronRight /></Link>
-                </div>
-              </div>
+              }
               <div className="top-videos">
                 <h4>Videos populaires en Afrique</h4>
                 <div className="popular-videos-slide-card">

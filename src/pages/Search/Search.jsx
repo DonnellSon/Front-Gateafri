@@ -4,6 +4,7 @@ import Avatar from "../../components/Avatar/Avatar";
 import StickySideBar from "../../components/StickySideBar/StickySideBar";
 import {
   ArrowRight,
+  ArrowRightShort,
   Award,
   CupHot,
   GeoAlt,
@@ -28,6 +29,7 @@ import ArtistsListSkeleton from "./ArtistsListSkeleton";
 import MusiquesListSkeleton from "./MusiquesListSkeleton";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import Rating from "react-rating";
+import { getUsers } from "../../api/users";
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -58,11 +60,12 @@ const Search = () => {
         "company.name": k,
       },
       posts: {
-        "orAuthorProperties[company.name]": k,
-        "orAuthorProperties[company.description]": k,
-        "orAuthorProperties[user.firstName]": k,
-        "orAuthorProperties[user.lastName]": k,
+        "or[content]": k
       },
+      users: {
+        "or[firstName]": k,
+        "or[lastName]": k
+      }
     });
   }, [searchParams.get("k")]);
 
@@ -111,18 +114,29 @@ const Search = () => {
       getInvests({ filters: objToQueryString(filters.invests) })
   });
 
+  //searchUsers
+  const {
+    isLoading: usersLoading,
+    error: usersError,
+    data: users,
+  } = useQuery({
+    queryKey: ["repoUsers", filters.users],
+    queryFn: () =>
+      getUsers({ filters: objToQueryString(filters.users) })
+  });
+
   const {
     isLoading: postsLoading,
     error: postsError,
     data: posts,
   } = useQuery({
-    queryKey: ["repoPosts", filters.posts],
+    queryKey: ["repoSearchPosts", filters.posts],
     queryFn: () =>
       getPosts({ filters: decodeURI(objToQueryString(filters.posts)) })
   });
 
   useEffect(() => {
-    console.log(posts, "POSTSsearch");
+    console.log(posts, "pOSTSsearch");
   }, [posts]);
 
   const settings = {
@@ -300,80 +314,85 @@ const Search = () => {
         </StickySideBar>
       </div>
       <div className="center">
-        <div className="portals-results">
-          {portalsLoading ? (
-            <PortalsListSkeleton />
-          ) : (
-            <>
+        {
+          (!portalsLoading && portals.length > 0) &&
+          <div className="portals-results">
+            {portalsLoading ? (
+              <PortalsListSkeleton />
+            ) : (
+              <>
+                <div className="top">
+                  <h2>Entreprises</h2>
+                </div>
+                <ul className="body">
+                  {portals &&
+                    portals.map((p, i) => (
+                      <li key={i} className="flex">
+                        <div className="left">
+                          <Avatar
+                            src={p.activeLogo?.fileUrl}
+                            height={50}
+                            width={50}
+                          />
+                        </div>
+                        <div className="center">
+                          <h1 className="portal-name">
+                            <Link to={`/portail/${p.id}`}>{p.name}</Link>
+                          </h1>
+                          <span className="portal-domains">
+                            {p.domains.map((d) => d.title).join(",")}
+                          </span>
+                          <small>{htmlToJsx.parse(p.description)}</small>
+                        </div>
+                        <div className="right flex gap-10">
+                          <buttton className="btn-purple">Contacter</buttton>
+                        </div>
+                      </li>
+                    ))}
+                </ul>
+                <div className="footer">
+                  <button className="btn btn-transparent">Voir plus</button>
+                </div>
+              </>
+            )}
+          </div>
+        }
+
+
+        {
+          (users && users?.length > 0) &&
+          (
+            <div className="persons-results ">
               <div className="top">
-                <h2>Entreprises</h2>
+                <h2>Personnes</h2>
               </div>
-              <ul className="body">
-                {portals &&
-                  portals.map((p, i) => (
-                    <li key={i} className="flex">
-                      <div className="left">
-                        <Avatar
-                          src={p.activeLogo?.fileUrl}
-                          height={50}
-                          width={50}
-                        />
-                      </div>
-                      <div className="center">
-                        <h1 className="portal-name">
-                          <Link to={`/portail/${p.id}`}>{p.name}</Link>
-                        </h1>
-                        <span className="portal-domains">
-                          {p.domains.map((d) => d.title).join(",")}
-                        </span>
-                        <small>{htmlToJsx.parse(p.description)}</small>
+              <div className="persons-results-list flex flex-column">
+                {
+                  users?.map((u, i) => (
+                    <Link to={`/profil/${u.id}`} className="person flex justify-content-between align-items-center ">
+                      <div className="flex align-items-center gap-10">
+                        <Avatar src={u.activeProfilePicture?.fileUrl} width={45} height={45} />
+                        <div className="info flex flex-column gap-5">
+                          <h3>{u.firstName} {u.lastName}</h3>
+                          {
+                            u.job &&
+                            <p>{u.job}</p>
+                          }
+                        </div>
                       </div>
                       <div className="right flex gap-10">
                         <buttton className="btn-purple">Contacter</buttton>
+                        <buttton className="btn-outline-yellow">Recruter</buttton>
                       </div>
-                    </li>
-                  ))}
-              </ul>
-              <div className="footer">
-                <button className="btn btn-transparent">Voir plus</button>
-              </div>
-            </>
-          )}
-        </div>
+                    </Link>
+                  ))
+                }
 
-        <div className="persons-results ">
-          <div className="top">
-            <h2>Personnes</h2>
-          </div>
-          <div className="persons-results-list flex flex-column">
-            <div className="person flex justify-content-between align-items-center ">
-              <div className="flex align-items-center gap-10">
-                <Avatar width={50} height={50} />
-                <div className="info flex flex-column gap-5">
-                  <h3>John Doe</h3>
-                  <p>Lorem ipsum</p>
-                </div>
-              </div>
-              <div className="right flex gap-10">
-                <buttton className="btn-purple">Contacter</buttton>
-                <buttton className="btn-outline-yellow">Recruter</buttton>
+
               </div>
             </div>
-            <div className="person flex justify-content-between align-items-center ">
-              <div className="flex align-items-center gap-10">
-                <Avatar width={50} height={50} />
-                <div className="info flex flex-column gap-5">
-                  <h3>John Doe</h3>
-                  <p>Lorem ipsum</p>
-                </div>
-              </div>
-              <div className="right flex gap-10">
-                <buttton className="btn-purple">Contacter</buttton>
-                <buttton className="btn-outline-yellow">Recruter</buttton>
-              </div>
-            </div>
-          </div>
-        </div>
+          )
+        }
 
         {investsLoading ? (
           <InvestListSkeleton />
@@ -400,24 +419,22 @@ const Search = () => {
         )}
         {postsLoading ? (
           <PostsListSkeleton />
-        ) : (
-          //   posts?.length > 0 && (
+        ) : posts?.length > 0 && (
           <div className="actualites-results">
             <>
-              <div className="top">
+              <div className="top flex align-items-center">
                 <h2>Actualités</h2>
               </div>
               <div className="posts-results-list flex flex-column gap-10">
-                {postsData.map((p, i) => (
+                {posts?.map((p, i) => (
                   <PostCard key={i} data={p} onDelete={() => { }} />
                 ))}
               </div>
-              <div className="footer">
-                <button className="btn btn-transparent">Voir plus</button>
+              <div className="footer flex align-items-center justify-content-center">
+                <Link className="flex align-items-center gap-5 purple-txt"><span>Voir plus</span><ArrowRightShort size={28}/></Link>
               </div>
             </>
           </div>
-          //   )
         )}
 
         <div className="artists-results">

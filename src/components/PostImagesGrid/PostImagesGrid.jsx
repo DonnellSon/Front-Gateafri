@@ -1,15 +1,16 @@
 import React from 'react'
 import './PostImagesGrid.css'
 import SelectorMedia from '../selectorMedia/SelectorMedia'
-import { Link } from 'react-router-dom'
+import { Link,useLocation, Outlet } from 'react-router-dom'
 const PostImagesGrid = ({ postId,images }) => {
+    const location = useLocation();
     return (
         <div className={`post-images-grid post-images-grid-${images.length <= 5 ? images.length : 5}`}>
             {
                 images.map((img, i) => {
                     if (i <= 4) {
                         return (
-                            <Link to={`/image/${img.image?.id}?p=${postId}`} key={i} className="post-img">
+                            <Link to={`/image/${img.image?.id}?p=${postId}`} state={{ background: location }} key={i} className="post-img">
                                 <img src={img.fileUrl} alt="" />
                                 {
                                     (images.length>5 && i===4) ?
@@ -20,11 +21,13 @@ const PostImagesGrid = ({ postId,images }) => {
                                     : ""
                                 }
                             </Link>
+                            
                         )
                     }
 
                 })
             }
+            <Outlet />
         </div>
     )
 }

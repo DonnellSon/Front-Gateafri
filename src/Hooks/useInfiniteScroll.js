@@ -50,25 +50,24 @@ const useInfiniteScroll = ({
     useEffect(() => {
         
         if (scrollingElement) {
-            if (!isFetchingNextPage && !isFetching) {
-                const { scrollHeight, scrollTop, clientHeight } = scrollingElement
-                console.log('externScroll1')
-                if (scrollHeight - scrollTop <= clientHeight + 50) {
-                    console.log('goscroll')
-                    fetchNextPage()
-                }
-            }
+            // if (!isFetchingNextPage && !isFetching) {
+            //     const { scrollHeight, scrollTop, clientHeight } = scrollingElement
+            //     console.log('externScroll1')
+            //     if (scrollHeight - scrollTop <= clientHeight + 10) {
+            //         console.log('goscroll')
+            //         fetchNextPage()
+            //     }
+            // }
             const onScroll = (e) => {
                 if (!isFetchingNextPage && !isFetching) {
                     const { scrollHeight, scrollTop, clientHeight } = e.target
                 //     console.log('externScroll2')
-                    if (scrollHeight - scrollTop <= clientHeight + 50) {
+                    if (scrollHeight - scrollTop <= clientHeight + 10) {
                         console.log('goscroll')
                         fetchNextPage()
                     }
                 }
             }
-            scrollingElement?.removeEventListener('scroll', onScroll)
             scrollingElement?.addEventListener('scroll', onScroll)
 
             return () => {

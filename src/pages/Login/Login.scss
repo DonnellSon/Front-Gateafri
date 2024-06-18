@@ -35,7 +35,7 @@
     background: var(--main-gradient);
 }
 
-.login-form button {
+.login-form button,.login-form a[type="button"] {
     text-align: center !important;
     height: 40px;
     display: flex;

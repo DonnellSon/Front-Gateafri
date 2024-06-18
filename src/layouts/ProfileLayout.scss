@@ -21,10 +21,14 @@
                         padding: 0 20px;
                         width: 100%;
                         margin-top: 10px;
-
+                        
                         .avatar {
                             margin-top: -25px;
-
+                            .online{
+                                min-width: 13px !important;
+                                min-height: 13px !important;
+                                transform: unset !important;
+                            }
                             >img {
                                 border: 1px solid themed("border", 2);
                                 background: themed("background", 6);

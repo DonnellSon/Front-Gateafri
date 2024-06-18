@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Check2, X } from 'react-bootstrap-icons'
@@ -13,6 +13,8 @@ import { useContext } from 'react'
 const CurrencySelector = () => {
   const { currency, setCurrency } = useContext(CurrencyContext)
   const [openModal, setOpenModal] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(false);
+  const scrollingElement = useRef()
   const {
     data: currenciesList,
     flatData: currenciesListFlat,
@@ -25,16 +27,20 @@ const CurrencySelector = () => {
     refetchPage
   } = useInfiniteScroll({
     url: `${process.env.REACT_APP_API_DOMAIN}/currencies`,
-    ipp: 100,
+    ipp: 28,
     queryKey: ['currencies'],
+    scrollingElement: scrollingElement.current ?? null,
+    enabled: isEnabled,
     transformResult: (result) => {
       return { data: result['hydra:member'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
     }
   })
 
   useEffect(() => {
-    console.log(currenciesListFlat, 'CURRENCYFLAT')
-  }, [currenciesListFlat])
+    if (((currenciesList && currenciesList?.pages[0]?.data?.length > 0) || openModal) && scrollingElement.current) {
+      setIsEnabled(true);
+    }
+  }, [currenciesList,openModal,scrollingElement.current])
 
   useEffect(() => {
     console.log(currency, 'JSONCURRENCY')
@@ -55,7 +61,7 @@ const CurrencySelector = () => {
               <X size={28} />
             </div>
           </div>
-          <div className="body flex-grow-1">
+          <div ref={scrollingElement} className="body flex-grow-1">
 
             <ul>
 
