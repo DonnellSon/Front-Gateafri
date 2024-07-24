@@ -24,6 +24,7 @@ import Tab from '../Tabs/Tab'
 import CommentList from '../commentList/CommentList'
 import CircleLoader from '../CircleLoader/CircleLoader'
 import EvaluationList from '../Evaluation/EvaluationList'
+import NavigableList from '../Input/NavigableList/NavigableList'
 
 
 
@@ -95,27 +96,17 @@ const PostCard = ({ noComment = false, data, onDelete = () => { }, showInteracti
 
           <DropDown>
             <div className="plus-btn"><Plus size={28} style={{ display: 'block' }} /></div>
-            <ul>
-              
-              <li>
-                <Link to='/emplois/cv'>Enregistrer</Link>
-              </li>
-              <li>
-                <Link to='/emplois/nouveau'>Alerter les activités</Link>
-              </li>
+            <NavigableList startIndex={0}>
+              <Link to='/emplois/cv'>Enregistrer</Link>
+              <Link to='/emplois/nouveau'>Alerter les activités</Link>
               {
                 (user && (data.author.id === user?.id || data.author.author?.id === user?.id)) &&
-                <>
-                  <li>
-                    <Link to='/'>Modifier la publication</Link>
-                  </li>
-                  <li>
-                    <hr style={{margin:"10px 0"}}/>
-                    <Link to='/' onClick={deletePost}>Suprimer</Link>
-                  </li>
-                </>
+                
+                  [<Link to='/'>Modifier la publication</Link>,
+                  <Link to='/' onClick={deletePost}>Suprimer</Link>]
+                
               }
-            </ul>
+            </NavigableList>
           </DropDown>
         </div>
       </div>
@@ -123,8 +114,8 @@ const PostCard = ({ noComment = false, data, onDelete = () => { }, showInteracti
       {
         data.content && <div className="body">
 
-        <TextViewMore>{data.content}</TextViewMore></div>
-    }
+          <TextViewMore>{data.content}</TextViewMore></div>
+      }
 
       <PostImagesGrid postId={data.id} images={data.thumbnails} />
       {/* {

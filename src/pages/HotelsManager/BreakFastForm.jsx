@@ -109,7 +109,7 @@ const BreakFastForm = ({ formData: { includeBreakFast, breakFastWithSupplement }
                     {
                         breakfastTypesLoading ?
                             <div className="brakfast-types mt-15 mb-15">
-                                {[...new Array(10)].map(_ => <Skeleton radius={2} height={10} width={`${getRandomNumber(30, 80)}%`} />)}
+                                {[...new Array(10)].map((_,i) => <Skeleton key={i} radius={2} height={10} width={`${getRandomNumber(30, 80)}%`} />)}
                             </div>
                             :
                             (breakfastTypes && breakfastTypes.length > 0) &&
@@ -120,7 +120,7 @@ const BreakFastForm = ({ formData: { includeBreakFast, breakFastWithSupplement }
                                     <div className="brakfast-types mt-15">
                                         {
                                             breakfastTypes?.map((b, i) => (
-                                                <div>
+                                                <div key={i}>
                                                     <label className="flex align-items-center gap-5">
                                                         <Field name="breakFastTypes" value={`/type_breakfasts/${b.id}`} >
                                                             {({ field, form }) => {

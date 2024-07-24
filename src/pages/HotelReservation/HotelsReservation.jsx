@@ -290,7 +290,7 @@ const HotelsReservation = () => {
               <div className='hotel-name mt-10'>
                 <div className="hotel-stars flex orange-txt">
                   {
-                    [...new Array(hotelDetails?.rating)].map((r, i) => <StarFill size={13} />)
+                    [...new Array(hotelDetails?.rating)].map((r, i) => <StarFill key={i} size={13} />)
                   }
                 </div>
                 <h1>{hotelDetails?.name}</h1>

@@ -51,13 +51,13 @@ import RequireAuthOnClick from "../components/RequireAuthOnclick/RequireAuthOnCl
 
 
 const ProfileLayout = () => {
-  const currentUser = useSelector((store) => store.user.user);
-  const { userId } = useParams();
-  const { deviceType } = useContext(MediaContext);
-  const [posts, setPosts] = useState([]);
-  const [postsLoading, setPostsLoading] = useState(false);
-  const [tmpProfilePicture, setTmpProfilePicture] = useState(null);
-  const queryClient = useQueryClient();
+    const currentUser = useSelector((store) => store.user.user);
+    const { userId } = useParams();
+    const { deviceType } = useContext(MediaContext);
+    const [posts, setPosts] = useState([]);
+    const [postsLoading, setPostsLoading] = useState(false);
+    const [tmpProfilePicture, setTmpProfilePicture] = useState(null);
+    const queryClient = useQueryClient();
 
     /**
      * Recuperation de l'user
@@ -97,7 +97,7 @@ const ProfileLayout = () => {
         mutate: requestContactFn,
         error: requestContactErr,
         isLoading: requestContactLoading } = useMutation({
-            mutationFn:() => requestContact(`/users/${userId}`),
+            mutationFn: () => requestContact(`/users/${userId}`),
             onSuccess: (contactRequested) => {
                 queryClient.setQueryData(['repoExistContact', userId], (existContactData) => {
                     return [{ ...contactRequested }]
@@ -203,28 +203,34 @@ const ProfileLayout = () => {
                                                     </DoNavLink>
                                                 </li>
                                                 <li>
-                                                    <DoNavLink to={`a-propos-de-moi`}>
+                                                    <DoNavLink end={false} to={`a-propos-de-moi`}>
                                                         <ExclamationCircle />
-                                                        <small>A propos</small>
+                                                        <small className="ellipsis-text">A propos</small>
                                                     </DoNavLink>
                                                 </li>
                                                 <li>
                                                     <DoNavLink to={`recommandations`}>
                                                         <Gem />
-                                                        <small>Recommander</small>
+                                                        <small className="ellipsis-text">Recommander</small>
                                                     </DoNavLink>
                                                 </li>
                                                 <li>
-                                                    <FileEarmarkPerson />
-                                                    <small>CV</small>
+                                                    <DoNavLink to={`recommandations`}>
+                                                        <FileEarmarkPerson />
+                                                        <small>CV</small>
+                                                    </DoNavLink>
                                                 </li>
                                                 <li>
-                                                    <House />
-                                                    <small>Domaines</small>
+                                                    <DoNavLink to={`recommandations`}>
+                                                        <House />
+                                                        <small>Domaines</small>
+                                                    </DoNavLink>
                                                 </li>
                                                 <li>
-                                                    <Building />
-                                                    <small>Entreprises</small>
+                                                    <DoNavLink to={`recommandations`}>
+                                                        <Building />
+                                                        <small className="ellipsis-text">Entreprises</small>
+                                                    </DoNavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -244,13 +250,13 @@ const ProfileLayout = () => {
                                     </StickySideBar>
                                 </div>
                             } */}
-        </>
-      }
-      <ProfilePictureSelectorModal file={tmpProfilePicture} />
-    </div>
-   : (
-    <NotFound />
-  ));
+                        </>
+                    }
+                    <ProfilePictureSelectorModal file={tmpProfilePicture} />
+                </div>
+                : (
+                    <NotFound />
+                ));
 };
 
 export default ProfileLayout;

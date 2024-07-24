@@ -37,5 +37,10 @@
                 font-weight: themed("weight",700);
             }
         }
+        @media (max-width:768px) {
+            .post-list {
+                max-width: 100%;
+            }
+        }
     }
 }

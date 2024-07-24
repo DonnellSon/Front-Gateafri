@@ -9,6 +9,8 @@ const useInfiniteScroll = ({
     ipp = 5,
     enabled,
     scrollingElement = document.getElementById('App'),
+    scrollDirection = 'bottom',
+    reverseData=false,
     transformResult = (result) => {
         return { data: result['hydra:member'], totalItems: result['hydra:totalItems'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
     }
@@ -44,28 +46,40 @@ const useInfiniteScroll = ({
         getNextPageParam: (lastPage, pages) => lastPage.nextPage,
         enabled,
     })
-    // useEffect(()=>{
-    //     scrollingElement?.addEventListener('scroll', ()=>console.log('SCROLLLLL'))
-    // },[scrollingElement])
+    
     useEffect(() => {
-        
+
         if (scrollingElement) {
-            // if (!isFetchingNextPage && !isFetching) {
-            //     const { scrollHeight, scrollTop, clientHeight } = scrollingElement
-            //     console.log('externScroll1')
-            //     if (scrollHeight - scrollTop <= clientHeight + 10) {
-            //         console.log('goscroll')
-            //         fetchNextPage()
-            //     }
-            // }
+            
             const onScroll = (e) => {
                 if (!isFetchingNextPage && !isFetching) {
-                    const { scrollHeight, scrollTop, clientHeight } = e.target
-                //     console.log('externScroll2')
-                    if (scrollHeight - scrollTop <= clientHeight + 10) {
-                        console.log('goscroll')
-                        fetchNextPage()
+                    const { scrollHeight, scrollTop, clientHeight, scrollWidth, scrollLeft, clientWidth } = e.target
+                    
+                    switch (scrollDirection) {
+                        case 'top':
+                            if (scrollTop <= 20) {
+                                fetchNextPage()
+                            }
+                            break
+                        case 'bottom':
+                            if (scrollHeight - scrollTop <= clientHeight + 10) {
+                                fetchNextPage()
+                            }
+                            break
+                        case 'left':
+                            if (scrollLeft <= 20) {
+                                console.log('goscrolltoleft')
+                                fetchNextPage()
+                            }
+                            break
+                        case 'right':
+                            if (scrollWidth - scrollLeft <= clientWidth + 10) {
+                                console.log('goscrollright')
+                                fetchNextPage()
+                            }
+                            break
                     }
+
                 }
             }
             scrollingElement?.addEventListener('scroll', onScroll)
@@ -75,11 +89,11 @@ const useInfiniteScroll = ({
             }
         }
 
-    }, [scrollingElement,isFetchingNextPage,isFetching])
+    }, [scrollingElement, isFetchingNextPage, isFetching])
 
     return {
         data,
-        flatData: data?.pages?.map((group) => group).map((g) => g.data).flat(),
+        flatData: reverseData ? data?.pages?.map((group) => group).map((g) => g.data).flat().reverse() : data?.pages?.map((group) => group).map((g) => g.data).flat(),
         error,
         fetchNextPage,
         hasNextPage,

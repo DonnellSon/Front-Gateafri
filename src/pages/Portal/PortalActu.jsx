@@ -63,7 +63,7 @@ const PageActu = () => {
 
             postsList?.pages?.map((group, i) => (
 
-              group.data.map((p) => (
+              group.data.map((p,i) => (
                 <PostCard
                   key={i}
                   data={p}

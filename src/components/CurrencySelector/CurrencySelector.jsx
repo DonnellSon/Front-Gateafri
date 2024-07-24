@@ -97,8 +97,8 @@ const CurrencySelector = () => {
                 </div>)
               }
               {currenciesFetchingNextPage
-                ? [...new Array(5)].map(() =>
-                (<li className='flex flex-column gap-10 p-5'>
+                ? [...new Array(5)].map((_,i) =>
+                (<li key={i} className='flex flex-column gap-10 p-5'>
                   <Skeleton radius={2} height={10} width='60%' />
                   <Skeleton radius={2} height={10} width='20%' />
                 </li>)

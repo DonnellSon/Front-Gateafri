@@ -44,11 +44,20 @@
                 margin-bottom: 10px;
             }
 
+            .sortable-list {
+            
+                    h3 {
+                        margin-left: 0;
+                        padding: 0;
+                        font-size: 15px;
+                    }
+                }
+
             span {
                 color: themed("text", 4);
             }
 
-            >ul>li {
+            ul>li {
                 margin-top: 6px;
                 color: themed("text", 2);
                 font-weight: 400;
@@ -56,7 +65,18 @@
                 align-items: center;
                 gap: 10px;
                 margin-bottom: 15px;
+                label{
+                    margin-bottom: 0;
+                }
             }
+            .salary-inputs > div:last-child{
+                flex-direction: column;
+                > div{
+                    flex-direction: column;
+                    gap: 0;
+                }
+            }
+            
         }
 
         .empty-job {

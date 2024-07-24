@@ -36,7 +36,7 @@ const Gifs = () => {
                 {
                     isLoading ? [...new Array(20)].map(() => <div class="brick"><Skeleton width="100%" height={getRandomNumber(90, 200)} radius={5} /></div>) :
                         data?.data.map((gif, i) => (
-                            <div class="brick">
+                            <div key={i} class="brick">
                                 <img src={gif.images.fixed_height.url} />
                             </div>
                         ))

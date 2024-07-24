@@ -54,13 +54,13 @@ const Notifications = () => {
                         </>}>
                             {
                                 (notificationsFetching && !notificationsFetchingNextPage) ?
-                                    [...new Array(8)].map(_ => <NotificationSkeleton />) :
+                                    [...new Array(8)].map((_,i) => <NotificationSkeleton key={i} />) :
                                     notificationsFlat?.map((n, i) => {
 
                                         if (n.type === NEW_POST) {
                                             var domains = n.post.author.domains?.map(d => d.title).join(', ')
                                             return (
-                                                <div className="notification flex gap-10">
+                                                <div key={i} className="notification flex gap-10">
                                                     <Avatar src={n.post.author.activeLogo?.fileUrl || n.post.author.activeProfilePicture?.fileUrl} width={55} height={55} />
                                                     <div className="notification-capt flex flex-column justify-content-center">
                                                         <p><b>{n.post.author.name ? n.post.author.name : `${n.post.author.firstName} ${n.post.author.lastName}`}</b> a publié un post lié aux domaines qui vous intéressent {domains}</p>

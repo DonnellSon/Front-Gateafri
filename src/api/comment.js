@@ -32,8 +32,7 @@ export const sendComment = (content,commentable,parent) => {
     }).then((res) => res.data)
 }
 export const deleteComment=(commentId)=>{
-    
-    axios({
+    return axios({
         url: `${process.env.REACT_APP_API_DOMAIN}/comments/${commentId}`,
         method: 'delete',
         withCredentials: true

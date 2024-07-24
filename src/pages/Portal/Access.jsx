@@ -177,7 +177,7 @@ const Access = () => {
             ) : (accesses?.pages[0]?.data?.length > 0 ? accesses?.pages?.map((group, i) => (
               <React.Fragment key={i}>
                 {group.data.map((access, i) => (
-                  <div className="access-list-item flex">
+                  <div key={i} className="access-list-item flex">
                     <div className="flex align-items-center gap-10 flex-grow-1">
                       <Avatar src={access.user.activeProfilePicture?.fileUrl} height={45} width={45} />
                       <div>

@@ -42,11 +42,10 @@
     height: 31px;
 }
 #m-topbar .center .searchbar .icon-left{
-    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin-right: 8px;
 }
 #m-topbar .center .searchbar input{
     min-width: 0px !important;

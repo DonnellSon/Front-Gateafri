@@ -10,7 +10,7 @@ import { getJobTypes } from '../../api/job'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import MediaContext from '../../context/MediaContext'
-import { DESKTOP } from '../../constants/MediaTypeConstants'
+import { DESKTOP, SMARTPHONE } from '../../constants/MediaTypeConstants'
 
 
 const JobFindingSearchBar = ({ onChange = () => { } }) => {
@@ -40,32 +40,37 @@ const JobFindingSearchBar = ({ onChange = () => { } }) => {
                         <SuggestInput onChange={(location) => setSearch(prev => ({ ...prev, location }))} placeholder="Votre ville" repoName='repoCities' query={(keyword) => getCitiesList(keyword)} mapping={(c) => <Link className='text-ellipsis'>{c.name}</Link>} />
                     </span>
                 </div>
-                <div className="job-type">
-                    <span className='fake-placeholder flex align-items-center'>
-                        <BriefcaseFill />
-                        <SelectSearch
-                            searchFields={['title']}
-                            onChange={(type) => setSearch(prev => ({ ...prev, type }))}
-                            placeholder='Type'
-                            searchPlaceholder='Rechercher un type'
-                            query={(filters) => getJobTypes()}
-                            repoName="jobTypesRepo"
-                            toPlaceholder={(elem) => elem.title}
-                            objectMapping={(t) => ({ title: t.title, value: `/job_types/${t.id}` })}
-                            mapping={(t) => <Link>
-                                <span>{t.title}</span>
-                            </Link>}
-                        />
-                    </span>
-                </div>
-                <div className="salary">
-                    <span className='fake-placeholder flex align-items-center gap-15'>
-                        <Search />
-                        <span>Salaire</span>
-                    </span>
-                </div>
+                {
+                    deviceType === SMARTPHONE &&
+                    <>
+                        <div className="job-type">
+                            <span className='fake-placeholder flex align-items-center'>
+                                <BriefcaseFill />
+                                <SelectSearch
+                                    searchFields={['title']}
+                                    onChange={(type) => setSearch(prev => ({ ...prev, type }))}
+                                    placeholder='Type'
+                                    searchPlaceholder='Rechercher un type'
+                                    query={(filters) => getJobTypes()}
+                                    repoName="jobTypesRepo"
+                                    toPlaceholder={(elem) => elem.title}
+                                    objectMapping={(t) => ({ title: t.title, value: `/job_types/${t.id}` })}
+                                    mapping={(t) => <Link>
+                                        <span>{t.title}</span>
+                                    </Link>}
+                                />
+                            </span>
+                        </div>
+                        <div className="salary">
+                            <span className='fake-placeholder flex align-items-center gap-15'>
+                                <Search />
+                                <span>Salaire</span>
+                            </span>
+                        </div>
+                    </>
+                }
                 <div className="job-search-btn">
-                    <button className='btn-orange'>{deviceType === DESKTOP ? 'Rechercher' : <Search />}</button>
+                    <button className='btn-orange'>{deviceType !== SMARTPHONE ? 'Rechercher' : <Search />}</button>
                 </div>
             </div>
         </div>

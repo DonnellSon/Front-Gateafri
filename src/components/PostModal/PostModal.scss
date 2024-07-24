@@ -78,7 +78,7 @@
 
 .tabs-heading {
     @include themify($themes){
-        li{
+        li,li a{
             width: 65px;
             user-select: none;
             display: flex;
@@ -105,18 +105,18 @@
     font-weight: 500;
 }
 .tabs-heading{
-    .li{
+    .li,.li a{
         min-width: 0;
         width: 100%;
     }
-    li.active{
+    li.active,li a.active{
         @include themify($themes){
             background: themed("background",5);
             color: var(--orange);
         }
     }
 } 
-.tabs-heading li.active::after{
+.tabs-heading li.active::after,.tabs-heading li > a.active::after{
     content: "";
     position: absolute;
     width: 25px;

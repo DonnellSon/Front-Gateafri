@@ -38,8 +38,8 @@ const ReservationCarouseulSlide = ({ imagesUrls, priceReservation = null }) => {
       <Slider ref={carouseulItem} {...settingsItemCarouseul} className="sliderTop">
         {
           imagesUrls?.map((c, i) => (
-            <div className="carouseulItem relative">
-              <img key={i} src={c} alt="image" />
+            <div key={i} className="carouseulItem relative">
+              <img src={c} alt="image" />
             </div>
           ))
         }

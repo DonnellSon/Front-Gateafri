@@ -149,42 +149,6 @@ const Search = () => {
     variableWidth: true,
     arrows: false,
   };
-  const postsData = [
-    {
-      id: 1,
-      author: {
-        id: 1,
-        firstName: "John",
-        lastName: "Doe",
-        activeProfilePicture: { fileUrl: "/img/other/avatar.png" },
-        domains: [{ title: "Développement" }],
-        country: { name: "France", flag: { fileUrl: "url_du_drapeau" } },
-      },
-      content:
-        "Contenu du premier post Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus accusantium id suscipit? Nesciunt temporibus ipsa, aliquam itaque neque, sint nostrum, reprehenderit ex nihil libero eligendi quisquam suscipit corrupti. Mollitia, natus      Aperiam maiores exercitationem consequatur illo explicabo omnis quod vero culpa debitis impedit praesentium cum nihil, facere non nulla numquam, quisquam sequi. At exercitationem aliquid, id illum corporis repellat necessitatibus animi Voluptate soluta atque architecto laudantium totam, accusantium quos sint. Fuga hic, molestias dolor dolorum itaque id et alias! Laboriosam repellendus dolorum maiores, adipisci eius repellat laudantium porro nesciunt facilis totam.",
-      thumbnails: ["url_image1", "url_image2"],
-      createdAt: "2023-04-01T10:00:00Z",
-      evaluationCount: 5,
-      evaluationSum: 25,
-    },
-    {
-      id: 2,
-      author: {
-        id: 2,
-        firstName: "John",
-        lastName: "Doe",
-        activeProfilePicture: { fileUrl: "/img/other/avatar.png" },
-        domains: [{ title: "Développement" }],
-        country: { name: "France", flag: { fileUrl: "url_du_drapeau" } },
-      },
-      content:
-        "Contenu du premier post Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus accusantium id suscipit? Nesciunt temporibus ipsa, aliquam itaque neque, sint nostrum, reprehenderit ex nihil libero eligendi quisquam suscipit corrupti. Mollitia, natus      Aperiam maiores exercitationem consequatur illo explicabo omnis quod vero culpa debitis impedit praesentium cum nihil, facere non nulla numquam, quisquam sequi. At exercitationem aliquid, id illum corporis repellat necessitatibus animi Voluptate soluta atque architecto laudantium totam, accusantium quos sint. Fuga hic, molestias dolor dolorum itaque id et alias! Laboriosam repellendus dolorum maiores, adipisci eius repellat laudantium porro nesciunt facilis totam.",
-      thumbnails: ["url_image1", "url_image2"],
-      createdAt: "2023-04-01T10:00:00Z",
-      evaluationCount: 5,
-      evaluationSum: 25,
-    },
-  ];
   const videosData = [
     {
       img: "/img/video/smaven.PNG",
@@ -369,7 +333,7 @@ const Search = () => {
               <div className="persons-results-list flex flex-column">
                 {
                   users?.map((u, i) => (
-                    <Link to={`/profil/${u.id}`} className="person flex justify-content-between align-items-center ">
+                    <Link key={i} to={`/profil/${u.id}`} className="person flex justify-content-between align-items-center ">
                       <div className="flex align-items-center gap-10">
                         <Avatar src={u.activeProfilePicture?.fileUrl} width={45} height={45} />
                         <div className="info flex flex-column gap-5">

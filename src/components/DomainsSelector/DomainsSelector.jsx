@@ -3,22 +3,18 @@ import './DomainsSelector.scss'
 import { PlusLg, X, XLg } from 'react-bootstrap-icons'
 import Modal from '../Modal/Modal'
 import Searchbar from '../Searchbar/Searchbar'
-import { getDomains } from '../../api/domain'
+import { getDomains, getUserDomains } from '../../api/domain'
 import { useQuery } from '@tanstack/react-query'
 import SliderNav from '../SliderNav/SliderNav'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import CircleLoader from '../CircleLoader/CircleLoader'
+import ChipsCheckbox from '../ChipsCheckbox/ChipsCheckbox'
 const DomainsSelector = ({ open, onClose }) => {
     const { user } = useSelector(store => store.user)
     const [isOpen, setIsOpen] = useState(false)
     const [selected, setSelected] = useState([])
     const [onSave, setOnSave] = useState(false)
-
-    const removeSelected = (index) => {
-        const newSelected = [...selected]
-        setSelected(prev => prev.filter((m, i) => m.id !== index))
-    }
 
     const saveDomains = () => {
         if (selected.length > 0) {
@@ -54,6 +50,16 @@ const DomainsSelector = ({ open, onClose }) => {
         queryFn: () => getDomains()
     })
 
+    const { data: userDomains, error: userDomainsErr, isLoading: userDomainsLoading } = useQuery({
+        queryKey: ['repoUserDomains'],
+        queryFn: () => getUserDomains(user.id),
+        enabled: user ? true : false
+    })
+
+    useEffect(()=>{
+        setSelected(userDomains)
+    },[userDomains])
+
 
 
     return (
@@ -74,27 +80,26 @@ const DomainsSelector = ({ open, onClose }) => {
                     </div>
                     {
                         domains &&
-                        <ul className='domains-list'>
+                        <ul className='flex gap-10 justify-content-center flex-wrap p-10'>
                             {
-                                domains.filter((d) => !selected.find((s) => s.id === d.id)).map((d, i) => <li key={i} onClick={() => setSelected(prev => [...prev, d])}><PlusLg /> {d.title}</li>)
+                                domains.map((d, i) =>
+                                    <li key={i}>
+                                        <ChipsCheckbox checked={selected?.find((item)=>item.id===d.id)} onChange={
+                                            ({value,checked})=>{
+                                                if(checked){
+                                                    setSelected(prev => [...prev, d])
+                                                }else{
+                                                    setSelected((prev)=>prev.filter(item => item.id !== d.id))
+                                                }
+                                                
+                                            }
+                                        }>{d.title}</ChipsCheckbox>
+                                    </li>)
                             }
                         </ul>
                     }
                 </div>
                 <div className="footer">
-
-                    {
-                        selected.length > 0 &&
-                        <>
-                            <h5>Sélectionnés</h5>
-                            <SliderNav activatable={false}>
-                                {
-                                    selected.map((s, i) => <div key={i} onClick={() => removeSelected(s.id)}><span>{s.title}</span><div className='ico'><X size={20} /></div></div>)
-                                }
-                            </SliderNav>
-                        </>
-                    }
-
                     <div className='bottom flex justify-content-end gap-10'>
                         <button className="btn btn-transparent">Annuler</button>
                         <button className="btn btn-purple" onClick={saveDomains}>{

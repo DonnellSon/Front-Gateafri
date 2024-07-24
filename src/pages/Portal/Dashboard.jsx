@@ -147,8 +147,8 @@ const Dashboard = () => {
                       {
                         postsList?.pages?.map((group, i) => (
 
-                          group.data.map((p) => (
-                            <div style={{ width: '100px !important', border: '1px solid red' }}>
+                          group.data.map((p,i) => (
+                            <div key={i} style={{ width: '100px !important', border: '1px solid red' }}>
                               <PostCard
                                 key={i}
                                 data={p}

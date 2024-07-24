@@ -8,11 +8,13 @@
             height: inherit;
             box-shadow: var(--elevation-1);
             transition: .5s;
-            >div>.top{
+
+            >div>.top {
                 position: relative;
                 z-index: 100 !important;
                 background: red;
-                .searchbar{
+
+                .searchbar {
                     margin-left: -6px;
                     margin-right: -6px;
                 }
@@ -45,7 +47,7 @@
             background: themed("background", 3);
             background-size: cover;
             background-attachment: fixed;
-            
+
 
             h2 {
                 color: themed("text", 1);
@@ -76,7 +78,23 @@
             color: themed("text", 3);
         }
 
+        .messenger>.content>.footer {
+            position: sticky;
+            bottom: 0;
+            min-width: 0;
+            background: themed("messengerFooter",bg);
+            backdrop-filter: blur(5px);
+        
+            >div {
+                max-width: 100%;
+            }
+        }
+        .messenger-loader{
+            height: 100%;
+        }
+
     }
+    
 }
 
 
@@ -90,7 +108,7 @@
     padding: 10px 8px;
 }
 
-.messages-favorite-contacts {
+.messages-online-contacts {
 
     @include themify($themes) {
         overflow-x: hidden;
@@ -203,14 +221,7 @@
     flex-direction: column;
 }
 
-.messenger>.content>.footer {
-    position: sticky;
-    bottom: 0;
-    min-width: 0;
-    >div{
-        max-width: 100%;
-    }
-}
+
 
 .messenger>.content>.footer>div {
     flex-grow: 1;
@@ -241,22 +252,25 @@
 
 @media (max-width: 768px) {
     .messages-page {
-            height: calc(100vh - 50px);
-        @include themify($themes){
-            > .left {
-            border-right: 1px solid themed("border", 2); 
-            transition: .5s;
-            width: 70px;
-            min-width: 70px;
-            overflow-x: hidden;
+        height: calc(100vh - 50px);
+
+        @include themify($themes) {
+            >.left{
+                width: 100% !important;
+                height: auto;
+                >div {
+
+                    width: 100% !important;
+                    min-width: 100% !important;
+                    
+                    min-height: calc(100vh - var(--mobile-topbar-height)) !important;
+                }
+            }
         }
-        } 
-        >.left>div .post-plus-btn {
-            width: 52px !important;
-        }
-        
+
     }
+
     .messenger {
-            height: calc(100vh - var(--mobile-topbar-height)) !important;
+        height: calc(100vh - var(--mobile-topbar-height)) !important;
     }
 }

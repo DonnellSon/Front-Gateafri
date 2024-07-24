@@ -24,6 +24,9 @@ const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup
             onSuccess: (newComment) => {
                 onSended(newComment)
             },
+            onError:(err)=>{
+                console.log(err.response)
+            }
         })
 
     // const sendComment = () => {

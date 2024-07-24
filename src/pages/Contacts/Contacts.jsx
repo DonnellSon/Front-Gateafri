@@ -60,7 +60,7 @@ const Contacts = () => {
                                     ) : (contactsList?.pages[0]?.data?.length > 0 ? contactsList?.pages?.map((group, i) => (
                                         <React.Fragment key={i}>
                                             {group.data.map((c, i) => (
-                                                <li className='contact-item flex align-items-center gap-10'>
+                                                <li key={i} className='contact-item flex align-items-center gap-10'>
                                                     <Avatar height={50} width={50} src={c.requester.activeLogo ? c.requester.activeLogo?.fileUrl : c.requester.activeProfilePicture?.fileUrl} />
                                                     <div className="center flex-grow-1">
                                                         <div className="flex justify-content-between">

@@ -25,6 +25,9 @@
                 h2{
                     font-size: 22px;
                     color: #222 !important;
+                    @media (max-width:758px) {
+                        font-size: 16px;
+                    }
                 }
                 .close{
                     width: 50px;

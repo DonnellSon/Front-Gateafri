@@ -35,7 +35,7 @@ const EmojiPicker = () => {
         <div>
             <div className="p-10" style={{paddingBottom:8}}><Searchbar /></div>
             <Tabs className='emojis-picker-tabs'>
-                {Object.keys(emojisByCategory).map((category) => {
+                {Object.keys(emojisByCategory).map((category,i) => {
                     let categoryIcon
                     switch (category) {
                         case 'face-emotion':
@@ -70,7 +70,7 @@ const EmojiPicker = () => {
                             break;
                     }
 
-                    return <Tab title={categoryIcon}>
+                    return <Tab key={i} title={categoryIcon}>
                         <div className="cat-emojis">
                             {emojisByCategory[category].map((emoji) => (
                                 

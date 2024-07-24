@@ -9,9 +9,12 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { filtersToURL } from '../../functions'
 import CircleLoader from '../CircleLoader/CircleLoader'
+import NavigableList from '../Input/NavigableList/NavigableList'
 
 const SelectSearch = ({
     className = null,
+    searchBar = true,
+    defaultValues = [],
     defaultValueIndex = null,
     placeholder = 'Choisir une option',
     searchPlaceholder = 'Rechercher',
@@ -21,7 +24,7 @@ const SelectSearch = ({
     toPlaceholder = (elem) => elem.title,
     repoName = 'repoOptions',
     exclude = [],
-    query,
+    query = null,
     mapping = (elem) => <Link>{elem.title}</Link>,
     objectMapping = (elem) => elem,
     onChange = () => { } }) => {
@@ -29,9 +32,11 @@ const SelectSearch = ({
     const [filters, setFilters] = useState({})
     const [keyword, setKeyword] = useState('')
     const [selected, setSelected] = useState(null)
+    const [opened,setOpened]=useState(false)
     const { data: optionsList, error: optionsListErr, isLoading: getOptionsListLoading, refetch, isRefetching } = useQuery({
         queryKey: [repoName],
-        queryFn: () => query(filtersToURL(filters))
+        queryFn: () => query(filtersToURL(filters)),
+        enabled: query ? true : false
     })
 
 
@@ -64,7 +69,7 @@ const SelectSearch = ({
 
     return (
         <div className={`select-search flex-grow-1${className ? ' ' + className : ''}`}>
-            <DropDown togglable={!readOnly} className='fake-select'>
+            <DropDown togglable={!readOnly} opened={opened} setOpened={setOpened} className='fake-select'>
                 <div className='fake-input'>
                     <div type="text" className="inpt">
                         {
@@ -80,15 +85,20 @@ const SelectSearch = ({
                     </div>
                 </div>
                 <div className="select-search-dropdown-menu">
-                    <Searchbar isLoading={getOptionsListLoading || isRefetching} onChange={(val) => setKeyword(val)} placeholder={searchPlaceholder} />
-                    <ul className="select-search-list">
-                        {
-                            optionsList?.map((opt) => objectMapping(opt)).filter((d) => !exclude.find((s) => s?.value === d?.value)).map((o, i) => <li key={i} onClick={(e) => {
+                    {
+                        searchBar &&
+                        <Searchbar isLoading={getOptionsListLoading || isRefetching} onChange={(val) => setKeyword(val)} placeholder={searchPlaceholder} />
+                    }
+                    <NavigableList className="select-search-list">
+                    {
+                            (optionsList && query ? optionsList : defaultValues)?.map((opt) => objectMapping(opt)).filter((d) => !exclude.find((s) => s?.value === d?.value)).map((o, i) => <div key={i} onClick={(e) => {
                                 setDefaultValue(toPlaceholder(o))
                                 setSelected(o)
-                            }}>{mapping(o)}</li>)
+                                setOpened(false)
+                            }}>{mapping(o)}</div>)
                         }
-                    </ul>
+                    </NavigableList>
+                    
                 </div>
             </DropDown>
 

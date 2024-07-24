@@ -55,7 +55,6 @@
             min-width: 0 !important;
             margin: 0 auto;
             overflow: hidden;
-            overflow: auto;
             position: relative;
             scroll-behavior: smooth;
             border-radius: 5px;
@@ -98,8 +97,9 @@
 
         @media (max-width:768px) {
             padding: 0;
-            ul{
+            >ul{
                 padding: 0 10px;
+                overflow-x: auto;
             }
             .prev,
             .next {

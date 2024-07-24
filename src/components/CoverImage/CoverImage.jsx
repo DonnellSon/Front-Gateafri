@@ -22,6 +22,9 @@ const CoverImage = ({ user }) => {
                 queryClient.setQueryData(['repoProfile', userId], (profile) => {
                     return { ...profile, activeCoverImage }
                 })
+            },
+            onError:(err)=>{
+                console.log(err.response,'COVER ERR')
             }
         })
     return (

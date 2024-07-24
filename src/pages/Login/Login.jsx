@@ -17,7 +17,7 @@ const Login = () => {
     const connectedUser = useSelector((store) => store.user.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [email, setEmail] = useState('')
+    const [identifier, setIdentifier] = useState('')
     const [password, setPassword] = useState('')
     const [loginSuccessMsg, setSuccessMsg] = useState(null)
     const [loginErrorMsg, setLoginErrorMsg] = useState(null)
@@ -28,7 +28,7 @@ const Login = () => {
         e.preventDefault()
         setLoginErrorMsg(null)
         setIsLoading(true)
-        const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/login_check`, { email, password }, { withCredentials: true }).then(function (res) {
+        const topVideos = axios.post(`${process.env.REACT_APP_API_DOMAIN}/login_check`, { identifier, password }, { withCredentials: true }).then(function (res) {
             dispatch(setConnectedUser(res?.data.user))
             dispatch(setSocket(io(process.env.REACT_APP_REAL_DOMAIN)))
             showToast({content:<span>Vous êtes maintenant connecté</span>})
@@ -70,14 +70,14 @@ const Login = () => {
 
             </div>
             <form action="" className="login-form elevated-card" onSubmit={handleSubmit}>
-                <h3 style={{ marginBottom: 20 }}>Connexion</h3>
+                <h3 style={{ marginBottom: 20 }} className='txt-1'>Connexion</h3>
                 {
                     loginErrorMsg && <div className="login-error-message flex align-items-center justify-content-between">{loginErrorMsg} <ExclamationTriangleFill /></div>
                 }
 
                 <div className="form-group">
-                    <label htmlFor="">Adress Email</label>
-                    <input type="text" className="inpt" placeholder='ex:contact@example.com' onChange={(e) => { setEmail(e.target.value) }} />
+                    <label htmlFor="">Adress Email ou télephone</label>
+                    <input type="text" className="inpt" placeholder='ex:contact@example.com' onChange={(e) => { setIdentifier(e.target.value) }} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="">Mot de passe</label>

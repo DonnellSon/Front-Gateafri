@@ -18,6 +18,7 @@ import EmblaCarouselReact from 'embla-carousel-react';
 import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarousel } from '../Slider/EmblaCarousel';
 import TextWithLinks from '../TextWithLinks/TextWithLinks';
+import NavigableList from '../Input/NavigableList/NavigableList'
 
 
 const CommentContent = ({ id, children, queryKey = [], sender, commentDate, parentId = null, onReplied = () => { } }) => {
@@ -28,7 +29,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
 
     const cmtContent = useRef();
 
-   
+
 
     const toggleCmtForm = (e) => {
         e.preventDefault()
@@ -54,6 +55,10 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                     }
                 })
             },
+            onError: (err) => {
+                console.log('etoa')
+                console.log(err.response?.data, 'errrrrrrr')
+            }
         })
 
     const {
@@ -98,17 +103,14 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                             <span role="button" className={`light-txt-color-1`}><Gem size={20} /></span>
                             <DropDown placement='bottom-start'>
                                 <span className='com-more-btn pointer'><ThreeDots size={18} /></span>
-                                <ul>
-                                    <li>
-                                        <Link onClick={(e) => {
-                                            e.preventDefault()
-                                            deleteCommentFn()
-                                        }}>Supprimer</Link>
-                                    </li>
-                                    <li>
-                                        <Link>Signaler</Link>
-                                    </li>
-                                </ul>
+                                <NavigableList startIndex={0}>
+                                    <Link onClick={(e) => {
+                                        e.preventDefault()
+                                        deleteCommentFn()
+                                    }}>Supprimer</Link>
+
+                                    <Link>Signaler</Link>
+                                </NavigableList>
                             </DropDown>
                         </div>
 
@@ -116,7 +118,7 @@ const CommentContent = ({ id, children, queryKey = [], sender, commentDate, pare
                     {
                         getTextUrls(children).length > 0 &&
                         <div className="comment-link-previews">
-                            <EmblaCarousel slides={getTextUrls(children).map((url, i) => <div><CommentLinkPreview url={url} /></div>)}/>
+                            <EmblaCarousel slides={getTextUrls(children).map((url, i) => <div key={i}><CommentLinkPreview url={url} /></div>)} />
                             {/* <div className="embla" ref={emblaRef}>
                                 <div className="embla__container">
                                     <div className="embla__slide">Slide 1</div>

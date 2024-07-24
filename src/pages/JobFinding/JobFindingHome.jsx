@@ -19,6 +19,7 @@ import SortableList from '../../components/SortableList/SortableList'
 import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
 import JobCardSkeleton from '../../components/JobCard/JobCardSkeleton'
 import JobDetailsSkeleton from '../../components/JobDetails/JobDetailsSkeleton'
+import SalaryInputs from '../../components/SalaryInputs/SalaryInputs'
 
 
 const JobFindingHome = () => {
@@ -85,15 +86,10 @@ const JobFindingHome = () => {
                                     <Link to='/emplois/nouveau' className='btn-purple'><Plus size={25} /> Creer une offre d'emplois</Link>
                                 </RequireAuthOnClick>
                             </form>
-                            <SortableList allowSearch={false} query={(keyword) => getJobTypes()} mapping={(jobType) => <><CheckBox id={jobType.title} value={jobType.title} name='jobTypes' onChange={(e) => { }} /> <label htmlFor={jobType.title}>{jobType.title}</label></>} repoName='repoJobTypes' title={<label htmlFor="">Type de travail</label>} />
-                            <SortableList allowSearch={false} query={(keyword) => getJobGrades()} mapping={(jobGrade) => <><CheckBox id={jobGrade.title} value={jobGrade.title} name='jobGrades' onChange={(e) => { }} /> <label htmlFor={jobGrade.title}>{jobGrade.title}</label></>} repoName='repoJobGrades' title={<label htmlFor="">Grade</label>} />
+                            <SortableList allowSearch={false} query={(keyword) => getJobTypes()} mapping={(jobType) => <><CheckBox id={jobType.title} value={jobType.title} name='jobTypes' onChange={(e) => { }} /> <label htmlFor={jobType.title}>{jobType.title}</label></>} repoName='repoJobTypes' title={'Type de travail'} />
+                            <SortableList allowSearch={false} query={(keyword) => getJobGrades()} mapping={(jobGrade) => <><CheckBox id={jobGrade.title} value={jobGrade.title} name='jobGrades' onChange={(e) => { }} /> <label htmlFor={jobGrade.title}>{jobGrade.title}</label></>} repoName='repoJobGrades' title={'Grade'} />
                             <h4>Pretention Salariale</h4>
-                            <ul>
-                                <li><CheckBox /> Temps plein</li>
-                                <li><CheckBox /> Temps partiel</li>
-                                <li><CheckBox /> Teletravail</li>
-                                <li><CheckBox /> Stage</li>
-                            </ul>
+                            <SalaryInputs/>
                         </div> : ""
                 }
                 <div className="center">
@@ -110,8 +106,8 @@ const JobFindingHome = () => {
                                 <p>Error: {error.message}</p>
                             ) : (jobOfferList?.pages[0]?.data?.length > 0 ? jobOfferList?.pages?.map((group, i) => (
                                 <React.Fragment key={i}>
-                                    {group.data.map((job) => (
-                                        <JobCard active={activeJob === job} data={job} />
+                                    {group.data.map((job,i) => (
+                                        <JobCard key={i} active={activeJob === job} data={job} />
                                     ))}
                                 </React.Fragment>
 

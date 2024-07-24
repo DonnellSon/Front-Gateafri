@@ -63,7 +63,7 @@ const FundingCard = ({ data = null }) => {
                         {
                             investPictures?.length > 0 ?
                                 investPictures.map((p, i) => (
-                                    <div className="img">
+                                    <div key={i} className="img">
                                         <img src={`${p.fileUrl}`} alt="" />
                                     </div>
                                 )) :

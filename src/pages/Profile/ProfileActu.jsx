@@ -10,7 +10,7 @@ const ProfileActu = () => {
     return (
         <>
             {
-                (deviceType === DESKTOP || deviceType === TABLET) &&
+                (deviceType === DESKTOP) &&
                 <div className="left">
                     <StickySideBar top={68}>
                         <PlanSlider />

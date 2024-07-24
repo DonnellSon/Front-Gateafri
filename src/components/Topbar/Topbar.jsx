@@ -13,6 +13,7 @@ import SocketIOContext from '../../context/SocketIOContext'
 import CaretInput from '../CaretInput/CaretInput'
 import CurrencySelector from '../CurrencySelector/CurrencySelector'
 import CurrencyContext from '../../context/CurrencyContext'
+import NavigableList from '../Input/NavigableList/NavigableList'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
   const { user, socket } = useSelector(state => state.user)
@@ -22,7 +23,7 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
 
   return (
     <>
-      <header id='topbar' className={`flex bottom-shaddow-1${window.location.pathname.startsWith("/landing") ? " transparent" : ""}`}>
+      <header id='topbar' className={`sticky flex bottom-shaddow-1${window.location.pathname.startsWith("/landing") ? " transparent" : ""}`}>
         <div className="left flex px-15 align-items-center">
           <Link to="/"><img src="/img/logo/GATEAFR.png" alt="" /></Link>
         </div>
@@ -62,30 +63,17 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
                 <RequireAuthOnClick>
                   <button className='topbar-mew-btn btn-purple flex align-items-center'><Plus size={26} /></button>
                 </RequireAuthOnClick>
-                <ul>
-                  <li>
-                    <Link to='/' onClick={(e) => {
-                      e.preventDefault()
-                      setOpenPostModal(true)
-                    }}>Publication</Link>
-                  </li>
-                  <li>
-                    <Link to='/portail/nouveau'>Portail</Link>
-                  </li>
-                  <li>
-                    <Link to='/investissements/nouveau'>Investissement</Link>
-                  </li>
-                  <li>
-                    <Link to='/emplois/cv'>CV</Link>
-                  </li>
-                  
-                  <li>
-                    <Link to='/emplois/nouveau'>Offre Démplois</Link>
-                  </li>
-                  <li>
-                    <Link to='/hotels/nouveau'>Hotel</Link>
-                  </li>
-                </ul>
+                <NavigableList startIndex={0}>
+                  <Link to='/' onClick={(e) => {
+                    e.preventDefault()
+                    setOpenPostModal(true)
+                  }}>Publication</Link>
+                  <Link to='/portail/nouveau'>Portail</Link>
+                  <Link to='/investissements/nouveau'>Investissement</Link>
+                  <Link to='/emplois/cv'>CV</Link>
+                  <Link to='/emplois/nouveau'>Offre Démplois</Link>
+                  <Link to='/hotels/nouveau'>Hotel</Link>
+                </NavigableList>
               </DropDown>
             </li>
           </ul>

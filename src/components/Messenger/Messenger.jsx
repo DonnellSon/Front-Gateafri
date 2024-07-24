@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect, useRef, useContext } from 'react'
-import { ArrowDown, Check2Square, CheckSquare, ChevronDown, EmojiSmile, Mic, ThreeDots, Image, Plus, Search, Trash, Pencil, PencilSquare, SendFill } from 'react-bootstrap-icons'
+import { ArrowDown, Check2Square, CheckSquare, ChevronDown, EmojiSmile, Mic, ThreeDots, Image, Plus, Search, Trash, Pencil, PencilSquare, SendFill, ChevronLeft } from 'react-bootstrap-icons'
 import Message from '../Message/Message'
 import Avatar from '../Avatar/Avatar'
 import DoDinamicTextarea from '../doDinamicTextarea/DoDinamicTextarea'
@@ -7,15 +7,22 @@ import { useReq } from '../../Hooks/RequestHooks'
 import { useSelector } from 'react-redux'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import SocketIOContext from '../../context/SocketIOContext'
 import MediasSelector from '../MediaSelector/MediasSelector'
+import MediaContext from '../../context/MediaContext'
+import { DESKTOP, SMARTPHONE } from '../../constants/MediaTypeConstants'
+import CircleLoader from '../CircleLoader/CircleLoader'
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
 
 const Messenger = ({ discu }) => {
     const { discuId } = useParams()
     const { user } = useSelector(store => store.user)
     const { socket } = useContext(SocketIOContext)
+    const { deviceType } = useContext(MediaContext)
+    const navigate = useNavigate()
     const scrollRef = useRef()
+    const bodyRef = useRef()
     const queryClient = useQueryClient()
     const [filteredMessages, setFilteredMessages] = useState([])
     const [tmpMessage, setTmpMessage] = useState({
@@ -45,13 +52,23 @@ const Messenger = ({ discu }) => {
             withCredentials: true
         }).then((res) => res.data)
     )
-
-    const { isLoading: messagesLoading, error: messageError, data: messages, refetch: refetchMsg } = useQuery({
-        queryKey: ['repoMessages', discuId], queryFn: () =>
-            axios({
-                url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
-                method: 'get', withCredentials: true
-            }).then((res) => res.data.reverse())
+    const {
+        data: messages,
+        flatData: messagesFlat,
+        error: messagesErr,
+        hasNextPage: messagesNextPage,
+        isFetching: messagesFetching,
+        isFetchingNextPage: messagesFetchingNextPage,
+        status: messagesLoadingStatus,
+        refetch,
+        refetchPage
+    } = useInfiniteScroll({
+        url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
+        queryKey: ['repoMessages', discuId],
+        ipp: 15,
+        scrollingElement: scrollRef.current,
+        scrollDirection: 'top',
+        reverseData: true
     })
 
     const { mutate: mutateMessages } = useMutation({
@@ -97,12 +114,30 @@ const Messenger = ({ discu }) => {
 
 
     useEffect(() => {
-        scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' })
-    }, [discuId])
+        if(bodyRef.current){
+            scrollRef.current.scrollTop=scrollRef.current.scrollHeight
+        }
+    }, [bodyRef.current])
+
+    useEffect(()=>{
+        if(bodyRef.current){
+            const myObserver = new ResizeObserver(entries => {
+                 entries.forEach(entry => {
+                    if(scrollRef.current?.scrollTop<=10){
+                        scrollRef.current.scrollTop=50
+                    }
+                 });
+               });
+               myObserver.observe(bodyRef.current);
+            return () => {
+                myObserver.disconnect();
+            }
+        }
+    },[bodyRef.current])
 
     useEffect(() => {
         if (messages) {
-            const groupedMessages = messages.reduce((result, message) => {
+            const groupedMessages = messagesFlat.reduce((result, message) => {
                 const lastGroup = result[result.length - 1];
                 if (lastGroup && lastGroup.author?.id === message.author?.id && lastGroup.messages.length < 5) {
                     lastGroup.messages.push(message);
@@ -114,13 +149,19 @@ const Messenger = ({ discu }) => {
 
             setFilteredMessages(groupedMessages);
         }
-    }, [messages, messagesLoading]);
+        console.log(messagesFlat,'MessagesFlat')
+    }, [messages]);
 
 
     return (
         <div className="messenger">
             <div className="top flex justify-content-between align-items-center gap-10">
                 <div className="left flex gap-10 align-items-center">
+                    {
+                        deviceType === SMARTPHONE &&
+                        <div className="toggle-discu-list" onClick={() => navigate('/messages')}><ChevronLeft size={18} /></div>
+                    }
+
                     <div><Search size={16} /></div>
                     <div><PencilSquare size={16} /></div>
                     <div><Trash size={16} /></div>
@@ -143,59 +184,102 @@ const Messenger = ({ discu }) => {
                 </div>
             </div>
             <div className="content" ref={scrollRef}>
-                <div className="body">
-                    {
-                        !messagesLoading ?
-                            filteredMessages.length > 0 ?
-                                filteredMessages.map((g, i) => (
-                                    <div key={i} className={`message-group${g.author?.id === user?.id ? " mine" : ""}`}>
-                                        {
-                                            (g.author?.id !== user?.id) ? <div className="left">
-                                                <Avatar src={g.author?.activeProfilePicture ? g.author?.activeProfilePicture.fileUrl : null} />
-                                            </div> : ""
-                                        }
+                {
+                    messagesFetchingNextPage &&
+                    <div className="flex align-items-center justify-content-center mt-20">
+                        <CircleLoader colors={null} width={30} height={30} />
+                    </div>
+                }
+                {
+                    !messagesFetching || messagesFetchingNextPage ?
+                        <div className="body" ref={bodyRef}>
+                            {
+                                !messagesNextPage && !messagesFetching &&
+                                <div className="messenger-user-infos mb-20">
+                                    <Avatar height={80} width={80} src={profilePictures ? profilePictures[0].fileUrl : null} />
+                                    <h4 className='txt-1 mt-10 mb-15'>{
+                                        discu?.discuName ? discu?.discuName :
+                                            discu?.members.filter((m) =>
+                                                m.user?.id !== user?.id
+                                            ).map((m) => `${m.user.firstName} ${m.user.lastName}`).join(',')
+                                    }</h4>
+                                    <div className="flex align-items-center gap-10 mb-20">
+                                        <button className="btn btn-transparent">Profil</button>
+                                        <button className="btn btn-gradient"><Plus size={24} /> Nouveau message</button>
+                                    </div>
+                                </div>
+                            }
 
-                                        <div className="messages-list">
+
+
+                            {
+
+                                filteredMessages.length > 0 ?
+                                    filteredMessages.map((g, i) => (
+                                        <div key={i} className={`message-group${g.author?.id === user?.id ? " mine" : ""}`}>
                                             {
-                                                g.messages?.map((m, i) =>
-                                                    <Message key={i} audio={m.audio} medias={m.pictures}>{m.content}</Message>
-                                                )
+                                                (g.author?.id !== user?.id) ? <div className="left">
+                                                    <Avatar src={g.author?.activeProfilePicture ? g.author?.activeProfilePicture.fileUrl : null} />
+
+                                                </div> : ""
                                             }
 
-                                        </div>
-                                    </div>), [])
-                                : <h4>Vous n'avez aucun message</h4>
-                            : <h4>Chargement des messages</h4>
-                    }
-                </div>
-                <div className="footer flex justify-content-center">
-                    <div>
-                        <DoDinamicTextarea
-                            medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} defaultState={tmpMessage.pictures} setMediasState={setMessagePictures} />}
-                            avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
-                                setTmpMessage(prev => ({ ...prev, content: e.target.innerText }))
-                            }}
-                            next={
-                                (
-                                    <>
-                                        <button><EmojiSmile size={18} /></button>
+                                            <div className="messages-list">
+                                                {
+                                                    g.messages?.map((m, i) =>
+                                                        <Message key={i} audio={m.audio} medias={m.pictures}>{m.content}</Message>
+                                                    )
+                                                }
 
-                                        <button ref={addImageBtn}>
-                                            <Image size={18} />
-                                        </button>
-                                        <button><Mic size={18} /></button>
-                                        <button className="comment-send-btn" onClick={() => {
-                                            sendMessage()
-                                            setEmptyMessageForm(true)
-                                            setMessagePictures([])
-                                        }}>
-                                            <SendFill />
-                                        </button>
-                                    </>
-                                )
-                            } />
+                                            </div>
+                                        </div>), [])
+                                    : <h4>Vous n'avez aucun message</h4>
+
+                            }
+                        </div>
+                        : <div className='messenger-loader flex align-items-center justify-content-center'>
+                            <CircleLoader colors={null} height={30} width={30} />
+                        </div>
+                }
+
+                {
+                    (!messagesFetching || messagesFetchingNextPage) &&
+                    <div className="footer flex justify-content-center">
+                        <div>
+                            <DoDinamicTextarea
+                                placeholder={'Ecrire a ' + (
+                                    discu?.discuName ? discu?.discuName :
+                                        discu?.members.filter((m) =>
+                                            m.user?.id !== user?.id
+                                        ).map((m) => `${m.user.firstName} ${m.user.lastName}`).join(',')
+                                )}
+                                medias={<MediasSelector hiddenIfEmpty selectorBtn={addImageBtn?.current} defaultState={tmpMessage.pictures} setMediasState={setMessagePictures} />}
+                                avatar={false} emptied={emptyMessageForm} setEmptied={setEmptyMessageForm} onKeyup={(e) => {
+                                    setTmpMessage(prev => ({ ...prev, content: e.target.innerText }))
+                                }}
+                                next={
+                                    (
+                                        <>
+                                            <button><EmojiSmile size={18} /></button>
+
+                                            <button ref={addImageBtn}>
+                                                <Image size={18} />
+                                            </button>
+                                            <button><Mic size={18} /></button>
+                                            <button className="comment-send-btn" onClick={() => {
+                                                sendMessage()
+                                                setEmptyMessageForm(true)
+                                                setMessagePictures([])
+                                            }}>
+                                                <SendFill />
+                                            </button>
+                                        </>
+                                    )
+                                } />
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
 
         </div>)

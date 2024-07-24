@@ -76,7 +76,7 @@ const AuthorSelector = ({ withUser = true, defaultAuthor = null, onSelect = () =
 
                                                     portals.length > 0 &&
                                                     portals?.map((p, i) => (
-                                                        <li onClick={
+                                                        <li key={i} onClick={
                                                             () => {
                                                                 setOpen(false)
                                                                 setSelected(p)

@@ -35,7 +35,7 @@ export const getHotelEquipments = (hotelId=null) => {
 
 export const getHotelServices=()=>{
     return axios({
-        url: `${process.env.REACT_APP_API_DOMAIN}/service_hotels`,
+        url: `${process.env.REACT_APP_API_DOMAIN}/hotel_services`,
         method: 'get', withCredentials: true,
         header: {
             'Content-Type': 'application/ld+json',

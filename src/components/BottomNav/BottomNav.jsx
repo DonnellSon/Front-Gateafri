@@ -16,25 +16,25 @@ const BottomNav = ({ setOpenRightbar = () => { } }) => {
           <ul className="topbar-menu flex align-items-center">
             <li>
               <DoNavLink to="/" activeClass='active'>
-                <HouseDoor strokeWidth={0.1} size={25} />
+                <HouseDoor strokeWidth={0.1} size={20} />
                 <span>Accueil</span>
               </DoNavLink>
             </li>
             <li>
               <DoNavLink to="/emplois" activeClass='active'>
-                <Briefcase strokeWidth={0.1} size={25} />
+                <Briefcase strokeWidth={0.1} size={20} />
                 <span>Emplois</span>
               </DoNavLink>
             </li>
             <li>
               <DoNavLink to="/explorer" activeClass='active'>
-                <GlobeEuropeAfrica strokeWidth={0.1} size={25} />
+                <GlobeEuropeAfrica strokeWidth={0.1} size={20} />
                 <span>Explorer</span>
               </DoNavLink>
             </li>
             <li>
               <DoNavLink className='top-to-afrimuz' to="/musique" activeClass='active'>
-                <img src='/img/logo/afrimuz2.png' width={54}/>
+                <img src='/img/logo/afrimuz2.png' width={46}/>
               </DoNavLink>
             </li>
           </ul>

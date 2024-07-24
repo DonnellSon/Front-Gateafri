@@ -8,6 +8,7 @@ import DropDown from '../DropDown/DropDown'
 import PostModal from '../PostModal/PostModal'
 import DoNavLink from '../DoNavLink/DoNavLink'
 import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick'
+import NavigableList from '../Input/NavigableList/NavigableList'
 const MobileTopbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
   return (
@@ -24,26 +25,18 @@ const MobileTopbar = ({ setOpenRightbar = () => { } }) => {
             <RequireAuthOnClick>
               <button className='mobile-topbar-new-btn btn-purple flex align-items-center'><Plus size={26} /></button>
             </RequireAuthOnClick>
-            <ul>
-              <li>
-                <Link to='/' onClick={(e) => {
-                  e.preventDefault()
-                  setOpenPostModal(true)
-                }}>Publication</Link>
-              </li>
-              <li>
-                <Link to='/'>Portail</Link>
-              </li>
-              <li>
-                <Link to='/emplois/cv'>CV</Link>
-              </li>
-              <li>
-                <Link to='/emplois/nouveau'>Offre Démplois</Link>
-              </li>
-            </ul>
+            <NavigableList startIndex={0}>
+              <Link to='/' onClick={(e) => {
+                e.preventDefault()
+                setOpenPostModal(true)
+              }}>Publication</Link>
+              <Link to='/'>Portail</Link>
+              <Link to='/emplois/cv'>CV</Link>
+              <Link to='/emplois/nouveau'>Offre Démplois</Link>
+            </NavigableList>
           </DropDown>
           <RequireAuthOnClick>
-            <Link to="#" onClick={() => {
+            <Link to="#" className='txt-2 bg-5' onClick={() => {
               setOpenRightbar(true)
             }}><JustifyRight size={20} /></Link>
           </RequireAuthOnClick>

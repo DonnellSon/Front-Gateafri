@@ -3,6 +3,7 @@ import './Select.scss'
 import { CaretDown, CaretDownFill } from 'react-bootstrap-icons'
 import DropDown from '../DropDown/DropDown'
 import { Link } from 'react-router-dom'
+import NavigableList from './NavigableList/NavigableList'
 
 
 const Select = ({ placeholder = null, selectedValue = null, selectList = [
@@ -20,17 +21,15 @@ const Select = ({ placeholder = null, selectedValue = null, selectList = [
             <DropDown>
                 <div className="fk-select-inpt inpt relative flex align-items-center">
                     <div className='placeholder flex-grow-1'><span className='text-ellipsis'>{selected?.title ?? (selectList.find((s) => s.defaultChecked === true) && selectList.find((s) => s.defaultChecked === true).title) ?? placeholder ?? "Selectionner"}</span></div>
-                    <div className="caret flex align-items-center justify-content-center"><CaretDownFill /></div>
+                    <div className="caret flex align-items-center justify-content-center"><CaretDownFill size={13}/></div>
                 </div>
-                <ul>
+                <NavigableList startIndex={0}>
                     {
                         selectList.map((s, i) =>
-                            <li key={i}>
-                                <Link className={`${(selected?.title === s.title) ? 'active' : ''}`} onClick={() => { setSelected(s) }}>{s.title}</Link>
-                            </li>
+                            <Link key={i} onClick={() => { setSelected(s) }}>{s.title}</Link>
                         )
                     }
-                </ul>
+                </NavigableList>
             </DropDown>
 
 

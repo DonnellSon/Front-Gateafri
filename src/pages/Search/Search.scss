@@ -102,6 +102,7 @@
           cursor: pointer;
           position: relative;
           font-weight: themed("weight", 600);
+          white-space: pre;
 
           &.active {
             background: themed("background", 5);
@@ -146,19 +147,18 @@
 
         li {
           margin: 0;
+          white-space: pre;
 
-          &.active {
-            &::after {
-              content: "";
-              position: absolute;
-              left: 50%;
-              transform: translateX(-50%);
-              bottom: -15px;
-              background: var(--main-gradient);
-              width: 30px;
-              height: 5px;
-              border-radius: 5px 5px 0 0;
-            }
+          a.active::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+            background: var(--main-gradient);
+            width: 30px;
+            height: 5px;
+            border-radius: 5px 5px 0 0;
           }
         }
       }
@@ -335,7 +335,7 @@
     }
 
     >.footer {
-      a > span{
+      a>span {
         font-weight: 600;
         font-size: 15px !important;
       }
@@ -393,12 +393,13 @@
       margin-right: 6px;
 
       .avatar {
-        .online{
+        .online {
           min-width: 25px !important;
           min-height: 25px !important;
           right: 7px !important;
           top: 7px !important;
         }
+
         img {
           height: inherit !important;
           width: inherit !important;

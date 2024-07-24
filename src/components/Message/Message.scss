@@ -4,7 +4,7 @@
 .message-group {
     @include themify($themes) {
 
-        max-width: 75% !important;
+        max-width: 95% !important;
 
         .message {
 
@@ -60,26 +60,19 @@
 }
 
 
-.message-group>.messages-list>.message>.left>.imgs {
+.message-group>.messages-list>.message>.left>.imgs:not(.simple) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3px;
 }
 
+
+
 .message-group>.messages-list>.message>.left>.imgs>div {
     position: relative;
-    padding-top: 100%;
 }
 
-.message-group>.messages-list>.message>.left>.imgs>div>div {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.message-group>.messages-list>.message>.left>.imgs>div>div>img {
+.message-group>.messages-list>.message>.left>.imgs>div>img {
     border-radius: 5px;
     object-fit: cover;
     position: absolute;
@@ -88,6 +81,18 @@
     top: 0;
     left: 0;
 }
+
+.message-group>.messages-list>.message>.left>.imgs.simple{
+    > div {
+        aspect-ratio: unset !important;
+        img{
+         height: auto;
+         max-height: 200px;
+         position: relative !important;
+         aspect-ratio: unset !important;
+        }
+     }
+} 
 
 
 

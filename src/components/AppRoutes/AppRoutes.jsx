@@ -99,12 +99,16 @@ import AccommodationsDetails from "../../pages/HotelAdmin/AccommodationsDetails"
 import EquipmentsAndServices from "../../pages/HotelAdmin/EquipmentsAndServices";
 import InBox from "../../pages/HotelAdmin/InBox";
 import { useDispatch, useSelector } from "react-redux";
+import ArtistDashboardLayout from "../../layouts/ArtistDashboardLayout/ArtistDashboardLayout";
+import ArtistContent from "../../pages/Artist/ArtistContent";
+import EditArtistProfile from "../../pages/Artist/EditArtistProfile";
+import ArtistDashboard from "../../pages/Artist/ArtistDashboard";
 
-const AppRoutes = ({pageLoading,setPageLoading}) => {
+const AppRoutes = ({ pageLoading, setPageLoading }) => {
     const location = useLocation();
     const background = location.state && location.state.background;
     const connectedUser = useSelector((state) => state.user.user);
-  
+
     return (
         <>
             <Routes location={background || location}>
@@ -349,6 +353,12 @@ const AppRoutes = ({pageLoading,setPageLoading}) => {
                             <Route path="/video" element={<Minimal />}>
                                 <Route index element={<VideoHome />} />
                                 <Route path="play" element={<Video />} />
+                            </Route>
+                            <Route path="/artiste/1" element={<ArtistDashboardLayout/>}>
+                                {/* <Route index element={<Music />} /> */}
+                                <Route path="dashboard" element={<ArtistDashboard />} />
+                                <Route path="mon-contenu" element={<ArtistContent />} />
+                                <Route path="personnaliser/*" element={<EditArtistProfile />} />
                             </Route>
                             <Route
                                 element={<AuthRedirect requireAuth={true} />}

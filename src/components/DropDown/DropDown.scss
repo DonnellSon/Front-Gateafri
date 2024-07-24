@@ -5,52 +5,44 @@
   @include themify($themes) {
     display: none;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.419);
-    background: themed("background",3);
-    border:1px solid themed("border",2);
+    background: themed("background", 3);
+    border: 1px solid themed("border", 2);
     padding: 8px;
-    min-width: 250px;
-    max-width: 100%;
     border-radius: 6px !important;
     z-index: 10000000 !important;
-    &::-webkit-scrollbar{
+    min-width: 250px;
+
+    &.shown {
+      display: block;
+    }
+
+    &::-webkit-scrollbar {
       width: 6px;
       background: none;
     }
-    &::-webkit-scrollbar-thumb{
-      background: themed('background',5) !important;
+
+    &::-webkit-scrollbar-thumb {
+      background: themed('background', 5) !important;
       border-radius: 8px !important;
     }
+
     &::-webkit-scrollbar-button:single-button {
       display: none;
     }
-    ul li a {
-      display: block;
-      color: themed("text",1);
-      font-weight: 600;
-      padding: 0 15px;
-      line-height: 35px;
-      border-radius: 5px;
-      user-select: none;
+
+    ul li {
+      margin: 0 0 4px 0 !important;
+      &:last-child {
+        margin: 0;
+      }
+      >*{
+        width: 100%;
+      }
+      a {
+        font-weight: themed("weight", 600);
+        color: themed('text',2);
+        padding: 0 10px;
+      }
     }
   }
-}
-
-.dropdownMenu[data-show] {
-  display: block;
-}
-
-.dropdownMenu ul {
-  all: unset;
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdownMenu ul li {
-  padding: 0;
-  list-style: none;
-}
-
-.dropdownMenu ul li a.active {
-  background: linear-gradient(315deg, #9f98e8 0%, #f6daaf 74%);
-  color: #222;
 }

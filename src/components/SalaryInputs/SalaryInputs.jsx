@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import AmountInput from '../AmountInput/AmountInput'
 import './SalaryInputs.scss'
+import Select from '../Input/Select'
 
 const EXACT = "Montant exact"
 const INTERVAL = "Fourchette"
@@ -26,10 +27,10 @@ const SalaryInputs = ({onChange=()=>{}}) => {
             <div className="flex gap-10 flex-wrap">
                 <div>
                     <span>Afficher par</span>
-                    <select name="" onChange={(e)=>setLayout(e.target.value)} id="">
-                        <option value={EXACT}>Montant exact</option>
-                        <option value={INTERVAL}>Fourchette</option>
-                    </select>
+                    <Select selectList={[
+                        {title:EXACT},
+                        {title:INTERVAL}
+                    ]} onChange={(selected)=>setLayout(selected?.title)}/>
                 </div>
                 {
                     layout === INTERVAL ? <div className='flex gap-10' style={{ width: '100%' }}>

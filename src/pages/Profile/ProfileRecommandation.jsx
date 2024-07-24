@@ -140,8 +140,8 @@ const ProfileRecommandation = () => {
             }
           >
             {Array.from({ length: 10 }, (_, index) => index + 1).map(
-              (number) => (
-                <div className="recommandation-tabs" key={number}>
+              (number,i) => (
+                <div className="recommandation-tabs" key={i}>
                   <div className="recommandation-item flex gap-5">
                     <div className="left flex gap-5">
                       <Avatar width={50} height={50} />
@@ -188,7 +188,7 @@ const ProfileRecommandation = () => {
             }
           >
             {Array.from({ length: 10 }, (_, index) => index + 1).map(
-              (number) => (
+              (_,number) => (
                 <div className="recommandation-tabs" key={number}>
                   <div className="recommandation-item flex gap-5">
                     <div className="left flex gap-5">

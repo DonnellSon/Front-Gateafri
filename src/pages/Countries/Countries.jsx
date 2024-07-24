@@ -64,9 +64,9 @@ const Countries = () => {
                     <div className="countries-list p-15">
                         {
                             countriesListFetching ?
-                            [...new Array(6)].map(()=><CountryCardSkeleton/>) :
+                            [...new Array(6)].map((_,i)=><CountryCardSkeleton key={i}/>) :
                                 countriesListFlat?.map((c, i) => (
-                                    <div className="country-card">
+                                    <div key={i} className="country-card">
                                         <div className="top d-flex">
                                             {
                                                 c?.countryThumbnails[0] &&

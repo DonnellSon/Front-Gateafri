@@ -50,9 +50,8 @@ const MultiSelectSearch = ({
   return (
     <>
       {selected?.map((s, i) => (
-        <div className='form-group'>
+        <div key={i} className='form-group'>
           <div
-            key={i}
             className="flex align-items-center gap-10 multi-select-search-item"
           >
             <SelectSearch

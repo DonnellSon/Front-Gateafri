@@ -7,6 +7,13 @@ export const addContact=()=>{
         }).then((res) => res.data)
 }
 
+export const getOnlineContacts=()=>{
+    return axios({
+        url: `${process.env.REACT_APP_API_DOMAIN}/contacts/online`,
+        method: 'post', withCredentials: true
+    }).then((res) => res.data)
+}
+
 export const existContact=(userId)=>{
     return axios({
         url: `${process.env.REACT_APP_API_DOMAIN}/contacts?or[receiver.id]=${userId}&or[requester.id]=${userId}`,

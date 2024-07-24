@@ -13,12 +13,13 @@ import CurrencyContext from '../../context/CurrencyContext'
 import { convertCurrency } from '../../utils/currencyUtils'
 import { Link } from 'react-router-dom'
 import Logo from '../Logo/Logo'
+import { useAmounts, useFromTo } from '../../Hooks/currencyHooks'
 
 
 const JobDetails = ({ data: { title, author, Domaine, summary, description, xp, salary, grade, type } }) => {
-  const { currency, currenciesBaseUSD } = useContext(CurrencyContext)
+  const { currency } = useContext(CurrencyContext)
   const htmlToJsx = new Parser()
-  const [from, to] = [currenciesBaseUSD[salary?.currency?.code], currenciesBaseUSD[currency?.code]]
+  const {from,to}=useFromTo(salary?.currency.code)
   return (
     <div className="job-details">
       <div className="cover relative">

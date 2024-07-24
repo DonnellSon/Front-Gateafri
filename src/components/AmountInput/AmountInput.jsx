@@ -13,6 +13,9 @@ const AmountInput = ({ placeholder, readOnlyCurrency = false, onChange = () => {
         value:null,
         currency
     })
+    useEffect(()=>{
+        setAmount(prev=>({...prev,currency}))
+    },[currency])
     useEffect(() => {
         onChange(amount)
     }, [amount])

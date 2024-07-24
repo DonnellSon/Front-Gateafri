@@ -1,8 +1,9 @@
 @import "../../style.scss";
 
-#topbar{
+#topbar {
     position: static;
 }
+
 .portal-page {
     @include themify($themes) {
         >.top {
@@ -15,32 +16,39 @@
             >.left {
                 max-width: 1030px;
                 margin: auto;
+
                 .banner {
                     aspect-ratio: 100/18;
                     background: themed("background", 5);
                     border-radius: 5px;
                 }
-                .portal-info{
+
+                .portal-info {
                     max-width: 1010px;
                     padding: 0 10px 0px 10px;
                     margin: auto;
                     margin-top: -70px;
-                    h1{
-                        color: themed("text",1);
+
+                    h1 {
+                        color: themed("text", 1);
                         font-size: 23px;
                     }
-                    .bottom{
+
+                    .bottom {
                         margin-top: 20px;
                     }
-                    .portal-domains{
-                        color: themed("text",4);
+
+                    .portal-domains {
+                        color: themed("text", 4);
                     }
-                    .avatar > img{
+
+                    .avatar>img {
                         border-radius: 5px !important;
                         background: themed("background", 6);
                     }
+
                     .evaluation {
-                        .moy{
+                        .moy {
                             width: 30px;
                             background: themed("background", 5);
                             color: themed("text", 1);
@@ -52,23 +60,25 @@
 
                         }
                     }
-                    .portal-note{
+
+                    .portal-note {
                         display: flex !important;
-                        
+
                         gap: 3px;
 
-                        img{
+                        img {
                             width: 18px;
                             height: 16px;
                             display: block;
                         }
                     }
                 }
-                
+
             }
 
         }
-        >.portal-nav {
+
+        >#portal-nav {
             background: themed("background", 3);
             box-shadow: var(--elevation-1);
             border-bottom: 1px solid themed("border", 2);
@@ -77,46 +87,65 @@
             align-items: center;
             height: 58px;
             padding: 8px 0 8px 0;
-            color: themed("text",2);
+            color: themed("text", 2);
             z-index: 1000;
-            position: relative;
-            >ul {
+            .right{
+                transition: .5s;
+                display: none;
+                position: relative;
+                top: 10px;
+            }
+            
+            &.sticky {
+                position: sticky;
+                top: 0;
+                .right{
+                    top: 0;
+                    display: block;
+                }
+            }
+
+            >div {
                 width: 100%;
                 max-width: 1000px;
                 margin: auto;
-                display: flex;
-                gap: 10px;
-                margin: 0 10px;
-                >li > a {
-                    color: themed("text",2);
+                padding: 0 10px;
+                >ul {
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    flex: 1;
-                    min-width: 80px;
-                    border-radius: 5px;
-                    padding: 3px 0;
-                    font-weight: themed("weight", 600);
-                    position: relative;
-                    height: 38px;
-                }
-
-                >li>a.active {
-                    background: themed("background", 5);
-                    color: var(--orange) !important;
-                    small{
-                        color: var(--orange) !important;
+                    gap: 10px;
+                    >li>a {
+                        color: themed("text", 2);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 1;
+                        min-width: 80px;
+                        border-radius: 5px;
+                        padding: 3px 0;
+                        font-weight: themed("weight", 600);
+                        position: relative;
+                        height: 38px;
                     }
-                    &:after{
-                        content:"";
-                        width: 20px;
-                        height: 5px;
-                        background: var(--orange);
-                        position: absolute;
-                        bottom: -9px;
-                        left: calc(50% - 10px);
-                        border-radius: 5px 5px 0 0;
+
+                    >li>a.active {
+                        background: themed("background", 5);
+                        color: var(--orange) !important;
+
+                        small {
+                            color: var(--orange) !important;
+                        }
+
+                        &:after {
+                            content: "";
+                            width: 20px;
+                            height: 5px;
+                            background: var(--orange);
+                            position: absolute;
+                            bottom: -9px;
+                            left: calc(50% - 10px);
+                            border-radius: 5px 5px 0 0;
+                        }
                     }
                 }
             }

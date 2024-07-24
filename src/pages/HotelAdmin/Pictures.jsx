@@ -94,7 +94,7 @@ const Pictures = () => {
             Array.from(
               { length: 4 - states.doubleRoom.length },
               (_, index) => index
-            ).map((number) => (
+            ).map((_,number) => (
               <React.Fragment key={number}>
                 <AddPictureCard />
               </React.Fragment>
@@ -128,7 +128,7 @@ const Pictures = () => {
             Array.from(
               { length: 4 - states.singleRoom.length },
               (_, index) => index
-            ).map((number) => (
+            ).map((_,number) => (
               <React.Fragment key={number}>
                 <AddPictureCard />
               </React.Fragment>

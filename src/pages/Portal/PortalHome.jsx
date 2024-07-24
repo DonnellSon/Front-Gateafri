@@ -31,7 +31,7 @@ import { Parser } from "html-to-react";
 import useInfiniteScroll from "../../Hooks/useInfiniteScroll";
 import Logo from "../../components/Logo/Logo";
 import Skeleton from "../../components/Skeleton/Skeleton";
-import {} from "react-bootstrap-icons";
+import { } from "react-bootstrap-icons";
 import YearlyStatsChart from "../../components/YearlyStatsChart/YearlyStatsChart";
 
 const PageHome = () => {
@@ -64,10 +64,10 @@ const PageHome = () => {
         data: result["hydra:member"],
         nextPage: result["hydra:view"]["hydra:next"]
           ? parseInt(
-              result["hydra:view"]["hydra:next"]
-                .match(/page=(\d+)/)[0]
-                .split("=")[1]
-            )
+            result["hydra:view"]["hydra:next"]
+              .match(/page=(\d+)/)[0]
+              .split("=")[1]
+          )
           : undefined,
       };
     },
@@ -135,32 +135,34 @@ const PageHome = () => {
           }}
         >
           {(jobListFetching && !jobListFetchingNextPage)
-            ? [...new Array(8)].map((_) => (
-                <div
-                  className="offer flex flex-column align-items-center gap-5"
-                  style={{ width: 200, height: 100 }}
-                >
-                  <Skeleton width={80} height={10} />
-                  <Skeleton width={100} height={10} />
-                  <Skeleton width={40} height={6} />
-                </div>
-              ))
+            ? [...new Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="offer flex flex-column align-items-center gap-5"
+                style={{ width: 200, height: 100 }}
+              >
+                <Skeleton width={80} height={10} />
+                <Skeleton width={100} height={10} />
+                <Skeleton width={40} height={6} />
+              </div>
+            ))
             : jobOfferListFlat?.map((j, i) => (
-                <div
-                  className="offer flex flex-column align-items-center gap-5"
-                  style={{ width: 200, height: 100 }}
-                >
-                  <Logo
-                    src={j.author.activeLogo?.fileUrl}
-                    width={40}
-                    height={40}
-                  />
-                  <h5 className="line-clamp-2 text-center">{j.title}</h5>
-                  <span>{j.type.title}</span>
-                </div>
-              ))}
+              <div
+                key={i}
+                className="offer flex flex-column align-items-center gap-5"
+                style={{ width: 200, height: 100 }}
+              >
+                <Logo
+                  src={j.author.activeLogo?.fileUrl}
+                  width={40}
+                  height={40}
+                />
+                <h5 className="line-clamp-2 text-center">{j.title}</h5>
+                <span>{j.type.title}</span>
+              </div>
+            ))}
           {jobListFetchingNextPage
-            ? [...new Array(2)].map((_) => <h1>Job</h1>)
+            ? [...new Array(2)].map((_,i) => <h1 key={i}>Job</h1>)
             : ""}
 
           <Link
@@ -279,7 +281,7 @@ const PageHome = () => {
               </span>
               <h4>Designer graphique</h4>
             </div>
-            <ArrowRight size={20}/>
+            <ArrowRight size={20} />
           </div>
           <div className="travail">
             <div className="left">
@@ -288,7 +290,7 @@ const PageHome = () => {
               </span>
               <h4>chef de projet</h4>
             </div>
-            <ArrowRight size={20}/>
+            <ArrowRight size={20} />
 
           </div>
           <div className="travail">
@@ -298,7 +300,7 @@ const PageHome = () => {
               </span>
               <h4>Designer UX/UI</h4>
             </div>
-            <ArrowRight size={20}/>
+            <ArrowRight size={20} />
           </div>
           <div className="travail">
             <div className="left">
@@ -307,7 +309,7 @@ const PageHome = () => {
               </span>
               <h4>Concepteur industriel</h4>
             </div>
-            <ArrowRight size={20}/>
+            <ArrowRight size={20} />
           </div>
           <div className="travail">
             <div className="left">
@@ -316,7 +318,7 @@ const PageHome = () => {
               </span>
               <h4>Directeur artistique</h4>
             </div>
-            <ArrowRight size={20}/>
+            <ArrowRight size={20} />
           </div>
         </div>
         <div className="flex mt-15 gap-10">
@@ -395,7 +397,7 @@ const PageHome = () => {
                   slidesToShow: 3,
                   slidesToScroll: 1,
                   infinite: true,
-                  dots: true 
+                  dots: true
                 }
               },
               {

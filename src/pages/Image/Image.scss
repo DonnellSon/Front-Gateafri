@@ -112,9 +112,9 @@
     background: black;
 }
 .single-post-img{
-    max-height: 100% !important;
-    max-width: 100% !important;
-    object-fit: cover;
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: contain;
 }
 
 #image-page > .left > .top > .next-slide-btn,#image-page > .left > .top > .prev-slide-btn,#image-page > .left > .top > .close-btn{
@@ -200,12 +200,12 @@
 #image-page .post-comments{
     padding-bottom: 0px !important;
 }
-.tabs-heading li.active::after{
+.tabs-heading li.active::after,.tabs-heading li a.active::after{
     bottom: -10px;
 }
 
 
-.post-comments-tabs .tabs-heading li span{
+.post-comments-tabs .tabs-heading li span,.post-comments-tabs .tabs-heading li a{
     font-size: 14px !important;
 }
 .post-comments-tabs .tabs-heading li.active span{

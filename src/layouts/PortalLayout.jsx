@@ -37,6 +37,26 @@ const PortalLayout = () => {
   const { deviceType } = useContext(MediaContext);
   const { portalId } = useParams();
 
+  const staticTopBar = (e) => {
+    if (e.target.scrollTop > 0) {
+      document.getElementById('topbar')?.classList.remove('sticky')
+    } else {
+      document.getElementById('topbar')?.classList.add('sticky')
+    }
+    console.log(document.getElementById('portal-nav').getBoundingClientRect())
+    if (document.getElementById('portal-nav').getBoundingClientRect().top <= 0) {
+      document.getElementById('portal-nav')?.classList.add('sticky')
+    } else {
+      document.getElementById('portal-nav')?.classList.remove('sticky')
+    }
+  }
+
+  useEffect(() => {
+
+    document.getElementById('App').addEventListener('scroll', staticTopBar)
+    return () => document.getElementById('App').removeEventListener('scroll', staticTopBar)
+  }, [])
+
   const {
     data: company,
     error: companyErr,
@@ -109,7 +129,8 @@ const PortalLayout = () => {
               </div>
             </div>
           </div>
-          <div className="portal-nav">
+          <div id="portal-nav">
+            <div className="flex justify-content-between align-items-center">
             <ul>
               <li>
                 <DoNavLink to="accueil" activeClass="active">
@@ -142,6 +163,10 @@ const PortalLayout = () => {
                 </DoNavLink>
               </li>
             </ul>
+            <div className="right">
+              <button className="btn btn-purple">Prise de contact</button>
+            </div>
+            </div>
           </div>
           <div className="bottom">
             <div className="left">
