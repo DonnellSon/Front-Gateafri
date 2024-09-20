@@ -14,6 +14,7 @@ import MediaContext from '../../context/MediaContext'
 import { DESKTOP, SMARTPHONE } from '../../constants/MediaTypeConstants'
 import CircleLoader from '../CircleLoader/CircleLoader'
 import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
+import { usePaginated } from '../../Hooks/queryHooks'
 
 const Messenger = ({ discu }) => {
     const { discuId } = useParams()
@@ -60,30 +61,36 @@ const Messenger = ({ discu }) => {
         isFetching: messagesFetching,
         isFetchingNextPage: messagesFetchingNextPage,
         status: messagesLoadingStatus,
-        refetch,
-        refetchPage
+        refetch:refetchMessages,
+        refetchPage,
+        addItem: addMessageItem,
+        deleteItem: deleteMsgItem,
+        editItem
     } = useInfiniteScroll({
         url: `${process.env.REACT_APP_API_DOMAIN}/discussions/${discuId}/messages`,
         queryKey: ['repoMessages', discuId],
         ipp: 15,
         scrollingElement: scrollRef.current,
         scrollDirection: 'top',
-        reverseData: true
+        reverseData: true,
+        staleTime:Infinity
+
     })
+
+    const {deleteItem:deleteDiscuItem,editItem:editDiscuList,addItem:addDiscuListItem}=usePaginated({queryKey:['discuList'],ipp:10})
+
+    
 
     const { mutate: mutateMessages } = useMutation({
         mutationFn: addMessage,
         onSuccess: (data) => {
-            queryClient.setQueryData(['repoMessages', discuId], (messages) => {
-                socket?.emit('sendMessage', {
-                    message: data,
-                    receivers: discu?.members?.filter((m) => m.user?.id !== user?.id),
-                    sender: user?.id
-                })
-                scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' })
-                return [...messages, data]
+            editDiscuList(data.discussion.id,(prev)=>({...prev,messages:[...prev.messages,data]}))
+            addMessageItem(data)
+            socket?.emit('sendMessage', {
+                message: data,
+                receivers: discu?.members?.filter((m) => m.user?.id !== user?.id),
+                sender: user?.id
             })
-
         },
     })
 
@@ -99,14 +106,15 @@ const Messenger = ({ discu }) => {
         }
         mutateMessages(formData)
     }
+    
 
 
     useEffect(() => {
         if (socket) {
             socket?.on('arrivalMsg', (msg) => {
-                if (msg.discussion?.id === discuId) {
-                    scrollRef.current?.scrollTo({ top: scrollRef.current?.scrollHeight, left: 0, behavior: 'smooth' });
-                    queryClient.invalidateQueries(['repoMessages', discuId]);
+                editDiscuList(msg.discussion.id,(prev)=>({...prev,messages:[...prev.messages,msg]}))
+                if (msg.discussion?.id === discuId && msg.author.id!==user?.id) {
+                    addMessageItem(msg)
                 }
             });
         }
@@ -114,26 +122,26 @@ const Messenger = ({ discu }) => {
 
 
     useEffect(() => {
-        if(bodyRef.current){
-            scrollRef.current.scrollTop=scrollRef.current.scrollHeight
+        if (bodyRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight
         }
     }, [bodyRef.current])
 
-    useEffect(()=>{
-        if(bodyRef.current){
+    useEffect(() => {
+        if (bodyRef.current) {
             const myObserver = new ResizeObserver(entries => {
-                 entries.forEach(entry => {
-                    if(scrollRef.current?.scrollTop<=10){
-                        scrollRef.current.scrollTop=50
+                entries.forEach(entry => {
+                    if (scrollRef.current?.scrollTop <= 10 && messagesNextPage) {
+                        scrollRef.current.scrollTop = 50
                     }
-                 });
-               });
-               myObserver.observe(bodyRef.current);
+                });
+            });
+            myObserver.observe(bodyRef.current);
             return () => {
                 myObserver.disconnect();
             }
         }
-    },[bodyRef.current])
+    }, [bodyRef.current])
 
     useEffect(() => {
         if (messages) {
@@ -149,7 +157,7 @@ const Messenger = ({ discu }) => {
 
             setFilteredMessages(groupedMessages);
         }
-        console.log(messagesFlat,'MessagesFlat')
+        console.log(messagesFlat, 'MessagesFlat')
     }, [messages]);
 
 
@@ -227,7 +235,7 @@ const Messenger = ({ discu }) => {
                                             <div className="messages-list">
                                                 {
                                                     g.messages?.map((m, i) =>
-                                                        <Message key={i} audio={m.audio} medias={m.pictures}>{m.content}</Message>
+                                                        <Message key={i} deleteMessageItem={deleteMsgItem} data={m} scrollingElement={scrollRef} audio={m.audio} medias={m.pictures}>{m.content}</Message>
                                                     )
                                                 }
 

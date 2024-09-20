@@ -103,11 +103,25 @@ import ArtistDashboardLayout from "../../layouts/ArtistDashboardLayout/ArtistDas
 import ArtistContent from "../../pages/Artist/ArtistContent";
 import EditArtistProfile from "../../pages/Artist/EditArtistProfile";
 import ArtistDashboard from "../../pages/Artist/ArtistDashboard";
+import SocketIOContext from '../../context/SocketIOContext'
+import { addNotification } from "../../redux/actions/userActions";
 
 const AppRoutes = ({ pageLoading, setPageLoading }) => {
     const location = useLocation();
     const background = location.state && location.state.background;
     const connectedUser = useSelector((state) => state.user.user);
+    const { socket } = useContext(SocketIOContext)
+    const noticationDispatch=useDispatch()
+    
+    useEffect(() => {
+        if (socket) {
+            socket?.on('newNotification', (newNotification) => {
+                alert('newnotific')
+                console.log(newNotification,'NEWNOTIFICATION')
+                noticationDispatch(addNotification())
+            });
+        }
+    }, [socket]);
 
     return (
         <>

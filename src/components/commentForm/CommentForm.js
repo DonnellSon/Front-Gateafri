@@ -10,11 +10,16 @@ import CircleLoader from '../CircleLoader/CircleLoader';
 import { useMutation } from '@tanstack/react-query';
 import { sendComment } from '../../api/comment';
 import Gifs from '../Gifs/Gifs';
+import { addPostCommentNotification } from '../../api/notification';
+import { useSelector } from 'react-redux'
+import SocketIOContext from '../../context/SocketIOContext'
 
 const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup = () => { }, value = '', onSended = () => { } }) => {
     const cmtForm = useRef();
     const [tmpComment, setTmpComment] = useState('')
     const [emptyMessageForm, setEmptyMessageForm] = useState(false)
+    const { user } = useSelector(store => store.user)
+    const { socket } = useContext(SocketIOContext)
 
     const {
         mutate: addCommentFn,
@@ -23,9 +28,17 @@ const CommentForm = ({ commentable, parent = null, focusOnShown = false, onKeyup
             mutationFn: () => sendComment(tmpComment, commentable, parent),
             onSuccess: (newComment) => {
                 onSended(newComment)
+                console.log(newComment,'NEWCOMMENT')
+                addPostCommentNotification(`/comments/${newComment.id}`).then((res) => {
+                    console.log(res.data,'TOSENDNOTIF')
+                    socket?.emit('sendNotification', {
+                        notification: res.data,
+                        currentUser: user?.id
+                    })
+                }).catch((err) => console.log(err.response))
             },
-            onError:(err)=>{
-                console.log(err.response)
+            onError: (err) => {
+                console.log(err,'posterr')
             }
         })
 

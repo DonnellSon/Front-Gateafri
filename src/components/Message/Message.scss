@@ -4,7 +4,7 @@
 .message-group {
     @include themify($themes) {
 
-        max-width: 95% !important;
+        max-width: 75% !important;
 
         .message {
 
@@ -43,6 +43,9 @@
 
         &:not(.mine) {
             color: themed("text", 1);
+        }
+        @media (max-width:768px) {
+            max-width: 90% !important;
         }
     }
 }

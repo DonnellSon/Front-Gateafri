@@ -5,16 +5,24 @@ import './Notifications.scss'
 import Tabs from '../../components/Tabs/Tabs'
 import Tab from '../../components/Tabs/Tab'
 import useInfiniteScroll from '../../Hooks/useInfiniteScroll'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { NEW_POST } from '../../constants/NotificationType'
+import { NEW_POST,COMMENT_POST } from '../../constants/NotificationType'
 import { Link } from 'react-router-dom'
 import NotificationSkeleton from './NotificationSkeleton'
+import moment from '../../moment'
+import DropDown from '../../components/DropDown/DropDown'
+import NavigableList from '../../components/Input/NavigableList/NavigableList'
+import { removeNotification, setNotifications } from '../../redux/actions/notificationActions'
 
 
 const Notifications = () => {
 
     const { user } = useSelector(store => store.user)
+    const notificationDispatch=useDispatch()
+    useEffect(()=>{
+        setNotifications(0)
+    },[])
 
     const { data: notifications,
         flatData: notificationsFlat,
@@ -34,9 +42,9 @@ const Notifications = () => {
         }
     })
 
-    useEffect(() => {
-        console.log(notificationsFlat, 'FLATNOTIF')
-    }, [notificationsFlat])
+    useEffect(()=>{
+        setNotifications(0)
+    },[])
 
 
     return (
@@ -44,7 +52,14 @@ const Notifications = () => {
             <div className="top flex justify-content-between align-items-center">
                 <h3>Notifications</h3>
                 <div>
-                    <Nut size={20} />
+                    <DropDown>
+                        <button className="btn btn-transparent"><Nut size={20} /></button>
+                        <NavigableList startIndex={0}>
+                            <Link>Tout marquer comme lu</Link>
+                            <Link>Paramètre des notifications</Link>
+                        </NavigableList>
+                    </DropDown>
+                    
                 </div>
             </div>
             <div className="body">
@@ -60,11 +75,21 @@ const Notifications = () => {
                                         if (n.type === NEW_POST) {
                                             var domains = n.post.author.domains?.map(d => d.title).join(', ')
                                             return (
-                                                <div key={i} className="notification flex gap-10">
+                                                <div key={i} className={`notification flex gap-10${n.isRead ? ' read' : '' }`}>
                                                     <Avatar src={n.post.author.activeLogo?.fileUrl || n.post.author.activeProfilePicture?.fileUrl} width={55} height={55} />
                                                     <div className="notification-capt flex flex-column justify-content-center">
                                                         <p><b>{n.post.author.name ? n.post.author.name : `${n.post.author.firstName} ${n.post.author.lastName}`}</b> a publié un post lié aux domaines qui vous intéressent {domains}</p>
-                                                        <span className='notication-date'>Il y a 2 heures</span>
+                                                        <span className='notication-date'>{moment(n.post.createdAt).fromNow()}</span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }else if(n.type === COMMENT_POST){
+                                            return (
+                                                <div key={i} className={`notification flex gap-10${n.isRead ? ' read' : '' }`}>
+                                                    <Avatar src={n.comment.author.activeLogo?.fileUrl || n.comment.author.activeProfilePicture?.fileUrl} width={55} height={55} />
+                                                    <div className="notification-capt flex flex-column justify-content-center">
+                                                        <p><b>{n.comment.author.name ? n.comment.author.name : `${n.comment.author.firstName} ${n.comment.author.lastName}`}</b> a commenté votre publication</p>
+                                                        <span className='notication-date'>{moment(n.comment.createdAt).fromNow()}</span>
                                                     </div>
                                                 </div>
                                             )
@@ -82,34 +107,41 @@ const Notifications = () => {
                         <Tab title={<>
                             <span>Non lu</span>
                         </>}>
-                            <div className="notification flex gap-10">
-                                <Avatar width={55} height={55} />
-                                <div className="notification-capt">
-                                    <p><b>Donnell Dev</b> a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span></p>
-                                    <span className='notication-date'>Il y a 2 heures</span>
-                                </div>
-                            </div>
-                            <div className="notification flex gap-10">
-                                <Avatar width={55} height={55} />
-                                <div className="notification-capt">
-                                    <p><b>Donnell Dev</b> a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span></p>
-                                    <span className='notication-date'>Il y a 2 heures</span>
-                                </div>
-                            </div>
-                            <div className="notification flex gap-10">
-                                <Avatar width={55} height={55} />
-                                <div className="notification-capt flex align-items-center">
-                                    <p><b>Donnell Dev</b> a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span>a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span></p>
-                                    <span className='notication-date'>Il y a 2 heures</span>
-                                </div>
-                            </div>
-                            <div className="notification flex gap-10">
-                                <Avatar width={55} height={55} />
-                                <div className="notification-capt">
-                                    <p><b>Donnell Dev</b> a Commenté votre publication avec <span>Agriculture</span><span>Élévage</span></p>
-                                    <span className='notication-date'>Il y a 2 heures</span>
-                                </div>
-                            </div>
+                        {
+                                (notificationsFetching && !notificationsFetchingNextPage) ?
+                                    [...new Array(8)].map((_,i) => <NotificationSkeleton key={i} />) :
+                                    notificationsFlat?.map((n, i) => {
+
+                                        if (n.type === NEW_POST) {
+                                            var domains = n.post.author.domains?.map(d => d.title).join(', ')
+                                            return (
+                                                <div key={i} className={`notification flex gap-10${n.isRead ? ' read' : '' }`}>
+                                                    <Avatar src={n.post.author.activeLogo?.fileUrl || n.post.author.activeProfilePicture?.fileUrl} width={55} height={55} />
+                                                    <div className="notification-capt flex flex-column justify-content-center">
+                                                        <p><b>{n.post.author.name ? n.post.author.name : `${n.post.author.firstName} ${n.post.author.lastName}`}</b> a publié un post lié aux domaines qui vous intéressent {domains}</p>
+                                                        <span className='notication-date'>{moment(n.post.createdAt).fromNow()}</span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }else if(n.type === COMMENT_POST){
+                                            return (
+                                                <div key={i} className={`notification flex gap-10${n.isRead ? ' read' : '' }`}>
+                                                    <Avatar src={n.comment.author.activeLogo?.fileUrl || n.comment.author.activeProfilePicture?.fileUrl} width={55} height={55} />
+                                                    <div className="notification-capt flex flex-column justify-content-center">
+                                                        <p><b>{n.comment.author.name ? n.comment.author.name : `${n.comment.author.firstName} ${n.comment.author.lastName}`}</b> a commenté votre publication</p>
+                                                        <span className='notication-date'>{moment(n.comment.createdAt).fromNow()}</span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+
+                                    })
+                            }
+                            {
+                                notificationsFetchingNextPage ?
+                                    [...new Array(2)].map(_ => <NotificationSkeleton />)
+                                    : ''
+                            }
                         </Tab>
 
                     </Tabs>

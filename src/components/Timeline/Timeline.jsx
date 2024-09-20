@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import DomainsSelector from '../DomainsSelector/DomainsSelector';
 import PostModal from '../PostModal/PostModal';
 import RequireAuthOnClick from '../RequireAuthOnclick/RequireAuthOnClick';
+import useInfiniteScroll from '../../Hooks/useInfiniteScroll';
 const Timeline = () => {
 
     const { user } = useSelector(store => store.user)
@@ -72,11 +73,16 @@ const Timeline = () => {
         isFetchingNextPage: postsListFetchingNextPage,
         status: postsLoadingStatus,
         refetch,
-        refetchPage
-    } = useInfiniteQuery({
+        refetchPage,
+        deleteItem: deletePost,
+        addItem: addPost,
+        editItem: editPost
+
+    } = useInfiniteScroll({
+        url: `${process.env.REACT_APP_API_DOMAIN}/posts`,
         queryKey: ['posts'],
-        queryFn: fetchPosts,
-        getNextPageParam: (lastPage, pages) => lastPage.nextPage
+        queryString: `${filters ? `${filtersToURL(filters)}` : ''}`,
+        ipp: 15
     })
 
 
@@ -148,9 +154,10 @@ const Timeline = () => {
                         <React.Fragment key={i}>
                             {group.data.map((p, i) => (
                                 <PostCard
+
                                     key={i}
                                     data={p}
-                                    onDelete={(postId) => setPosts(posts.filter(p => p.id !== postId))}
+                                    onDelete={(postId) => deletePost(postId)}
                                 />
                             ))}
                         </React.Fragment>

@@ -7,3 +7,11 @@ export const addPostNotification = (post) => {
         method: 'post', withCredentials: true
     })
 }
+
+export const addPostCommentNotification = (comment) => {
+    return axios({
+        url: `${process.env.REACT_APP_API_DOMAIN}/post_comment_notifications`,
+        data: {comment},
+        method: 'post', withCredentials: true
+    })
+}

@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { chunckArray, flatInfiniteQuery } from "../functions"
 
-export const usePaginated = ({ queryKey }) => {
+export const usePaginated = ({ queryKey, ipp = 5 }) => {
 
     const queryClient = useQueryClient()
 
@@ -11,7 +11,7 @@ export const usePaginated = ({ queryKey }) => {
             const oldArray = flatInfiniteQuery(old)
             return {
                 ...old,
-                pages: chunckArray([item, ...oldArray], 5).map((data, i) => ({
+                pages: chunckArray([item, ...oldArray], ipp).map((data, i) => ({
                     data,
                     nextPage: i + 2,
                     totalItems: oldArray.length + 1
@@ -21,10 +21,10 @@ export const usePaginated = ({ queryKey }) => {
     }
     const deleteItem = (itemId) => {
         queryClient.setQueryData(queryKey, (old) => {
-            const newArray = flatInfiniteQuery(old).filter((item)=>item.id!==itemId)
+            const newArray = flatInfiniteQuery(old).filter((item) => item.id !== itemId)
             return {
                 ...old,
-                pages: chunckArray([...newArray], 5).map((data, i) => ({
+                pages: chunckArray([...newArray], ipp).map((data, i) => ({
                     data,
                     nextPage: i + 2,
                     totalItems: old.pages[0]?.data?.totalItems - 1
@@ -32,18 +32,12 @@ export const usePaginated = ({ queryKey }) => {
             }
         })
     }
-    const editItem=(itemId,newValues)=>{
+    const editItem = (itemId, newValues=(item)=>item) => {
         queryClient.setQueryData(queryKey, (old) => {
-            const newArray = flatInfiniteQuery(old).map((item)=>{
-                if(item.id===itemId){
-                    return {...item,...newValues}
-                }else{
-                    return item
-                }
-            })
+            const newArray = flatInfiniteQuery(old).map((item) => item.id === itemId ? { ...item, ...newValues(item) } : item)
             return {
                 ...old,
-                pages: chunckArray([...newArray], 5).map((data, i) => ({
+                pages: chunckArray([...newArray], ipp).map((data, i) => ({
                     data,
                     nextPage: i + 2,
                     totalItems: old.pages[0].data.totalItems + 1
@@ -52,5 +46,5 @@ export const usePaginated = ({ queryKey }) => {
         })
     }
 
-    return { addItem,deleteItem }
+    return { addItem, deleteItem, editItem }
 }

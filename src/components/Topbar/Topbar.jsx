@@ -14,12 +14,14 @@ import CaretInput from '../CaretInput/CaretInput'
 import CurrencySelector from '../CurrencySelector/CurrencySelector'
 import CurrencyContext from '../../context/CurrencyContext'
 import NavigableList from '../Input/NavigableList/NavigableList'
+import millify from 'millify'
 const Topbar = ({ setOpenRightbar = () => { } }) => {
   const [openPostModal, setOpenPostModal] = useState(false)
   const { user, socket } = useSelector(state => state.user)
   const navigate = useNavigate()
+  const { newNotifications } = useSelector(store => store.user)
 
-
+  
 
   return (
     <>
@@ -83,7 +85,10 @@ const Topbar = ({ setOpenRightbar = () => { } }) => {
             <Link to="/messages"><ChatSquareQuote size={22} /></Link>
           </RequireAuthOnClick>
           <RequireAuthOnClick>
-            <Link to="/notifications"><Bell size={22} /></Link>
+            <Link to="/notifications">
+              <Bell size={22} />
+              {newNotifications > 0 ? <div className="badge">{millify(newNotifications)}</div> : ''}
+            </Link>
           </RequireAuthOnClick>
           <CurrencySelector />
           {

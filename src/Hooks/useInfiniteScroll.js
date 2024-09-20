@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { usePaginated } from './queryHooks'
 
 const useInfiniteScroll = ({
     url,
@@ -11,6 +12,7 @@ const useInfiniteScroll = ({
     scrollingElement = document.getElementById('App'),
     scrollDirection = 'bottom',
     reverseData=false,
+    staleTime,
     transformResult = (result) => {
         return { data: result['hydra:member'], totalItems: result['hydra:totalItems'], nextPage: result['hydra:view']['hydra:next'] ? parseInt(result['hydra:view']['hydra:next'].match(/page=(\d+)/)[0].split('=')[1]) : undefined }
     }
@@ -39,14 +41,15 @@ const useInfiniteScroll = ({
         isFetchingNextPage,
         status,
         refetch,
-        refetchPage
+        refetchPage,
     } = useInfiniteQuery({
         queryKey,
         queryFn: fetchData,
         getNextPageParam: (lastPage, pages) => lastPage.nextPage,
         enabled,
+        staleTime
     })
-    
+
     useEffect(() => {
 
         if (scrollingElement) {
@@ -68,13 +71,11 @@ const useInfiniteScroll = ({
                             break
                         case 'left':
                             if (scrollLeft <= 20) {
-                                console.log('goscrolltoleft')
                                 fetchNextPage()
                             }
                             break
                         case 'right':
                             if (scrollWidth - scrollLeft <= clientWidth + 10) {
-                                console.log('goscrollright')
                                 fetchNextPage()
                             }
                             break
@@ -91,8 +92,13 @@ const useInfiniteScroll = ({
 
     }, [scrollingElement, isFetchingNextPage, isFetching])
 
+    const {addItem,deleteItem,editItem}=usePaginated({queryKey,ipp})
+
     return {
         data,
+        addItem,
+        deleteItem,
+        editItem,
         flatData: reverseData ? data?.pages?.map((group) => group).map((g) => g.data).flat().reverse() : data?.pages?.map((group) => group).map((g) => g.data).flat(),
         error,
         fetchNextPage,
@@ -101,7 +107,8 @@ const useInfiniteScroll = ({
         isFetchingNextPage,
         status,
         refetch,
-        refetchPage
+        refetchPage,
+        addItem,deleteItem,editItem
     }
 }
 
